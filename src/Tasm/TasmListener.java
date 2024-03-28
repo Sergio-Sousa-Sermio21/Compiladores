@@ -1,16 +1,12 @@
-// Generated from C:/Users/ASUS/Documents/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
-
-import java.util.Objects;
-import java.util.Stack;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * {@link TasmParser}.
  */
 public interface TasmListener extends ParseTreeListener {
-	Stack<Objects> stack = new Stack<Objects>();
 	/**
 	 * Enter a parse tree produced by {@link TasmParser#program}.
 	 * @param ctx the parse tree
@@ -104,17 +100,17 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitJUMPF(TasmParser.JUMPFContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code INTIINSTRUCTION}
+	 * Enter a parse tree produced by the {@code INTINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterINTIINSTRUCTION(TasmParser.INTIINSTRUCTIONContext ctx);
+	void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code INTIINSTRUCTION}
+	 * Exit a parse tree produced by the {@code INTINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitINTIINSTRUCTION(TasmParser.INTIINSTRUCTIONContext ctx);
+	void exitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code DOUBLEINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
@@ -139,34 +135,4 @@ public interface TasmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TasmParser#intinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntinstruction(TasmParser.IntinstructionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TasmParser#intinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void exitIntinstruction(TasmParser.IntinstructionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TasmParser#doubleinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void enterDoubleinstruction(TasmParser.DoubleinstructionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TasmParser#doubleinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void exitDoubleinstruction(TasmParser.DoubleinstructionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TasmParser#strinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void enterStrinstruction(TasmParser.StrinstructionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TasmParser#strinstruction}.
-	 * @param ctx the parse tree
-	 */
-	void exitStrinstruction(TasmParser.StrinstructionContext ctx);
 }

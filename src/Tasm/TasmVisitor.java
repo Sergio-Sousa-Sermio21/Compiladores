@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -65,12 +65,12 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJUMPF(TasmParser.JUMPFContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code INTIINSTRUCTION}
+	 * Visit a parse tree produced by the {@code INTINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitINTIINSTRUCTION(TasmParser.INTIINSTRUCTIONContext ctx);
+	T visitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code DOUBLEINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
@@ -85,22 +85,4 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TasmParser#intinstruction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIntinstruction(TasmParser.IntinstructionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TasmParser#doubleinstruction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDoubleinstruction(TasmParser.DoubleinstructionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TasmParser#strinstruction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStrinstruction(TasmParser.StrinstructionContext ctx);
 }

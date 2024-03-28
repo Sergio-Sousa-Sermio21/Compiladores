@@ -113,13 +113,13 @@ public class TasmBaseListener implements TasmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterINTIINSTRUCTION(TasmParser.INTIINSTRUCTIONContext ctx) { }
+	@Override public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitINTIINSTRUCTION(TasmParser.INTIINSTRUCTIONContext ctx) { }
+	@Override public void exitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -144,42 +144,6 @@ public class TasmBaseListener implements TasmListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIntinstruction(TasmParser.IntinstructionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIntinstruction(TasmParser.IntinstructionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDoubleinstruction(TasmParser.DoubleinstructionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDoubleinstruction(TasmParser.DoubleinstructionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStrinstruction(TasmParser.StrinstructionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStrinstruction(TasmParser.StrinstructionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
