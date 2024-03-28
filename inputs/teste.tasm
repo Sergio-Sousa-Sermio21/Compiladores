@@ -1,4 +1,6 @@
 iconst 2
 iconst 3
 iprint
-iconst 4
+dconst 4.3
+sconst "ola"
+halt

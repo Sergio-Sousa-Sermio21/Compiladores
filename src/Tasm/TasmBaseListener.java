@@ -53,25 +53,25 @@ public class TasmBaseListener implements TasmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDCONST(TasmParser.DCONSTContext ctx) { }
+	@Override public void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDCONST(TasmParser.DCONSTContext ctx) { }
+	@Override public void exitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSCONST(TasmParser.SCONSTContext ctx) { }
+	@Override public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSCONST(TasmParser.SCONSTContext ctx) { }
+	@Override public void exitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

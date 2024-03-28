@@ -26,12 +26,14 @@ public class tAssembler {
             System.out.println("Valor INTVALUE: " + value);
         }
 
-        public void exitDCONST(TasmParser.DCONSTContext ctx) {
-
+        public void exitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
+            String value = ctx.getText();
+            System.out.println("Valor INTVALUE: " + value);
         }
 
-        public void exitSCONST(TasmParser.SCONSTContext ctx) {
-
+        public void exitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
+            String value = ctx.getText();
+            System.out.println("Valor INTVALUE: " + value);
         }
 
         public void exitJUMP(TasmParser.JUMPContext ctx) {
@@ -52,12 +54,13 @@ public class tAssembler {
         }
 
         public void exitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
-
+            String value = ctx.getText();
+            System.out.println("Valor DOUBLEINTINSTRUCTION: " + value);
         }
 
         public void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
-
-
+            String value = ctx.getText();
+            System.out.println("Valor STRINGINTINSTRUCTION: " + value);
         }
         public static void main(String[] args) throws Exception {
             String inputFile = null;

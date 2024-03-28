@@ -30,19 +30,19 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitINTVALUE(TasmParser.INTVALUEContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code DCONST}
+	 * Visit a parse tree produced by the {@code DOUBLEVALUE}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDCONST(TasmParser.DCONSTContext ctx);
+	T visitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SCONST}
+	 * Visit a parse tree produced by the {@code STRINGVALUE}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSCONST(TasmParser.SCONSTContext ctx);
+	T visitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code JUMP}
 	 * labeled alternative in {@link TasmParser#instruction}.

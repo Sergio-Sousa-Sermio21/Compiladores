@@ -39,14 +39,14 @@ public class TasmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements T
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDCONST(TasmParser.DCONSTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSCONST(TasmParser.SCONSTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

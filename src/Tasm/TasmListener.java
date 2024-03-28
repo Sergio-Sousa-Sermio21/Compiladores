@@ -40,29 +40,29 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitINTVALUE(TasmParser.INTVALUEContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code DCONST}
+	 * Enter a parse tree produced by the {@code DOUBLEVALUE}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterDCONST(TasmParser.DCONSTContext ctx);
+	void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code DCONST}
+	 * Exit a parse tree produced by the {@code DOUBLEVALUE}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitDCONST(TasmParser.DCONSTContext ctx);
+	void exitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code SCONST}
+	 * Enter a parse tree produced by the {@code STRINGVALUE}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterSCONST(TasmParser.SCONSTContext ctx);
+	void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code SCONST}
+	 * Exit a parse tree produced by the {@code STRINGVALUE}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitSCONST(TasmParser.SCONSTContext ctx);
+	void exitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code JUMP}
 	 * labeled alternative in {@link TasmParser#instruction}.

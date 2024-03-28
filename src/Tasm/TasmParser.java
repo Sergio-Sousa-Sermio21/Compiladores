@@ -17,14 +17,15 @@ public class TasmParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, INTINSTRUCTION=4, DOUBLEINSTRUCTION=5, STRINGINSTRUCTION=6, 
-		DOUBLE=7, DNEQ=8, ITOD=9, ICONST=10, IPRINT=11, IUMINUS=12, IADD=13, SADD=14, 
-		ISUB=15, IMULT=16, IDIV=17, IMOD=18, IEQ=19, INEQ=20, ILT=21, ILEQ=22, 
-		ITOP=23, ITOS=24, DCONST=25, DPRINT=26, DUMINUS=27, DADD=28, DSUB=29, 
-		DMULT=30, DDIV=31, DEQ=32, DLT=33, DLEQ=34, DTOS=35, SCONST=36, SPRINT=37, 
-		SEQ=38, SNEQ=39, BCONST=40, BPRINT=41, BEQ=42, BNEQ=43, AND=44, OR=45, 
-		NOT=46, BTOS=47, JUMP=48, JUMPT=49, JUMPF=50, GALLOC=51, GLOAD=52, GSTORE=53, 
-		BOOLEAN=54, STRING=55, INT=56, HALT=57, EOL=58, LABEL=59, WS=60;
+		T__0=1, T__1=2, INTINSTRUCTION=3, DOUBLEINSTRUCTION=4, STRINGINSTRUCTION=5, 
+		INTVALUE=6, STRINGVALUE=7, DOUBLEVALUE=8, DOUBLE=9, DNEQ=10, ITOD=11, 
+		ICONST=12, IPRINT=13, IUMINUS=14, IADD=15, SADD=16, ISUB=17, IMULT=18, 
+		IDIV=19, IMOD=20, IEQ=21, INEQ=22, ILT=23, ILEQ=24, ITOP=25, ITOS=26, 
+		DCONST=27, DPRINT=28, DUMINUS=29, DADD=30, DSUB=31, DMULT=32, DDIV=33, 
+		DEQ=34, DLT=35, DLEQ=36, DTOS=37, SCONST=38, SPRINT=39, SEQ=40, SNEQ=41, 
+		BCONST=42, BPRINT=43, BEQ=44, BNEQ=45, AND=46, OR=47, NOT=48, BTOS=49, 
+		JUMP=50, JUMPT=51, JUMPF=52, GALLOC=53, GLOAD=54, GSTORE=55, BOOLEAN=56, 
+		STRING=57, INT=58, HALT=59, EOL=60, LABEL=61, WS=62;
 	public static final int
 		RULE_program = 0, RULE_expression = 1, RULE_instruction = 2;
 	private static String[] makeRuleNames() {
@@ -36,27 +37,27 @@ public class TasmParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "','", "':'", "' '", null, null, null, null, "'dneq'", "'itod'", 
-			"'iconst'", "'iprint'", "'iuminus'", "'iadd'", "'sadd'", "'isub'", "'imult'", 
-			"'idiv'", "'imod'", "'ieq'", "'ineq'", "'ilt'", "'ileq'", "'itop'", "'itos'", 
-			"'dconst'", "'dprint'", "'duminus'", "'dadd'", "'dsub'", "'dmult'", "'ddiv'", 
-			"'deq'", "'dlt'", "'dleq'", "'dtos'", "'sconst'", "'sprint'", "'seq'", 
-			"'sneq'", "'bconst'", "'bprint'", "'beq'", "'bneq'", "'and'", "'or'", 
-			"'not'", "'btos'", "'jump'", "'jumpt'", "'jumpf'", "'galloc'", "'gload'", 
-			"'gstore'", null, null, null, "'halt'", "'\\n'"
+			null, "','", "':'", null, null, null, null, null, null, null, "'dneq'", 
+			"'itod'", "'iconst'", "'iprint'", "'iuminus'", "'iadd'", "'sadd'", "'isub'", 
+			"'imult'", "'idiv'", "'imod'", "'ieq'", "'ineq'", "'ilt'", "'ileq'", 
+			"'itop'", "'itos'", "'dconst'", "'dprint'", "'duminus'", "'dadd'", "'dsub'", 
+			"'dmult'", "'ddiv'", "'deq'", "'dlt'", "'dleq'", "'dtos'", "'sconst'", 
+			"'sprint'", "'seq'", "'sneq'", "'bconst'", "'bprint'", "'beq'", "'bneq'", 
+			"'and'", "'or'", "'not'", "'btos'", "'jump'", "'jumpt'", "'jumpf'", "'galloc'", 
+			"'gload'", "'gstore'", null, null, null, "'halt'", "'\\n'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, "INTINSTRUCTION", "DOUBLEINSTRUCTION", "STRINGINSTRUCTION", 
-			"DOUBLE", "DNEQ", "ITOD", "ICONST", "IPRINT", "IUMINUS", "IADD", "SADD", 
-			"ISUB", "IMULT", "IDIV", "IMOD", "IEQ", "INEQ", "ILT", "ILEQ", "ITOP", 
-			"ITOS", "DCONST", "DPRINT", "DUMINUS", "DADD", "DSUB", "DMULT", "DDIV", 
-			"DEQ", "DLT", "DLEQ", "DTOS", "SCONST", "SPRINT", "SEQ", "SNEQ", "BCONST", 
-			"BPRINT", "BEQ", "BNEQ", "AND", "OR", "NOT", "BTOS", "JUMP", "JUMPT", 
-			"JUMPF", "GALLOC", "GLOAD", "GSTORE", "BOOLEAN", "STRING", "INT", "HALT", 
-			"EOL", "LABEL", "WS"
+			null, null, null, "INTINSTRUCTION", "DOUBLEINSTRUCTION", "STRINGINSTRUCTION", 
+			"INTVALUE", "STRINGVALUE", "DOUBLEVALUE", "DOUBLE", "DNEQ", "ITOD", "ICONST", 
+			"IPRINT", "IUMINUS", "IADD", "SADD", "ISUB", "IMULT", "IDIV", "IMOD", 
+			"IEQ", "INEQ", "ILT", "ILEQ", "ITOP", "ITOS", "DCONST", "DPRINT", "DUMINUS", 
+			"DADD", "DSUB", "DMULT", "DDIV", "DEQ", "DLT", "DLEQ", "DTOS", "SCONST", 
+			"SPRINT", "SEQ", "SNEQ", "BCONST", "BPRINT", "BEQ", "BNEQ", "AND", "OR", 
+			"NOT", "BTOS", "JUMP", "JUMPT", "JUMPF", "GALLOC", "GLOAD", "GSTORE", 
+			"BOOLEAN", "STRING", "INT", "HALT", "EOL", "LABEL", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -150,9 +151,9 @@ public class TasmParser extends Parser {
 			case INTINSTRUCTION:
 			case DOUBLEINSTRUCTION:
 			case STRINGINSTRUCTION:
-			case ICONST:
-			case DCONST:
-			case SCONST:
+			case INTVALUE:
+			case STRINGVALUE:
+			case DOUBLEVALUE:
 			case JUMP:
 			case JUMPT:
 			case JUMPF:
@@ -172,7 +173,7 @@ public class TasmParser extends Parser {
 					setState(9); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 578431145893430384L) != 0) );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 2313724308561592824L) != 0) );
 				}
 				break;
 			case EOF:
@@ -320,22 +321,20 @@ public class TasmParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class DCONSTContext extends InstructionContext {
-		public TerminalNode DCONST() { return getToken(TasmParser.DCONST, 0); }
-		public TerminalNode INT() { return getToken(TasmParser.INT, 0); }
-		public TerminalNode DOUBLE() { return getToken(TasmParser.DOUBLE, 0); }
-		public DCONSTContext(InstructionContext ctx) { copyFrom(ctx); }
+	public static class DOUBLEVALUEContext extends InstructionContext {
+		public TerminalNode DOUBLEVALUE() { return getToken(TasmParser.DOUBLEVALUE, 0); }
+		public DOUBLEVALUEContext(InstructionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TasmListener ) ((TasmListener)listener).enterDCONST(this);
+			if ( listener instanceof TasmListener ) ((TasmListener)listener).enterDOUBLEVALUE(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TasmListener ) ((TasmListener)listener).exitDCONST(this);
+			if ( listener instanceof TasmListener ) ((TasmListener)listener).exitDOUBLEVALUE(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TasmVisitor ) return ((TasmVisitor<? extends T>)visitor).visitDCONST(this);
+			if ( visitor instanceof TasmVisitor ) return ((TasmVisitor<? extends T>)visitor).visitDOUBLEVALUE(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -377,21 +376,20 @@ public class TasmParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class SCONSTContext extends InstructionContext {
-		public TerminalNode SCONST() { return getToken(TasmParser.SCONST, 0); }
-		public TerminalNode STRING() { return getToken(TasmParser.STRING, 0); }
-		public SCONSTContext(InstructionContext ctx) { copyFrom(ctx); }
+	public static class STRINGVALUEContext extends InstructionContext {
+		public TerminalNode STRINGVALUE() { return getToken(TasmParser.STRINGVALUE, 0); }
+		public STRINGVALUEContext(InstructionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TasmListener ) ((TasmListener)listener).enterSCONST(this);
+			if ( listener instanceof TasmListener ) ((TasmListener)listener).enterSTRINGVALUE(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TasmListener ) ((TasmListener)listener).exitSCONST(this);
+			if ( listener instanceof TasmListener ) ((TasmListener)listener).exitSTRINGVALUE(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TasmVisitor ) return ((TasmVisitor<? extends T>)visitor).visitSCONST(this);
+			if ( visitor instanceof TasmVisitor ) return ((TasmVisitor<? extends T>)visitor).visitSTRINGVALUE(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -471,8 +469,7 @@ public class TasmParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class INTVALUEContext extends InstructionContext {
-		public TerminalNode ICONST() { return getToken(TasmParser.ICONST, 0); }
-		public TerminalNode INT() { return getToken(TasmParser.INT, 0); }
+		public TerminalNode INTVALUE() { return getToken(TasmParser.INTVALUE, 0); }
 		public INTVALUEContext(InstructionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -492,58 +489,41 @@ public class TasmParser extends Parser {
 	public final InstructionContext instruction() throws RecognitionException {
 		InstructionContext _localctx = new InstructionContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_instruction);
-		int _la;
 		try {
-			setState(49);
+			setState(45);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case ICONST:
+			case INTVALUE:
 				_localctx = new INTVALUEContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(33);
-				match(ICONST);
-				setState(34);
-				match(T__2);
-				setState(35);
-				match(INT);
+				match(INTVALUE);
 				}
 				break;
-			case DCONST:
-				_localctx = new DCONSTContext(_localctx);
+			case DOUBLEVALUE:
+				_localctx = new DOUBLEVALUEContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(36);
-				match(DCONST);
-				setState(37);
-				_la = _input.LA(1);
-				if ( !(_la==DOUBLE || _la==INT) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
+				setState(34);
+				match(DOUBLEVALUE);
 				}
 				break;
-			case SCONST:
-				_localctx = new SCONSTContext(_localctx);
+			case STRINGVALUE:
+				_localctx = new STRINGVALUEContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(38);
-				match(SCONST);
-				setState(39);
-				match(STRING);
+				setState(35);
+				match(STRINGVALUE);
 				}
 				break;
 			case JUMP:
 				_localctx = new JUMPContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(40);
+				setState(36);
 				match(JUMP);
-				setState(41);
+				setState(37);
 				match(LABEL);
 				}
 				break;
@@ -551,9 +531,9 @@ public class TasmParser extends Parser {
 				_localctx = new JUMPTContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(42);
+				setState(38);
 				match(JUMPT);
-				setState(43);
+				setState(39);
 				match(LABEL);
 				}
 				break;
@@ -561,9 +541,9 @@ public class TasmParser extends Parser {
 				_localctx = new JUMPFContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(44);
+				setState(40);
 				match(JUMPF);
-				setState(45);
+				setState(41);
 				match(LABEL);
 				}
 				break;
@@ -571,7 +551,7 @@ public class TasmParser extends Parser {
 				_localctx = new INTINSTRUCTIONContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(46);
+				setState(42);
 				match(INTINSTRUCTION);
 				}
 				break;
@@ -579,7 +559,7 @@ public class TasmParser extends Parser {
 				_localctx = new DOUBLEINSTRUCTIONContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(47);
+				setState(43);
 				match(DOUBLEINSTRUCTION);
 				}
 				break;
@@ -587,7 +567,7 @@ public class TasmParser extends Parser {
 				_localctx = new STRINGINSTRUCTIONContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(48);
+				setState(44);
 				match(STRINGINSTRUCTION);
 				}
 				break;
@@ -607,43 +587,41 @@ public class TasmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001<4\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002"+
+		"\u0004\u0001>0\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002"+
 		"\u0007\u0002\u0001\u0000\u0004\u0000\b\b\u0000\u000b\u0000\f\u0000\t\u0001"+
 		"\u0000\u0003\u0000\r\b\u0000\u0001\u0000\u0003\u0000\u0010\b\u0000\u0001"+
 		"\u0001\u0004\u0001\u0013\b\u0001\u000b\u0001\f\u0001\u0014\u0001\u0001"+
 		"\u0001\u0001\u0003\u0001\u0019\b\u0001\u0001\u0001\u0003\u0001\u001c\b"+
 		"\u0001\u0001\u0001\u0001\u0001\u0003\u0001 \b\u0001\u0001\u0002\u0001"+
 		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0003\u00022\b\u0002\u0001\u0002\u0000"+
-		"\u0000\u0003\u0000\u0002\u0004\u0000\u0001\u0002\u0000\u0007\u000788?"+
-		"\u0000\u000f\u0001\u0000\u0000\u0000\u0002\u001b\u0001\u0000\u0000\u0000"+
-		"\u00041\u0001\u0000\u0000\u0000\u0006\b\u0003\u0002\u0001\u0000\u0007"+
-		"\u0006\u0001\u0000\u0000\u0000\b\t\u0001\u0000\u0000\u0000\t\u0007\u0001"+
-		"\u0000\u0000\u0000\t\n\u0001\u0000\u0000\u0000\n\u0010\u0001\u0000\u0000"+
-		"\u0000\u000b\r\u00059\u0000\u0000\f\u000b\u0001\u0000\u0000\u0000\f\r"+
-		"\u0001\u0000\u0000\u0000\r\u000e\u0001\u0000\u0000\u0000\u000e\u0010\u0005"+
-		"\u0000\u0000\u0001\u000f\u0007\u0001\u0000\u0000\u0000\u000f\f\u0001\u0000"+
-		"\u0000\u0000\u0010\u0001\u0001\u0000\u0000\u0000\u0011\u0013\u0005;\u0000"+
-		"\u0000\u0012\u0011\u0001\u0000\u0000\u0000\u0013\u0014\u0001\u0000\u0000"+
-		"\u0000\u0014\u0012\u0001\u0000\u0000\u0000\u0014\u0015\u0001\u0000\u0000"+
-		"\u0000\u0015\u0018\u0001\u0000\u0000\u0000\u0016\u0017\u0005\u0001\u0000"+
-		"\u0000\u0017\u0019\u0005;\u0000\u0000\u0018\u0016\u0001\u0000\u0000\u0000"+
-		"\u0018\u0019\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000"+
-		"\u001a\u001c\u0005\u0002\u0000\u0000\u001b\u0012\u0001\u0000\u0000\u0000"+
-		"\u001b\u001c\u0001\u0000\u0000\u0000\u001c\u001d\u0001\u0000\u0000\u0000"+
-		"\u001d\u001f\u0003\u0004\u0002\u0000\u001e \u0005:\u0000\u0000\u001f\u001e"+
-		"\u0001\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000 \u0003\u0001\u0000"+
-		"\u0000\u0000!\"\u0005\n\u0000\u0000\"#\u0005\u0003\u0000\u0000#2\u0005"+
-		"8\u0000\u0000$%\u0005\u0019\u0000\u0000%2\u0007\u0000\u0000\u0000&\'\u0005"+
-		"$\u0000\u0000\'2\u00057\u0000\u0000()\u00050\u0000\u0000)2\u0005;\u0000"+
-		"\u0000*+\u00051\u0000\u0000+2\u0005;\u0000\u0000,-\u00052\u0000\u0000"+
-		"-2\u0005;\u0000\u0000.2\u0005\u0004\u0000\u0000/2\u0005\u0005\u0000\u0000"+
-		"02\u0005\u0006\u0000\u00001!\u0001\u0000\u0000\u00001$\u0001\u0000\u0000"+
-		"\u00001&\u0001\u0000\u0000\u00001(\u0001\u0000\u0000\u00001*\u0001\u0000"+
-		"\u0000\u00001,\u0001\u0000\u0000\u00001.\u0001\u0000\u0000\u00001/\u0001"+
-		"\u0000\u0000\u000010\u0001\u0000\u0000\u00002\u0005\u0001\u0000\u0000"+
-		"\u0000\b\t\f\u000f\u0014\u0018\u001b\u001f1";
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002.\b"+
+		"\u0002\u0001\u0002\u0000\u0000\u0003\u0000\u0002\u0004\u0000\u0000;\u0000"+
+		"\u000f\u0001\u0000\u0000\u0000\u0002\u001b\u0001\u0000\u0000\u0000\u0004"+
+		"-\u0001\u0000\u0000\u0000\u0006\b\u0003\u0002\u0001\u0000\u0007\u0006"+
+		"\u0001\u0000\u0000\u0000\b\t\u0001\u0000\u0000\u0000\t\u0007\u0001\u0000"+
+		"\u0000\u0000\t\n\u0001\u0000\u0000\u0000\n\u0010\u0001\u0000\u0000\u0000"+
+		"\u000b\r\u0005;\u0000\u0000\f\u000b\u0001\u0000\u0000\u0000\f\r\u0001"+
+		"\u0000\u0000\u0000\r\u000e\u0001\u0000\u0000\u0000\u000e\u0010\u0005\u0000"+
+		"\u0000\u0001\u000f\u0007\u0001\u0000\u0000\u0000\u000f\f\u0001\u0000\u0000"+
+		"\u0000\u0010\u0001\u0001\u0000\u0000\u0000\u0011\u0013\u0005=\u0000\u0000"+
+		"\u0012\u0011\u0001\u0000\u0000\u0000\u0013\u0014\u0001\u0000\u0000\u0000"+
+		"\u0014\u0012\u0001\u0000\u0000\u0000\u0014\u0015\u0001\u0000\u0000\u0000"+
+		"\u0015\u0018\u0001\u0000\u0000\u0000\u0016\u0017\u0005\u0001\u0000\u0000"+
+		"\u0017\u0019\u0005=\u0000\u0000\u0018\u0016\u0001\u0000\u0000\u0000\u0018"+
+		"\u0019\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000\u001a"+
+		"\u001c\u0005\u0002\u0000\u0000\u001b\u0012\u0001\u0000\u0000\u0000\u001b"+
+		"\u001c\u0001\u0000\u0000\u0000\u001c\u001d\u0001\u0000\u0000\u0000\u001d"+
+		"\u001f\u0003\u0004\u0002\u0000\u001e \u0005<\u0000\u0000\u001f\u001e\u0001"+
+		"\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000 \u0003\u0001\u0000\u0000"+
+		"\u0000!.\u0005\u0006\u0000\u0000\".\u0005\b\u0000\u0000#.\u0005\u0007"+
+		"\u0000\u0000$%\u00052\u0000\u0000%.\u0005=\u0000\u0000&\'\u00053\u0000"+
+		"\u0000\'.\u0005=\u0000\u0000()\u00054\u0000\u0000).\u0005=\u0000\u0000"+
+		"*.\u0005\u0003\u0000\u0000+.\u0005\u0004\u0000\u0000,.\u0005\u0005\u0000"+
+		"\u0000-!\u0001\u0000\u0000\u0000-\"\u0001\u0000\u0000\u0000-#\u0001\u0000"+
+		"\u0000\u0000-$\u0001\u0000\u0000\u0000-&\u0001\u0000\u0000\u0000-(\u0001"+
+		"\u0000\u0000\u0000-*\u0001\u0000\u0000\u0000-+\u0001\u0000\u0000\u0000"+
+		"-,\u0001\u0000\u0000\u0000.\u0005\u0001\u0000\u0000\u0000\b\t\f\u000f"+
+		"\u0014\u0018\u001b\u001f-";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
