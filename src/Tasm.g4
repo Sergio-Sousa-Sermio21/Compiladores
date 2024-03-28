@@ -4,30 +4,36 @@ program:  (expression)+ HALT? EOF;
 
 expression: (((LABEL)*':')? instruction EOL?);
 
-instruction: ICONST INT
-           | DCONST value=(INT | DOUBLE)
-           | SCONST STRING
-           | JUMP LABEL
-           | intinstruction
-           | doubleinstruction
-           | strinstruction;
+instruction: ICONST INT #INTVALUE
+           | DCONST (INT | DOUBLE) #DCONST
+           | SCONST STRING #SCONST
+           | JUMP LABEL #JUMP
+           | JUMPT LABEL #JUMPT
+           | JUMPF LABEL #JUMPF
+           | intinstruction #INTIINSTRUCTION
+           | doubleinstruction #DOUBLEINSTRUCTION
+           | strinstruction #STRINGINSTRUCTION;
 
 intinstruction: IADD | IDIV
               | IEQ  | ILEQ
               | IMOD | IMULT
               | INEQ | IPRINT
               | ISUB | ITOP
-              | ITOS | IUMINUS;
+              | ITOS | IUMINUS
+              | ILT  | ITOD;
 
-doubleinstruction: DCONST | DADD
-                 | DDIV   | DEQ
-                 | DLEQ   | DLT
-                 | DMULT  | DPRINT
-                 | DSUB   | DTOS
-                 | DUMINUS;
+doubleinstruction: DADD  | DDIV
+                 | DEQ   | DLEQ
+                 | DLT   | DMULT
+                 | DPRINT| DSUB
+                 | DTOS  | DUMINUS
+                 | DNEQ;
+
 strinstruction: SADD | SEQ | SNEQ | SPRINT;
 
 DOUBLE : INT+'.'INT+;
+DNEQ: 'dneq';
+ITOD : 'itod';
 ICONST  : 'iconst';
 IPRINT  : 'iprint';
 IUMINUS : 'iuminis';
