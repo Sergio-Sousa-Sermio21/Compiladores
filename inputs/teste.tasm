@@ -1,6 +1,7 @@
 iconst 2
 iconst 3
 iprint
+iadd
 dconst 4.3
 sconst "ola"
 halt

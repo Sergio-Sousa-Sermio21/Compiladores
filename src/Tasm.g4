@@ -2,14 +2,15 @@ grammar Tasm;
 
 program:  (expression)+ | HALT? EOF;
 
-expression: (((LABEL)+(','LABEL)?':')? instruction EOL?);
+expression: (((LABEL)+(','LABEL)*':')? instruction EOL?);
 
-instruction: INTVALUE #INTVALUE
-           | DOUBLEVALUE #DOUBLEVALUE
-           | STRINGVALUE #STRINGVALUE
+instruction: ICONST INT #INTVALUE
+           | (DCONST (INT | DOUBLE)) #DOUBLEVALUE
+           | SCONST STRING #STRINGVALUE
            | JUMP LABEL #JUMP
            | JUMPT LABEL #JUMPT
            | JUMPF LABEL #JUMPF
+           | HALT #HALT
            | INTINSTRUCTION #INTINSTRUCTION
            | DOUBLEINSTRUCTION #DOUBLEINSTRUCTION
            | STRINGINSTRUCTION #STRINGINSTRUCTION;
@@ -31,9 +32,6 @@ DOUBLEINSTRUCTION: DADD  | DDIV
 
 STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
-INTVALUE: ICONST ' ' INT;
-STRINGVALUE: SCONST ' ' STRING;
-DOUBLEVALUE: DCONST ' ' (INT | DOUBLE);
 DOUBLE: INT+ '.' INT+;
 DNEQ: 'dneq';
 ITOD: 'itod';

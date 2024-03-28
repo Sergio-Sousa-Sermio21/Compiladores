@@ -113,6 +113,18 @@ public class TasmBaseListener implements TasmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterHALT(TasmParser.HALTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHALT(TasmParser.HALTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx) { }
 	/**
 	 * {@inheritDoc}

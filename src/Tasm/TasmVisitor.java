@@ -65,6 +65,13 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJUMPF(TasmParser.JUMPFContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code HALT}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHALT(TasmParser.HALTContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code INTINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree

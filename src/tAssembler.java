@@ -22,18 +22,21 @@ public class tAssembler {
         }
 
         public void exitINTVALUE(TasmParser.INTVALUEContext ctx) {
-            String value = ctx.getText();
-            System.out.println("Valor INTVALUE: " + value);
+            String value2 = ctx.ICONST().getText();
+            String value = ctx.INT().getText();
+            System.out.println("Valor INTVALUE: " + value2 + " " + value );
         }
 
         public void exitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
-            String value = ctx.getText();
-            System.out.println("Valor INTVALUE: " + value);
+            String value2 = ctx.DCONST().getText();
+            String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
+            System.out.println("Valor INTVALUE: " + value2 + " " + value );
         }
 
         public void exitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
-            String value = ctx.getText();
-            System.out.println("Valor INTVALUE: " + value);
+            String value2 = ctx.SCONST().getText();
+            String value = ctx.STRING().getText();
+            System.out.println("Valor INTVALUE: " + value2 + " " + value);
         }
 
         public void exitJUMP(TasmParser.JUMPContext ctx) {

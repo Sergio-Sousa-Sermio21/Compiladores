@@ -100,6 +100,18 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitJUMPF(TasmParser.JUMPFContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code HALT}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterHALT(TasmParser.HALTContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HALT}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitHALT(TasmParser.HALTContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code INTINSTRUCTION}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
