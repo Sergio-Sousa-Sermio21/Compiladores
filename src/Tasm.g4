@@ -1,6 +1,6 @@
 grammar Tasm;
 
-program:  (expression)+ | HALT? EOF;
+program:  (expression)+ EOF;
 
 expression: (((LABEL)+(','LABEL)*':')? instruction EOL?);
 
@@ -32,15 +32,13 @@ DOUBLEINSTRUCTION: DADD  | DDIV
 
 STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
-DOUBLE: INT+ '.' INT+;
 DNEQ: 'dneq';
 ITOD: 'itod';
 ICONST: 'iconst';
 IPRINT: 'iprint';
 IUMINUS: 'iuminus';
-IADD: 'iadd';
-SADD: 'sadd';
-ISUB: 'isub';
+//Comandos de inteiros
+IADD: 'iadd'; SADD: 'sadd'; ISUB: 'isub';
 IMULT: 'imult';
 IDIV: 'idiv';
 IMOD: 'imod';
@@ -82,6 +80,7 @@ GSTORE: 'gstore';
 BOOLEAN: 'true' | 'false';
 HALT: 'halt';
 STRING: '"' .*? '"';
+DOUBLE: INT+ '.' INT+;
 INT: [0-9]+;
 EOL: '\n';
 LABEL: [a-zA-Z_] [a-zA-Z_0-9]*;
