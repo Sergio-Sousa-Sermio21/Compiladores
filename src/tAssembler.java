@@ -10,13 +10,37 @@ import Tasm.TasmParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-public class tAssembler {
+public class tAssembler extends TasmBaseListener {
 
-    public static class Evaluator extends TasmBaseListener{
+        public tAssembler(String args[]){
+            init(args);
+        }
+
+        public void init(String args[]){
+            String inputFile = null;
+            if ( args.length>0 ) inputFile = args[0];
+            InputStream is = System.in;
+            try {
+                if (inputFile != null) is = new FileInputStream(inputFile);
+                CharStream input = CharStreams.fromStream(is);
+                TasmLexer lexer = new TasmLexer(input);
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
+                TasmParser parser = new TasmParser(tokens);
+                ParseTree tree = parser.program();
+                ParseTreeWalker walker = new ParseTreeWalker();
+                walker.walk(this, tree);
+
+                System.out.println();
+            }
+            catch (java.io.IOException e) {
+                System.out.println(e);
+            }
+        }
         public void exitExpression(TasmParser.ExpressionContext ctx) {
 
             List<TerminalNode> value = ctx.LABEL();
@@ -70,25 +94,6 @@ public class tAssembler {
             System.out.println("Valor STRINGINTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
         }
         public static void main(String[] args) throws Exception {
-            String inputFile = null;
-            if ( args.length>0 ) inputFile = args[0];
-            InputStream is = System.in;
-            try {
-                if (inputFile != null) is = new FileInputStream(inputFile);
-                CharStream input = CharStreams.fromStream(is);
-                TasmLexer lexer = new TasmLexer(input);
-                CommonTokenStream tokens = new CommonTokenStream(lexer);
-                TasmParser parser = new TasmParser(tokens);
-                ParseTree tree = parser.program();
-                ParseTreeWalker walker = new ParseTreeWalker();
-                Evaluator evalProp = new Evaluator();
-                walker.walk(evalProp, tree);
-                //System.out.println("properties result = " + evalProp.getValue(tree));
-            }
-            catch (java.io.IOException e) {
-                System.out.println(e);
-            }
+            tAssembler assembler = new tAssembler(args);
         }
-    }
-
 }

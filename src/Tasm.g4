@@ -36,7 +36,7 @@ STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
 //Comandos de inteiros
 ICONST: 'iconst';
-IUMINUS: 'iuminus';IADD: 'iadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
+IUMINUS: 'iuminus'; IADD: 'iadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
 IEQ: 'ieq';INEQ: 'ineq';ILT: 'ilt';ILEQ: 'ileq';ITOP: 'itop';ITOS: 'itos';ITOD: 'itod';IPRINT: 'iprint';
 //Comandos de Doubles
 DCONST: 'dconst';

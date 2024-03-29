@@ -15,17 +15,34 @@ public class TestSemantico extends TasmBaseListener {
     private HashSet <String> labels = new HashSet<String>();
 
     public void exitExpression(TasmParser.ExpressionContext ctx) {
+        List<TerminalNode> labels = ctx.LABEL();
+        for (TerminalNode label : labels) {
+            if (this.labels.contains(label.getText()))
 
-        List<TerminalNode> value = ctx.LABEL();
-        for (TerminalNode terminalNode : value)
-            System.out.println("Valor INTVALUE: " + terminalNode);
+                errors.add("Line " + ctx.start.getLine() + "-A label " + label + " aparece mais do que uma vez no programa!");
+            else
+                this.labels.add(label.getText());
+        }
+    }
 
-        //Verify unique labels?
-        for (String label : labels) {
-            int Ocorrencias = Collections.frequency(labels,label);
-            if(Ocorrencias > 1){
-                errors.add("A label "+ label + " aparece mais do que uma vez no programa!");
-            }
+    public void exitJUMP(TasmParser.JUMPContext ctx) {
+        String label = ctx.LABEL().getText();
+        if (!labels.contains(label)) {
+            errors.add("A label '" + label + "' é referenciada numa intrução jump que não está defenido.");
+        }
+    }
+
+    public void exitJUMPT(TasmParser.JUMPTContext ctx) {
+        String label = ctx.LABEL().getText();
+        if (!labels.contains(label)) {
+            errors.add("A label '" + label + "' é referenciada numa intrução jumpT que não está defenido.");
+        }
+    }
+
+    public void exitJUMPF(TasmParser.JUMPFContext ctx) {
+        String label = ctx.LABEL().getText();
+        if (!labels.contains(label)) {
+            errors.add("A label '" + label + "' é referenciada numa intrução jumpF que não está defenido.");
         }
     }
 
