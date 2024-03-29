@@ -32,33 +32,15 @@ DOUBLEINSTRUCTION: DADD  | DDIV
 
 STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
-DNEQ: 'dneq';
-ITOD: 'itod';
+
 ICONST: 'iconst';
-IPRINT: 'iprint';
-IUMINUS: 'iuminus';
 //Comandos de inteiros
-IADD: 'iadd'; SADD: 'sadd'; ISUB: 'isub';
-IMULT: 'imult';
-IDIV: 'idiv';
-IMOD: 'imod';
-IEQ: 'ieq';
-INEQ: 'ineq';
-ILT: 'ilt';
-ILEQ: 'ileq';
-ITOP: 'itop';
-ITOS: 'itos';
+IUMINUS: 'iuminus';IADD: 'iadd'; SADD: 'sadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
+IEQ: 'ieq';INEQ: 'ineq';ILT: 'ilt';ILEQ: 'ileq';ITOP: 'itop';ITOS: 'itos';ITOD: 'itod';IPRINT: 'iprint';
 DCONST: 'dconst';
-DPRINT: 'dprint';
-DUMINUS: 'duminus';
-DADD: 'dadd';
-DSUB: 'dsub';
-DMULT: 'dmult';
-DDIV: 'ddiv';
-DEQ: 'deq';
-DLT: 'dlt';
-DLEQ: 'dleq';
-DTOS: 'dtos';
+//Comandos de Doubles
+DUMINUS: 'duminus';DADD: 'dadd';DSUB: 'dsub';DMULT: 'dmult';DDIV: 'ddiv';DEQ: 'deq';
+DLT: 'dlt';DLEQ: 'dleq';DTOS: 'dtos';DNEQ: 'dneq';DPRINT: 'dprint';
 SCONST: 'sconst';
 SPRINT: 'sprint';
 SEQ: 'seq';
