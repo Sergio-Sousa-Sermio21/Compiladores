@@ -2,54 +2,77 @@ grammar Tasm;
 
 executable : (command)+ HALT? EOF;
 
-command : (token)+ EOL
+command : (LABEL':')? (token)+ EOL
   ;
 
-token : ICONST INT            # IntegerConst
-    | IPRINT                # IntegerPrint
-    | IMINUS INT            # IntegerMinus
-    | IADD                  # IntegerAdd
-    | ISUB INT              # IntegerSub
-    | IMULT INT             # IntegerMult
-    | IDIV INT              # IntegerDiv
-    | IMOD                  # IntegerMod
-    | IEQ                   # IntegerEqual
-    | INEQ                  # IntegerNotEqual
-    | ILT                   # IntegerLessThan
-    | ILEQ                  # IntegerLessOrEqual
-    | ITOD                  # IntegerToDouble
-    | ITOS                  # IntegerToString
-    | DCONST DOUBLE         # DoubleConst
-    | DPRINT                # DoublePrint
-    | DUMINUS               # DoubleMinus
-    | DADD                  # DoubleAdd
-    | DSUB                  # DoubleSub
-    | DMULT                 # DoubleMult
-    | DDIV                  # DoubleDiv
-    | DEQ                   #DoubleEqual
-    | DNEQ                  # DoubleNotEqual
-    | DLT                   # DoubleLessThan
-    | DLEQ                  # DoubleLessOrEqual
-    | DTOS                  # DoubleToString
-    | SCONST STRING         # String
-    | SPRINT                # StringPrint
-    | SADD                  # StringConcat
-    | SEQ                   # StringEqual
-    | SNEQ                  # StringNotEqual
-    | TCONST                # True
-    | FCONST                # False
-    | BPRINT                # BoolPrint
-    | BEQ                   # BoolEqual
-    | BNEQ                  # BoolNotEqual
-    | BTOS                  # BoolToString
-    | JUMP LABEL            # Jump
-    | JUMPT LABEL           # Jumpt
-    | JUMPF LABEL           # Jumpf
-    | GALLOC INT            # Galloc
-    | GLOAD INT             # Gload
-    | GSTORE INT            # Gstore
-    | HALT                  # Halt
-   ;
+token : ICONST INT          #ConstInteger
+    | DCONST INT            #ConstDoubleInteger
+    | DCONST DOUBLE         #ConstDouble
+    | SCONST STRING         #ConstString
+    | integerOP             #IntegerOperation
+    | doubleOP              #DoubleOperation
+    | stringOP              #StringOperation
+    | boolOP                #BoolOperation
+    | jumpOP                #JumpOperation
+    | arrayOP               #ArrayOperation
+    | HALT                  #Halt
+    ;
+
+integerOP: IPRINT
+    | IMINUS
+    | IADD
+    | ISUB
+    | IMULT
+    | IDIV
+    | IMOD
+    | IEQ
+    | INEQ
+    | ILT
+    | ILEQ
+    | ITOD
+    | ITOS
+    ;
+
+doubleOP: DPRINT
+    | DUMINUS
+    | DADD
+    | DSUB
+    | DMULT
+    | DDIV
+    | DEQ
+    | DNEQ
+    | DLT
+    | DLEQ
+    | DTOS
+    ;
+
+stringOP: SPRINT
+    | SADD
+    | SEQ
+    | SNEQ
+    ;
+
+boolOP: TCONST
+    | FCONST
+    | BPRINT
+    | BEQ
+    | BNEQ
+    | BTOS
+    | NOT
+    | AND
+    | OR
+
+    ;
+
+jumpOP: JUMP LABEL
+    | JUMPT LABEL
+    | JUMPF LABEL
+    ;
+
+arrayOP: GALLOC INT
+    | GLOAD INT
+    | GSTORE INT
+    ;
 
 ICONST : 'iconst';
 IPRINT : 'iprint';
@@ -85,6 +108,9 @@ SNEQ : 'sneq';
 TCONST : 'tconst';
 FCONST : 'fconst';
 BPRINT : 'bprint';
+NOT : 'not';
+AND : 'and';
+OR : 'or';
 BEQ : 'beq';
 BNEQ : 'bneq';
 BTOS : 'btos';
@@ -96,11 +122,10 @@ GLOAD : 'gload';
 GSTORE : 'gstore';
 HALT : 'halt';
 
-LABEL : STRING':';
-STRING : '';
-DOUBLE : INT('.'INT)*;
+LABEL : [_A-Za-z]+[_A-Za-z0-9]*;
+STRING : '"' .*? '"';
 INT : [0-9]+ ;
-EOL:[\n];
+DOUBLE : INT('.'INT)*;
+
+EOL:'\n';
 WS : [ \t\n]+ -> skip ;
-
-
