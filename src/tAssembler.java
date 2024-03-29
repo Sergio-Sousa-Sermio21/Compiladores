@@ -17,31 +17,29 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class tAssembler {
 
     public static class Evaluator extends TasmBaseListener{
-        private Stack<Objects> stack = new Stack<Objects>();
-
         public void exitExpression(TasmParser.ExpressionContext ctx) {
 
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value)
-                System.out.println("Valor INTVALUE: " + terminalNode);
+                System.out.println("Valor INTVALUE: "+ctx.start.getLine() +" "  + terminalNode);
         }
 
         public void exitINTVALUE(TasmParser.INTVALUEContext ctx) {
             String value2 = ctx.ICONST().getText();
             String value = ctx.INT().getText();
-            System.out.println("Valor INTVALUE: " + value2 + " " + value );
+            System.out.println("Valor INTVALUE: " +ctx.start.getLine() +" " + value2 + " " + value );
         }
 
         public void exitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
             String value2 = ctx.DCONST().getText();
             String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
-            System.out.println("Valor INTVALUE: " + value2 + " " + value );
+            System.out.println("Valor INTVALUE: "+ctx.start.getLine() +" " + value2 + " " + value );
         }
 
         public void exitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
             String value2 = ctx.SCONST().getText();
             String value = ctx.STRING().getText();
-            System.out.println("Valor INTVALUE: " + value2 + " " + value);
+            System.out.println("Valor INTVALUE: "+ctx.start.getLine() +" "  + value2 + " " + value);
         }
 
         public void exitJUMP(TasmParser.JUMPContext ctx) {
@@ -58,17 +56,18 @@ public class tAssembler {
 
         public void exitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
             String value = ctx.getText();
-            System.out.println("Valor INTINSTRUCTION: " + value);
+
+            System.out.println("Valor INTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
         }
 
         public void exitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
             String value = ctx.getText();
-            System.out.println("Valor DOUBLEINTINSTRUCTION: " + value);
+            System.out.println("Valor DOUBLEINTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
         }
 
         public void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
             String value = ctx.getText();
-            System.out.println("Valor STRINGINTINSTRUCTION: " + value);
+            System.out.println("Valor STRINGINTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
         }
         public static void main(String[] args) throws Exception {
             String inputFile = null;

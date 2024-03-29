@@ -1,8 +1,8 @@
 grammar Tasm;
 
-program:  (expression)+ EOF;
+program:  expression (EOL+ expression)* EOL* EOF;
 
-expression: (((LABEL)+(','LABEL)*':')? instruction EOL?);
+expression: (((LABEL)+(','LABEL)*':')? instruction);
 
 instruction: ICONST INT #INTVALUE
            | (DCONST (INT | DOUBLE)) #DOUBLEVALUE
@@ -32,37 +32,19 @@ DOUBLEINSTRUCTION: DADD  | DDIV
 
 STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
-DNEQ: 'dneq';
-ITOD: 'itod';
-ICONST: 'iconst';
-IPRINT: 'iprint';
-IUMINUS: 'iuminus';
+
+
 //Comandos de inteiros
-IADD: 'iadd'; SADD: 'sadd'; ISUB: 'isub';
-IMULT: 'imult';
-IDIV: 'idiv';
-IMOD: 'imod';
-IEQ: 'ieq';
-INEQ: 'ineq';
-ILT: 'ilt';
-ILEQ: 'ileq';
-ITOP: 'itop';
-ITOS: 'itos';
+ICONST: 'iconst';
+IUMINUS: 'iuminus';IADD: 'iadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
+IEQ: 'ieq';INEQ: 'ineq';ILT: 'ilt';ILEQ: 'ileq';ITOP: 'itop';ITOS: 'itos';ITOD: 'itod';IPRINT: 'iprint';
+//Comandos de Doubles
 DCONST: 'dconst';
-DPRINT: 'dprint';
-DUMINUS: 'duminus';
-DADD: 'dadd';
-DSUB: 'dsub';
-DMULT: 'dmult';
-DDIV: 'ddiv';
-DEQ: 'deq';
-DLT: 'dlt';
-DLEQ: 'dleq';
-DTOS: 'dtos';
+DUMINUS: 'duminus';DADD: 'dadd';DSUB: 'dsub';DMULT: 'dmult';DDIV: 'ddiv';DEQ: 'deq';
+DLT: 'dlt';DLEQ: 'dleq';DTOS: 'dtos';DNEQ: 'dneq';DPRINT: 'dprint';
+//Comandos de String
 SCONST: 'sconst';
-SPRINT: 'sprint';
-SEQ: 'seq';
-SNEQ: 'sneq';
+SPRINT: 'sprint';SADD: 'sadd';SEQ: 'seq';SNEQ: 'sneq';
 BCONST: 'bconst';
 BPRINT: 'bprint';
 BEQ: 'beq';
@@ -71,9 +53,8 @@ AND: 'and';
 OR: 'or';
 NOT: 'not';
 BTOS: 'btos';
-JUMP: 'jump';
-JUMPT: 'jumpt';
-JUMPF: 'jumpf';
+//Comandos de Jump
+JUMP: 'jump';JUMPT: 'jumpt';JUMPF: 'jumpf';
 GALLOC: 'galloc';
 GLOAD: 'gload';
 GSTORE: 'gstore';
@@ -84,4 +65,4 @@ DOUBLE: INT+ '.' INT+;
 INT: [0-9]+;
 EOL: '\n';
 LABEL: [a-zA-Z_] [a-zA-Z_0-9]*;
-WS: [ \t\r\n]+ -> skip;
+WS: [ \t\r]+ -> skip;
