@@ -35,16 +35,15 @@ STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
 ICONST: 'iconst';
 //Comandos de inteiros
-IUMINUS: 'iuminus';IADD: 'iadd'; SADD: 'sadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
+IUMINUS: 'iuminus';IADD: 'iadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
 IEQ: 'ieq';INEQ: 'ineq';ILT: 'ilt';ILEQ: 'ileq';ITOP: 'itop';ITOS: 'itos';ITOD: 'itod';IPRINT: 'iprint';
 DCONST: 'dconst';
 //Comandos de Doubles
 DUMINUS: 'duminus';DADD: 'dadd';DSUB: 'dsub';DMULT: 'dmult';DDIV: 'ddiv';DEQ: 'deq';
 DLT: 'dlt';DLEQ: 'dleq';DTOS: 'dtos';DNEQ: 'dneq';DPRINT: 'dprint';
 SCONST: 'sconst';
-SPRINT: 'sprint';
-SEQ: 'seq';
-SNEQ: 'sneq';
+//Comandos de String
+SPRINT: 'sprint';SADD: 'sadd';SEQ: 'seq';SNEQ: 'sneq';
 BCONST: 'bconst';
 BPRINT: 'bprint';
 BEQ: 'beq';
@@ -53,9 +52,8 @@ AND: 'and';
 OR: 'or';
 NOT: 'not';
 BTOS: 'btos';
-JUMP: 'jump';
-JUMPT: 'jumpt';
-JUMPF: 'jumpf';
+//Comandos de Jump
+JUMP: 'jump';JUMPT: 'jumpt';JUMPF: 'jumpf';
 GALLOC: 'galloc';
 GLOAD: 'gload';
 GSTORE: 'gstore';
