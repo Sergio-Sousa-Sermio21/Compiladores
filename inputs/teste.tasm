@@ -1,16 +1,5 @@
-A: iconst 2
-iconst 3
-deq
-
-
-iprint
-iadd
-dconst 4.3
+ola: iconst 2
 sconst "ola"
-
-
-iuhfduhgidfwsiuhj : jump amongus
-
-
-
+dconst 3.3
+jump ola
 halt

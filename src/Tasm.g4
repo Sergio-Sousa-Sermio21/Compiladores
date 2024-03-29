@@ -2,7 +2,7 @@ grammar Tasm;
 
 program:  expression (EOL+ expression)* EOL* EOF;
 
-expression: (((LABEL)+(','LABEL)*':')? instruction);
+expression: (((LABEL)(','LABEL)*':')? instruction);
 
 instruction: ICONST INT #INTVALUE
            | (DCONST (INT | DOUBLE)) #DOUBLEVALUE

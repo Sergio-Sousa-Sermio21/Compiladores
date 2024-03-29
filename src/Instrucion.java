@@ -1,7 +1,28 @@
 public class Instrucion {
-    private String command;
-    private int value;
+    private Commands command;
+    private Object value;
 
-    private String bytecode;
+    public Instrucion(Commands codigo, Object valor){
+        command = codigo;
+        value = valor;
+    }
 
+    public  Instrucion(Commands codigo){    command = codigo;   }
+
+    public Commands getCommand(){   return  command;    }
+
+    public Object getValue(){   return value;   }
+
+    @Override
+    public String toString() {
+        if(value != null){
+            if(value instanceof Double)
+                return command.name() + " " + value + " Double";
+            if(value instanceof Integer)
+                return  command.name() + " " + value + " Int";
+            if(value instanceof String)
+                return  command.name() + " " + value + " String";
+        }
+        return command.name();
+    }
 }

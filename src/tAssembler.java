@@ -1,8 +1,6 @@
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 import Tasm.TasmBaseListener;
 import Tasm.TasmLexer;
@@ -16,14 +14,43 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class tAssembler extends TasmBaseListener {
-
-        public tAssembler(String args[]){
+        private static final HashMap<String, Commands> commandMap = new HashMap<>();
+        private static final HashMap<String,Integer> labelsposicion = new HashMap<>();
+        private ArrayList<Instrucion> instrucoes = new ArrayList<>();
+        public tAssembler(String args[]) throws IOException {
+            initHashMap();
             init(args);
+            writeBytecode(args);
+            /*
+            FileOutputStream fos = new FileOutputStream("inputs/" + out);
+            DataOutputStream bytecodes = new DataOutputStream(fos);
+
+            String teste = "Caralho";
+            byte[] stringbytes = teste.getBytes(StandardCharsets.UTF_8);
+            bytecodes.writeInt(teste.length());
+            bytecodes.write(stringbytes);*/
+
+        }
+
+        private void writeBytecode(String[] args) throws IOException {
+            //teste.tasm
+            File file = new File(args[0]);
+            String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
+            newFile = "inputs/" + newFile;
+            FileOutputStream fos = new FileOutputStream(newFile);
+            DataOutputStream bytecodes = new DataOutputStream(fos);
+
+        }
+
+        public void initHashMap(){
+            for(Commands c : Commands.values())
+                commandMap.put(c.name().toLowerCase(), c);
         }
 
         public void init(String args[]){
             String inputFile = null;
-            if ( args.length>0 ) inputFile = args[0];
+            if ( args.length>0 )
+                inputFile = args[0];
             InputStream is = System.in;
             try {
                 if (inputFile != null) is = new FileInputStream(inputFile);
@@ -32,68 +59,66 @@ public class tAssembler extends TasmBaseListener {
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 TasmParser parser = new TasmParser(tokens);
                 ParseTree tree = parser.program();
+                TestSemantico test = new TestSemantico();
+                test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
                 walker.walk(this, tree);
-
-                System.out.println();
+                for(Instrucion intr : instrucoes)
+                    System.out.println(intr);
             }
             catch (java.io.IOException e) {
                 System.out.println(e);
             }
         }
-        public void exitExpression(TasmParser.ExpressionContext ctx) {
-
+        public void enterExpression(TasmParser.ExpressionContext ctx) {
             List<TerminalNode> value = ctx.LABEL();
-            for (TerminalNode terminalNode : value)
-                System.out.println("Valor INTVALUE: "+ctx.start.getLine() +" "  + terminalNode);
+            for (TerminalNode terminalNode : value){
+                labelsposicion.put(terminalNode.getText(), instrucoes.size());
+            }
         }
 
-        public void exitINTVALUE(TasmParser.INTVALUEContext ctx) {
-            String value2 = ctx.ICONST().getText();
-            String value = ctx.INT().getText();
-            System.out.println("Valor INTVALUE: " +ctx.start.getLine() +" " + value2 + " " + value );
+        public void enterINTVALUE(TasmParser.INTVALUEContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.ICONST().getText()), Integer.parseInt(ctx.INT().getText())));
         }
 
-        public void exitDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
-            String value2 = ctx.DCONST().getText();
+        public void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
             String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
-            System.out.println("Valor INTVALUE: "+ctx.start.getLine() +" " + value2 + " " + value );
+            instrucoes.add(new Instrucion(commandMap.get(ctx.DCONST().getText()), Double.parseDouble(value)));
         }
 
-        public void exitSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
-            String value2 = ctx.SCONST().getText();
-            String value = ctx.STRING().getText();
-            System.out.println("Valor INTVALUE: "+ctx.start.getLine() +" "  + value2 + " " + value);
+        public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.SCONST().getText()), ctx.STRING().getText()));
         }
 
-        public void exitJUMP(TasmParser.JUMPContext ctx) {
-
+        public void enterJUMP(TasmParser.JUMPContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMP().getText()), ctx.LABEL().getText()));
         }
 
-        public void exitJUMPT(TasmParser.JUMPTContext ctx) {
-
+        public void enterJUMPT(TasmParser.JUMPTContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPT().getText()), ctx.LABEL().getText()));
         }
 
-        public void exitJUMPF(TasmParser.JUMPFContext ctx) {
-
+        public void enterJUMPF(TasmParser.JUMPFContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPF().getText()), ctx.LABEL().getText()));
         }
 
-        public void exitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
-            String value = ctx.getText();
-
-            System.out.println("Valor INTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
+        public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
+            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
 
-        public void exitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
-            String value = ctx.getText();
-            System.out.println("Valor DOUBLEINTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
+        public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
 
-        public void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
-            String value = ctx.getText();
-            System.out.println("Valor STRINGINTINSTRUCTION: "+ctx.start.getLine() +" "  + value);
+        public void enterSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
+        }
+
+        public void enterHALT(TasmParser.HALTContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
         public static void main(String[] args) throws Exception {
             tAssembler assembler = new tAssembler(args);
+
         }
 }

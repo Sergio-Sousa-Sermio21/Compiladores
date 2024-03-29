@@ -11,15 +11,15 @@ import java.util.*;
 
 public class TestSemantico extends TasmBaseListener {
     private ArrayList<String> errors = new ArrayList<String>();
-    private boolean halt = false;
     private HashSet <String> labels = new HashSet<String>();
+    private ArrayList <String> jumpLabels = new ArrayList<String>();
+    private boolean hasHaltInstruction = false;
 
     public void exitExpression(TasmParser.ExpressionContext ctx) {
         List<TerminalNode> labels = ctx.LABEL();
         for (TerminalNode label : labels) {
             if (this.labels.contains(label.getText()))
-
-                errors.add("Line " + ctx.start.getLine() + "-A label " + label + " aparece mais do que uma vez no programa!");
+                errors.add("Line " + ctx.start.getLine() + ":A label " + label + " aparece mais do que uma vez no programa!");
             else
                 this.labels.add(label.getText());
         }
@@ -27,31 +27,44 @@ public class TestSemantico extends TasmBaseListener {
 
     public void exitJUMP(TasmParser.JUMPContext ctx) {
         String label = ctx.LABEL().getText();
-        if (!labels.contains(label)) {
-            errors.add("A label '" + label + "' é referenciada numa intrução jump que não está defenido.");
-        }
+        label += "-" + ctx.start.getLine();
+        jumpLabels.add(label);
     }
 
     public void exitJUMPT(TasmParser.JUMPTContext ctx) {
         String label = ctx.LABEL().getText();
-        if (!labels.contains(label)) {
-            errors.add("A label '" + label + "' é referenciada numa intrução jumpT que não está defenido.");
-        }
+        label += "-" + ctx.start.getLine();
+        jumpLabels.add(label);
     }
 
     public void exitJUMPF(TasmParser.JUMPFContext ctx) {
         String label = ctx.LABEL().getText();
-        if (!labels.contains(label)) {
-            errors.add("A label '" + label + "' é referenciada numa intrução jumpF que não está defenido.");
+        label += "-" + ctx.start.getLine();
+        jumpLabels.add(label);
+    }
+
+    public void exitHALT(TasmParser.HALTContext ctx) {
+        hasHaltInstruction = true;
+    }
+
+    private void verifyLabels(){
+        for (String jumpLabel : jumpLabels) {
+            String[] teste = jumpLabel.split("-");
+            if (!this.labels.contains(teste[0])) {
+                errors.add("Line " + teste[1] + ":A label " + teste[0] + " nao aparece no programa!");
+            }
         }
     }
 
     public void TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
+        if (!hasHaltInstruction)
+            errors.add("O programa não possui uma instrução halt.");
+        this.verifyLabels();
         if(!errors.isEmpty()){
             for(String error : errors)
-                System.out.println(error);
+                System.err.println(error);
             System.exit(0);
         }
 
