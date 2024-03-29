@@ -32,13 +32,12 @@ DOUBLEINSTRUCTION: DADD  | DDIV
 
 STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
-
-ICONST: 'iconst';
 //Comandos de inteiros
+ICONST: 'iconst';
 IUMINUS: 'iuminus';IADD: 'iadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
 IEQ: 'ieq';INEQ: 'ineq';ILT: 'ilt';ILEQ: 'ileq';ITOP: 'itop';ITOS: 'itos';ITOD: 'itod';IPRINT: 'iprint';
-DCONST: 'dconst';
 //Comandos de Doubles
+DCONST: 'dconst';
 DUMINUS: 'duminus';DADD: 'dadd';DSUB: 'dsub';DMULT: 'dmult';DDIV: 'ddiv';DEQ: 'deq';
 DLT: 'dlt';DLEQ: 'dleq';DTOS: 'dtos';DNEQ: 'dneq';DPRINT: 'dprint';
 SCONST: 'sconst';
