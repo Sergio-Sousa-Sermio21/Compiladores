@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -11,6 +12,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class tAssembler {
 
@@ -19,6 +21,9 @@ public class tAssembler {
 
         public void exitExpression(TasmParser.ExpressionContext ctx) {
 
+            List<TerminalNode> value = ctx.LABEL();
+            for (TerminalNode terminalNode : value)
+                System.out.println("Valor INTVALUE: " + terminalNode);
         }
 
         public void exitINTVALUE(TasmParser.INTVALUEContext ctx) {

@@ -1,4 +1,4 @@
-iconst 2
+A: iconst 2
 iconst 3
 
 deq
