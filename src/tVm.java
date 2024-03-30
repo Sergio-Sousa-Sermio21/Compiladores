@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class tVm {
 
-    private Array[] globalMemory;
+    private Integer[] globalMemory;
 
     private ArrayList<Byte> codeMemory = new ArrayList<>();
     private ArrayList<Object> constantPool = new ArrayList<>();
@@ -61,9 +61,6 @@ public class tVm {
             }
         }
         addconstantpool(din);
-        for (Instrucion instrucion : instrucions){
-            System.out.println(instrucion);
-        }
     }
 
     private void addconstantpool(DataInputStream din) throws IOException{
@@ -78,9 +75,6 @@ public class tVm {
                     word[i] = din.readChar();
                 constantPool.add(new String(word));
             }
-        }
-        for(int i = 0; i < constantPool.size(); i++) {
-            System.out.println(constantPool.get(i));
         }
     }
 
@@ -272,18 +266,18 @@ public class tVm {
                 }
                 case GALLOC ->{
                     int size = (int) instrucions.get(i).getValue();
-                    globalMemory = new Array[size];
+                    globalMemory = new Integer[size];
                 }
                 case GLOAD ->{
                     int posicon = (int) instrucions.get(i).getValue();
                     stack.push(globalMemory[posicon]);
                 }
                 case GSTORE ->{
-                    int posicon = (int) instrucions.get(i).getValue();
-                    stack.push();
+                    int position = (int) instrucions.get(i).getValue();
+                    globalMemory[position] = (int) stack.pop();
                 }
                 case HALT ->{
-
+                    System.exit(0);
                 }
                 default -> System.out.println("Unknown command");
             }
@@ -293,6 +287,6 @@ public class tVm {
 
     public static void main(String[] args) throws IOException {
         tVm Vm = new tVm(args);
-        //Vm.runCodeMemory();
+        Vm.runCodeMemory();
     }
 }
