@@ -49,8 +49,6 @@ public enum TokenTasm {
     LABEL,
     INT,
     DOUBLE,
-    STRING,
-    EOL,
-    WS
+    STRING
 
 }

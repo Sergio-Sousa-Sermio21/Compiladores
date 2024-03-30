@@ -2,7 +2,7 @@ grammar Tasm;
 
 executable : (command)+ HALT? EOF;
 
-command : (LABEL':')? (token)+ EOL
+command : (LABEL(','LABEL)*':')? (token)+ EOL
   ;
 
 token : ICONST INT          #ConstInteger
