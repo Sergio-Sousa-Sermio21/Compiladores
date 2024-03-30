@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Erros.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/Tasm.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/Tasm.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/Tasm.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/Tasm.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/tVM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Tasm/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/tVM.java" afterDir="false" />
-    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,18 +25,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/Tasm/tVM.java">
-      <ranges>
-        <range start1="1" end1="2" start2="1" end2="2" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="4" end1="5" start2="4" end2="5" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="44" end1="45" start2="44" end2="45" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2eKOmqme9vOPLMPmeezGZ5Jh2Lr" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -67,14 +48,17 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "Renato",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/xampp/htdocs/Compiladores/antlr-4.13.1-complete.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -100,6 +84,13 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -108,7 +99,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1711649964846</updated>
+      <workItem from="1711821515058" duration="900000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
