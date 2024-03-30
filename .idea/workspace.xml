@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -116,7 +113,7 @@
       <updated>1711649964846</updated>
       <workItem from="1711821515058" duration="900000" />
       <workItem from="1711822713171" duration="280000" />
-      <workItem from="1711823439371" duration="1349000" />
+      <workItem from="1711823439371" duration="1965000" />
     </task>
     <servers />
   </component>

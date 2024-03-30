@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class tVm {
 
@@ -12,15 +13,16 @@ public class tVm {
     private ArrayList<Byte> codeMemory = new ArrayList<>();
     private ArrayList<Object> constantPool = new ArrayList<>();
 
+    private Stack<Object> stack = new Stack<>();
     public tVm(String[] args) throws IOException{
-        getFile(args);
+        getFiles(args);
         for(int i = 0; i<codeMemory.size(); i++){
             System.out.println(codeMemory.get(i));
         }
 
     }
 
-    private void getFile(String[] args)throws IOException {
+    private void getFiles(String[] args)throws IOException {
         DataInputStream din = new DataInputStream(new FileInputStream(args[0]));
         while(din.available()>0){
             byte bytes = din.readByte();
@@ -50,10 +52,18 @@ public class tVm {
     }
 
     public void runCodeMemory(){
-        while(true)
+        int i = 0;
+        while(true && i<codeMemory.size()){
+            switch (codeMemory.get(i)){
+                case 0 -> {
+
+                }
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
         tVm Vm = new tVm(args);
+        Vm.runCodeMemory();
     }
 }
