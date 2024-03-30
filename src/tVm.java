@@ -14,7 +14,7 @@ public class tVm {
         getFile(args);
     }
 
-    private void getFile(String[] args){
+    private void getFile(String[] args)throws IOException{
         DataInputStream din = new DataInputStream(new FileInputStream("file.dat"));
     }
 
