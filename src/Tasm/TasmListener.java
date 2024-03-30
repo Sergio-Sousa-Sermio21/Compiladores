@@ -100,6 +100,42 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitJUMPF(TasmParser.JUMPFContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code GALLOC}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterGALLOC(TasmParser.GALLOCContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GALLOC}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitGALLOC(TasmParser.GALLOCContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GLOAD}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterGLOAD(TasmParser.GLOADContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GLOAD}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitGLOAD(TasmParser.GLOADContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GSTORE}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterGSTORE(TasmParser.GSTOREContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GSTORE}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitGSTORE(TasmParser.GSTOREContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code HALT}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
@@ -159,16 +195,4 @@ public interface TasmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code GLINSTRUCTION}
-	 * labeled alternative in {@link TasmParser#instruction}.
-	 * @param ctx the parse tree
-	 */
-	void enterGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code GLINSTRUCTION}
-	 * labeled alternative in {@link TasmParser#instruction}.
-	 * @param ctx the parse tree
-	 */
-	void exitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx);
 }

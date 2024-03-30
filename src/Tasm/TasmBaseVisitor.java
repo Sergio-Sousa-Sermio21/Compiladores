@@ -74,6 +74,27 @@ public class TasmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements T
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitGALLOC(TasmParser.GALLOCContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitGLOAD(TasmParser.GLOADContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitGSTORE(TasmParser.GSTOREContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitHALT(TasmParser.HALTContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -103,11 +124,4 @@ public class TasmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements T
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx) { return visitChildren(ctx); }
 }

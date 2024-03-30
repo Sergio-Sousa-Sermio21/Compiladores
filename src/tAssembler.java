@@ -154,7 +154,7 @@ public class tAssembler extends TasmBaseListener {
             instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
 
-
+        
         public static void main(String[] args) throws Exception {
             tAssembler assembler = new tAssembler(args);
         }

@@ -10,12 +10,14 @@ instruction: ICONST INT #INTVALUE
            | JUMP LABEL #JUMP
            | JUMPT LABEL #JUMPT
            | JUMPF LABEL #JUMPF
+           | GALLOC INT #GALLOC
+           | GLOAD INT #GLOAD
+           | GSTORE INT #GSTORE
            | HALT #HALT
            | INTINSTRUCTION #INTINSTRUCTION
            | DOUBLEINSTRUCTION #DOUBLEINSTRUCTION
            | STRINGINSTRUCTION #STRINGINSTRUCTION
-           | BOLEANINSTRUCION #BOLEANINSTRUCION
-           | GLINSTRUCTION #GLINSTRUCTION;
+           | BOLEANINSTRUCION #BOLEANINSTRUCION;
 
 //Regra para as instrucoes de int
 INTINSTRUCTION: IADD | IDIV
@@ -39,9 +41,6 @@ STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
 //Regra para as instrucoes de booleans
 BOLEANINSTRUCION: BPRINT | BEQ | BNEQ | AND | OR | NOT | BTOS | TCONST | FCONST;
-
-//Regra para as instrucoes de global storage
-GLINSTRUCTION: GALLOC | GLOAD | GSTORE;
 
 // Comandos de inteiros
 ICONST: 'iconst';

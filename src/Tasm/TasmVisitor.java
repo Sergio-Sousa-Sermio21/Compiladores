@@ -65,6 +65,27 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJUMPF(TasmParser.JUMPFContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code GALLOC}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGALLOC(TasmParser.GALLOCContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GLOAD}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGLOAD(TasmParser.GLOADContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GSTORE}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGSTORE(TasmParser.GSTOREContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code HALT}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
@@ -99,11 +120,4 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code GLINSTRUCTION}
-	 * labeled alternative in {@link TasmParser#instruction}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx);
 }

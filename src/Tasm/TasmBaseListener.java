@@ -113,6 +113,42 @@ public class TasmBaseListener implements TasmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterGALLOC(TasmParser.GALLOCContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGALLOC(TasmParser.GALLOCContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGLOAD(TasmParser.GLOADContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGLOAD(TasmParser.GLOADContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGSTORE(TasmParser.GSTOREContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGSTORE(TasmParser.GSTOREContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterHALT(TasmParser.HALTContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -168,18 +204,6 @@ public class TasmBaseListener implements TasmListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
