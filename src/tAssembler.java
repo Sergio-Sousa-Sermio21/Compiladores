@@ -42,7 +42,6 @@ public class tAssembler extends TasmBaseListener {
                     } else if(instruction.getValue() instanceof TerminalNode){
                         bytecodes.writeInt(labelsposicion.get(instruction.getValue().toString()));
                     }
-
             }
             writeconstanpoll(bytecodes);
         }
