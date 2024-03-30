@@ -147,4 +147,28 @@ public interface TasmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BOLEANINSTRUCION}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BOLEANINSTRUCION}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GLINSTRUCTION}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GLINSTRUCTION}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx);
 }

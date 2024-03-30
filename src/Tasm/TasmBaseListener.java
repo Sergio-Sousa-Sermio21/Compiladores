@@ -156,6 +156,30 @@ public class TasmBaseListener implements TasmListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

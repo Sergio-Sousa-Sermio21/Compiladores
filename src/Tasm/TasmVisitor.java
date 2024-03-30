@@ -92,4 +92,18 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BOLEANINSTRUCION}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GLINSTRUCTION}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGLINSTRUCTION(TasmParser.GLINSTRUCTIONContext ctx);
 }

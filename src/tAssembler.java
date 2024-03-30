@@ -5,10 +5,7 @@ import java.util.*;
 import Tasm.TasmBaseListener;
 import Tasm.TasmLexer;
 import Tasm.TasmParser;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -65,10 +62,9 @@ public class tAssembler extends TasmBaseListener {
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
                     bytecodes.writeDouble((double) constant);
-                } else if (constant instanceof String) {
-                    byte[] stringbytes = ((String) constant).getBytes(StandardCharsets.UTF_8);
-                    bytecodes.writeInt(stringbytes.length);
-                    bytecodes.write(stringbytes);
+                } else if (constant instanceof String finalstring){
+                    bytecodes.write(finalstring.length());
+                    bytecodes.writeChars(finalstring);
                 }
 
             }
@@ -90,7 +86,15 @@ public class tAssembler extends TasmBaseListener {
                 TasmLexer lexer = new TasmLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 TasmParser parser = new TasmParser(tokens);
+                parser.removeErrorListeners(); // Remove the default console error listener
+                parser.addErrorListener(new ConsoleErrorListener());
+
                 ParseTree tree = parser.program();
+                int numberOfErrors = parser.getNumberOfSyntaxErrors();
+                if(numberOfErrors>0){
+                    System.err.println("Foram detactados " + numberOfErrors + " erros de Syntax.");
+                    System.exit(0);
+                }
                 TestSemantico test = new TestSemantico();
                 test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
@@ -149,8 +153,9 @@ public class tAssembler extends TasmBaseListener {
         public void enterHALT(TasmParser.HALTContext ctx) {
             instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
+
+
         public static void main(String[] args) throws Exception {
             tAssembler assembler = new tAssembler(args);
-
         }
 }

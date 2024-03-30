@@ -13,8 +13,11 @@ instruction: ICONST INT #INTVALUE
            | HALT #HALT
            | INTINSTRUCTION #INTINSTRUCTION
            | DOUBLEINSTRUCTION #DOUBLEINSTRUCTION
-           | STRINGINSTRUCTION #STRINGINSTRUCTION;
+           | STRINGINSTRUCTION #STRINGINSTRUCTION
+           | BOLEANINSTRUCION #BOLEANINSTRUCION
+           | GLINSTRUCTION #GLINSTRUCTION;
 
+//Regra para as instrucoes de int
 INTINSTRUCTION: IADD | IDIV
               | IEQ  | ILEQ
               | IMOD | IMULT
@@ -23,6 +26,7 @@ INTINSTRUCTION: IADD | IDIV
               | ITOS | IUMINUS
               | ILT  | ITOD;
 
+//Regra para as instrucoes de double
 DOUBLEINSTRUCTION: DADD  | DDIV
                  | DEQ   | DLEQ
                  | DLT   | DMULT
@@ -30,22 +34,54 @@ DOUBLEINSTRUCTION: DADD  | DDIV
                  | DTOS  | DUMINUS
                  | DNEQ;
 
+//Regra para as instrucoes de string
 STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
 
+//Regra para as instrucoes de booleans
+BOLEANINSTRUCION: BPRINT | BEQ | BNEQ | AND | OR | NOT | BTOS | TCONST | FCONST;
 
+//Regra para as instrucoes de global storage
+GLINSTRUCTION: GALLOC | GLOAD | GSTORE;
 
-//Comandos de inteiros
+// Comandos de inteiros
 ICONST: 'iconst';
-IUMINUS: 'iuminus'; IADD: 'iadd'; ISUB: 'isub';IMULT: 'imult';IDIV: 'idiv';IMOD: 'imod';
-IEQ: 'ieq';INEQ: 'ineq';ILT: 'ilt';ILEQ: 'ileq';ITOP: 'itop';ITOS: 'itos';ITOD: 'itod';IPRINT: 'iprint';
-//Comandos de Doubles
+IUMINUS: 'iuminus';
+IADD: 'iadd';
+ISUB: 'isub';
+IMULT: 'imult';
+IDIV: 'idiv';
+IMOD: 'imod';
+IEQ: 'ieq';
+INEQ: 'ineq';
+ILT: 'ilt';
+ILEQ: 'ileq';
+ITOP: 'itop';
+ITOS: 'itos';
+ITOD: 'itod';
+IPRINT: 'iprint';
+
+// Comandos de Doubles
 DCONST: 'dconst';
-DUMINUS: 'duminus';DADD: 'dadd';DSUB: 'dsub';DMULT: 'dmult';DDIV: 'ddiv';DEQ: 'deq';
-DLT: 'dlt';DLEQ: 'dleq';DTOS: 'dtos';DNEQ: 'dneq';DPRINT: 'dprint';
-//Comandos de String
+DUMINUS: 'duminus';
+DADD: 'dadd';
+DSUB: 'dsub';
+DMULT: 'dmult';
+DDIV: 'ddiv';
+DEQ: 'deq';
+DLT: 'dlt';
+DLEQ: 'dleq';
+DTOS: 'dtos';
+DNEQ: 'dneq';
+DPRINT: 'dprint';
+
+// Comandos de String
 SCONST: 'sconst';
-SPRINT: 'sprint';SADD: 'sadd';SEQ: 'seq';SNEQ: 'sneq';
-BCONST: 'bconst';
+SPRINT: 'sprint';
+SADD: 'sadd';
+SEQ: 'seq';
+SNEQ: 'sneq';
+
+// Comandos de Booleanos
 BPRINT: 'bprint';
 BEQ: 'beq';
 BNEQ: 'bneq';
@@ -53,12 +89,20 @@ AND: 'and';
 OR: 'or';
 NOT: 'not';
 BTOS: 'btos';
-//Comandos de Jump
-JUMP: 'jump';JUMPT: 'jumpt';JUMPF: 'jumpf';
+TCONST: 'tconst';
+FCONST: 'fconst';
+
+// Comandos de Jump
+JUMP: 'jump';
+JUMPT: 'jumpt';
+JUMPF: 'jumpf';
+
+// Comandos de Load
 GALLOC: 'galloc';
 GLOAD: 'gload';
 GSTORE: 'gstore';
-BOOLEAN: 'true' | 'false';
+
+// Outros comandos e tokens
 HALT: 'halt';
 STRING: '"' .*? '"';
 DOUBLE: INT+ '.' INT+;

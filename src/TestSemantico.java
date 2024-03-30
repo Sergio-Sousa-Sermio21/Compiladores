@@ -59,9 +59,9 @@ public class TestSemantico extends TasmBaseListener {
     public void TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
+        this.verifyLabels();
         if (!hasHaltInstruction)
             errors.add("O programa não possui uma instrução halt.");
-        this.verifyLabels();
         if(!errors.isEmpty()){
             for(String error : errors)
                 System.err.println(error);
