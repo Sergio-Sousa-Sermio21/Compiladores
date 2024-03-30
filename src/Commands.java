@@ -46,6 +46,7 @@ public enum Commands {
     GLOAD,
     GSTORE,
     LABEL,
+    BOLEANINSTRUCION,
     HALT,
     CONSTANTPOOL,
 }

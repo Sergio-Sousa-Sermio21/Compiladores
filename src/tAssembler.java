@@ -142,6 +142,10 @@ public class tAssembler extends TasmBaseListener {
             instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
 
+        public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx){
+        instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
+        }
+
         public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
             instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
