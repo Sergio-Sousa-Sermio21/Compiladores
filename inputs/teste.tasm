@@ -1,4 +1,48 @@
-galloc 2
-gload 3
-gstore 4
+iconst 5
+iuminus
+iadd
+isub
+imult
+idiv
+imod
+ieq
+ineq
+ilt
+ileq
+itos
+itod
+iprint
+dconst 3.14
+duminus
+dadd
+dsub
+dmult
+ddiv
+deq
+dlt
+dleq
+dtos
+dneq
+dprint
+sconst "Hello"
+sconst "World"
+sprint
+sadd
+seq
+sneq
+bprint
+beq
+bneq
+and
+or
+not
+btos
+tconst
+fconst
+jump boy
+boy: jumpt boy1
+boy1: jumpf boy2
+boy2: galloc 10
+gload 1
+gstore 1
 halt

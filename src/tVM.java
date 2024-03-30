@@ -1,12 +1,17 @@
 package Tasm;
 
+import org.stringtemplate.v4.compiler.Bytecode;
+
+import java.util.ArrayList;
 import java.util.Stack;
 
-typedef int32_t i32
+
 public class tVM {
-    private int[] memory;
+    private int[] GlobalMemory;
     private int pc; // Program Counter
-    private Stack<Integer> operandStack;
+    private Stack<Object> operandStack;
+
+    private ArrayList<Instruction>
 
     public tVM(int memorySize) {
         memory = new int[memorySize];
