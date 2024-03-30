@@ -20,15 +20,6 @@ public class tAssembler extends TasmBaseListener {
             initHashMap();
             init(args);
             writeBytecode(args);
-            /*
-            FileOutputStream fos = new FileOutputStream("inputs/" + out);
-            DataOutputStream bytecodes = new DataOutputStream(fos);
-
-            String teste = "Caralho";
-            byte[] stringbytes = teste.getBytes(StandardCharsets.UTF_8);
-            bytecodes.writeInt(teste.length());
-            bytecodes.write(stringbytes);*/
-
         }
 
         private void writeBytecode(String[] args) throws IOException {
@@ -60,9 +51,11 @@ public class tAssembler extends TasmBaseListener {
             bytecodes.write(Commands.CONSTANTPOOL.ordinal());
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
+                    bytecodes.write(0);
                     bytecodes.writeDouble((double) constant);
                 } else if (constant instanceof String finalstring){
-                    bytecodes.write(finalstring.length());
+                    bytecodes.write(1);
+                    bytecodes.writeInt(finalstring.length());
                     bytecodes.writeChars(finalstring);
                 }
 

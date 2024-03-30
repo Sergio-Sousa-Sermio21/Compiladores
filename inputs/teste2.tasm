@@ -1,4 +1,6 @@
 iconst 2
 iconst 3
 iprint
+dconst 2.2
+sconst "Ola"
 halt
