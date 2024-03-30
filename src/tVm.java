@@ -98,142 +98,196 @@ public class tVm {
                     stack.push(-(int)stack.pop());
                 }
                 case IADD ->{
-
+                    stack.push((int) stack.pop() + (int) stack.pop());
                 }
                 case ISUB ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a-b);
                 }
                 case IMULT ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a*b);
                 }
                 case IDIV ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a/b);
                 }
                 case IMOD ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a%b);
                 }
                 case IEQ ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a==b);
                 }
                 case INEQ ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a!=b);
                 }
                 case ILT ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a<b);
                 }
                 case ILEQ ->{
-
+                    int b = (int) stack.pop();
+                    int a = (int) stack.pop();
+                    stack.push(a<=b);
                 }
                 case ITOD ->{
-
+                    double a = (double) stack.pop();
+                    stack.push(a);
                 }
                 case ITOS ->{
-
+                    int a = (int) stack.pop();
+                    stack.push(Integer.toString(a));
                 }
                 case DCONST ->{
-
+                    stack.push(constantPool.get((int) instrucions.get(i).getValue()));
                 }
                 case DPRINT ->{
-
+                    System.out.println(stack.pop());
                 }
                 case DUMINUS ->{
-
+                    stack.push(-(double)stack.pop());
                 }
                 case DADD ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a+b);
                 }
                 case DSUB ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a-b);
                 }
                 case DMULT ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a*b);
                 }
                 case DDIV ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a/b);
                 }
                 case DEQ ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a==b);
                 }
                 case DNEQ ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a!=b);
                 }
                 case DLT ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a<b);
                 }
                 case DLEQ ->{
-
+                    double b = (double) stack.pop();
+                    double a = (double) stack.pop();
+                    stack.push(a<=b);
                 }
                 case DTOS ->{
-
+                    double a = (double) stack.pop();
+                    stack.push(Double.toString(a));
                 }
                 case SCONST ->{
-
+                    stack.push(constantPool.get((int) instrucions.get(i).getValue()));
                 }
                 case SPRINT ->{
-
+                    System.out.println(stack.pop());
                 }
                 case SADD ->{
-
+                    String b = (String) stack.pop();
+                    String a = (String) stack.pop();
+                    stack.push(a+b);
                 }
                 case SEQ ->{
-
+                    String b = (String) stack.pop();
+                    String a = (String) stack.pop();
+                    stack.push(a.equals(b));
                 } 
                 case SNEQ ->{
-
+                    String b = (String) stack.pop();
+                    String a = (String) stack.pop();
+                    stack.push(!a.equals(b));
                 }
                 case TCONST ->{
-
+                    stack.push(true);
                 }
                 case FCONST ->{
-
+                    stack.push(false);
                 }
                 case BPRINT ->{
-
+                    System.out.println(stack.pop());
                 }
                 case BEQ ->{
-
+                    boolean b = (boolean) stack.pop();
+                    boolean a = (boolean) stack.pop();
+                    stack.push(a==b);
                 }
                 case BNEQ ->{
-
+                    boolean b = (boolean) stack.pop();
+                    boolean a = (boolean) stack.pop();
+                    stack.push(a!=b);
                 }
                 case AND ->{
-
+                    boolean b = (boolean) stack.pop();
+                    boolean a = (boolean) stack.pop();
+                    stack.push(a && b);
                 }
                 case OR ->{
-
+                    boolean b = (boolean) stack.pop();
+                    boolean a = (boolean) stack.pop();
+                    stack.push(a || b);
                 }
                 case NOT ->{
-
+                    boolean a = (boolean) stack.pop();
+                    stack.push(!a);
                 }
                 case BTOS ->{
-
+                    boolean a = (boolean) stack.pop();
+                    stack.push(Boolean.toString(a));
                 }
                 case JUMP ->{
-
+                    i = (int) instrucions.get(i).getValue();
                 }
                 case JUMPT ->{
-
+                    if((boolean) stack.pop())
+                        i = (int) instrucions.get(i).getValue();
                 }
                 case JUMPF ->{
-
+                    if(!(boolean) stack.pop())
+                        i = (int) instrucions.get(i).getValue();
                 }
                 case GALLOC ->{
-
+                    int size = (int) instrucions.get(i).getValue();
+                    globalMemory = new Array[size];
                 }
                 case GLOAD ->{
-
+                    int posicon = (int) instrucions.get(i).getValue();
+                    stack.push(globalMemory[posicon]);
                 }
                 case GSTORE ->{
-
-                }
-                case LABEL ->{
-
+                    int posicon = (int) instrucions.get(i).getValue();
+                    stack.push();
                 }
                 case HALT ->{
 
                 }
                 default -> System.out.println("Unknown command");
             }
+            i++;
         }
     }
 

@@ -1,6 +1,5 @@
 iconst 2
 iconst 3
+iadd
 iprint
-dconst 2.2
-sconst "Ola"
 halt
