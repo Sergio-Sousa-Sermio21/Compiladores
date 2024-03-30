@@ -1,3 +1,4 @@
-iconst 3
-sconst "Ola"
+galloc 2
+gload 3
+gstore 4
 halt

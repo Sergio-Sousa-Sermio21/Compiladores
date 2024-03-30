@@ -154,7 +154,17 @@ public class tAssembler extends TasmBaseListener {
             instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
         }
 
-        
+        public void enterGALLOC(TasmParser.GALLOCContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.GALLOC().getText()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterGLOAD(TasmParser.GLOADContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.GLOAD().getText()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterGSTORE(TasmParser.GSTOREContext ctx) {
+            instrucoes.add(new Instrucion(commandMap.get(ctx.GSTORE().getText()), Integer.parseInt(ctx.INT().getText())));
+        }
         public static void main(String[] args) throws Exception {
             tAssembler assembler = new tAssembler(args);
         }
