@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -59,11 +60,19 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.tVm">
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
       <module name="Trabalho de Compiladores" />
       <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\teste2.tasm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tVm" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="tVm" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\teste2.tbc" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -81,6 +90,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.tAssembler" />
+      <item itemvalue="Application.tVm" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -99,6 +112,7 @@
       <updated>1711649964846</updated>
       <workItem from="1711821515058" duration="900000" />
       <workItem from="1711822713171" duration="280000" />
+      <workItem from="1711823439371" duration="98000" />
     </task>
     <servers />
   </component>
