@@ -48,4 +48,6 @@ public enum Commands {
     LABEL,
     HALT,
     CONSTANTPOOL,
+    DOUBLE,
+    STRING,
 }

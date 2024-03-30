@@ -17,6 +17,8 @@ public class tAssembler extends TasmBaseListener {
         private static final HashMap<String, Commands> commandMap = new HashMap<>();
         private static final HashMap<String,Integer> labelsposicion = new HashMap<>();
         private ArrayList<Instrucion> instrucoes = new ArrayList<>();
+
+        private ArrayList<Object> constantpoll = new ArrayList<>();
         public tAssembler(String args[]) throws IOException {
             initHashMap();
             init(args);
@@ -39,7 +41,37 @@ public class tAssembler extends TasmBaseListener {
             newFile = "inputs/" + newFile;
             FileOutputStream fos = new FileOutputStream(newFile);
             DataOutputStream bytecodes = new DataOutputStream(fos);
+            for (Instrucion instruction : instrucoes) {
+                    bytecodes.write(instruction.getCommand().ordinal());
+                    if(instruction.getValue() instanceof Integer)
+                        bytecodes.writeInt((int) instruction.getValue());
+                    if(instruction.getValue() instanceof  String){
+                        bytecodes.writeInt(constantpoll.size());
+                        constantpoll.add(instruction.getValue());
+                    } else if(instruction.getValue() instanceof  Double){
+                        bytecodes.writeInt(constantpoll.size());
+                        constantpoll.add(instruction.getValue());
+                    } else if(instruction.getValue() instanceof TerminalNode){
+                        System.out.println(labelsposicion.get(instruction.getValue().toString()));
+                        bytecodes.write(labelsposicion.get(instruction.getValue().toString()));
+                    }
 
+            }
+            writeconstanpoll(bytecodes);
+        }
+
+        public void writeconstanpoll(DataOutputStream bytecodes) throws IOException{
+            bytecodes.write(Commands.CONSTANTPOOL.ordinal());
+            for (Object constant: constantpoll){
+                if(constant instanceof Double){
+                    bytecodes.writeDouble((double) constant);
+                } else if (constant instanceof String) {
+                    byte[] stringbytes = ((String) constant).getBytes(StandardCharsets.UTF_8);
+                    bytecodes.writeInt(stringbytes.length);
+                    bytecodes.write(stringbytes);
+                }
+
+            }
         }
 
         public void initHashMap(){
@@ -91,15 +123,15 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterJUMP(TasmParser.JUMPContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMP().getText()), ctx.LABEL().getText()));
+            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMP().getText()), ctx.LABEL()));
         }
 
         public void enterJUMPT(TasmParser.JUMPTContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPT().getText()), ctx.LABEL().getText()));
+            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPT().getText()), ctx.LABEL()));
         }
 
         public void enterJUMPF(TasmParser.JUMPFContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPF().getText()), ctx.LABEL().getText()));
+            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPF().getText()), ctx.LABEL()));
         }
 
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){

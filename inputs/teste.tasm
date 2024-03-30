@@ -1,5 +1,3 @@
-ola: iconst 2
+dconst 2.2
 sconst "ola"
-dconst 3.3
-jump ola
 halt

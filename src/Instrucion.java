@@ -1,3 +1,5 @@
+import org.antlr.runtime.Token;
+
 public class Instrucion {
     private Commands command;
     private Object value;
@@ -22,6 +24,7 @@ public class Instrucion {
                 return  command.name() + " " + value + " Int";
             if(value instanceof String)
                 return  command.name() + " " + value + " String";
+            return  command.name() + " " +  value;
         }
         return command.name();
     }
