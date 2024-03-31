@@ -10,9 +10,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+
 public class tAssembler extends TasmBaseListener {
         private final HashMap<String,Integer> labelsposicion = new HashMap<>();
         private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
+
+        private Map<String, List<Integer>> labelsNotFound = new HashMap<>();
 
         private final ArrayList<Object> constantpoll = new ArrayList<>();
         public tAssembler(String[] args) throws IOException {
@@ -29,10 +32,8 @@ public class tAssembler extends TasmBaseListener {
             DataOutputStream bytecodes = new DataOutputStream(fos);
             for (Instrucion instruction : instrucoes) {
                     bytecodes.write(instruction.getCommand().ordinal());
-                    if(instruction.getValue() instanceof Integer){
-                        bytecodes.writeInt((int) instruction.getValue());
-                    } else if(instruction.getValue() instanceof TerminalNode){
-                        bytecodes.writeInt(labelsposicion.get(instruction.getValue().toString()));
+                    if(instruction.getValue() != null){
+                        bytecodes.writeInt( instruction.getValue());
                     }
             }
             writeconstanpoll(bytecodes);
@@ -89,6 +90,11 @@ public class tAssembler extends TasmBaseListener {
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value){
                 labelsposicion.put(terminalNode.getText(), instrucoes.size());
+                if(labelsNotFound.containsKey(terminalNode.getText())){
+                    for(int i : labelsNotFound.get(terminalNode.getText())){
+                        instrucoes.get(i).setValue(instrucoes.size());
+                    }
+                }
             }
         }
         //Fazer isto para todos.
@@ -107,16 +113,28 @@ public class tAssembler extends TasmBaseListener {
             constantpoll.add(ctx.STRING().getText());
         }
 
+        public void resolveJumps(String label, String command){
+            if(labelsposicion.containsKey(label))
+                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()), labelsposicion.get(label)));
+            else{
+                if(labelsNotFound.containsKey(label))
+                    labelsNotFound.get(label).add(instrucoes.size());
+                else
+                    labelsNotFound.computeIfAbsent(label, k -> new ArrayList<>()).add(instrucoes.size());
+                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()),0));
+            }
+        }
+
         public void enterJUMP(TasmParser.JUMPContext ctx) {
-            instrucoes.add(new Instrucion(Commands.valueOf(ctx.JUMP().getText().toUpperCase()), ctx.LABEL()));
+            resolveJumps(ctx.LABEL().getText(),ctx.JUMP().getText());
         }
 
         public void enterJUMPT(TasmParser.JUMPTContext ctx) {
-            instrucoes.add(new Instrucion(Commands.valueOf(ctx.JUMPT().getText().toUpperCase()), ctx.LABEL()));
+            resolveJumps(ctx.LABEL().getText(),ctx.JUMPT().getText());
         }
 
         public void enterJUMPF(TasmParser.JUMPFContext ctx) {
-            instrucoes.add(new Instrucion(Commands.valueOf(ctx.JUMPF().getText().toUpperCase()), ctx.LABEL()));
+            resolveJumps(ctx.LABEL().getText(),ctx.JUMPF().getText());
         }
 
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){

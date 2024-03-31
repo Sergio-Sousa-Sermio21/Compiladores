@@ -1,3 +1,7 @@
-dconst 2
-dprint
+tconst
+jumpf ola
+ola:iconst 2
+fconst
+jumpt ola
+iprint
 halt

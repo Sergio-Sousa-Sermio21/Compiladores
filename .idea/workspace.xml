@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Instrucion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Instrucion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -63,7 +64,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.tAssembler">
+  <component name="RunManager" selected="Application.tVm">
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
       <module name="Trabalho de Compiladores" />
@@ -118,6 +119,7 @@
       <workItem from="1711823439371" duration="7563000" />
       <workItem from="1711837893710" duration="4305000" />
       <workItem from="1711847521170" duration="3660000" />
+      <workItem from="1711869691797" duration="2024000" />
     </task>
     <servers />
   </component>
