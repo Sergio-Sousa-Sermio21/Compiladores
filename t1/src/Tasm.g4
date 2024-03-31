@@ -128,4 +128,4 @@ INT : [0-9]+ ;
 DOUBLE : INT('.'INT)*;
 
 EOL:'\n';
-WS : [ \t\n]+ -> skip ;
+WS : [ \t\r]+ -> skip ;

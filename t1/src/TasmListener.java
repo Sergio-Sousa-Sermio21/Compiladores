@@ -1,31 +1,58 @@
 import Tasm.TasmBaseListener;
 import Tasm.TasmParser;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class TasmListener extends TasmBaseListener {
     private ArrayList<Instruction> instructions;
-    private HashMap<Integer,String> constantPool;
+    private ArrayList<Object> constantPool;
+    private HashMap<String, Integer> labels;
+    private ArrayList<String> jumpLabels;
+
     TasmListener(){
         instructions = new ArrayList<Instruction>();
-        constantPool = new HashMap<Integer,String>();
+        constantPool = new ArrayList<Object>();
+        labels = new HashMap<String, Integer>();
+        jumpLabels = new ArrayList<String>();
     }
 
     public ArrayList<Instruction> getInstructions() {
         return instructions;
     }
 
-    public HashMap<Integer,String> getConstantPool() {
+    public ArrayList<Object> getConstantPool() {
         return constantPool;
     }
 
+    /**
+     * Links jump instructions to line which had the specified label and also checks if the jump instruction referred to a valid label
+     */
+    public void labelLink(){
+        for (int i = 0; i<instructions.size();i++) {
+            Instruction instruction = instructions.get(i);
+            if (instruction.getToken1().equals(TokenTasm.JUMP) || instruction.getToken1().equals(TokenTasm.JUMPT) || instruction.getToken1().equals(TokenTasm.JUMPF)) {
+                String label = jumpLabels.get(instruction.getToken2()-1);
+                Integer l = labels.get(label);
+                if(l!=null)
+                    instruction.setToken2(l);
+                else
+                    throw new IllegalArgumentException("Invalid label "+label+" at line "+i);
+            }
+        }
+    }
     @Override
     public void exitCommand(TasmParser.CommandContext ctx) {
-        inst;
+        int i = instructions.size();
+        for (TerminalNode label:ctx.LABEL())
+            if (!labels.containsKey(label.getText()))
+                labels.put(label.getText(), i);
+            else
+                throw new IllegalArgumentException("Label "+label.getText()+" has duplicates.");
     }
-
     @Override
     public void exitIntegerOperation(TasmParser.IntegerOperationContext ctx) {
         instructions.add(new Instruction(ctx.integerOP().getText().toUpperCase(),null));
@@ -59,43 +86,44 @@ public class TasmListener extends TasmBaseListener {
     }
 
     @Override
+    public void exitHalt(TasmParser.HaltContext ctx) {
+        instructions.add(new Instruction(ctx.HALT().getText().toUpperCase(), null));
+    }
+
+    @Override
     public void exitJumpOP(TasmParser.JumpOPContext ctx) {
-        int index = constantPool.size();
-        constantPool.put(index, ctx.LABEL().getText());
+        jumpLabels.add(ctx.LABEL().getText());
         if (ctx.JUMP()!=null)
-            instructions.add(new Instruction(ctx.JUMP().getText().toUpperCase(),index));
+            instructions.add(new Instruction(ctx.JUMP().getText().toUpperCase(),jumpLabels.size()));
         else if (ctx.JUMPT()!=null) {
-            instructions.add(new Instruction(ctx.JUMPT().getText().toUpperCase(),index));
+            instructions.add(new Instruction(ctx.JUMPT().getText().toUpperCase(),jumpLabels.size()));
         }
         else if (ctx.JUMPF()!=null) {
-            instructions.add(new Instruction(ctx.JUMPF().getText().toUpperCase(),index));
+            instructions.add(new Instruction(ctx.JUMPF().getText().toUpperCase(),jumpLabels.size()));
         }
     }
 
     @Override
     public void exitConstInteger(TasmParser.ConstIntegerContext ctx) {
-        instructions.add(new Instruction(ctx.ICONST().getText(),Integer.getInteger(ctx.INT().getText())));
+        instructions.add(new Instruction(ctx.ICONST().getText().toUpperCase(),Integer.getInteger(ctx.INT().getText())));
     }
 
     @Override
     public void exitConstDoubleInteger(TasmParser.ConstDoubleIntegerContext ctx) {
-        int index = constantPool.size();
-        constantPool.put(index, ctx.INT().getText());
-        instructions.add(new Instruction(ctx.DCONST().getText(),index));
+        constantPool.add(Double.parseDouble(ctx.INT().getText()));
+        instructions.add(new Instruction(ctx.DCONST().getText().toUpperCase(),constantPool.size()));
     }
 
     @Override
     public void exitConstDouble(TasmParser.ConstDoubleContext ctx) {
-        int index = constantPool.size();
-        constantPool.put(index, ctx.DOUBLE().getText());
-        instructions.add(new Instruction(ctx.DCONST().getText(),index));
+        constantPool.add(Double.parseDouble(ctx.DOUBLE().getText()));
+        instructions.add(new Instruction(ctx.DCONST().getText().toUpperCase(),constantPool.size()));
     }
 
     @Override
     public void exitConstString(TasmParser.ConstStringContext ctx) {
-        int index = constantPool.size();
-        constantPool.put(index, ctx.STRING().getText());
-        instructions.add(new Instruction(ctx.SCONST().getText(), index));
+        constantPool.add(ctx.STRING().getText());
+        instructions.add(new Instruction(ctx.SCONST().getText().toUpperCase(), constantPool.size()));
     }
 
 }

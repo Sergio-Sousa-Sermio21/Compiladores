@@ -2,10 +2,8 @@ import Tasm.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,25 +11,51 @@ import java.util.Map;
 
 class tAssembler extends TasmBaseListener{
 
-    public void writeInstruction(DataOutputStream byteStream, ArrayList<Instruction> instructions, HashMap<Integer, String> constantPool) throws IOException {
+    /**
+     *
+     * @param byteStream
+     * @param instructions
+     * @param constantPool
+     * @throws IOException
+     */
+    public static void writeInstruction(DataOutputStream byteStream, ArrayList<Instruction> instructions, ArrayList<Object> constantPool) throws IOException {
         for (Instruction instruction : instructions) {
             byteStream.write(instruction.getBytes());
         }
-        for (Map.Entry<Integer,String> data : constantPool.entrySet()){
-            String value = data.getValue();
-            Integer key = data.getKey();
-            byte[] bytes = value.getBytes(StandardCharsets.UTF_8);
-
-            // Convert double to bytes (assuming 8 bytes for double)
-            // Example conversion using ByteBuffer
-            // If the value stored is a double, you need to handle it differently
-            if (constantValue instanceof Double) {
-                double doubleValue = Double.parseDouble(constantValue);
-                ByteBuffer buffer = ByteBuffer.allocate(Double.BYTES);
-                buffer.putDouble(doubleValue);
-                bytes = buffer.array();
+        for (int i = 0; i<constantPool.size(); i++){
+            Object data = constantPool.get(i);
+            if (data instanceof Double) {
+                byteStream.write(0);
+                byteStream.writeDouble((double)data);
+            } else {
+                byteStream.write(1);
+                String string = (String) data;
+                byte[] bytes =string.getBytes(StandardCharsets.UTF_8);
+                byteStream.writeInt(string.length());
+                byteStream.write(bytes);
             }
         }
+    }
+
+    public static void testeSemantico(TasmListener tasmListener){
+        hasHalt(tasmListener);
+        tasmListener.labelLink();
+    }
+
+    /**
+     *
+     * @param tasmListener
+     */
+    public static void hasHalt(TasmListener tasmListener){
+           int checkHalt = 0;
+           for (Instruction inst : tasmListener.getInstructions()) {
+               if (inst.getToken1() == TokenTasm.HALT){
+                   checkHalt++;
+                   break;
+               }
+           }
+           if(checkHalt == 0)
+               throw new RuntimeException("No Halt detected");
     }
 
     public static void main(String[] args) throws Exception {
@@ -48,7 +72,12 @@ class tAssembler extends TasmBaseListener{
             ParseTreeWalker walker = new ParseTreeWalker();
             TasmListener tasmListener = new TasmListener();
             walker.walk(tasmListener,tree);
-            System.out.println("visitor result = " + result);
+            testeSemantico(tasmListener);
+            if (inputFile != null) {
+                FileOutputStream output = new FileOutputStream(inputFile.replaceFirst("[.][^.]+$", ".tbc"));
+                DataOutputStream byteStream = new DataOutputStream(output);
+                writeInstruction(byteStream, tasmListener.getInstructions(), tasmListener.getConstantPool());
+            }
         }
         catch (java.io.IOException e) {
             System.out.println(e);

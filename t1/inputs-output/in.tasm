@@ -1,5 +1,5 @@
-galloc 2
-gload 3
-e:gstore 4
-jump e
+iconst 2
+iprint
+sconst "Maria Albertina"
+iprint
 halt
