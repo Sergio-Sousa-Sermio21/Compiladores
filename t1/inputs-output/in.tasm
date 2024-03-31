@@ -1,0 +1,5 @@
+galloc 2
+gload 3
+e:gstore 4
+jump e
+halt
