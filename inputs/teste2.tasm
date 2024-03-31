@@ -4,4 +4,6 @@ ola:iconst 2
 fconst
 jumpt ola
 iprint
+sconst "Ola Gyme"
+sprint
 halt

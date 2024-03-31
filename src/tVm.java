@@ -1,7 +1,6 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
@@ -81,8 +80,8 @@ public class tVm {
     public void runCodeMemory(){
         int i = 0;
         while(i<instrucions.size()) {
-            System.out.println(instrucions.get(i) + " " + i);
-            System.out.println(stack);
+            //System.out.println(instrucions.get(i) + " " + i);
+            //System.out.println(stack);
             switch (instrucions.get(i).getCommand()) {
                 case ICONST -> {
                     stack.push(instrucions.get(i).getValue());

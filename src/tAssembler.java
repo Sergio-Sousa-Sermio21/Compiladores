@@ -139,6 +139,7 @@ public class tAssembler extends TasmBaseListener {
 
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
+
         }
 
         public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx){
