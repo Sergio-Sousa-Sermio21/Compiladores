@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class tVm {
 
-    private Integer[] globalMemory;
+    private Object[] globalMemory;
 
     private ArrayList<Byte> codeMemory = new ArrayList<>();
     private ArrayList<Object> constantPool = new ArrayList<>();
@@ -81,6 +81,8 @@ public class tVm {
     public void runCodeMemory(){
         int i = 0;
         while(i<instrucions.size()) {
+            System.out.println(instrucions.get(i) + " " + i);
+            System.out.println(stack);
             switch (instrucions.get(i).getCommand()) {
                 case ICONST -> {
                     stack.push(instrucions.get(i).getValue());
@@ -254,19 +256,19 @@ public class tVm {
                     stack.push(Boolean.toString(a));
                 }
                 case JUMP ->{
-                    i = (int) instrucions.get(i).getValue();
+                    i = (int) instrucions.get(i).getValue()-1;
                 }
                 case JUMPT ->{
                     if((boolean) stack.pop())
-                        i = (int) instrucions.get(i).getValue();
+                        i = (int) instrucions.get(i).getValue()-1;
                 }
                 case JUMPF ->{
                     if(!(boolean) stack.pop())
-                        i = (int) instrucions.get(i).getValue();
+                        i = (int) instrucions.get(i).getValue()-1;
                 }
                 case GALLOC ->{
                     int size = (int) instrucions.get(i).getValue();
-                    globalMemory = new Integer[size];
+                    globalMemory = new Object[size];
                 }
                 case GLOAD ->{
                     int posicon = (int) instrucions.get(i).getValue();
@@ -274,7 +276,7 @@ public class tVm {
                 }
                 case GSTORE ->{
                     int position = (int) instrucions.get(i).getValue();
-                    globalMemory[position] = (int) stack.pop();
+                    globalMemory[position] = stack.pop();
                 }
                 case HALT ->{
                     System.exit(0);

@@ -1,5 +1,26 @@
-iconst 2
-iconst 3
-iadd
-iprint
-halt
+galloc 2
+            iconst 0
+            gstore 0
+            dconst 10.22
+            iconst 10
+            gstore 1
+
+_loop:      sconst "Hello World"
+            sprint
+
+            glloc 5
+            ilt
+            beq among us
+            gload 0
+            iconst 1
+            iadd
+            gstore 0
+
+            sadd banana split
+            sprint
+            gload 1
+            gload 0
+            ilt
+            jumpt _loop
+
+            halt

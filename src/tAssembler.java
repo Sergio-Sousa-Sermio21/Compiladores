@@ -53,6 +53,7 @@ public class tAssembler extends TasmBaseListener {
                     bytecodes.write(0);
                     bytecodes.writeDouble((double) constant);
                 } else if (constant instanceof String finalstring){
+                    finalstring = finalstring.substring(1,finalstring.length()-1);
                     bytecodes.write(1);
                     bytecodes.writeInt(finalstring.length());
                     bytecodes.writeChars(finalstring);
