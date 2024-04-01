@@ -6,25 +6,27 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class tVm {
-
+    // Memória global para armazenamento de dados
     private Object[] globalMemory;
     private ArrayList<Object> constantPool = new ArrayList<>();
     private HashMap<Integer, Commands> commands = new HashMap<>();
+    // Lista de instruções a serem executadas
     private ArrayList<Instrucion> instrucions = new ArrayList<>();
 
     private Stack<Object> stack = new Stack<>();
+    // Construtor da máquina virtual
     public tVm(String[] args) throws IOException{
         initHash();
         getFiles(args);
 
     }
-
+    // Inicialização do mapeamento de códigos de operação para instruções
     private void initHash(){
         for(Commands c : Commands.values()){
             commands.put(c.ordinal(), c);
         }
     }
-
+    // Leitura do arquivo binário de instruções
     private void getFiles(String[] args)throws IOException {
         DataInputStream din = new DataInputStream(new FileInputStream(args[0]));
         while(din.available()>0){
@@ -56,7 +58,7 @@ public class tVm {
         }
         addconstantpool(din);
     }
-
+    // Adição de constantes ao pool de constantes?????
     private void addconstantpool(DataInputStream din) throws IOException{
         while(din.available()>0) {
             byte bytes = din.readByte();
@@ -71,7 +73,7 @@ public class tVm {
             }
         }
     }
-
+    // Execução das instruções na memória de código
     public void runCodeMemory(){
         int i = 0;
         while(i<instrucions.size()) {

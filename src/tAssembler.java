@@ -11,17 +11,19 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 
 public class tAssembler extends TasmBaseListener {
+        // Mapeia o nome das labels para a posição correspondente nas instruções
         private final HashMap<String,Integer> labelsposicion = new HashMap<>();
+        // Lista de instruções geradas a partir do código presente no ficheiro TASM
         private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
-
+        // Mapeia o nome das labels para uma lista de posições que ?????
         private Map<String, List<Integer>> labelsNotFound = new HashMap<>();
-
+        // Lista de constantes utilizadas no código
         private final ArrayList<Object> constantpoll = new ArrayList<>();
         public tAssembler(String[] args) throws IOException {
             init(args);
             writeBytecode(args);
         }
-
+        // Escreve o código de bytes gerado para um arquivo .tbc
         private void writeBytecode(String[] args) throws IOException {
             //teste.tasm
             File file = new File(args[0]);
@@ -53,7 +55,7 @@ public class tAssembler extends TasmBaseListener {
 
             }
         }
-
+        // Inicializa o processo de montagem
         public void init(String args[]){
             String inputFile = null;
             if ( args.length>0 )
@@ -85,6 +87,7 @@ public class tAssembler extends TasmBaseListener {
                 System.out.println(e);
             }
         }
+        // Registra a posição das labels
         public void enterExpression(TasmParser.ExpressionContext ctx) {
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value){
@@ -96,22 +99,22 @@ public class tAssembler extends TasmBaseListener {
                 }
             }
         }
-        //Fazer isto para todos.
+        // Adiciona uma instrução de inteiro à lista de instruções
         public void enterINTVALUE(TasmParser.INTVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.ICONST().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
-
+        // Adiciona uma instrução do tipo double à lista de instruções
         public void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
             String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.DCONST().getText().toUpperCase()), constantpoll.size()));
             constantpoll.add(Double.parseDouble(value));
         }
-
+        // Adiciona uma instrução de string à lista de instruções
         public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.SCONST().getText().toUpperCase()), constantpoll.size()));
             constantpoll.add(ctx.STRING().getText());
         }
-
+        // Resolve os saltos condicionais e incondicionais
         public void resolveJumps(String label, String command){
             if(labelsposicion.containsKey(label))
                 instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()), labelsposicion.get(label)));
@@ -123,19 +126,19 @@ public class tAssembler extends TasmBaseListener {
                 instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()),0));
             }
         }
-
+        // Adiciona a instrução de salto incondicional à lista de instruções
         public void enterJUMP(TasmParser.JUMPContext ctx) {
             resolveJumps(ctx.LABEL().getText(),ctx.JUMP().getText());
         }
-
+        // Adiciona uma instrução de salto condicional verdadeiro à lista de instruções
         public void enterJUMPT(TasmParser.JUMPTContext ctx) {
             resolveJumps(ctx.LABEL().getText(),ctx.JUMPT().getText());
         }
-
+        // Adiciona uma instrução de salto condicional falso à lista de instruções
         public void enterJUMPF(TasmParser.JUMPFContext ctx) {
             resolveJumps(ctx.LABEL().getText(),ctx.JUMPF().getText());
         }
-
+        // Adiciona uma instrução do tipo inteiro à lista de instruções
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
 
@@ -152,19 +155,19 @@ public class tAssembler extends TasmBaseListener {
         public void enterSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
-
+        // Adiciona uma instrução de HALT à lista de instruções
         public void enterHALT(TasmParser.HALTContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
-
+        // Adiciona uma instrução de alocação global à lista de instruções
         public void enterGALLOC(TasmParser.GALLOCContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GALLOC().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
-
+        // Adiciona uma instrução de carga global à lista de instruções
         public void enterGLOAD(TasmParser.GLOADContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GLOAD().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
-
+        // Adiciona uma instrução de armazenamento global à lista de instruções
         public void enterGSTORE(TasmParser.GSTOREContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }

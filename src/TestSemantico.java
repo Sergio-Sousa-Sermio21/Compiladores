@@ -10,9 +10,13 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.*;
 
 public class TestSemantico extends TasmBaseListener {
+    // ArrayList para armazenar mensagens de erro
     private ArrayList<String> errors = new ArrayList<String>();
+    // HashSet para armazenar labels únicas
     private HashSet <String> labels = new HashSet<String>();
+    // ArrayList para armazenar labels de instruções de salto
     private ArrayList <String> jumpLabels = new ArrayList<String>();
+    // Variável booleana para verificar se há uma instrução HALT no programa
     private boolean hasHaltInstruction = false;
 
     public void exitExpression(TasmParser.ExpressionContext ctx) {
@@ -24,29 +28,29 @@ public class TestSemantico extends TasmBaseListener {
                 this.labels.add(label.getText());
         }
     }
-
+    // Método chamado quando uma instrução de salto JUMP é finalizada
     public void exitJUMP(TasmParser.JUMPContext ctx) {
         String label = ctx.LABEL().getText();
         label += "-" + ctx.start.getLine();
         jumpLabels.add(label);
     }
-
+    // Método chamado quando uma instrução de salto JUMPT é finalizada
     public void exitJUMPT(TasmParser.JUMPTContext ctx) {
         String label = ctx.LABEL().getText();
         label += "-" + ctx.start.getLine();
         jumpLabels.add(label);
     }
-
+    // Método chamado quando uma instrução de salto JUMPF é finalizada
     public void exitJUMPF(TasmParser.JUMPFContext ctx) {
         String label = ctx.LABEL().getText();
         label += "-" + ctx.start.getLine();
         jumpLabels.add(label);
     }
-
+    // Método chamado quando uma instrução HALT é finalizada
     public void exitHALT(TasmParser.HALTContext ctx) {
         hasHaltInstruction = true;
     }
-
+    // Método privado para verificar se todas as labels utilizadas em instruções de salto são válidas
     private void verifyLabels(){
         for (String jumpLabel : jumpLabels) {
             String[] teste = jumpLabel.split("-");
@@ -55,7 +59,7 @@ public class TestSemantico extends TasmBaseListener {
             }
         }
     }
-
+    // Método para iniciar a análise semântica na árvore de análise sintática gerada
     public void TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);

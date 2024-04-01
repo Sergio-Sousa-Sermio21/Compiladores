@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Value.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
     </list>
@@ -75,22 +74,11 @@
       </method>
     </configuration>
     <configuration name="tVm" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="tVm" />
-      <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\teste2.tbc" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
       <module name="Compiladores" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Compiladores" />
-      <option name="filePath" />
+      <option name="PROGRAM_PARAMETERS" value="C:\xampp\htdocs\Compiladores\inputs\teste2.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
