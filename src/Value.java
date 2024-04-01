@@ -3,10 +3,10 @@ abstract class Value<T> {
     abstract T obterValue();
 }
 
-class Real extends Value<Double> {
+class DoubleValue extends Value<Double> {
     private double Value;
 
-    public Real(double Value) {
+    public DoubleValue(double Value) {
         this.Value = Value;
     }
 

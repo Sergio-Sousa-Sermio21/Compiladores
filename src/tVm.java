@@ -79,180 +79,258 @@ public class tVm {
                     System.out.println(stack.pop());
                 }
                 case IUMINUS -> {
-                    int valorInteiro = (int) stack.pop().obterValue();
-                    stack.push(new Inteiro(-valorInteiro));
+                    Value<?> poppedValue = stack.pop();
+                    int intValue = (int) poppedValue.obterValue();
+                    stack.push(new Inteiro(-intValue));
                 }
                 case IADD ->{
-                    stack.push((int) stack.pop() + (int) stack.pop());
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    int intValue1 = ((Inteiro) value1).obterValue();
+                    int intValue2 = ((Inteiro) value2).obterValue();
+                    int result = intValue1 + intValue2;
+                    stack.push(new Inteiro(result));
                 }
                 case ISUB ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a-b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    int intValue1 = ((Inteiro) value1).obterValue();
+                    int intValue2 = ((Inteiro) value2).obterValue();
+                    int result = intValue1 - intValue2;
+                    stack.push(new Inteiro(result));
                 }
                 case IMULT ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a*b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    int intValue1 = ((Inteiro) value1).obterValue();
+                    int intValue2 = ((Inteiro) value2).obterValue();
+                    int result = intValue1 * intValue2;
+                    stack.push(new Inteiro(result));
                 }
                 case IDIV ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a/b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    int intValue1 = ((Inteiro) value1).obterValue();
+                    int intValue2 = ((Inteiro) value2).obterValue();
+                    int result = intValue1 / intValue2;
+                    stack.push(new Inteiro(result));
                 }
                 case IMOD ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a%b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    int intValue1 = ((Inteiro) value1).obterValue();
+                    int intValue2 = ((Inteiro) value2).obterValue();
+                    int result = intValue1 % intValue2;
+                    stack.push(new Inteiro(result));
                 }
                 case IEQ ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a==b);
+                    Value<?> bValue = stack.pop();
+                    int b = (int) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    int a = (int) aValue.obterValue();
+                    stack.push(new Bool(a==b));
                 }
                 case INEQ ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a!=b);
+                    Value<?> bValue = stack.pop();
+                    int b = (int) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    int a = (int) aValue.obterValue();
+                    stack.push(new Bool(a!=b));
                 }
                 case ILT ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a<b);
+                    Value<?> bValue = stack.pop();
+                    int b = (int) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    int a = (int) aValue.obterValue();
+                    stack.push(new Bool(a<b));
                 }
                 case ILEQ ->{
-                    int b = (int) stack.pop();
-                    int a = (int) stack.pop();
-                    stack.push(a<=b);
+                    Value<?> bValue = stack.pop();
+                    int b = (int) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    int a = (int) aValue.obterValue();
+                    stack.push(new Bool(a<=b));
                 }
                 case ITOD ->{
-                    double a = (double) stack.pop();
-                    stack.push(a);
+                    //double a = (double) stack.pop();
+                    //stack.push(a);
+                    Value<?> poppedValue = stack.pop();
+                    double Value = (double) poppedValue.obterValue();
+                    stack.push(new DoubleValue(Value));
                 }
                 case ITOS ->{
-                    int a = (int) stack.pop();
-                    stack.push(Integer.toString(a));
+                    //int a = (int) stack.pop();
+                    //stack.push(Integer.toString(a));
+                    Value<?> poppedValue = stack.pop();
+                    String Value = (String) poppedValue.obterValue();
+                    stack.push(new StringValue(Value));
                 }
                 case DCONST ->{
-                    stack.push(constantPool.get((int) instrucions.get(i).getValue()));
+                    stack.push(new DoubleValue(instrucions.get(i).getValue()));
                 }
                 case DPRINT ->{
                     System.out.println(stack.pop());
+
                 }
                 case DUMINUS ->{
-                    stack.push(-(double)stack.pop());
+                    Value<?> poppedValue = stack.pop();
+                    double doubleValue = (double) poppedValue.obterValue();
+                    stack.push(new DoubleValue(-doubleValue));
                 }
                 case DADD ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a+b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    double intValue1 = ((DoubleValue) value1).obterValue();
+                    double intValue2 = ((DoubleValue) value2).obterValue();
+                    double result = intValue1 + intValue2;
+                    stack.push(new DoubleValue(result));
                 }
                 case DSUB ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a-b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    double intValue1 = ((DoubleValue) value1).obterValue();
+                    double intValue2 = ((DoubleValue) value2).obterValue();
+                    double result = intValue1 - intValue2;
+                    stack.push(new DoubleValue(result));
                 }
                 case DMULT ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a*b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    double intValue1 = ((DoubleValue) value1).obterValue();
+                    double intValue2 = ((DoubleValue) value2).obterValue();
+                    double result = intValue1 * intValue2;
+                    stack.push(new DoubleValue(result));
                 }
                 case DDIV ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a/b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    double intValue1 = ((DoubleValue) value1).obterValue();
+                    double intValue2 = ((DoubleValue) value2).obterValue();
+                    double result = intValue1 / intValue2;
+                    stack.push(new DoubleValue(result));
                 }
                 case DEQ ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a==b);
+                    Value<?> bValue = stack.pop();
+                    double b = (double) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    double a = (double) aValue.obterValue();
+                    stack.push(new Bool(a==b));
                 }
                 case DNEQ ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a!=b);
+                    Value<?> bValue = stack.pop();
+                    double b = (double) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    double a = (double) aValue.obterValue();
+                    stack.push(new Bool(a!=b));
                 }
                 case DLT ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a<b);
+                    Value<?> bValue = stack.pop();
+                    double b = (double) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    double a = (double) aValue.obterValue();
+                    stack.push(new Bool(a<b));
                 }
                 case DLEQ ->{
-                    double b = (double) stack.pop();
-                    double a = (double) stack.pop();
-                    stack.push(a<=b);
+                    Value<?> bValue = stack.pop();
+                    double b = (double) bValue.obterValue();
+
+                    Value<?> aValue = stack.pop();
+                    double a = (double) aValue.obterValue();
+                    stack.push(new Bool(a<=b));
                 }
                 case DTOS ->{
-                    double a = (double) stack.pop();
-                    stack.push(Double.toString(a));
+                    //double a = (double) stack.pop();
+                    //stack.push(Double.toString(a));
+                    Value<?> poppedValue = stack.pop();
+                    int Value = (int) poppedValue.obterValue();
+                    stack.push(new Inteiro(Value));
                 }
                 case SCONST ->{
-                    stack.push(constantPool.get((int) instrucions.get(i).getValue()));
+                    //stack.push(constantPool.get((int) instrucions.get(i).getValue()));
                 }
                 case SPRINT ->{
                     System.out.println(stack.pop());
                 }
                 case SADD ->{
-                    String b = (String) stack.pop();
-                    String a = (String) stack.pop();
-                    stack.push(a+b);
+                    Value<?> value1 = stack.pop();
+                    Value<?> value2 = stack.pop();
+                    String intValue1 = ((StringValue) value1).obterValue();
+                    String intValue2 = ((StringValue) value2).obterValue();
+                    String result = intValue1 + intValue2;
+                    stack.push(new StringValue(result));
                 }
                 case SEQ ->{
-                    String b = (String) stack.pop();
-                    String a = (String) stack.pop();
-                    stack.push(a.equals(b));
+                    Value<?> poppedValueB = stack.pop();
+                    Value<?> poppedValueA = stack.pop();
+
+                    String B = (String) poppedValueB.obterValue();
+                    String A = (String) poppedValueA.obterValue();
+                    stack.push(new Bool(A.equals(B)));
                 }
                 case SNEQ ->{
-                    String b = (String) stack.pop();
-                    String a = (String) stack.pop();
-                    stack.push(!a.equals(b));
+                    Value<?> poppedValueB = stack.pop();
+                    Value<?> poppedValueA = stack.pop();
+
+                    String B = (String) poppedValueB.obterValue();
+                    String A = (String) poppedValueA.obterValue();
+                    stack.push(new Bool(!A.equals(B)));
                 }
                 case TCONST ->{
-                    stack.push(true);
+                    stack.push(new Bool(true));
                 }
                 case FCONST ->{
-                    stack.push(false);
+                    stack.push(new Bool(false));
                 }
                 case BPRINT ->{
                     System.out.println(stack.pop());
                 }
                 case BEQ ->{
-                    boolean b = (boolean) stack.pop();
-                    boolean a = (boolean) stack.pop();
-                    stack.push(a==b);
+                    boolean b = (boolean) stack.pop().obterValue();
+                    boolean a = (boolean) stack.pop().obterValue();
+                    stack.push(new Bool(a==b));
                 }
                 case BNEQ ->{
-                    boolean b = (boolean) stack.pop();
-                    boolean a = (boolean) stack.pop();
-                    stack.push(a!=b);
+                    boolean b = (boolean) stack.pop().obterValue();
+                    boolean a = (boolean) stack.pop().obterValue();
+                    stack.push(new Bool(a!=b));
                 }
                 case AND ->{
-                    boolean b = (boolean) stack.pop();
-                    boolean a = (boolean) stack.pop();
-                    stack.push(a && b);
+                    boolean b = (boolean) stack.pop().obterValue();
+                    boolean a = (boolean) stack.pop().obterValue();
+                    stack.push(new Bool(a && b));
                 }
                 case OR ->{
-                    boolean b = (boolean) stack.pop();
-                    boolean a = (boolean) stack.pop();
-                    stack.push(a || b);
+                    boolean b = (boolean) stack.pop().obterValue();
+                    boolean a = (boolean) stack.pop().obterValue();
+                    stack.push(new Bool(a || b));
                 }
                 case NOT ->{
-                    boolean a = (boolean) stack.pop();
-                    stack.push(!a);
+                    boolean a = (boolean) stack.pop().obterValue();
+                    stack.push(new Bool(!a));
                 }
                 case BTOS ->{
-                    boolean a = (boolean) stack.pop();
-                    stack.push(Boolean.toString(a));
+                    boolean a = (boolean) stack.pop().obterValue();
+                    stack.push(new StringValue(Boolean.toString(a)));
                 }
+                //VER PEDRO TUDO ABAIXO DISTO
                 case JUMP ->{
                     i = (int) instrucions.get(i).getValue()-1;
                 }
+                //VER PEDRO
                 case JUMPT ->{
-                    if((boolean) stack.pop())
+                    if((boolean) stack.pop().obterValue())
                         i = (int) instrucions.get(i).getValue()-1;
                 }
+                //VER PEDRO
                 case JUMPF ->{
-                    if(!(boolean) stack.pop())
+                    if(!(boolean) stack.pop().obterValue())
                         i = (int) instrucions.get(i).getValue()-1;
                 }
                 case GALLOC ->{
