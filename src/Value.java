@@ -1,54 +1,54 @@
 import java.util.Stack;
-abstract class Valor<T> {
-    abstract T obterValor();
+abstract class Value<T> {
+    abstract T obterValue();
 }
 
-class Real extends Valor<Double> {
-    private double valor;
+class Real extends Value<Double> {
+    private double Value;
 
-    public Real(double valor) {
-        this.valor = valor;
+    public Real(double Value) {
+        this.Value = Value;
     }
 
     @Override
-    public Double obterValor() {
-        return valor;
+    public Double obterValue() {
+        return Value;
     }
 }
-class Inteiro extends Valor<Integer> {
-    private int valor;
+class Inteiro extends Value<Integer> {
+    private int Value;
 
-    public Inteiro(int valor) {
-        this.valor = valor;
+    public Inteiro(int Value) {
+        this.Value = Value;
     }
 
     @Override
-    public Integer obterValor() {
-        return valor;
+    public Integer obterValue() {
+        return Value;
     }
 }
 
-class Bool extends Valor<Boolean> {
-    private boolean valor;
+class Bool extends Value<Boolean> {
+    private boolean Value;
 
-    public Bool(boolean valor) {
-        this.valor = valor;
+    public Bool(boolean Value) {
+        this.Value = Value;
     }
 
     @Override
-    public Boolean obterValor() {
-        return valor;
+    public Boolean obterValue() {
+        return Value;
     }
 }
-class StringValor extends Valor<String> {
-    private String valor;
+class StringValue extends Value<String> {
+    private String Value;
 
-    public StringValor(String valor) {
-        this.valor = valor;
+    public StringValue(String Value) {
+        this.Value = Value;
     }
 
     @Override
-    public String obterValor() {
-        return valor;
+    public String obterValue() {
+        return Value;
     }
 }

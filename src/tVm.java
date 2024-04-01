@@ -14,7 +14,7 @@ public class tVm {
     private Commands[] commands = Commands.values();
     private ArrayList<Instrucion> instrucions = new ArrayList<>();
 
-    private Stack<Object> stack = new Stack<>();
+    private Stack<Value<?>> stack = new Stack<>();
     public tVm(String[] args) throws IOException{
         getFiles(args);
 
@@ -66,7 +66,6 @@ public class tVm {
             }
         }
     }
-
     public void runCodeMemory(){
         int i = 0;
         while(i<instrucions.size()) {
@@ -74,13 +73,14 @@ public class tVm {
             //System.out.println(stack);
             switch (instrucions.get(i).getCommand()) {
                 case ICONST -> {
-                    stack.push(instrucions.get(i).getValue());
+                    stack.push(new Inteiro(instrucions.get(i).getValue()));
                 }
                 case IPRINT -> {
                     System.out.println(stack.pop());
                 }
-                case IUMINUS ->{
-                    stack.push(-(int)stack.pop());
+                case IUMINUS -> {
+                    int valorInteiro = (int) stack.pop().obterValue();
+                    stack.push(new Inteiro(-valorInteiro));
                 }
                 case IADD ->{
                     stack.push((int) stack.pop() + (int) stack.pop());
