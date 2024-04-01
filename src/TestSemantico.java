@@ -20,6 +20,7 @@ public class TestSemantico extends TasmBaseListener {
     private boolean hasHaltInstruction = false;
 
     public void exitExpression(TasmParser.ExpressionContext ctx) {
+
         List<TerminalNode> labels = ctx.LABEL();
         for (TerminalNode label : labels) {
             if (this.labels.contains(label.getText()))
