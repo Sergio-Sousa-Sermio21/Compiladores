@@ -1,64 +1,57 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
 public class tVm {
-    // Memória global para armazenamento de dados
+
     private Object[] globalMemory;
     private ArrayList<Object> constantPool = new ArrayList<>();
-    private HashMap<Integer, Commands> commands = new HashMap<>();
-    // Lista de instruções a serem executadas
+    private Commands[] commands = Commands.values();
     private ArrayList<Instrucion> instrucions = new ArrayList<>();
 
     private Stack<Object> stack = new Stack<>();
-    // Construtor da máquina virtual
     public tVm(String[] args) throws IOException{
-        initHash();
         getFiles(args);
 
     }
-    // Inicialização do mapeamento de códigos de operação para instruções
-    private void initHash(){
-        for(Commands c : Commands.values()){
-            commands.put(c.ordinal(), c);
-        }
-    }
-    // Leitura do arquivo binário de instruções
+
     private void getFiles(String[] args)throws IOException {
         DataInputStream din = new DataInputStream(new FileInputStream(args[0]));
         while(din.available()>0){
             byte bytes = din.readByte();
             if(bytes != Commands.CONSTANTPOOL.ordinal()){
-                if(commands.get((int) bytes) == Commands.ICONST){
+                if(commands[bytes] == Commands.ICONST){
                     instrucions.add(new Instrucion(Commands.ICONST,din.readInt()));
-                } else if(commands.get((int) bytes) == Commands.JUMP)
+                } else if(commands[bytes] == Commands.JUMP)
                     instrucions.add(new Instrucion(Commands.JUMP,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.JUMPF)
+                else if(commands[bytes] == Commands.JUMPF)
                     instrucions.add(new Instrucion(Commands.JUMPF,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.JUMPT)
+                else if(commands[bytes] == Commands.JUMPT)
                     instrucions.add(new Instrucion(Commands.JUMPT,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.GALLOC)
+                else if(commands[bytes] == Commands.GALLOC)
                     instrucions.add(new Instrucion(Commands.GALLOC,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.GLOAD)
+                else if(commands[bytes] == Commands.GLOAD)
                     instrucions.add(new Instrucion(Commands.GLOAD,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.GSTORE)
+                else if(commands[bytes] == Commands.GSTORE)
                     instrucions.add(new Instrucion(Commands.GSTORE,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.DCONST)
+                else if(commands[bytes] == Commands.DCONST)
                     instrucions.add(new Instrucion(Commands.DCONST,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.SCONST)
+                else if(commands[bytes] == Commands.SCONST)
                     instrucions.add(new Instrucion(Commands.SCONST,din.readInt()));
                 else
-                    instrucions.add(new Instrucion(commands.get((int) bytes)));
+                    instrucions.add(new Instrucion(commands[bytes]));
             } else {
                 break;
             }
         }
         addconstantpool(din);
     }
-    // Adição de constantes ao pool de constantes?????
+
     private void addconstantpool(DataInputStream din) throws IOException{
         while(din.available()>0) {
             byte bytes = din.readByte();
@@ -73,7 +66,7 @@ public class tVm {
             }
         }
     }
-    // Execução das instruções na memória de código
+
     public void runCodeMemory(){
         int i = 0;
         while(i<instrucions.size()) {
@@ -208,7 +201,7 @@ public class tVm {
                     String b = (String) stack.pop();
                     String a = (String) stack.pop();
                     stack.push(a.equals(b));
-                } 
+                }
                 case SNEQ ->{
                     String b = (String) stack.pop();
                     String a = (String) stack.pop();
