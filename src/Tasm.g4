@@ -14,7 +14,7 @@ instruction: ICONST INT #INTVALUE
            | GLOAD INT #GLOAD
            | GSTORE INT #GSTORE
            | HALT #HALT
-           | INTINSTRUCTION #INTINSTRUCTION
+           |    #INTINSTRUCTION
            | DOUBLEINSTRUCTION #DOUBLEINSTRUCTION
            | STRINGINSTRUCTION #STRINGINSTRUCTION
            | BOLEANINSTRUCION #BOLEANINSTRUCION;
@@ -106,5 +106,5 @@ STRING: '"' .*? '"';
 DOUBLE: INT+ '.' INT+;
 INT: [0-9]+;
 EOL: '\n';
-LABEL: [a-zA-Z_] [a-zA-Z_0-9]*;
+LABEL: [a-zA-Z_] [a-zA-Z_0-9-]*;
 WS: [ \t\r]+ -> skip;

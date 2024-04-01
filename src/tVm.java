@@ -8,8 +8,6 @@ import java.util.Stack;
 public class tVm {
 
     private Object[] globalMemory;
-
-    private ArrayList<Byte> codeMemory = new ArrayList<>();
     private ArrayList<Object> constantPool = new ArrayList<>();
     private HashMap<Integer, Commands> commands = new HashMap<>();
     private ArrayList<Instrucion> instrucions = new ArrayList<>();
@@ -18,9 +16,6 @@ public class tVm {
     public tVm(String[] args) throws IOException{
         initHash();
         getFiles(args);
-        for(int i = 0; i<codeMemory.size(); i++){
-            System.out.println(codeMemory.get(i));
-        }
 
     }
 

@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import Tasm.TasmBaseListener;
@@ -36,10 +35,10 @@ public class tAssembler extends TasmBaseListener {
                         bytecodes.writeInt( instruction.getValue());
                     }
             }
-            writeconstanpoll(bytecodes);
+            writeConstantPoll(bytecodes);
         }
 
-        public void writeconstanpoll(DataOutputStream bytecodes) throws IOException{
+        public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
             bytecodes.write(Commands.CONSTANTPOOL.ordinal());
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
@@ -159,15 +158,15 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterGALLOC(TasmParser.GALLOCContext ctx) {
-            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GALLOC().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GALLOC().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterGLOAD(TasmParser.GLOADContext ctx) {
-            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GLOAD().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GLOAD().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterGSTORE(TasmParser.GSTOREContext ctx) {
-            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
         public static void main(String[] args) throws Exception {
             tAssembler assembler = new tAssembler(args);
