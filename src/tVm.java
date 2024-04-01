@@ -1,7 +1,9 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -9,20 +11,13 @@ public class tVm {
 
     private Object[] globalMemory;
     private ArrayList<Object> constantPool = new ArrayList<>();
-    private HashMap<Integer, Commands> commands = new HashMap<>();
+    private Commands[] commands = Commands.values();
     private ArrayList<Instrucion> instrucions = new ArrayList<>();
 
     private Stack<Object> stack = new Stack<>();
     public tVm(String[] args) throws IOException{
-        initHash();
         getFiles(args);
 
-    }
-
-    private void initHash(){
-        for(Commands c : Commands.values()){
-            commands.put(c.ordinal(), c);
-        }
     }
 
     private void getFiles(String[] args)throws IOException {
@@ -30,26 +25,26 @@ public class tVm {
         while(din.available()>0){
             byte bytes = din.readByte();
             if(bytes != Commands.CONSTANTPOOL.ordinal()){
-                if(commands.get((int) bytes) == Commands.ICONST){
+                if(commands[bytes] == Commands.ICONST){
                     instrucions.add(new Instrucion(Commands.ICONST,din.readInt()));
-                } else if(commands.get((int) bytes) == Commands.JUMP)
+                } else if(commands[bytes] == Commands.JUMP)
                     instrucions.add(new Instrucion(Commands.JUMP,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.JUMPF)
+                else if(commands[bytes] == Commands.JUMPF)
                     instrucions.add(new Instrucion(Commands.JUMPF,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.JUMPT)
+                else if(commands[bytes] == Commands.JUMPT)
                     instrucions.add(new Instrucion(Commands.JUMPT,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.GALLOC)
+                else if(commands[bytes] == Commands.GALLOC)
                     instrucions.add(new Instrucion(Commands.GALLOC,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.GLOAD)
+                else if(commands[bytes] == Commands.GLOAD)
                     instrucions.add(new Instrucion(Commands.GLOAD,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.GSTORE)
+                else if(commands[bytes] == Commands.GSTORE)
                     instrucions.add(new Instrucion(Commands.GSTORE,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.DCONST)
+                else if(commands[bytes] == Commands.DCONST)
                     instrucions.add(new Instrucion(Commands.DCONST,din.readInt()));
-                else if(commands.get((int) bytes) == Commands.SCONST)
+                else if(commands[bytes] == Commands.SCONST)
                     instrucions.add(new Instrucion(Commands.SCONST,din.readInt()));
                 else
-                    instrucions.add(new Instrucion(commands.get((int) bytes)));
+                    instrucions.add(new Instrucion(commands[bytes]));
             } else {
                 break;
             }
