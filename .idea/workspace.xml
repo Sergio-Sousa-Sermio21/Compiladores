@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/inputs/everyInstruction.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Value.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -60,11 +65,16 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.tVm">
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
       <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\teste2.tasm" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\everyInstruction.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -73,8 +83,8 @@
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="tVm" />
-      <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\xampp\htdocs\Compiladores\inputs\teste2.tasm" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\everyInstruction.tbc" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

@@ -7,7 +7,7 @@ galloc 4
 
                 iconst 1
                 gstore 2
-                iconst 10
+                iconst 0
                 gstore 3
 
                 gload 3
