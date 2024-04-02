@@ -321,25 +321,25 @@ public class tVm {
                 }
                 //VER PEDRO TUDO ABAIXO DISTO
                 case JUMP ->{
-                    i = (int) instrucions.get(i).getValue()-1;
+                    i = instrucions.get(i).getValue()-1;
                 }
                 //VER PEDRO
                 case JUMPT ->{
                     if((boolean) stack.pop().obterValue())
-                        i = (int) instrucions.get(i).getValue()-1;
+                        i = instrucions.get(i).getValue()-1;
                 }
                 //VER PEDRO
                 case JUMPF ->{
                     if(!(boolean) stack.pop().obterValue())
-                        i = (int) instrucions.get(i).getValue()-1;
+                        i = instrucions.get(i).getValue()-1;
                 }
                 case GALLOC ->{
-                    int size = (int) instrucions.get(i).getValue();
+                    int size = instrucions.get(i).getValue();
                     globalMemory = new Object[size];
                 }
                 case GLOAD ->{
-                    int posicon = (int) instrucions.get(i).getValue();
-                    stack.push(globalMemory[posicon]);
+                    int posicon = instrucions.get(i).getValue();
+                    stack.push(new Inteiro((int) globalMemory[posicon]));
                 }
                 case GSTORE ->{
                     int position = (int) instrucions.get(i).getValue();
