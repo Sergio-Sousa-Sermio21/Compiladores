@@ -13,7 +13,9 @@ public class Value {
 
     public String getValueString(){ return (String) value;}
 
-    public Double getValueDouble(){ return (Double) value;}
+    public Double getValueDouble(){
+        System.out.println(value);
+        return (Double) value;}
 
     public Boolean getValueBoolean(){ return (Boolean) value;}
 }
