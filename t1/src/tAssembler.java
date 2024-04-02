@@ -33,7 +33,7 @@ class tAssembler extends TasmBaseListener{
             } else {
                 byteStream.write(1);
                 String string = (String) data;
-                byte[] bytes =string.getBytes(StandardCharsets.UTF_8);
+                byte[] bytes =string.substring(1,string.length()-1).getBytes(StandardCharsets.UTF_8);
                 byteStream.writeInt(string.length());
                 byteStream.write(bytes);
             }
