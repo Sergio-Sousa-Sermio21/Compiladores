@@ -1,18 +1,19 @@
+// Import necessary packages and classes
 import Tasm.TasmBaseListener;
 import Tasm.TasmParser;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
+// Define the class TasmListener which extends TasmBaseListener
 public class TasmListener extends TasmBaseListener {
+    // Declare instance variables
     private ArrayList<Instruction> instructions;
     private ArrayList<Object> constantPool;
     private HashMap<String, Integer> labels;
     private ArrayList<String> jumpLabels;
 
+    // Constructor initializes instance variables
     TasmListener(){
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
@@ -20,10 +21,12 @@ public class TasmListener extends TasmBaseListener {
         jumpLabels = new ArrayList<String>();
     }
 
+    // Getter method for instructions
     public ArrayList<Instruction> getInstructions() {
         return instructions;
     }
 
+    // Getter method for constant pool
     public ArrayList<Object> getConstantPool() {
         return constantPool;
     }
@@ -44,6 +47,8 @@ public class TasmListener extends TasmBaseListener {
             }
         }
     }
+
+    // Overridden method to process exit of a command
     @Override
     public void exitCommand(TasmParser.CommandContext ctx) {
         int i = instructions.size();
@@ -53,26 +58,32 @@ public class TasmListener extends TasmBaseListener {
             else
                 throw new IllegalArgumentException("Label "+label.getText()+" has duplicates.");
     }
+
+    // Overridden method to process exit of an integer operation
     @Override
     public void exitIntegerOperation(TasmParser.IntegerOperationContext ctx) {
         instructions.add(new Instruction(ctx.integerOP().getText().toUpperCase(),null));
     }
 
+    // Overridden method to process exit of a double operation
     @Override
     public void exitDoubleOperation(TasmParser.DoubleOperationContext ctx) {
         instructions.add(new Instruction(ctx.doubleOP().getText().toUpperCase(),null));
     }
 
+    // Overridden method to process exit of a string operation
     @Override
     public void exitStringOperation(TasmParser.StringOperationContext ctx) {
         instructions.add(new Instruction(ctx.stringOP().getText().toUpperCase(),null));
     }
 
+    // Overridden method to process exit of a boolean operation
     @Override
     public void exitBoolOperation(TasmParser.BoolOperationContext ctx) {
         instructions.add(new Instruction(ctx.boolOP().getText().toUpperCase(),null));
     }
 
+    // Overridden method to process exit of an array operation
     @Override
     public void exitArrayOP(TasmParser.ArrayOPContext ctx) {
         if (ctx.GALLOC()!=null)
@@ -85,11 +96,13 @@ public class TasmListener extends TasmBaseListener {
         }
     }
 
+    // Overridden method to process exit of a halt
     @Override
     public void exitHalt(TasmParser.HaltContext ctx) {
         instructions.add(new Instruction(ctx.HALT().getText().toUpperCase(), null));
     }
 
+    // Overridden method to process exit of a jump operation
     @Override
     public void exitJumpOP(TasmParser.JumpOPContext ctx) {
         jumpLabels.add(ctx.LABEL().getText());
@@ -103,27 +116,30 @@ public class TasmListener extends TasmBaseListener {
         }
     }
 
+    // Overridden method to process exit of an integer constant
     @Override
     public void exitConstInteger(TasmParser.ConstIntegerContext ctx) {
         instructions.add(new Instruction(ctx.ICONST().getText().toUpperCase(),Integer.getInteger(ctx.INT().getText())));
     }
 
+    // Overridden method to process exit of a double integer constant
     @Override
     public void exitConstDoubleInteger(TasmParser.ConstDoubleIntegerContext ctx) {
         constantPool.add(Double.parseDouble(ctx.INT().getText()));
         instructions.add(new Instruction(ctx.DCONST().getText().toUpperCase(),constantPool.size()));
     }
 
+    // Overridden method to process exit of a double constant
     @Override
     public void exitConstDouble(TasmParser.ConstDoubleContext ctx) {
         constantPool.add(Double.parseDouble(ctx.DOUBLE().getText()));
         instructions.add(new Instruction(ctx.DCONST().getText().toUpperCase(),constantPool.size()));
     }
 
+    // Overridden method to process exit of a string constant
     @Override
     public void exitConstString(TasmParser.ConstStringContext ctx) {
         constantPool.add(ctx.STRING().getText());
         instructions.add(new Instruction(ctx.SCONST().getText().toUpperCase(), constantPool.size()));
     }
-
 }
