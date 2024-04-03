@@ -3,11 +3,8 @@ import Tasm.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 // Define the class tAssembler
 class tAssembler extends TasmBaseListener{
@@ -81,9 +78,18 @@ class tAssembler extends TasmBaseListener{
             ParseTree tree = parser.executable();
             ParseTreeWalker walker = new ParseTreeWalker();
             TasmListener tasmListener = new TasmListener();
-            walker.walk(tasmListener,tree);
-            // Perform semantic checks
-            testeSemantico(tasmListener);
+            String errors = "";
+            try {
+                walker.walk(tasmListener,tree);
+                // Perform semantic checks
+                testeSemantico(tasmListener);
+            }catch (IllegalArgumentException e){
+                errors += e;
+            }
+            if (!errors.isEmpty()){
+                System.out.println(errors);
+                System.exit(1);
+            }
             // If input file is provided, write to output file
             if (inputFile != null) {
                 FileOutputStream output = new FileOutputStream(inputFile.replaceFirst("[.][^.]+$", ".tbc"));
