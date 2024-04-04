@@ -1,5 +1,4 @@
-iconst 2
+e, e:iconst 2
 iprint
-sconst "Maria Albertina"
-iprint
-halt
+iprin
+

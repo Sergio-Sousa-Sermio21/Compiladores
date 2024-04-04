@@ -84,7 +84,10 @@ class tAssembler extends TasmBaseListener{
                 // Perform semantic checks
                 testeSemantico(tasmListener);
             }catch (IllegalArgumentException e){
-                errors += e;
+                errors += e+"\n";
+            }
+            if (parser.getNumberOfSyntaxErrors()>0){
+                errors += "Number of syntax errors: "+parser.getNumberOfSyntaxErrors();
             }
             if (!errors.isEmpty()){
                 System.out.println(errors);
