@@ -17,12 +17,14 @@ public class tAssembler extends TasmBaseListener {
         private Map<String, List<Integer>> labelsNotFound = new HashMap<>();
 
         private final ArrayList<Object> constantpoll = new ArrayList<>();
-        public tAssembler(String[] args) throws IOException {
-            init(args);
-            writeBytecode(args);
-        }
+        public tAssembler(){}
 
-        private void writeBytecode(String[] args) throws IOException {
+    /** Escreve bytecode em um file com base nas instruções fornecidas
+     *
+     * @param args Argumentos presentes na linha de comando.
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+     */
+    private void writeBytecode(String[] args) throws IOException {
             //teste.tasm
             File file = new File(args[0]);
             String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
@@ -38,7 +40,12 @@ public class tAssembler extends TasmBaseListener {
             writeConstantPoll(bytecodes);
         }
 
-        public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
+    /** Escreve a tabela de constantes em bytecode no fim do file
+     *
+     * @param bytecodes Serve para a criação de dados em byte
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
+     */
+    public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
             bytecodes.write(Commands.CONSTANTPOOL.ordinal());
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
@@ -54,7 +61,11 @@ public class tAssembler extends TasmBaseListener {
             }
         }
 
-        public void init(String args[]){
+    /** Inicializa o processo de compilação do código TASM
+     *
+     * @param args Os argumentos fornecidos ao iniciar o processo
+     */
+    public void init(String args[]){
             String inputFile = null;
             if ( args.length>0 )
                 inputFile = args[0];
@@ -85,7 +96,12 @@ public class tAssembler extends TasmBaseListener {
                 System.out.println(e);
             }
         }
-        public void enterExpression(TasmParser.ExpressionContext ctx) {
+
+    /** Guardar labels
+     *
+     * @param ctx the parse tree
+     */
+    public void enterExpression(TasmParser.ExpressionContext ctx) {
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value){
                 labelsposicion.put(terminalNode.getText(), instrucoes.size());
@@ -109,7 +125,8 @@ public class tAssembler extends TasmBaseListener {
 
         public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.SCONST().getText().toUpperCase()), constantpoll.size()));
-            constantpoll.add(ctx.STRING().getText());
+            System.out.println(ctx.STRING().getText());
+        constantpoll.add(ctx.STRING().getText());
         }
 
         public void resolveJumps(String label, String command){
@@ -168,7 +185,13 @@ public class tAssembler extends TasmBaseListener {
         public void enterGSTORE(TasmParser.GSTOREContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
+
+        public void execute(String[] args) throws IOException {
+            init(args);
+            writeBytecode(args);
+        }
         public static void main(String[] args) throws Exception {
-            tAssembler assembler = new tAssembler(args);
+            tAssembler assembler = new tAssembler();
+            assembler.execute(args);
         }
 }

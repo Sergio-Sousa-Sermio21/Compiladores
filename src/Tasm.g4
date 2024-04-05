@@ -14,7 +14,7 @@ instruction: ICONST INT #INTVALUE
            | GLOAD INT #GLOAD
            | GSTORE INT #GSTORE
            | HALT #HALT
-           |    #INTINSTRUCTION
+           | INTINSTRUCTION #INTINSTRUCTION
            | DOUBLEINSTRUCTION #DOUBLEINSTRUCTION
            | STRINGINSTRUCTION #STRINGINSTRUCTION
            | BOLEANINSTRUCION #BOLEANINSTRUCION;
@@ -102,7 +102,8 @@ GSTORE: 'gstore';
 
 // Outros comandos e tokens
 HALT: 'halt';
-STRING: '"' .*? '"';
+STRING: '"' ( ESC_SEQ | ~[\\"\r\n] )* '"';
+fragment ESC_SEQ : '\\' . ;
 DOUBLE: INT+ '.' INT+;
 INT: [0-9]+;
 EOL: '\n';

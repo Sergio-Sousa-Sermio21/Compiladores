@@ -56,6 +56,10 @@ public class TestSemantico extends TasmBaseListener {
         }
     }
 
+    /** Testa a árvore para garantir todas as verificações
+     *
+     * @param tree
+     */
     public void TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
@@ -67,8 +71,6 @@ public class TestSemantico extends TasmBaseListener {
                 System.err.println(error);
             System.exit(0);
         }
-
-
 
     }
 

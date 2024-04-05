@@ -161,18 +161,24 @@ public class TasmParser extends Parser {
 					{
 					setState(8); 
 					_errHandler.sync(this);
-					_la = _input.LA(1);
+					_alt = 1;
 					do {
-						{
-						{
-						setState(7);
-						match(EOL);
-						}
+						switch (_alt) {
+						case 1:
+							{
+							{
+							setState(7);
+							match(EOL);
+							}
+							}
+							break;
+						default:
+							throw new NoViableAltException(this);
 						}
 						setState(10); 
 						_errHandler.sync(this);
-						_la = _input.LA(1);
-					} while ( _la==EOL );
+						_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+					} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 					setState(12);
 					expression();
 					}
@@ -551,7 +557,6 @@ public class TasmParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class INTINSTRUCTIONContext extends InstructionContext {
-		public TerminalNode INTINSTRUCTION() { return getToken(TasmParser.INTINSTRUCTION, 0); }
 		public INTINSTRUCTIONContext(InstructionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -684,12 +689,11 @@ public class TasmParser extends Parser {
 				match(HALT);
 				}
 				break;
-			case INTINSTRUCTION:
+			case EOF:
+			case EOL:
 				_localctx = new INTINSTRUCTIONContext(_localctx);
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(58);
-				match(INTINSTRUCTION);
 				}
 				break;
 			case DOUBLEINSTRUCTION:
@@ -768,7 +772,7 @@ public class TasmParser extends Parser {
 		"0?\u0005:\u0000\u000012\u00051\u0000\u00002?\u0005:\u0000\u000034\u0005"+
 		"2\u0000\u00004?\u00058\u0000\u000056\u00053\u0000\u00006?\u00058\u0000"+
 		"\u000078\u00054\u0000\u00008?\u00058\u0000\u00009?\u00055\u0000\u0000"+
-		":?\u0005\u0003\u0000\u0000;?\u0005\u0004\u0000\u0000<?\u0005\u0005\u0000"+
+		":?\u0001\u0000\u0000\u0000;?\u0005\u0004\u0000\u0000<?\u0005\u0005\u0000"+
 		"\u0000=?\u0005\u0006\u0000\u0000>\'\u0001\u0000\u0000\u0000>)\u0001\u0000"+
 		"\u0000\u0000>+\u0001\u0000\u0000\u0000>-\u0001\u0000\u0000\u0000>/\u0001"+
 		"\u0000\u0000\u0000>1\u0001\u0000\u0000\u0000>3\u0001\u0000\u0000\u0000"+

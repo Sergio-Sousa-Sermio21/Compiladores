@@ -25,6 +25,11 @@ public class tVm {
         }
     }
 
+    /** Obtém instruções e constantes do arquivo bytecode especificado.
+     *
+     * @param args Argumentos passados para o método, esperando pelo bytecode.
+     * @throws IOException Se ocorrer um erro de E/S durante a leitura do arquivo bytecode
+     */
     private void getFiles(String[] args)throws IOException {
         DataInputStream din = new DataInputStream(new FileInputStream(args[0]));
         while(din.available()>0){
@@ -57,6 +62,11 @@ public class tVm {
         addconstantpool(din);
     }
 
+    /** Facilita a organizcao dos bytes
+     *
+     * @param din  O fluxo de entrada de dados que contém as constantes a serem adicionadas.
+     * @throws IOException Se ocorrer um erro de E/S durante a leitura do fluxo de entrada de dados.
+     */
     private void addconstantpool(DataInputStream din) throws IOException{
         while(din.available()>0) {
             byte bytes = din.readByte();
@@ -72,17 +82,19 @@ public class tVm {
         }
     }
 
-    public void runCodeMemory(){
+    /**Executa o código no array de instrucoes de instruções.
+     *
+     * @throws Exception Se nenhum comando de parada (HALT) for encontrado durante a execução do código.
+     */
+    public void runCodeMemory() throws Exception {
         int i = 0;
         while(i<instrucions.size()) {
-            //System.out.println(instrucions.get(i) + " " + i);
-            //System.out.println(stack);
             switch (instrucions.get(i).getCommand()) {
                 case ICONST -> {
                     stack.push(new Value(instrucions.get(i).getValue()));
                 }
                 case IPRINT -> {
-                    System.out.println(stack.pop());
+                    System.out.println(stack.pop().getValueInt());
                 }
                 case IUMINUS ->{
                     stack.push(new Value(-stack.pop().getValueInt()));
@@ -135,10 +147,10 @@ public class tVm {
                     stack.push(new Value(Integer.toString(a)));
                 }
                 case DCONST ->{
-                    stack.push(new Value(instrucions.get(i).getValue()));
+                    stack.push(new Value((double) constantPool.get(instrucions.get(i).getValue())));
                 }
                 case DPRINT ->{
-                    System.out.println(stack.pop());
+                    System.out.println(stack.pop().getValueDouble());
                 }
                 case DUMINUS ->{
                     stack.push(new Value(-stack.pop().getValueDouble()));
@@ -188,10 +200,10 @@ public class tVm {
                     stack.push(new Value(Double.toString(a)));
                 }
                 case SCONST ->{
-                    stack.push(new Value(instrucions.get(i).getValue()));
+                    stack.push(new Value((String) constantPool.get(instrucions.get(i).getValue())));
                 }
                 case SPRINT ->{
-                    System.out.println(stack.pop());
+                    System.out.println(stack.pop().getValueString());
                 }
                 case SADD ->{
                     String b = stack.pop().getValueString();
@@ -215,7 +227,7 @@ public class tVm {
                     stack.push(new Value(false));
                 }
                 case BPRINT ->{
-                    System.out.println(stack.pop());
+                    System.out.println(stack.pop().getValueBoolean());
                 }
                 case BEQ ->{
                     boolean b = stack.pop().getValueBoolean();
@@ -275,9 +287,10 @@ public class tVm {
             }
             i++;
         }
+        throw new Exception(new RuntimeException("No Halt found!"));
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         tVm Vm = new tVm(args);
         Vm.runCodeMemory();
     }
