@@ -4,24 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/Tasm.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/Tasm.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Value.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
-    </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
-    </list>
+    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="" />
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,36 +20,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/tAssembler.java">
-      <ranges>
-        <range start1="19" end1="23" start2="19" end2="20" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="24" end1="25" start2="21" end2="27" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="40" end1="41" start2="42" end2="48" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="56" end1="57" start2="63" end2="68" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="87" end1="88" start2="98" end2="104" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="111" end1="112" start2="127" end2="129" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="170" end1="170" start2="187" end2="192" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="171" end1="172" start2="193" end2="195" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/tVm.java">
-      <ranges>
-        <range start1="27" end1="27" start2="27" end2="32" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="59" end1="59" start2="64" end2="69" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="74" end1="75" start2="84" end2="89" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="77" end1="79" start2="91" end2="91" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="84" end1="85" start2="96" end2="97" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="137" end1="138" start2="149" end2="150" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="140" end1="141" start2="152" end2="153" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="190" end1="191" start2="202" end2="203" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="193" end1="194" start2="205" end2="206" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="217" end1="218" start2="229" end2="230" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="277" end1="277" start2="289" end2="290" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="279" end1="280" start2="292" end2="293" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -171,6 +125,7 @@
       <workItem from="1712063808950" duration="6159000" />
       <workItem from="1712085012127" duration="1284000" />
       <workItem from="1712142362082" duration="5404000" />
+      <workItem from="1712318151408" duration="608000" />
     </task>
     <servers />
   </component>
