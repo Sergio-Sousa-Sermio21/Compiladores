@@ -11,14 +11,13 @@ public class Value {
 
     public Integer getValueInt(){
         if(!(value instanceof Integer))
-            throw new IllegalStateException("Value given isn't type Integer it's "  + value.getClass());
+            Error.trowError("Value given isn't type Integer it's "  + value.getClass());
         return (Integer) value;
     }
 
     public String getValueString(){
         if(!(value instanceof String)){
-            System.err.println("Value given isn't type String it's "  + value.getClass());
-            System.exit(0);
+            Error.trowError("Value given isn't type String it's "  + value.getClass());
         }
         String texto = (String) value;
         texto = texto.replaceAll("\\\\n", "\n")
@@ -31,13 +30,13 @@ public class Value {
 
     public Double getValueDouble(){
         if(!(value instanceof Double))
-            throw new IllegalStateException("Value given isn't type Double it's "  + value.getClass());
+            Error.trowError("Value given isn't type Double it's "  + value.getClass());
         return (Double) value;
     }
 
     public Boolean getValueBoolean(){
         if(!(value instanceof Boolean))
-            throw new IllegalStateException("Value given isn't type Boolean it's "  + value.getClass());
+            Error.trowError("Value given isn't type Boolean it's "  + value.getClass());
         return (Boolean) value;
     }
 }

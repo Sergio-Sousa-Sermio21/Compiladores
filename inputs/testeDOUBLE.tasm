@@ -42,7 +42,7 @@ dlt
 bprint
 
 dconst 10.0
-dtod
-dprint
+dtos
+sprint
 
 halt
