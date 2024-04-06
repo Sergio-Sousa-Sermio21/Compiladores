@@ -16,8 +16,11 @@ public class Value {
     }
 
     public String getValueString(){
-        if(!(value instanceof String texto))
-            throw new IllegalStateException("Value given isn't type String it's "  + value.getClass());
+        if(!(value instanceof String)){
+            System.err.println("Value given isn't type String it's "  + value.getClass());
+            System.exit(0);
+        }
+        String texto = (String) value;
         texto = texto.replaceAll("\\\\n", "\n")
                 .replaceAll("\\\\t", "\t")
                 .replaceAll("\\\\r", "\r")
