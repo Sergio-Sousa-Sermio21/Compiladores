@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/testeINT.tasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/testeINT.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/testeINT.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasm/Tasm.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/Tasm.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmParser.java" afterDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
+      <change beforePath="$PROJECT_DIR$/inputs/testeINT.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/testeINT.tasm" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +28,16 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/inputs/testeINT.tasm">
+      <ranges>
+        <range start1="13" end1="14" start2="13" end2="14" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="28" end1="29" start2="28" end2="29" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="40" end1="41" start2="40" end2="41" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="46" end1="47" start2="46" end2="47" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -44,7 +57,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Debug",
-    "Application.tAssembler.executor": "Run",
+    "Application.tAssembler.executor": "Debug",
     "Application.tVm.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -69,11 +82,11 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.tAssembler">
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
       <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\teste2.tasm" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -134,6 +147,7 @@
       <workItem from="1712318151408" duration="608000" />
       <workItem from="1712322651940" duration="2423000" />
       <workItem from="1712418770352" duration="1212000" />
+      <workItem from="1712420049361" duration="371000" />
     </task>
     <servers />
   </component>

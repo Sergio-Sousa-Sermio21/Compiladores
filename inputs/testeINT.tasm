@@ -11,7 +11,7 @@ iprint
 iconst 10
 iconst 10
 ieq
-iprint
+bprint
 
 iconst 10
 iconst 5
@@ -26,7 +26,7 @@ iprint
 iconst 10
 iconst 5
 ineq
-iprint
+bprint
 
 iconst 10
 iconst 5
@@ -38,13 +38,13 @@ itos
 sprint
 
 iconst 10
-iminus
+iuminus
 iprint
 
 iconst 10
 iconst 5
 ilt
-iprint
+bprint
 
 iconst 10
 itod
