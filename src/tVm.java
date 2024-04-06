@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class tVm {
 
-    private Value[] globalMemory;
+    private ArrayList<Value> globalMemory;
     private ArrayList<Object> constantPool = new ArrayList<>();
     private HashMap<Integer, Commands> commands = new HashMap<>();
     private ArrayList<Instrucion> instrucions = new ArrayList<>();
@@ -269,16 +269,16 @@ public class tVm {
                         i = (int) instrucions.get(i).getValue()-1;
                 }
                 case GALLOC ->{
-                    int size = (int) instrucions.get(i).getValue();
-                    globalMemory = new Value[size];
+                    int size = instrucions.get(i).getValue();
+                    globalMemory = new ArrayList<>(size);
                 }
                 case GLOAD ->{
-                    int posicon = instrucions.get(i).getValue();
-                    stack.push(globalMemory[posicon]);
+                    int position = instrucions.get(i).getValue();
+                    stack.push(globalMemory.get(position));
                 }
                 case GSTORE ->{
-                    int position = (int) instrucions.get(i).getValue();
-                    globalMemory[position] = stack.pop();
+                    int position = instrucions.get(i).getValue();
+                    globalMemory.set(position, stack.pop());
                 }
                 case HALT ->{
                     System.exit(0);
