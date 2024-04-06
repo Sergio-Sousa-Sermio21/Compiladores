@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class tVm {
+public class tVM {
 
     private ArrayList<Value> globalMemory;
     private final ArrayList<Object> constantPool = new ArrayList<>();
@@ -13,7 +13,7 @@ public class tVm {
     private final ArrayList<Instrucion> instructions = new ArrayList<>();
 
     private final Stack<Value> stack = new Stack<>();
-    public tVm(String[] args) throws IOException{
+    public tVM(String[] args) throws IOException{
         initHash();
         getFiles(args);
 
@@ -25,9 +25,9 @@ public class tVm {
         }
     }
 
-    /** Obtém instruções e constantes do arquivo bytecode especificado.
+    /** Obtem instrucoes e constantes do arquivo bytecode especificado.
      *
-     * @param args Argumentos passados para o método, esperando pelo bytecode.
+     * @param args Argumentos passados para o metodo, esperando pelo bytecode.
      * @throws IOException Se ocorrer um erro de E/S durante a leitura do arquivo bytecode
      */
     private void getFiles(String[] args)throws IOException {
@@ -51,7 +51,7 @@ public class tVm {
                     case GSTORE -> instructions.add(new Instrucion(Commands.GSTORE, din.readInt()));
 
                     case DCONST -> instructions.add(new Instrucion(Commands.DCONST, din.readInt()));
-                    
+
                     case SCONST -> instructions.add(new Instrucion(Commands.SCONST, din.readInt()));
 
                     default -> instructions.add(new Instrucion(commands.get((int) bytes)));
@@ -95,24 +95,15 @@ public class tVm {
         try {
             while (i < instructions.size()) {
                 switch (instructions.get(i).getCommand()) {
-                    case ICONST -> {
-                        stack.push(new Value(instructions.get(i).getValue()));
-                    }
-                    case IPRINT -> {
-                        System.out.println(stack.pop().getValueInt());
-                    }
-                    case IUMINUS -> {
-                        stack.push(new Value(-stack.pop().getValueInt()));
-                    }
-                    case IADD -> {
-                        stack.push(new Value(stack.pop().getValueInt() + stack.pop().getValueInt()));
-                    }
-                    case ISUB -> {
-                        stack.push(new Value(-stack.pop().getValueInt() + stack.pop().getValueInt()));
-                    }
-                    case IMULT -> {
-                        stack.push(new Value(stack.pop().getValueInt() * stack.pop().getValueInt()));
-                    }
+
+                    //Parte dos ints
+                    case ICONST -> stack.push(new Value(instructions.get(i).getValue()));
+                    case IPRINT -> System.out.println(stack.pop().getValueInt());
+                    case IUMINUS -> stack.push(new Value(-stack.pop().getValueInt()));
+                    case IADD -> stack.push(new Value(stack.pop().getValueInt() + stack.pop().getValueInt()));
+                    case ISUB -> stack.push(new Value(-stack.pop().getValueInt() + stack.pop().getValueInt()));
+                    case IMULT -> stack.push(new Value(stack.pop().getValueInt() * stack.pop().getValueInt()));
+
                     case IDIV -> {
                         int b = stack.pop().getValueInt();
                         int a = stack.pop().getValueInt();
@@ -151,15 +142,11 @@ public class tVm {
                         int a = stack.pop().getValueInt();
                         stack.push(new Value(Integer.toString(a)));
                     }
-                    case DCONST -> {
-                        stack.push(new Value((double) constantPool.get(instructions.get(i).getValue())));
-                    }
-                    case DPRINT -> {
-                        System.out.println(stack.pop().getValueDouble());
-                    }
-                    case DUMINUS -> {
-                        stack.push(new Value(-stack.pop().getValueDouble()));
-                    }
+                    //Parte dos doubles
+                    case DCONST -> stack.push(new Value((double) constantPool.get(instructions.get(i).getValue())));
+                    case DPRINT -> System.out.println(stack.pop().getValueDouble());
+                    case DUMINUS -> stack.push(new Value(-stack.pop().getValueDouble()));
+
                     case DADD -> {
                         double b = stack.pop().getValueDouble();
                         double a = stack.pop().getValueDouble();
@@ -204,12 +191,9 @@ public class tVm {
                         double a = stack.pop().getValueDouble();
                         stack.push(new Value(Double.toString(a)));
                     }
-                    case SCONST -> {
-                        stack.push(new Value((String) constantPool.get(instructions.get(i).getValue())));
-                    }
-                    case SPRINT -> {
-                        System.out.println(stack.pop().getValueString());
-                    }
+                    case SCONST -> stack.push(new Value((String) constantPool.get(instructions.get(i).getValue())));
+                    case SPRINT -> System.out.println(stack.pop().getValueString());
+
                     case SADD -> {
                         String b = stack.pop().getValueString();
                         String a = stack.pop().getValueString();
@@ -225,15 +209,11 @@ public class tVm {
                         String a = stack.pop().getValueString();
                         stack.push(new Value(!a.equals(b)));
                     }
-                    case TCONST -> {
-                        stack.push(new Value(true));
-                    }
-                    case FCONST -> {
-                        stack.push(new Value(false));
-                    }
-                    case BPRINT -> {
-                        System.out.println(stack.pop().getValueBoolean());
-                    }
+                    //Comandos dos boolean
+                    case TCONST -> stack.push(new Value(true));
+                    case FCONST -> stack.push(new Value(false));
+                    case BPRINT -> System.out.println(stack.pop().getValueBoolean());
+
                     case BEQ -> {
                         boolean b = stack.pop().getValueBoolean();
                         boolean a = stack.pop().getValueBoolean();
@@ -262,16 +242,15 @@ public class tVm {
                         boolean a = stack.pop().getValueBoolean();
                         stack.push(new Value(Boolean.toString(a)));
                     }
-                    case JUMP -> {
-                        i = instructions.get(i).getValue() - 1;
-                    }
+                    case JUMP -> i = instructions.get(i).getValue() - 1;
+
                     case JUMPT -> {
                         if (stack.pop().getValueBoolean())
-                            i = (int) instructions.get(i).getValue() - 1;
+                            i = instructions.get(i).getValue() - 1;
                     }
                     case JUMPF -> {
                         if (!(boolean) stack.pop().getValueBoolean())
-                            i = (int) instructions.get(i).getValue() - 1;
+                            i = instructions.get(i).getValue() - 1;
                     }
                     case GALLOC -> {
                         int size = instructions.get(i).getValue();
@@ -279,15 +258,24 @@ public class tVm {
                     }
                     case GLOAD -> {
                         int position = instructions.get(i).getValue();
+                        if(globalMemory == null)
+                            Error.trowError("GlobalMemory was not initialized. \n You try to use galloc");
+                        if(position>= globalMemory.size())
+                            Error.trowError("Index out of bound" + position + "for size: " + globalMemory.size());
+                        if(globalMemory.get(position) == null)
+                            Error.trowError("The value you trying to access is NILL");
                         stack.push(globalMemory.get(position));
                     }
                     case GSTORE -> {
                         int position = instructions.get(i).getValue();
+                        if(position>= globalMemory.size())
+                            Error.trowError("Index out of bound" + position + "for size: " + globalMemory.size());
+                        if(globalMemory.get(position) == null)
+                            Error.trowError("The value you trying to access is NILL");
                         globalMemory.set(position, stack.pop());
                     }
-                    case HALT -> {
-                        System.exit(0);
-                    }
+
+                    case HALT -> System.exit(0);
                     default -> System.err.println("Unknown command");
                 }
                 i++;
@@ -299,7 +287,7 @@ public class tVm {
     }
 
     public static void main(String[] args) throws Exception {
-        tVm Vm = new tVm(args);
+        tVM Vm = new tVM(args);
         Vm.runCodeMemory();
     }
 }
