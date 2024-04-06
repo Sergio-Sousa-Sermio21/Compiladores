@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 
 import Tasm.TasmBaseListener;
@@ -14,18 +15,32 @@ public class tAssembler extends TasmBaseListener {
         private final HashMap<String,Integer> labelsposicion = new HashMap<>();
         private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
 
-        private Map<String, List<Integer>> labelsNotFound = new HashMap<>();
+        private final Map<String, List<Integer>> labelsNotFound = new HashMap<>();
 
         private final ArrayList<Object> constantpoll = new ArrayList<>();
         public tAssembler(){}
+
+    public void debug(){
+        System.out.println("----------------------------------------\nConstant Pool:");
+        for (int i = 0; i<constantpoll.size(); i++) {
+            System.out.println(i + ": " + constantpoll.get(i));
+        }
+        System.out.println("-----------------------------------------\nInstrution array:");
+        for (int i = 0; i<instrucoes.size(); i++) {
+            System.out.println(i + ": " + instrucoes.get(i));
+        }
+        System.out.println("-----------------------------------------");
+    }
 
     /** Escreve bytecode em um file com base nas instruções fornecidas
      *
      * @param args Argumentos presentes na linha de comando.
      * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
      */
-    private void writeBytecode(String[] args) throws IOException {
+    private void writeBytecode(String[] args, boolean debug) throws IOException {
             //teste.tasm
+            if(debug)
+                debug();
             File file = new File(args[0]);
             String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
             newFile = "inputs/" + newFile;
@@ -65,7 +80,7 @@ public class tAssembler extends TasmBaseListener {
      *
      * @param args Os argumentos fornecidos ao iniciar o processo
      */
-    public void init(String args[]){
+    public void init(String[] args){
             String inputFile = null;
             if ( args.length>0 )
                 inputFile = args[0];
@@ -78,7 +93,6 @@ public class tAssembler extends TasmBaseListener {
                 TasmParser parser = new TasmParser(tokens);
                 parser.removeErrorListeners(); // Remove the default console error listener
                 parser.addErrorListener(new ConsoleErrorListener());
-
                 ParseTree tree = parser.program();
                 int numberOfErrors = parser.getNumberOfSyntaxErrors();
                 if(numberOfErrors>0){
@@ -89,8 +103,6 @@ public class tAssembler extends TasmBaseListener {
                 test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
                 walker.walk(this, tree);
-                for(Instrucion intr : instrucoes)
-                    System.out.println(intr);
             }
             catch (java.io.IOException e) {
                 System.out.println(e);
@@ -186,12 +198,19 @@ public class tAssembler extends TasmBaseListener {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
-        public void execute(String[] args) throws IOException {
+        public void execute(String[] args, boolean debug) throws IOException {
             init(args);
-            writeBytecode(args);
+            writeBytecode(args, debug);
         }
         public static void main(String[] args) throws Exception {
             tAssembler assembler = new tAssembler();
-            assembler.execute(args);
+            boolean debug = false;
+            List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+            for (String arg : inputArguments) {
+                if (arg.contains("jdwp") || arg.contains("Xdebug")) {
+                    debug = true;
+                }
+            }
+            assembler.execute(args, debug);
         }
 }

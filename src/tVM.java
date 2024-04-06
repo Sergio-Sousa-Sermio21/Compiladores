@@ -260,7 +260,7 @@ public class tVM {
                         int position = instructions.get(i).getValue();
                         if(globalMemory == null)
                             Error.trowError("GlobalMemory was not initialized. \n You try to use galloc");
-                        if(position>= globalMemory.size())
+                        if(position>= globalMemory.size() || position<0)
                             Error.trowError("Index out of bound" + position + "for size: " + globalMemory.size());
                         if(globalMemory.get(position) == null)
                             Error.trowError("The value you trying to access is NILL");

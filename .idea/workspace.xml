@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/testeGLOADerro.tasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inputs/testeITODerro.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/ola.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/ola.tbs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/testeINT.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/testeINT.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
-    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,28 +30,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/tVM.java">
-      <ranges>
-        <range start1="7" end1="8" start2="7" end2="8" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="15" end1="16" start2="15" end2="16" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="27" end1="28" start2="27" end2="28" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="29" end1="30" start2="29" end2="30" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="53" end1="54" start2="53" end2="54" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="97" end1="115" start2="97" end2="106" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="153" end1="162" start2="144" end2="149" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="206" end1="212" start2="193" end2="196" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="227" end1="236" start2="211" end2="216" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="264" end1="267" start2="244" end2="246" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="269" end1="270" start2="248" end2="249" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="273" end1="274" start2="252" end2="253" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="281" end1="281" start2="260" end2="266" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="285" end1="285" start2="270" end2="274" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="287" end1="290" start2="276" end2="278" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="301" end1="302" start2="289" end2="290" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -170,7 +150,7 @@
       <workItem from="1712418770352" duration="1212000" />
       <workItem from="1712420049361" duration="1267000" />
       <workItem from="1712421478368" duration="3452000" />
-      <workItem from="1712425472122" duration="1414000" />
+      <workItem from="1712425472122" duration="3296000" />
     </task>
     <servers />
   </component>

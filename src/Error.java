@@ -11,5 +11,6 @@ public class Error {
         if(e.getClass() == EmptyStackException.class){
             Error.trowError("Linha:" + linha + " Stack nao tem elementos o suficientes para a operacao: '" + instrucao.getCommand().toString().toLowerCase() + "'");
         }
+        Error.trowError(e.toString());
     }
 }
