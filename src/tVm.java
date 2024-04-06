@@ -36,30 +36,22 @@ public class tVm {
             byte bytes = din.readByte();
             if (bytes != Commands.CONSTANTPOOL.ordinal()) {
                 switch (commands.get((int) bytes)) {
-                    case ICONST -> {
-                        instructions.add(new Instrucion(Commands.ICONST, din.readInt()));
-                    }
-                    case JUMP -> {
-                        instructions.add(new Instrucion(Commands.JUMP, din.readInt()));
-                    }
-                    case JUMPF -> {
-                        instructions.add(new Instrucion(Commands.JUMPF, din.readInt()));
-                    }
-                    case JUMPT -> {
-                        instructions.add(new Instrucion(Commands.JUMPT, din.readInt()));
-                    }
-                    case GALLOC -> {
-                        instructions.add(new Instrucion(Commands.GALLOC, din.readInt()));
-                    }
-                    case GLOAD -> {
-                        instructions.add(new Instrucion(Commands.GLOAD, din.readInt()));
-                    }
-                    case GSTORE -> {
-                        instructions.add(new Instrucion(Commands.GSTORE, din.readInt()));
-                    }
-                    case DCONST -> {
-                        instructions.add(new Instrucion(Commands.DCONST, din.readInt()));
-                    }
+                    case ICONST -> instructions.add(new Instrucion(Commands.ICONST, din.readInt()));
+
+                    case JUMP -> instructions.add(new Instrucion(Commands.JUMP, din.readInt()));
+
+                    case JUMPF -> instructions.add(new Instrucion(Commands.JUMPF, din.readInt()));
+
+                    case JUMPT -> instructions.add(new Instrucion(Commands.JUMPT, din.readInt()));
+
+                    case GALLOC -> instructions.add(new Instrucion(Commands.GALLOC, din.readInt()));
+
+                    case GLOAD -> instructions.add(new Instrucion(Commands.GLOAD, din.readInt()));
+
+                    case GSTORE -> instructions.add(new Instrucion(Commands.GSTORE, din.readInt()));
+
+                    case DCONST -> instructions.add(new Instrucion(Commands.DCONST, din.readInt()));
+                    
                     case SCONST -> instructions.add(new Instrucion(Commands.SCONST, din.readInt()));
 
                     default -> instructions.add(new Instrucion(commands.get((int) bytes)));
@@ -97,7 +89,6 @@ public class tVm {
 
     /**Executa o código no array de instrucoes de instruções.
      *
-     * @throws Exception Se nenhum comando de parada (HALT) for encontrado durante a execução do código.
      */
     public void runCodeMemory(){
         int i = 0;
