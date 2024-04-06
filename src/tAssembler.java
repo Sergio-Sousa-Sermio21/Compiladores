@@ -38,7 +38,6 @@ public class tAssembler extends TasmBaseListener {
      * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
      */
     private void writeBytecode(String[] args, boolean debug) throws IOException {
-            //teste.tasm
             if(debug)
                 debug();
             File file = new File(args[0]);
@@ -123,7 +122,7 @@ public class tAssembler extends TasmBaseListener {
                     }
                 }
             }
-        }
+    }
         //Fazer isto para todos.
         public void enterINTVALUE(TasmParser.INTVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.ICONST().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
@@ -138,7 +137,7 @@ public class tAssembler extends TasmBaseListener {
         public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.SCONST().getText().toUpperCase()), constantpoll.size()));
             System.out.println(ctx.STRING().getText());
-        constantpoll.add(ctx.STRING().getText());
+            constantpoll.add(ctx.STRING().getText());
         }
 
         public void resolveJumps(String label, String command){
@@ -167,11 +166,10 @@ public class tAssembler extends TasmBaseListener {
 
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
-
         }
 
         public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx){
-        instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
@@ -209,6 +207,7 @@ public class tAssembler extends TasmBaseListener {
             for (String arg : inputArguments) {
                 if (arg.contains("jdwp") || arg.contains("Xdebug")) {
                     debug = true;
+                    break;
                 }
             }
             assembler.execute(args, debug);

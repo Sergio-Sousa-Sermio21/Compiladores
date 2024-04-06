@@ -286,6 +286,17 @@ public class tVM {
         Error.trowError("No Halt found!");
     }
 
+    public void debug() {
+        System.out.println("----------------------------------------\nConstant Pool:");
+        for (int i = 0; i < constantPool.size(); i++) {
+            System.out.println(i + ": " + constantPool.get(i));
+        }
+        System.out.println("-----------------------------------------\nInstruction array:");
+        for (int i = 0; i < instructions.size(); i++) {
+            System.out.println(i + ": " + instructions.get(i));
+        }
+        System.out.println("-----------------------------------------");
+    }
     public static void main(String[] args) throws Exception {
         tVM Vm = new tVM(args);
         Vm.runCodeMemory();
