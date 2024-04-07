@@ -284,7 +284,7 @@ public class tVM {
                         if(position>= globalMemory.size() || position<0)
                             Error.trowError("Index out of bound " + position + " for size: " + globalMemory.size());
                         if(globalMemory.get(position).isNULL())
-                            Error.trowError("The value you trying to access in line: " + i +" and Command: " + instructions.get(i).getCommand() + " is NIL");
+                            Error.trowError("The value you're trying to access in line: " + i +" and Command: " + instructions.get(i).getCommand() + " is NIL");
                         stack.push(globalMemory.get(position));
                     }
                     case GSTORE -> {

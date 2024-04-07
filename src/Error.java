@@ -9,9 +9,9 @@ public class Error {
 
     public static void BuildError(Exception e, Instrucion instrucao, int linha){
         if(e.getClass() == EmptyStackException.class)
-            Error.trowError("Command:" + linha + " Stack nao tem elementos o suficientes para a operacao: '" + instrucao.getCommand().toString().toLowerCase() + "'");
+            Error.trowError("Line:" + linha + " Stack doesn't have enough elements for the operation: '" + instrucao.getCommand().toString().toLowerCase() + "'");
         if(e.getClass() == IllegalArgumentException.class)
-            Error.trowError("Command:" + linha + ". In instrucion " + instrucao + " " + e.getMessage());
-        Error.trowError("Command:" + linha + " " + e);
+            Error.trowError("Line:" + linha + ". In instruction " + instrucao + " " + e.getMessage());
+        Error.trowError("Line:" + linha + " " + e);
     }
 }
