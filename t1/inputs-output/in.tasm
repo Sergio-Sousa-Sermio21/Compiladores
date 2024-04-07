@@ -1,0 +1,6 @@
+dconst 3
+sconst "Retard"
+sprint
+dadd
+dprint
+halt

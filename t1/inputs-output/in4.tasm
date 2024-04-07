@@ -1,0 +1,11 @@
+begin: sconst "We "
+sconst "hate "
+sadd
+sconst "the "
+sadd
+sconst "french :P"
+sadd
+tconst
+jumpt begin
+sprint
+halt

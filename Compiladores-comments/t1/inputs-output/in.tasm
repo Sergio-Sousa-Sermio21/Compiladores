@@ -1,5 +1,0 @@
-iconst 2
-iprint
-sconst "Maria Albertina"
-iprint
-halt
