@@ -9,15 +9,17 @@ public class Value {
 
     public Value(Boolean valor) { value = valor;}
 
-    public Integer getValueInt(){
+    public Value(){ value = null;}
+
+    public Integer getValueInt() throws IllegalArgumentException {
         if(!(value instanceof Integer))
-            Error.trowError("Value given isn't type Integer it's "  + value.getClass());
+            throw new IllegalArgumentException("Value given isn't type Integer it's "  + value.getClass().getSimpleName());
         return (Integer) value;
     }
 
-    public String getValueString(){
+    public String getValueString() throws IllegalArgumentException {
         if(!(value instanceof String)){
-            Error.trowError("Value given isn't type String it's "  + value.getClass());
+            throw new IllegalArgumentException("Value given isn't type String it's "  + value.getClass().getSimpleName());
         }
         String texto = (String) value;
         texto = texto.replaceAll("\\\\n", "\n")
@@ -28,15 +30,26 @@ public class Value {
         return texto;
     }
 
-    public Double getValueDouble(){
+    public Double getValueDouble() throws IllegalArgumentException {
         if(!(value instanceof Double))
-            Error.trowError("Value given isn't type Double it's "  + value.getClass());
+            throw new IllegalArgumentException("Value given isn't type Double it's "  + value.getClass().getSimpleName());
         return (Double) value;
     }
 
-    public Boolean getValueBoolean(){
+    public Boolean getValueBoolean() throws IllegalArgumentException {
         if(!(value instanceof Boolean))
-            Error.trowError("Value given isn't type Boolean it's "  + value.getClass());
+            throw new IllegalArgumentException("Value given isn't type Boolean it's "  + value.getClass().getSimpleName());
         return (Boolean) value;
+    }
+
+    public boolean isNULL(){
+        return value==null;
+    }
+
+    @Override
+    public String toString() {
+        if(value == null)
+            return "NIL";
+        return "" + value;
     }
 }

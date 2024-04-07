@@ -1,13 +1,15 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class tVM {
 
-    private ArrayList<Value> globalMemory;
+    private final ArrayList<Value> globalMemory = new ArrayList<>(0);
     private final ArrayList<Object> constantPool = new ArrayList<>();
     private final HashMap<Integer, Commands> commands = new HashMap<>();
     private final ArrayList<Instrucion> instructions = new ArrayList<>();
@@ -85,15 +87,28 @@ public class tVM {
         }
     }
 
+    private void printStatus(int i){
+        System.out.print(i + ": " + instructions.get(i) + "\t");
+        System.out.println("Stack " + stack);
+        System.out.print("Global Memory [");
+        for (int j = 0; j < globalMemory.size(); j++) {
+            System.out.print(globalMemory.get(j));
+            if(globalMemory.size() >1 && j<globalMemory.size()-1)
+                System.out.print(", ");
+        }
+        System.out.println("]");
+    }
 
 
     /**Executa o código no array de instrucoes de instruções.
      *
      */
-    public void runCodeMemory(){
+    public void runCodeMemory(boolean debug){
         int i = 0;
         try {
             while (i < instructions.size()) {
+                if(debug)
+                    printStatus(i);
                 switch (instructions.get(i).getCommand()) {
 
                     //Parte dos ints
@@ -106,6 +121,8 @@ public class tVM {
 
                     case IDIV -> {
                         int b = stack.pop().getValueInt();
+                        if(b==0)
+                            Error.trowError("Can not divide by zero in line: " + i + " Commands: " + instructions.get(i).getCommand());
                         int a = stack.pop().getValueInt();
                         stack.push(new Value(a / b));
                     }
@@ -164,6 +181,8 @@ public class tVM {
                     }
                     case DDIV -> {
                         double b = stack.pop().getValueDouble();
+                        if(b==0)
+                            Error.trowError("Can not divide by zero in line: " + i + " Commands: " + instructions.get(i).getCommand());
                         double a = stack.pop().getValueDouble();
                         stack.push(new Value(a / b));
                     }
@@ -254,24 +273,24 @@ public class tVM {
                     }
                     case GALLOC -> {
                         int size = instructions.get(i).getValue();
-                        globalMemory = new ArrayList<>(size);
+                        globalMemory.ensureCapacity(size + globalMemory.size());
+                        int oldSize = globalMemory.size();
+                        while (globalMemory.size() < size+oldSize) {
+                            globalMemory.add(new Value());
+                        }
                     }
                     case GLOAD -> {
                         int position = instructions.get(i).getValue();
-                        if(globalMemory == null)
-                            Error.trowError("GlobalMemory was not initialized. \n You try to use galloc");
                         if(position>= globalMemory.size() || position<0)
-                            Error.trowError("Index out of bound" + position + "for size: " + globalMemory.size());
-                        if(globalMemory.get(position) == null)
-                            Error.trowError("The value you trying to access is NILL");
+                            Error.trowError("Index out of bound " + position + " for size: " + globalMemory.size());
+                        if(globalMemory.get(position).isNULL())
+                            Error.trowError("The value you trying to access in line: " + i +" and Command: " + instructions.get(i).getCommand() + " is NIL");
                         stack.push(globalMemory.get(position));
                     }
                     case GSTORE -> {
                         int position = instructions.get(i).getValue();
-                        if(position>= globalMemory.size())
+                        if(position>= globalMemory.size() || position<0)
                             Error.trowError("Index out of bound" + position + "for size: " + globalMemory.size());
-                        if(globalMemory.get(position) == null)
-                            Error.trowError("The value you trying to access is NILL");
                         globalMemory.set(position, stack.pop());
                     }
 
@@ -285,20 +304,16 @@ public class tVM {
         }
         Error.trowError("No Halt found!");
     }
-
-    public void debug() {
-        System.out.println("----------------------------------------\nConstant Pool:");
-        for (int i = 0; i < constantPool.size(); i++) {
-            System.out.println(i + ": " + constantPool.get(i));
-        }
-        System.out.println("-----------------------------------------\nInstruction array:");
-        for (int i = 0; i < instructions.size(); i++) {
-            System.out.println(i + ": " + instructions.get(i));
-        }
-        System.out.println("-----------------------------------------");
-    }
     public static void main(String[] args) throws Exception {
         tVM Vm = new tVM(args);
-        Vm.runCodeMemory();
+        boolean debug = false;
+        List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+        for (String arg : inputArguments) {
+            if (arg.contains("jdwp") || arg.contains("Xdebug")) {
+                debug = true;
+                break;
+            }
+        }
+        Vm.runCodeMemory(debug);
     }
 }

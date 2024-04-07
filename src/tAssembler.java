@@ -136,7 +136,6 @@ public class tAssembler extends TasmBaseListener {
 
         public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.SCONST().getText().toUpperCase()), constantpoll.size()));
-            System.out.println(ctx.STRING().getText());
             constantpoll.add(ctx.STRING().getText());
         }
 
