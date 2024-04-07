@@ -1,0 +1,48 @@
+dconst 10.0
+dconst 5.0
+dadd
+dprint
+
+dconst 10.0
+dconst 5.0
+ddiv
+dprint
+
+dconst 10.0
+dconst 10.0
+deq
+bprint
+
+dconst 10.0
+dconst 5.0
+dneq
+bprint
+
+dconst 10.0
+dconst 5.0
+dmult
+dprint
+
+dconst 10.0
+dconst 5.0
+dsub
+dprint
+
+dconst 10.0
+dtos
+sprint
+
+dconst 10.0
+duminus
+dprint
+
+dconst 10.0
+dconst 5.0
+dlt
+bprint
+
+dconst 10.0
+dtos
+sprint
+
+halt

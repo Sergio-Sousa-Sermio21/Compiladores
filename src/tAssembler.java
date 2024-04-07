@@ -1,5 +1,5 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 
 import Tasm.TasmBaseListener;
@@ -10,29 +10,36 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+
 public class tAssembler extends TasmBaseListener {
-        private static final HashMap<String, Commands> commandMap = new HashMap<>();
-        private static final HashMap<String,Integer> labelsposicion = new HashMap<>();
-        private ArrayList<Instrucion> instrucoes = new ArrayList<>();
+        private final HashMap<String,Integer> labelsposicion = new HashMap<>();
+        private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
 
-        private ArrayList<Object> constantpoll = new ArrayList<>();
-        public tAssembler(String args[]) throws IOException {
-            initHashMap();
-            init(args);
-            writeBytecode(args);
-            /*
-            FileOutputStream fos = new FileOutputStream("inputs/" + out);
-            DataOutputStream bytecodes = new DataOutputStream(fos);
+        private final Map<String, List<Integer>> labelsNotFound = new HashMap<>();
 
-            String teste = "Caralho";
-            byte[] stringbytes = teste.getBytes(StandardCharsets.UTF_8);
-            bytecodes.writeInt(teste.length());
-            bytecodes.write(stringbytes);*/
+        private final ArrayList<Object> constantpoll = new ArrayList<>();
+        public tAssembler(){}
 
+    public void debug(){
+        System.out.println("----------------------------------------\nConstant Pool:");
+        for (int i = 0; i<constantpoll.size(); i++) {
+            System.out.println(i + ": " + constantpoll.get(i));
         }
+        System.out.println("-----------------------------------------\nInstrution array:");
+        for (int i = 0; i<instrucoes.size(); i++) {
+            System.out.println(i + ": " + instrucoes.get(i));
+        }
+        System.out.println("-----------------------------------------");
+    }
 
-        private void writeBytecode(String[] args) throws IOException {
-            //teste.tasm
+    /** Escreve bytecode em um file com base nas instruções fornecidas
+     *
+     * @param args Argumentos presentes na linha de comando.
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+     */
+    private void writeBytecode(String[] args, boolean debug) throws IOException {
+            if(debug)
+                debug();
             File file = new File(args[0]);
             String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
             newFile = "inputs/" + newFile;
@@ -40,42 +47,39 @@ public class tAssembler extends TasmBaseListener {
             DataOutputStream bytecodes = new DataOutputStream(fos);
             for (Instrucion instruction : instrucoes) {
                     bytecodes.write(instruction.getCommand().ordinal());
-                    if(instruction.getValue() instanceof Integer)
-                        bytecodes.writeInt((int) instruction.getValue());
-                    if(instruction.getValue() instanceof  String){
-                        bytecodes.writeInt(constantpoll.size());
-                        constantpoll.add(instruction.getValue());
-                    } else if(instruction.getValue() instanceof  Double){
-                        bytecodes.writeInt(constantpoll.size());
-                        constantpoll.add(instruction.getValue());
-                    } else if(instruction.getValue() instanceof TerminalNode){
-                        System.out.println(labelsposicion.get(instruction.getValue().toString()));
-                        bytecodes.write(labelsposicion.get(instruction.getValue().toString()));
+                    if(instruction.getValue() != null){
+                        bytecodes.writeInt( instruction.getValue());
                     }
-
             }
-            writeconstanpoll(bytecodes);
+            writeConstantPoll(bytecodes);
         }
 
-        public void writeconstanpoll(DataOutputStream bytecodes) throws IOException{
+    /** Escreve a tabela de constantes em bytecode no fim do file
+     *
+     * @param bytecodes Serve para a criação de dados em byte
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
+     */
+    public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
             bytecodes.write(Commands.CONSTANTPOOL.ordinal());
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
+                    bytecodes.write(0);
                     bytecodes.writeDouble((double) constant);
                 } else if (constant instanceof String finalstring){
-                    bytecodes.write(finalstring.length());
+                    finalstring = finalstring.substring(1,finalstring.length()-1);
+                    bytecodes.write(1);
+                    bytecodes.writeInt(finalstring.length());
                     bytecodes.writeChars(finalstring);
                 }
 
             }
         }
 
-        public void initHashMap(){
-            for(Commands c : Commands.values())
-                commandMap.put(c.name().toLowerCase(), c);
-        }
-
-        public void init(String args[]){
+    /** Inicializa o processo de compilação do código TASM
+     *
+     * @param args Os argumentos fornecidos ao iniciar o processo
+     */
+    public void init(String[] args){
             String inputFile = null;
             if ( args.length>0 )
                 inputFile = args[0];
@@ -88,7 +92,6 @@ public class tAssembler extends TasmBaseListener {
                 TasmParser parser = new TasmParser(tokens);
                 parser.removeErrorListeners(); // Remove the default console error listener
                 parser.addErrorListener(new ConsoleErrorListener());
-
                 ParseTree tree = parser.program();
                 int numberOfErrors = parser.getNumberOfSyntaxErrors();
                 if(numberOfErrors>0){
@@ -99,73 +102,113 @@ public class tAssembler extends TasmBaseListener {
                 test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
                 walker.walk(this, tree);
-                for(Instrucion intr : instrucoes)
-                    System.out.println(intr);
             }
             catch (java.io.IOException e) {
                 System.out.println(e);
             }
         }
-        public void enterExpression(TasmParser.ExpressionContext ctx) {
+
+    /** Guardar labels
+     *
+     * @param ctx the parse tree
+     */
+    public void enterExpression(TasmParser.ExpressionContext ctx) {
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value){
                 labelsposicion.put(terminalNode.getText(), instrucoes.size());
+                if(labelsNotFound.containsKey(terminalNode.getText())){
+                    for(int i : labelsNotFound.get(terminalNode.getText())){
+                        instrucoes.get(i).setValue(instrucoes.size());
+                    }
+                }
             }
-        }
-
+    }
+        //Fazer isto para todos.
         public void enterINTVALUE(TasmParser.INTVALUEContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.ICONST().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.ICONST().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
             String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
-            instrucoes.add(new Instrucion(commandMap.get(ctx.DCONST().getText()), Double.parseDouble(value)));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.DCONST().getText().toUpperCase()), constantpoll.size()));
+            constantpoll.add(Double.parseDouble(value));
         }
 
         public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.SCONST().getText()), ctx.STRING().getText()));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.SCONST().getText().toUpperCase()), constantpoll.size()));
+            constantpoll.add(ctx.STRING().getText());
+        }
+
+        public void resolveJumps(String label, String command){
+            if(labelsposicion.containsKey(label))
+                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()), labelsposicion.get(label)));
+            else{
+                if(labelsNotFound.containsKey(label))
+                    labelsNotFound.get(label).add(instrucoes.size());
+                else
+                    labelsNotFound.computeIfAbsent(label, k -> new ArrayList<>()).add(instrucoes.size());
+                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()),0));
+            }
         }
 
         public void enterJUMP(TasmParser.JUMPContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMP().getText()), ctx.LABEL()));
+            resolveJumps(ctx.LABEL().getText(),ctx.JUMP().getText());
         }
 
         public void enterJUMPT(TasmParser.JUMPTContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPT().getText()), ctx.LABEL()));
+            resolveJumps(ctx.LABEL().getText(),ctx.JUMPT().getText());
         }
 
         public void enterJUMPF(TasmParser.JUMPFContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.JUMPF().getText()), ctx.LABEL()));
+            resolveJumps(ctx.LABEL().getText(),ctx.JUMPF().getText());
         }
 
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
-            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
+        }
+
+        public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx){
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterHALT(TasmParser.HALTContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterGALLOC(TasmParser.GALLOCContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.GALLOC().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GALLOC().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterGLOAD(TasmParser.GLOADContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.GLOAD().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GLOAD().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterGSTORE(TasmParser.GSTOREContext ctx) {
-            instrucoes.add(new Instrucion(commandMap.get(ctx.GSTORE().getText()), Integer.parseInt(ctx.INT().getText())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void execute(String[] args, boolean debug) throws IOException {
+            init(args);
+            writeBytecode(args, debug);
         }
         public static void main(String[] args) throws Exception {
-            tAssembler assembler = new tAssembler(args);
+            tAssembler assembler = new tAssembler();
+            boolean debug = false;
+            List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+            for (String arg : inputArguments) {
+                if (arg.contains("jdwp") || arg.contains("Xdebug")) {
+                    debug = true;
+                    break;
+                }
+            }
+            assembler.execute(args, debug);
         }
 }

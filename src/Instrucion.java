@@ -2,9 +2,9 @@ import org.antlr.runtime.Token;
 
 public class Instrucion {
     private Commands command;
-    private Object value;
+    private Integer value;
 
-    public Instrucion(Commands codigo, Object valor){
+    public Instrucion(Commands codigo, Integer valor){
         command = codigo;
         value = valor;
     }
@@ -13,17 +13,13 @@ public class Instrucion {
 
     public Commands getCommand(){   return  command;    }
 
-    public Object getValue(){   return value;   }
+    public Integer getValue(){   return value;   }
+
+    public void setValue(Integer valor){ value=valor;}
 
     @Override
     public String toString() {
         if(value != null){
-            if(value instanceof Double)
-                return command.name() + " " + value + " Double";
-            if(value instanceof Integer)
-                return  command.name() + " " + value + " Int";
-            if(value instanceof String)
-                return  command.name() + " " + value + " String";
             return  command.name() + " " +  value;
         }
         return command.name();

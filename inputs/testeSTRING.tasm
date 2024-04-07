@@ -1,0 +1,16 @@
+sconst "Hello "
+sconst "World"
+sadd
+sprint
+
+sconst "Hello"
+sconst "World"
+seq
+bprint
+
+sconst "Hello"
+sconst "World"
+sneq
+bprint
+
+halt

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
+    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/TestSemantico.java">
+      <ranges>
+        <range start1="12" end1="15" start2="12" end2="15" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="21" end1="22" start2="21" end2="22" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="53" end1="54" start2="53" end2="54" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="67" end1="68" start2="67" end2="68" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/Error.java">
+      <ranges>
+        <range start1="11" end1="12" start2="11" end2="12" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="13" end1="15" start2="13" end2="15" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+      </ranges>
+    </file>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2eKOmqme9vOPLMPmeezGZ5Jh2Lr" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Debug",
+    "Application.tAssembler.executor": "Debug",
+    "Application.tVm.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Pedro",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/Documents/Lab1typescript/Compiladores/inputs",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Trabalho de Compiladores" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tAssembler" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tasm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tVm" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="tVM" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tbc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/inputs" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Compiladores" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Compiladores" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.tAssembler" />
+      <item itemvalue="Application.tVm" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="" />
+      <created>1711649964846</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711649964846</updated>
+      <workItem from="1711821515058" duration="900000" />
+      <workItem from="1711822713171" duration="280000" />
+      <workItem from="1711823439371" duration="7563000" />
+      <workItem from="1711837893710" duration="4305000" />
+      <workItem from="1711847521170" duration="3660000" />
+      <workItem from="1711869691797" duration="5381000" />
+      <workItem from="1711930349935" duration="976000" />
+      <workItem from="1711962467209" duration="5586000" />
+      <workItem from="1712063808950" duration="6159000" />
+      <workItem from="1712085012127" duration="1284000" />
+      <workItem from="1712142362082" duration="5404000" />
+      <workItem from="1712318151408" duration="608000" />
+      <workItem from="1712322651940" duration="2423000" />
+      <workItem from="1712418770352" duration="1212000" />
+      <workItem from="1712420049361" duration="1267000" />
+      <workItem from="1712421478368" duration="3452000" />
+      <workItem from="1712425472122" duration="3296000" />
+      <workItem from="1712429037741" duration="3225000" />
+      <workItem from="1712491978685" duration="7706000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

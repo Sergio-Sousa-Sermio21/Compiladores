@@ -20,13 +20,13 @@ instruction: ICONST INT #INTVALUE
            | BOLEANINSTRUCION #BOLEANINSTRUCION;
 
 //Regra para as instrucoes de int
-INTINSTRUCTION: IADD | IDIV
-              | IEQ  | ILEQ
-              | IMOD | IMULT
-              | INEQ | IPRINT
-              | ISUB | ITOP
-              | ITOS | IUMINUS
-              | ILT  | ITOD;
+INTINSTRUCTION: IADD    | IDIV
+              | IEQ     | ILEQ
+              | IMOD    | IMULT
+              | INEQ    | IPRINT
+              | ISUB    | ITOS
+              | IUMINUS | ILT
+              | ITOD;
 
 //Regra para as instrucoes de double
 DOUBLEINSTRUCTION: DADD  | DDIV
@@ -54,7 +54,6 @@ IEQ: 'ieq';
 INEQ: 'ineq';
 ILT: 'ilt';
 ILEQ: 'ileq';
-ITOP: 'itop';
 ITOS: 'itos';
 ITOD: 'itod';
 IPRINT: 'iprint';
@@ -103,9 +102,10 @@ GSTORE: 'gstore';
 
 // Outros comandos e tokens
 HALT: 'halt';
-STRING: '"' .*? '"';
+STRING: '"' ( ESC_SEQ | ~[\\"\r\n] )* '"';
+fragment ESC_SEQ : '\\' . ;
 DOUBLE: INT+ '.' INT+;
 INT: [0-9]+;
 EOL: '\n';
-LABEL: [a-zA-Z_] [a-zA-Z_0-9]*;
+LABEL: [a-zA-Z_] [a-zA-Z_0-9-]*;
 WS: [ \t\r]+ -> skip;

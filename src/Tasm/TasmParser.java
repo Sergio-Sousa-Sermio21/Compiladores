@@ -19,13 +19,12 @@ public class TasmParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, INTINSTRUCTION=3, DOUBLEINSTRUCTION=4, STRINGINSTRUCTION=5, 
 		BOLEANINSTRUCION=6, ICONST=7, IUMINUS=8, IADD=9, ISUB=10, IMULT=11, IDIV=12, 
-		IMOD=13, IEQ=14, INEQ=15, ILT=16, ILEQ=17, ITOP=18, ITOS=19, ITOD=20, 
-		IPRINT=21, DCONST=22, DUMINUS=23, DADD=24, DSUB=25, DMULT=26, DDIV=27, 
-		DEQ=28, DLT=29, DLEQ=30, DTOS=31, DNEQ=32, DPRINT=33, SCONST=34, SPRINT=35, 
-		SADD=36, SEQ=37, SNEQ=38, BPRINT=39, BEQ=40, BNEQ=41, AND=42, OR=43, NOT=44, 
-		BTOS=45, TCONST=46, FCONST=47, JUMP=48, JUMPT=49, JUMPF=50, GALLOC=51, 
-		GLOAD=52, GSTORE=53, HALT=54, STRING=55, DOUBLE=56, INT=57, EOL=58, LABEL=59, 
-		WS=60;
+		IMOD=13, IEQ=14, INEQ=15, ILT=16, ILEQ=17, ITOS=18, ITOD=19, IPRINT=20, 
+		DCONST=21, DUMINUS=22, DADD=23, DSUB=24, DMULT=25, DDIV=26, DEQ=27, DLT=28, 
+		DLEQ=29, DTOS=30, DNEQ=31, DPRINT=32, SCONST=33, SPRINT=34, SADD=35, SEQ=36, 
+		SNEQ=37, BPRINT=38, BEQ=39, BNEQ=40, AND=41, OR=42, NOT=43, BTOS=44, TCONST=45, 
+		FCONST=46, JUMP=47, JUMPT=48, JUMPF=49, GALLOC=50, GLOAD=51, GSTORE=52, 
+		HALT=53, STRING=54, DOUBLE=55, INT=56, EOL=57, LABEL=58, WS=59;
 	public static final int
 		RULE_program = 0, RULE_expression = 1, RULE_instruction = 2;
 	private static String[] makeRuleNames() {
@@ -39,12 +38,12 @@ public class TasmParser extends Parser {
 		return new String[] {
 			null, "','", "':'", null, null, null, null, "'iconst'", "'iuminus'", 
 			"'iadd'", "'isub'", "'imult'", "'idiv'", "'imod'", "'ieq'", "'ineq'", 
-			"'ilt'", "'ileq'", "'itop'", "'itos'", "'itod'", "'iprint'", "'dconst'", 
-			"'duminus'", "'dadd'", "'dsub'", "'dmult'", "'ddiv'", "'deq'", "'dlt'", 
-			"'dleq'", "'dtos'", "'dneq'", "'dprint'", "'sconst'", "'sprint'", "'sadd'", 
-			"'seq'", "'sneq'", "'bprint'", "'beq'", "'bneq'", "'and'", "'or'", "'not'", 
-			"'btos'", "'tconst'", "'fconst'", "'jump'", "'jumpt'", "'jumpf'", "'galloc'", 
-			"'gload'", "'gstore'", "'halt'", null, null, null, "'\\n'"
+			"'ilt'", "'ileq'", "'itos'", "'itod'", "'iprint'", "'dconst'", "'duminus'", 
+			"'dadd'", "'dsub'", "'dmult'", "'ddiv'", "'deq'", "'dlt'", "'dleq'", 
+			"'dtos'", "'dneq'", "'dprint'", "'sconst'", "'sprint'", "'sadd'", "'seq'", 
+			"'sneq'", "'bprint'", "'beq'", "'bneq'", "'and'", "'or'", "'not'", "'btos'", 
+			"'tconst'", "'fconst'", "'jump'", "'jumpt'", "'jumpf'", "'galloc'", "'gload'", 
+			"'gstore'", "'halt'", null, null, null, "'\\n'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -52,12 +51,12 @@ public class TasmParser extends Parser {
 		return new String[] {
 			null, null, null, "INTINSTRUCTION", "DOUBLEINSTRUCTION", "STRINGINSTRUCTION", 
 			"BOLEANINSTRUCION", "ICONST", "IUMINUS", "IADD", "ISUB", "IMULT", "IDIV", 
-			"IMOD", "IEQ", "INEQ", "ILT", "ILEQ", "ITOP", "ITOS", "ITOD", "IPRINT", 
-			"DCONST", "DUMINUS", "DADD", "DSUB", "DMULT", "DDIV", "DEQ", "DLT", "DLEQ", 
-			"DTOS", "DNEQ", "DPRINT", "SCONST", "SPRINT", "SADD", "SEQ", "SNEQ", 
-			"BPRINT", "BEQ", "BNEQ", "AND", "OR", "NOT", "BTOS", "TCONST", "FCONST", 
-			"JUMP", "JUMPT", "JUMPF", "GALLOC", "GLOAD", "GSTORE", "HALT", "STRING", 
-			"DOUBLE", "INT", "EOL", "LABEL", "WS"
+			"IMOD", "IEQ", "INEQ", "ILT", "ILEQ", "ITOS", "ITOD", "IPRINT", "DCONST", 
+			"DUMINUS", "DADD", "DSUB", "DMULT", "DDIV", "DEQ", "DLT", "DLEQ", "DTOS", 
+			"DNEQ", "DPRINT", "SCONST", "SPRINT", "SADD", "SEQ", "SNEQ", "BPRINT", 
+			"BEQ", "BNEQ", "AND", "OR", "NOT", "BTOS", "TCONST", "FCONST", "JUMP", 
+			"JUMPT", "JUMPF", "GALLOC", "GLOAD", "GSTORE", "HALT", "STRING", "DOUBLE", 
+			"INT", "EOL", "LABEL", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -733,7 +732,7 @@ public class TasmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001<A\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002"+
+		"\u0004\u0001;A\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002"+
 		"\u0007\u0002\u0001\u0000\u0001\u0000\u0004\u0000\t\b\u0000\u000b\u0000"+
 		"\f\u0000\n\u0001\u0000\u0005\u0000\u000e\b\u0000\n\u0000\f\u0000\u0011"+
 		"\t\u0000\u0001\u0000\u0005\u0000\u0014\b\u0000\n\u0000\f\u0000\u0017\t"+
@@ -744,39 +743,39 @@ public class TasmParser extends Parser {
 		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
 		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
 		"\u0001\u0002\u0001\u0002\u0003\u0002?\b\u0002\u0001\u0002\u0000\u0000"+
-		"\u0003\u0000\u0002\u0004\u0000\u0001\u0001\u000089O\u0000\u0006\u0001"+
+		"\u0003\u0000\u0002\u0004\u0000\u0001\u0001\u000078O\u0000\u0006\u0001"+
 		"\u0000\u0000\u0000\u0002#\u0001\u0000\u0000\u0000\u0004>\u0001\u0000\u0000"+
-		"\u0000\u0006\u000f\u0003\u0002\u0001\u0000\u0007\t\u0005:\u0000\u0000"+
+		"\u0000\u0006\u000f\u0003\u0002\u0001\u0000\u0007\t\u00059\u0000\u0000"+
 		"\b\u0007\u0001\u0000\u0000\u0000\t\n\u0001\u0000\u0000\u0000\n\b\u0001"+
 		"\u0000\u0000\u0000\n\u000b\u0001\u0000\u0000\u0000\u000b\f\u0001\u0000"+
 		"\u0000\u0000\f\u000e\u0003\u0002\u0001\u0000\r\b\u0001\u0000\u0000\u0000"+
 		"\u000e\u0011\u0001\u0000\u0000\u0000\u000f\r\u0001\u0000\u0000\u0000\u000f"+
 		"\u0010\u0001\u0000\u0000\u0000\u0010\u0015\u0001\u0000\u0000\u0000\u0011"+
-		"\u000f\u0001\u0000\u0000\u0000\u0012\u0014\u0005:\u0000\u0000\u0013\u0012"+
+		"\u000f\u0001\u0000\u0000\u0000\u0012\u0014\u00059\u0000\u0000\u0013\u0012"+
 		"\u0001\u0000\u0000\u0000\u0014\u0017\u0001\u0000\u0000\u0000\u0015\u0013"+
 		"\u0001\u0000\u0000\u0000\u0015\u0016\u0001\u0000\u0000\u0000\u0016\u0018"+
 		"\u0001\u0000\u0000\u0000\u0017\u0015\u0001\u0000\u0000\u0000\u0018\u0019"+
 		"\u0005\u0000\u0000\u0001\u0019\u0001\u0001\u0000\u0000\u0000\u001a\u001f"+
-		"\u0005;\u0000\u0000\u001b\u001c\u0005\u0001\u0000\u0000\u001c\u001e\u0005"+
-		";\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000\u001e!\u0001\u0000\u0000"+
+		"\u0005:\u0000\u0000\u001b\u001c\u0005\u0001\u0000\u0000\u001c\u001e\u0005"+
+		":\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000\u001e!\u0001\u0000\u0000"+
 		"\u0000\u001f\u001d\u0001\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000"+
 		" \"\u0001\u0000\u0000\u0000!\u001f\u0001\u0000\u0000\u0000\"$\u0005\u0002"+
 		"\u0000\u0000#\u001a\u0001\u0000\u0000\u0000#$\u0001\u0000\u0000\u0000"+
 		"$%\u0001\u0000\u0000\u0000%&\u0003\u0004\u0002\u0000&\u0003\u0001\u0000"+
-		"\u0000\u0000\'(\u0005\u0007\u0000\u0000(?\u00059\u0000\u0000)*\u0005\u0016"+
-		"\u0000\u0000*?\u0007\u0000\u0000\u0000+,\u0005\"\u0000\u0000,?\u00057"+
-		"\u0000\u0000-.\u00050\u0000\u0000.?\u0005;\u0000\u0000/0\u00051\u0000"+
-		"\u00000?\u0005;\u0000\u000012\u00052\u0000\u00002?\u0005;\u0000\u0000"+
-		"34\u00053\u0000\u00004?\u00059\u0000\u000056\u00054\u0000\u00006?\u0005"+
-		"9\u0000\u000078\u00055\u0000\u00008?\u00059\u0000\u00009?\u00056\u0000"+
-		"\u0000:?\u0005\u0003\u0000\u0000;?\u0005\u0004\u0000\u0000<?\u0005\u0005"+
-		"\u0000\u0000=?\u0005\u0006\u0000\u0000>\'\u0001\u0000\u0000\u0000>)\u0001"+
-		"\u0000\u0000\u0000>+\u0001\u0000\u0000\u0000>-\u0001\u0000\u0000\u0000"+
-		">/\u0001\u0000\u0000\u0000>1\u0001\u0000\u0000\u0000>3\u0001\u0000\u0000"+
-		"\u0000>5\u0001\u0000\u0000\u0000>7\u0001\u0000\u0000\u0000>9\u0001\u0000"+
-		"\u0000\u0000>:\u0001\u0000\u0000\u0000>;\u0001\u0000\u0000\u0000><\u0001"+
-		"\u0000\u0000\u0000>=\u0001\u0000\u0000\u0000?\u0005\u0001\u0000\u0000"+
-		"\u0000\u0006\n\u000f\u0015\u001f#>";
+		"\u0000\u0000\'(\u0005\u0007\u0000\u0000(?\u00058\u0000\u0000)*\u0005\u0015"+
+		"\u0000\u0000*?\u0007\u0000\u0000\u0000+,\u0005!\u0000\u0000,?\u00056\u0000"+
+		"\u0000-.\u0005/\u0000\u0000.?\u0005:\u0000\u0000/0\u00050\u0000\u0000"+
+		"0?\u0005:\u0000\u000012\u00051\u0000\u00002?\u0005:\u0000\u000034\u0005"+
+		"2\u0000\u00004?\u00058\u0000\u000056\u00053\u0000\u00006?\u00058\u0000"+
+		"\u000078\u00054\u0000\u00008?\u00058\u0000\u00009?\u00055\u0000\u0000"+
+		":?\u0005\u0003\u0000\u0000;?\u0005\u0004\u0000\u0000<?\u0005\u0005\u0000"+
+		"\u0000=?\u0005\u0006\u0000\u0000>\'\u0001\u0000\u0000\u0000>)\u0001\u0000"+
+		"\u0000\u0000>+\u0001\u0000\u0000\u0000>-\u0001\u0000\u0000\u0000>/\u0001"+
+		"\u0000\u0000\u0000>1\u0001\u0000\u0000\u0000>3\u0001\u0000\u0000\u0000"+
+		">5\u0001\u0000\u0000\u0000>7\u0001\u0000\u0000\u0000>9\u0001\u0000\u0000"+
+		"\u0000>:\u0001\u0000\u0000\u0000>;\u0001\u0000\u0000\u0000><\u0001\u0000"+
+		"\u0000\u0000>=\u0001\u0000\u0000\u0000?\u0005\u0001\u0000\u0000\u0000"+
+		"\u0006\n\u000f\u0015\u001f#>";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
