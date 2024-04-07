@@ -50,6 +50,8 @@ public class Value {
     public String toString() {
         if(value == null)
             return "NIL";
+        if(value instanceof String)
+            return "\"" + value + "\"";
         return "" + value;
     }
 }

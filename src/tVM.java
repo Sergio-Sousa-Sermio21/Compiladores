@@ -87,6 +87,10 @@ public class tVM {
         }
     }
 
+    /**
+     * Metodo que da print ao estado atual da stack, globalmemory e a instrucao atual
+     * @param i indici da instrucao atual
+     */
     private void printStatus(int i){
         System.out.print(i + ": " + instructions.get(i) + "\t");
         System.out.println("Stack " + stack);
@@ -129,6 +133,8 @@ public class tVM {
                     case IMOD -> {
                         int b = stack.pop().getValueInt();
                         int a = stack.pop().getValueInt();
+                        if(b==0)
+                            Error.trowError("Can not divide by zero in line: " + i + " Commands: " + instructions.get(i).getCommand());
                         stack.push(new Value(a % b));
                     }
                     case IEQ -> {
@@ -309,7 +315,7 @@ public class tVM {
         boolean debug = false;
         List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
         for (String arg : inputArguments) {
-            if (arg.contains("jdwp") || arg.contains("Xdebug")) {
+            if (arg.contains("jdwp")) {
                 debug = true;
                 break;
             }

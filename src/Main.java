@@ -19,10 +19,10 @@ public class Main {
         String[] file = new String[2];
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\inputs\\" + name + ".tasm";
         tAssembler assembler = new tAssembler();
-        assembler.execute(file, false);
+        assembler.execute(file, true);
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\inputs\\" + name + ".tbc";
         System.out.println();
         tVM vm = new tVM(file);
-        vm.runCodeMemory(false);
+        vm.runCodeMemory(true);
     }
 }

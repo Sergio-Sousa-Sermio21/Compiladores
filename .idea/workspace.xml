@@ -6,14 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
-    </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/testeSTRING.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/testeSTRING.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Value.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
     </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,22 +29,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/TestSemantico.java">
-      <ranges>
-        <range start1="12" end1="15" start2="12" end2="15" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="21" end1="22" start2="21" end2="22" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="53" end1="54" start2="53" end2="54" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="67" end1="68" start2="67" end2="68" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/Error.java">
-      <ranges>
-        <range start1="11" end1="12" start2="11" end2="12" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="13" end1="15" start2="13" end2="15" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -62,7 +47,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
     "Application.tAssembler.executor": "Debug",
     "Application.tVm.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -170,6 +155,7 @@
       <workItem from="1712425472122" duration="3296000" />
       <workItem from="1712429037741" duration="3225000" />
       <workItem from="1712491978685" duration="7706000" />
+      <workItem from="1712525983553" duration="1348000" />
     </task>
     <servers />
   </component>
