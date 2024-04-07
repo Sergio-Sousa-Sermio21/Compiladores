@@ -215,16 +215,17 @@ public class tVM {
                     case BTOS:
                         stack.push(new ObjectValue(String.valueOf(stack.pop().getBool(i))));
                         break;
+                    //It indicates the line in the tasm file so its -2 (for the next loop iteration and arrayList access)
                     case JUMP:
-                        i = instruction.getToken2();
+                        i = instruction.getToken2()-2;
                         break;
                     case JUMPT:
                         if (stack.pop().getBool(i))
-                            i = instruction.getToken2();
+                            i = instruction.getToken2()-2;
                         break;
                     case JUMPF:
                         if (!stack.pop().getBool(i))
-                            i = instruction.getToken2();
+                            i = instruction.getToken2()-2;
                         break;
                     case GALLOC:
                         for (int j = 0; j <= instruction.getToken2(); j++)
@@ -272,6 +273,13 @@ public class tVM {
             if (inputFile != null) is = new FileInputStream(inputFile);
             DataInputStream tbc = new DataInputStream(is);
             tVM vm = new tVM(tbc);
+            if (Debug.isDebugging()){
+                System.out.println("Instructions:");
+                for (Instruction i : vm.instructions)
+                    System.out.println(i.getToken1()+": "+ i.getToken2());
+                System.out.println("\nConstant Pool:");
+                System.out.println(vm.constantPool);
+            }
             vm.execute();
         } catch (java.io.IOException e) {
             System.out.println(e);

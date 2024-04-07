@@ -19,9 +19,10 @@ public class ObjectValue {
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Get the Integer value at the specified index.
+     * @param index the index in the stack
+     * @return the Integer value
+     * @throws IllegalArgumentException if there is no Integer value at the specified index
      */
     public Integer getInt(int index) {
         if (i==null)
@@ -30,9 +31,10 @@ public class ObjectValue {
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Get the Double value at the specified index.
+     * @param index the index in the stack
+     * @return the Double value
+     * @throws IllegalArgumentException if there is no Double value at the specified index
      */
     public Double getDouble(int index) {
         if (d==null)
@@ -41,9 +43,10 @@ public class ObjectValue {
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Get the String value at the specified index.
+     * @param index the index in the stack
+     * @return the String value
+     * @throws IllegalArgumentException if there is no String value at the specified index
      */
     public String getString(int index) {
         if (s==null)
@@ -52,9 +55,10 @@ public class ObjectValue {
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Get the Boolean value at the specified index.
+     * @param index the index in the stack
+     * @return the Boolean value
+     * @throws IllegalArgumentException if there is no Boolean value at the specified index
      */
     public Boolean getBool(int index) {
         if (b==null)
