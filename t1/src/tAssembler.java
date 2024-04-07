@@ -19,9 +19,13 @@ class tAssembler extends TasmBaseListener{
     public static void writeInstruction(DataOutputStream byteStream, ArrayList<Instruction> instructions, ArrayList<Object> constantPool) throws IOException {
         // Write instructions to the stream
         for (Instruction instruction : instructions) {
-            byteStream.write(instruction.getBytes());
+            Integer[] i = instruction.getBytes();
+            byteStream.write(i[0]);
+            if (i.length>1)
+                byteStream.write(i[1]);
         }
         // Write constant pool to the stream
+        byteStream.write(TokenTasm.CONSTANTPOOL.ordinal());
         for (int i = 0; i<constantPool.size(); i++){
             Object data = constantPool.get(i);
             if (data instanceof Double) {
@@ -30,9 +34,7 @@ class tAssembler extends TasmBaseListener{
             } else {
                 byteStream.write(1);
                 String string = (String) data;
-                byte[] bytes =string.substring(1,string.length()-1).getBytes(StandardCharsets.UTF_8);
-                byteStream.writeInt(string.length());
-                byteStream.write(bytes);
+                byteStream.writeUTF(string.substring(1,string.length()-1));
             }
         }
     }

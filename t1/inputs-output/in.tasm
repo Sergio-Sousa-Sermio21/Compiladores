@@ -1,4 +1,6 @@
-e, e:iconst 2
-iprint
-iprin
-
+dconst 3
+sconst "Retard"
+sprint
+dadd
+dprint
+halt
