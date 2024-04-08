@@ -1,5 +1,5 @@
 dconst 3
-sconst "Retard"
+sconst "Abriged"
 sprint
 dadd
 dprint

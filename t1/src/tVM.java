@@ -256,10 +256,15 @@ public class tVM {
                 System.out.println("Was not able to execute:\n"+e.getMessage());
                 System.exit(1);
             }catch (EmptyStackException e){
-                System.out.println("Was not able to execute in line "+i+" at operation: " +op);
+                System.out.println("Was not able to execute (empty stack) in line "+i+" at operation: " +op);
+                System.exit(1);
+            } catch (OutOfMemoryError e){
+                System.out.println("Was not able to execute:\nInfinite loop found, fix label positions and jump calls.");
                 System.exit(1);
             }
         }
+        System.out.println("No halt detected, exiting...");
+        System.exit(1);
     }
 
 
