@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.*;
 
 public class TestSemantico extends TasmBaseListener {
+<<<<<<< HEAD
     // ArrayList para armazenar mensagens de erro
     private ArrayList<String> errors = new ArrayList<String>();
     // HashSet para armazenar labels únicas
@@ -17,6 +18,11 @@ public class TestSemantico extends TasmBaseListener {
     // ArrayList para armazenar labels de instruções de salto
     private ArrayList <String> jumpLabels = new ArrayList<String>();
     // Variável booleana para verificar se há uma instrução HALT no programa
+=======
+    private final ArrayList<String> errors = new ArrayList<String>();
+    private final HashSet <String> labels = new HashSet<String>();
+    private final ArrayList <String> jumpLabels = new ArrayList<String>();
+>>>>>>> Pedro
     private boolean hasHaltInstruction = false;
 
     public void exitExpression(TasmParser.ExpressionContext ctx) {
@@ -24,7 +30,7 @@ public class TestSemantico extends TasmBaseListener {
         List<TerminalNode> labels = ctx.LABEL();
         for (TerminalNode label : labels) {
             if (this.labels.contains(label.getText()))
-                errors.add("Line " + ctx.start.getLine() + ":A label " + label + " aparece mais do que uma vez no programa!");
+                errors.add("Line " + ctx.start.getLine() + ":The label " + label + " appears more than once in the program!");
             else
                 this.labels.add(label.getText());
         }
@@ -56,24 +62,30 @@ public class TestSemantico extends TasmBaseListener {
         for (String jumpLabel : jumpLabels) {
             String[] teste = jumpLabel.split("-");
             if (!this.labels.contains(teste[0])) {
-                errors.add("Line " + teste[1] + ":A label " + teste[0] + " nao aparece no programa!");
+                errors.add("Line " + teste[1] + ":The label " + teste[0] + " doesn't appear in the program programa!");
             }
         }
     }
+<<<<<<< HEAD
     // Método para iniciar a análise semântica na árvore de análise sintática gerada
+=======
+
+    /** Testa a árvore para garantir todas as verificações
+     *
+     * @param tree
+     */
+>>>>>>> Pedro
     public void TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
         this.verifyLabels();
         if (!hasHaltInstruction)
-            errors.add("O programa não possui uma instrução halt.");
+            errors.add("The program doesn't have the halt instruction.");
         if(!errors.isEmpty()){
             for(String error : errors)
                 System.err.println(error);
             System.exit(0);
         }
-
-
 
     }
 

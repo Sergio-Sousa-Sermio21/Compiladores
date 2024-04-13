@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/everyInstruction.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Value.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVm.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,53 +44,98 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.tAssembler.executor&quot;: &quot;Run&quot;,
-    &quot;Application.tVm.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Renato&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/Compiladores/antlr-4.13.1-complete.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Sol.executor": "Run",
+    "Application.Teste.executor": "Run",
+    "Application.tAssembler.executor": "Debug",
+    "Application.tVm.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Pedro",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.tVm">
+  <component name="RunManager" selected="Application.Sol">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Trabalho de Compiladores" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Sol" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="SolAssembler" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\Teste.sol" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Teste" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="TesteNodes" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\Teste.sol" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
       <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\everyInstruction.tasm" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="tVm" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="tVm" />
+      <option name="MAIN_CLASS_NAME" value="tVM" />
       <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\everyInstruction.tbc" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tbc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/inputs" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Compiladores" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Compiladores" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Teste" />
+      <item itemvalue="Application.Sol" />
       <item itemvalue="Application.tAssembler" />
       <item itemvalue="Application.tVm" />
     </list>
@@ -117,13 +163,41 @@
       <workItem from="1711869691797" duration="5381000" />
       <workItem from="1711930349935" duration="976000" />
       <workItem from="1711962467209" duration="5586000" />
-      <workItem from="1711977343612" duration="1792000" />
-      <workItem from="1711989242910" duration="2328000" />
-      <workItem from="1712048986330" duration="195000" />
+      <workItem from="1712063808950" duration="6159000" />
+      <workItem from="1712085012127" duration="1284000" />
+      <workItem from="1712142362082" duration="5404000" />
+      <workItem from="1712318151408" duration="608000" />
+      <workItem from="1712322651940" duration="2423000" />
+      <workItem from="1712418770352" duration="1212000" />
+      <workItem from="1712420049361" duration="1267000" />
+      <workItem from="1712421478368" duration="3452000" />
+      <workItem from="1712425472122" duration="3296000" />
+      <workItem from="1712429037741" duration="3225000" />
+      <workItem from="1712491978685" duration="7706000" />
+      <workItem from="1712525983553" duration="1348000" />
+      <workItem from="1712527668957" duration="1723000" />
+      <workItem from="1712530097151" duration="1569000" />
+      <workItem from="1712606877509" duration="615000" />
+      <workItem from="1712629666772" duration="93000" />
+      <workItem from="1712629973497" duration="31000" />
+      <workItem from="1712682182391" duration="45000" />
+      <workItem from="1712853440848" duration="845000" />
+      <workItem from="1712950644793" duration="19249000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

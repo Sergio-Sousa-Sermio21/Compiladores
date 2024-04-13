@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 galloc 4
 
                 iconst 0
@@ -40,3 +41,17 @@ _fibStart:      gload 2
 _fibEnd:        gload 1
                 iprint
                 halt
+=======
+dconst 3.3
+duminus
+iconst 1
+iconst 2
+iadd
+itod
+dmult
+dtos
+sconst " Ola"
+sadd
+sprint
+halt
+>>>>>>> Pedro

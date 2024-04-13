@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 
 import Tasm.TasmBaseListener;
@@ -15,6 +16,7 @@ public class tAssembler extends TasmBaseListener {
         private final HashMap<String,Integer> labelsposicion = new HashMap<>();
         // Lista de instruções geradas a partir do código presente no ficheiro TASM
         private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
+<<<<<<< HEAD
         // Mapeia o nome das labels para uma lista de posições que ?????
         private Map<String, List<Integer>> labelsNotFound = new HashMap<>();
         // Lista de constantes utilizadas no código
@@ -26,6 +28,36 @@ public class tAssembler extends TasmBaseListener {
         // Escreve o código de bytes gerado para um arquivo .tbc
         private void writeBytecode(String[] args) throws IOException {
             //teste.tasm
+=======
+
+        private final Map<String, List<Integer>> labelsNotFound = new HashMap<>();
+
+        private final ArrayList<Object> constantpoll = new ArrayList<>();
+        public tAssembler(){}
+
+    /**Metodo que mostra as instruções e a constantPool
+     */
+    public void debug(){
+        System.out.println("----------------------------------------\nConstant Pool:");
+        for (int i = 0; i<constantpoll.size(); i++) {
+            System.out.println(i + ": " + constantpoll.get(i));
+        }
+        System.out.println("-----------------------------------------\nInstrution array:");
+        for (int i = 0; i<instrucoes.size(); i++) {
+            System.out.println(i + ": " + instrucoes.get(i));
+        }
+        System.out.println("-----------------------------------------");
+    }
+
+    /** Escreve bytecode em um file com base nas instruções fornecidas
+     *
+     * @param args Argumentos presentes na linha de comando.
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+     */
+    private void writeBytecode(String[] args, boolean debug) throws IOException {
+            if(debug)
+                debug();
+>>>>>>> Pedro
             File file = new File(args[0]);
             String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
             newFile = "inputs/" + newFile;
@@ -40,7 +72,12 @@ public class tAssembler extends TasmBaseListener {
             writeConstantPoll(bytecodes);
         }
 
-        public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
+    /** Escreve a tabela de constantes em bytecode no fim do file
+     *
+     * @param bytecodes Serve para a criação de dados em byte
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
+     */
+    public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
             bytecodes.write(Commands.CONSTANTPOOL.ordinal());
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
@@ -55,8 +92,17 @@ public class tAssembler extends TasmBaseListener {
 
             }
         }
+<<<<<<< HEAD
         // Inicializa o processo de montagem
         public void init(String args[]){
+=======
+
+    /** Inicializa o processo de compilação do código TASM
+     *
+     * @param args Os argumentos fornecidos ao iniciar o processo
+     */
+    public void init(String[] args){
+>>>>>>> Pedro
             String inputFile = null;
             if ( args.length>0 )
                 inputFile = args[0];
@@ -69,7 +115,6 @@ public class tAssembler extends TasmBaseListener {
                 TasmParser parser = new TasmParser(tokens);
                 parser.removeErrorListeners(); // Remove the default console error listener
                 parser.addErrorListener(new ConsoleErrorListener());
-
                 ParseTree tree = parser.program();
                 int numberOfErrors = parser.getNumberOfSyntaxErrors();
                 if(numberOfErrors>0){
@@ -80,15 +125,22 @@ public class tAssembler extends TasmBaseListener {
                 test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
                 walker.walk(this, tree);
-                for(Instrucion intr : instrucoes)
-                    System.out.println(intr);
             }
             catch (java.io.IOException e) {
                 System.out.println(e);
             }
         }
+<<<<<<< HEAD
         // Registra a posição das labels
         public void enterExpression(TasmParser.ExpressionContext ctx) {
+=======
+
+    /** Guardar labels
+     *
+     * @param ctx the parse tree
+     */
+    public void enterExpression(TasmParser.ExpressionContext ctx) {
+>>>>>>> Pedro
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value){
                 labelsposicion.put(terminalNode.getText(), instrucoes.size());
@@ -98,8 +150,13 @@ public class tAssembler extends TasmBaseListener {
                     }
                 }
             }
+<<<<<<< HEAD
         }
         // Adiciona uma instrução de inteiro à lista de instruções
+=======
+    }
+        //Fazer isto para todos.
+>>>>>>> Pedro
         public void enterINTVALUE(TasmParser.INTVALUEContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.ICONST().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
@@ -141,11 +198,10 @@ public class tAssembler extends TasmBaseListener {
         // Adiciona uma instrução do tipo inteiro à lista de instruções
         public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
-
         }
 
         public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx){
-        instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
@@ -171,7 +227,21 @@ public class tAssembler extends TasmBaseListener {
         public void enterGSTORE(TasmParser.GSTOREContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
+
+        public void execute(String[] args, boolean debug) throws IOException {
+            init(args);
+            writeBytecode(args, debug);
+        }
         public static void main(String[] args) throws Exception {
-            tAssembler assembler = new tAssembler(args);
+            tAssembler assembler = new tAssembler();
+            boolean debug = false;
+            List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+            for (String arg : inputArguments) {
+                if (arg.contains("jdwp")) {
+                    debug = true;
+                    break;
+                }
+            }
+            assembler.execute(args, debug);
         }
 }

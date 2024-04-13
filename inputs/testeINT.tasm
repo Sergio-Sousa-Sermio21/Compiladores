@@ -1,0 +1,53 @@
+iconst 10
+iconst 5
+iadd
+iprint
+
+iconst 10
+iconst 5
+idiv
+iprint
+
+iconst 10
+iconst 10
+ieq
+bprint
+
+iconst 10
+iconst 5
+imod
+iprint
+
+iconst 10
+iconst 5
+imult
+iprint
+
+iconst 10
+iconst 5
+ineq
+bprint
+
+iconst 10
+iconst 5
+isub
+iprint
+
+iconst 10
+itos
+sprint
+
+iconst 10
+iuminus
+iprint
+
+iconst 10
+iconst 5
+ilt
+bprint
+
+iconst 10
+itod
+dprint
+
+halt

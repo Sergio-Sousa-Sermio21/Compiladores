@@ -1,0 +1,3 @@
+iconst 2
+bprint
+halt
