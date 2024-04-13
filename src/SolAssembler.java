@@ -196,7 +196,7 @@ public class SolAssembler extends SolBaseListener {
     //-----------------------------------------------------------------------------------------------------------------------------------------------
 
     @Override public void exitINT(SolParser.INTContext ctx) {
-        System.out.println("iconst " + ctx.getText());
+        instrucoes.add(new Instrucion(Commands.ICONST, Integer.parseInt(ctx.getText())));
         if(getValues(ctx.getParent()) !=Integer.class)
             if(getValues(ctx.getParent()) == String.class)
                 System.out.println("itos");
@@ -225,7 +225,7 @@ public class SolAssembler extends SolBaseListener {
     }
 
     @Override public void exitFALSE(SolParser.FALSEContext ctx) {
-        System.out.println("fconst ");
+        instrucoes.add(new Instrucion(Commands.FCONST));
         if(getValues(ctx.getParent()) == String.class)
             System.out.println("btos");
     }
