@@ -13,9 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 public class SolAssembler extends SolBaseListener {
@@ -26,35 +24,82 @@ public class SolAssembler extends SolBaseListener {
         return values.get(node);
     }
 
-    @Override public void exitProgram(SolParser.ProgramContext ctx) {
-        System.out.println("halt");
+    public void debug(){
+        System.out.println("----------------------------------------\nConstant Pool:");
+        for (int i = 0; i<constantpoll.size(); i++) {
+            System.out.println(i + ": " + constantpoll.get(i));
+        }
+        System.out.println("-----------------------------------------\nInstrution array:");
+        for (int i = 0; i<instrucoes.size(); i++) {
+            System.out.println(i + ": " + instrucoes.get(i));
+        }
+        System.out.println("-----------------------------------------");
     }
 
+    @Override public void exitProgram(SolParser.ProgramContext ctx) {
+        instrucoes.add(new Instrucion(Commands.HALT));
+    }
+
+
+    private void writeBytecode(String[] args) throws IOException {
+        File file = new File(args[0]);
+        String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
+        newFile = "inputs/" + newFile;
+        FileOutputStream fos = new FileOutputStream(newFile);
+        DataOutputStream bytecodes = new DataOutputStream(fos);
+        for (Instrucion instruction : instrucoes) {
+            bytecodes.write(instruction.getCommand().ordinal());
+            if(instruction.getValue() != null){
+                bytecodes.writeInt( instruction.getValue());
+            }
+        }
+        writeConstantPoll(bytecodes);
+    }
+
+    public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
+        bytecodes.write(Commands.CONSTANTPOOL.ordinal());
+        for (Object constant: constantpoll){
+            if(constant instanceof Double){
+                bytecodes.write(0);
+                bytecodes.writeDouble((double) constant);
+            } else if (constant instanceof String finalstring){
+                finalstring = finalstring.substring(1,finalstring.length()-1);
+                bytecodes.write(1);
+                bytecodes.writeInt(finalstring.length());
+                bytecodes.writeChars(finalstring);
+            }
+
+        }
+    }
     @Override public void exitORDER(SolParser.ORDERContext ctx) {
         Class<?> Order = getValues(ctx);
         Class<?> Parent = getValues(ctx.getParent());
         if(Order != Parent){
             if(Parent == String.class)
-                if(Order == Integer.class)
-                    System.out.println("itos");
-                else if(Order == Double.class)
-                    System.out.println("dtos");
-                else
-                    System.out.println("btos");
-            else if(Parent==Double.class)
-                System.out.println("itod");
+                if(Order == Integer.class){
+                    instrucoes.add(new Instrucion(Commands.ITOS));
+                }
+                else if(Order == Double.class) {
+                    instrucoes.add(new Instrucion(Commands.DTOS));
+                }
+                else {
+                    instrucoes.add(new Instrucion(Commands.BTOS));
+                }
+            else if(Parent==Double.class) {
+                instrucoes.add(new Instrucion(Commands.ITOD));
+            }
         }
     }
 
     @Override public void exitInstrucao(SolParser.InstrucaoContext ctx) {
         if(getValues(ctx) == Integer.class){
-            System.out.println("iprint");
+            instrucoes.add(new Instrucion(Commands.IPRINT));
         } else if(getValues(ctx) == Double.class){
-            System.out.println("dprint");
+            instrucoes.add(new Instrucion(Commands.DPRINT));
         } else if(getValues(ctx) == String.class){
-            System.out.println("sprint");
+            instrucoes.add(new Instrucion(Commands.SPRINT));
         } else {
-            System.out.println("bprint");
+            instrucoes.add(new Instrucion(Commands.BPRINT));
         }
 
     }
@@ -62,133 +107,144 @@ public class SolAssembler extends SolBaseListener {
         switch (ctx.op.getText()){
             case "*" -> {
                 if(getValues(ctx) == Double.class)
-                    System.out.println("dmult");
+                    instrucoes.add(new Instrucion(Commands.DMULT));
                 else
-                    System.out.println("imult");
+                    instrucoes.add(new Instrucion(Commands.IMULT));
             }
             case "/" -> {
                 if(getValues(ctx) == Double.class)
-                    System.out.println("ddiv");
+                    instrucoes.add(new Instrucion(Commands.DDIV));
                 else
-                    System.out.println("idiv");
+                    instrucoes.add(new Instrucion(Commands.IDIV));
             }
             case "%" -> {
                 if(getValues(ctx) == Double.class)
                     System.out.println("dmod");
                 else
-                    System.out.println("imod");
+                    instrucoes.add(new Instrucion(Commands.IMOD));
             }
         }
         if(getValues(ctx.getParent()) == String.class)
             if(getValues(ctx) == Double.class)
-                System.out.println("dtos");
+                instrucoes.add(new Instrucion(Commands.DTOS));
             else
-                System.out.println("itos");
+                instrucoes.add(new Instrucion(Commands.ITOS));
         else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class)
-            System.out.println("itod");
+            instrucoes.add(new Instrucion(Commands.ITOD));
     }
     @Override public void exitNEGACION(SolParser.NEGACIONContext ctx) {
         switch (ctx.op.getText()){
             case "-" -> {
                 if(getValues(ctx) == Double.class)
-                    System.out.println("duminus");
+                    instrucoes.add(new Instrucion(Commands.DUMINUS));
                 else
-                    System.out.println("iuminus");
+                    instrucoes.add(new Instrucion(Commands.IUMINUS));
             }
             case "not" -> {
-                System.out.println("not");
+                instrucoes.add(new Instrucion(Commands.NOT));
             }
         }
         if(getValues(ctx.getParent()) == String.class)
-            if(getValues(ctx) == Double.class)
-                System.out.println("dtos");
-            else if(getValues(ctx) == Integer.class)
-                System.out.println("itos");
-            else
-                System.out.println("btos");
-        else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class)
-            System.out.println("itod");
+            if(getValues(ctx) == Double.class) {
+                instrucoes.add(new Instrucion(Commands.ITOS));
+            }
+            else if(getValues(ctx) == Integer.class) {
+                instrucoes.add(new Instrucion(Commands.DTOS));
+            }
+            else {
+                instrucoes.add(new Instrucion(Commands.BTOS));
+            }
+        else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class) {
+            instrucoes.add(new Instrucion(Commands.ITOD));
+        }
     }
 
     @Override public void exitADDSUB(SolParser.ADDSUBContext ctx) {
         switch (ctx.op.getText()){
             case "+" -> {
                 if(getValues(ctx) == Double.class)
-                    System.out.println("dadd");
+                    instrucoes.add(new Instrucion(Commands.DADD));
                 else if(getValues(ctx) == Integer.class)
-                    System.out.println("iadd");
+                    instrucoes.add(new Instrucion(Commands.IADD));
                 else
-                    System.out.println("sadd");
+                    instrucoes.add(new Instrucion(Commands.SADD));
             }
             case "-" -> {
                 if(getValues(ctx) == Double.class)
-                    System.out.println("dsub");
+                    instrucoes.add(new Instrucion(Commands.DSUB));
                 else
-                    System.out.println("isub");
+                    instrucoes.add(new Instrucion(Commands.ISUB));
             }
         }
         if(getValues(ctx.getParent()) == String.class)
-            if(getValues(ctx) == Double.class)
-                System.out.println("dtos");
-            else if(getValues(ctx) == Integer.class)
-                System.out.println("itos");
-        else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class)
-                System.out.println("itod");
+            if(getValues(ctx) == Double.class) {
+                instrucoes.add(new Instrucion(Commands.DTOS));
+            }
+            else if(getValues(ctx) == Integer.class) {
+                instrucoes.add(new Instrucion(Commands.ITOS));
+            }
+            else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class) {
+                instrucoes.add(new Instrucion(Commands.ITOD));
+            }
     }
     @Override public void exitAND(SolParser.ANDContext ctx) {
-        System.out.println("and");
-        if(getValues(ctx.getParent()) == String.class)
-            System.out.println("btos");
+        instrucoes.add(new Instrucion(Commands.AND));
+        if(getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.BTOS));
+        }
     }
     @Override public void exitOR(SolParser.ORContext ctx) {
-        System.out.println("or");
-        if(getValues(ctx.getParent()) == String.class)
-            System.out.println("btos");
+        instrucoes.add(new Instrucion(Commands.OR));
+        if(getValues(ctx.getParent()) == String.class){
+            instrucoes.add(new Instrucion(Commands.BTOS));
+        }
     }
 
     @Override public void exitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
         if(getValues(ctx.getChild(0)) == Double.class){
             switch (ctx.op.getText()) {
-                case "==" -> System.out.println("deq");
-                case "!=" -> System.out.println("dneq");
+                case "==" -> instrucoes.add(new Instrucion(Commands.DEQ));
+                case "!=" -> instrucoes.add(new Instrucion(Commands.DNEQ));
             }
         } else if (getValues(ctx.getChild(0)) == Integer.class) {
             switch (ctx.op.getText()) {
-                case "==" -> System.out.println("ieq");
-                case "!=" -> System.out.println("ineq");
+                case "==" -> instrucoes.add(new Instrucion(Commands.IEQ));
+                case "!=" -> instrucoes.add(new Instrucion(Commands.INEQ));
             }
         } else if(getValues(ctx.getChild(0)) == String.class){
             switch (ctx.op.getText()) {
-                case "==" -> System.out.println("seq");
-                case "!=" -> System.out.println("sneq");
+                case "==" -> instrucoes.add(new Instrucion(Commands.SEQ));
+                case "!=" -> instrucoes.add(new Instrucion(Commands.SNEQ));
             }
         } else{
             switch (ctx.op.getText()) {
-                case "==" -> System.out.println("beq");
-                case "!=" -> System.out.println("bneq");
+                case "==" -> instrucoes.add(new Instrucion(Commands.BEQ));
+                case "!=" -> instrucoes.add(new Instrucion(Commands.BNEQ));
             }
         }
-        if(getValues(ctx.getParent()) == String.class)
-            System.out.println("btos");
+        if(getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.BTOS));
+        }
     }
     @Override public void exitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
         if(getValues(ctx.getChild(0)) == Double.class || getValues(ctx.getChild(0)) != Double.class){
             switch (ctx.op.getText()) {
-                case "<" -> System.out.println("dlt");
+                case "<" -> instrucoes.add(new Instrucion(Commands.DLT));
                 case ">" -> System.out.println("dgt");
-                case "<=" -> System.out.println("dleq");
+                case "<=" -> instrucoes.add(new Instrucion(Commands.DLEQ));
                 case ">=" -> System.out.println("dgeq");
             }
         } else {
             switch (ctx.op.getText()) {
-                case "<" -> System.out.println("ilt");
+                case "<" -> instrucoes.add(new Instrucion(Commands.ILT));
                 case ">" -> System.out.println("igt");
-                case "<=" -> System.out.println("ileq");
+                case "<=" -> instrucoes.add(new Instrucion(Commands.ILEQ));
                 case ">=" -> System.out.println("igeq");
             }
         }
-        if(getValues(ctx.getParent()) == String.class)
-            System.out.println("btos");
+        if(getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.BTOS));
+        }
     }
 
 
@@ -197,37 +253,51 @@ public class SolAssembler extends SolBaseListener {
 
     @Override public void exitINT(SolParser.INTContext ctx) {
         instrucoes.add(new Instrucion(Commands.ICONST, Integer.parseInt(ctx.getText())));
-        if(getValues(ctx.getParent()) !=Integer.class)
-            if(getValues(ctx.getParent()) == String.class)
-                System.out.println("itos");
-            else if(getValues(ctx.getParent()) == Double.class)
-                System.out.println("itod");
-            else if(getValues(ctx.getParent()) == Boolean.class){
-                if(getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class)
-                    System.out.println("itod");
+        if (getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.ITOS));
+        } else if (getValues(ctx.getParent()) == Double.class) {
+            instrucoes.add(new Instrucion(Commands.ITOD));
+        } else if (getValues(ctx.getParent()) == Boolean.class) {
+            if (getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class) {
+                instrucoes.add(new Instrucion(Commands.ITOD));
             }
-
+        }
     }
     @Override public void exitDOUBLE(SolParser.DOUBLEContext ctx) {
-        System.out.println("dconst " + ctx.getText());
-        if(getValues(ctx.getParent()) !=Double.class)
-            if(getValues(ctx.getParent()) == String.class)
-                System.out.println("dtos");
+        int i = constantpoll.indexOf(Double.parseDouble(ctx.getText()));
+        if(i==-1){
+            instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
+            constantpoll.add(Double.parseDouble(ctx.getText()));
+        } else
+            instrucoes.add(new Instrucion(Commands.DCONST, i));
+
+        if (getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.DTOS));
+        }
     }
     @Override public void exitSTRING(SolParser.STRINGContext ctx) {
-        System.out.println("sconst " + ctx.getText());
+        int i = constantpoll.indexOf(ctx.getText());
+        if(i==-1){
+            instrucoes.add(new Instrucion(Commands.SCONST, constantpoll.size()));
+            constantpoll.add(ctx.getText());
+        } else {
+            instrucoes.add(new Instrucion(Commands.SCONST, i));
+        }
 
     }
+
     @Override public void exitTRUE(SolParser.TRUEContext ctx) {
-        System.out.println("tconst ");
-        if(getValues(ctx.getParent()) == String.class)
-                System.out.println("btos");
+        instrucoes.add(new Instrucion(Commands.TCONST));
+        if (getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.BTOS));
+        }
     }
 
     @Override public void exitFALSE(SolParser.FALSEContext ctx) {
         instrucoes.add(new Instrucion(Commands.FCONST));
-        if(getValues(ctx.getParent()) == String.class)
-            System.out.println("btos");
+        if (getValues(ctx.getParent()) == String.class) {
+            instrucoes.add(new Instrucion(Commands.BTOS));
+        }
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -262,6 +332,7 @@ public class SolAssembler extends SolBaseListener {
     public static void main(String[] args) {
         SolAssembler a = new SolAssembler();
         a.init(args);
+        a.debug();
     }
 
 }
