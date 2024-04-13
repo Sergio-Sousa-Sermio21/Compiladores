@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Error.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Error.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
-    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,22 +28,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/TestSemantico.java">
-      <ranges>
-        <range start1="12" end1="15" start2="12" end2="15" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="21" end1="22" start2="21" end2="22" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="53" end1="54" start2="53" end2="54" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="67" end1="68" start2="67" end2="68" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/Error.java">
-      <ranges>
-        <range start1="11" end1="12" start2="11" end2="12" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="13" end1="15" start2="13" end2="15" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -62,7 +46,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
+    "Application.Sol.executor": "Run",
+    "Application.Teste.executor": "Run",
     "Application.tAssembler.executor": "Debug",
     "Application.tVm.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -72,7 +58,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ASUS/Documents/Lab1typescript/Compiladores/inputs",
+    "last_opened_file_path": "C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,10 +78,26 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Sol">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Trabalho de Compiladores" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Sol" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="SolAssembler" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\Teste.sol" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Teste" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="TesteNodes" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\Teste.sol" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,6 +134,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Teste" />
+      <item itemvalue="Application.Sol" />
       <item itemvalue="Application.tAssembler" />
       <item itemvalue="Application.tVm" />
     </list>
@@ -170,6 +174,15 @@
       <workItem from="1712425472122" duration="3296000" />
       <workItem from="1712429037741" duration="3225000" />
       <workItem from="1712491978685" duration="7706000" />
+      <workItem from="1712525983553" duration="1348000" />
+      <workItem from="1712527668957" duration="1723000" />
+      <workItem from="1712530097151" duration="1569000" />
+      <workItem from="1712606877509" duration="615000" />
+      <workItem from="1712629666772" duration="93000" />
+      <workItem from="1712629973497" duration="31000" />
+      <workItem from="1712682182391" duration="45000" />
+      <workItem from="1712853440848" duration="845000" />
+      <workItem from="1712950644793" duration="19249000" />
     </task>
     <servers />
   </component>

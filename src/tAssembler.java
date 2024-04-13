@@ -20,6 +20,8 @@ public class tAssembler extends TasmBaseListener {
         private final ArrayList<Object> constantpoll = new ArrayList<>();
         public tAssembler(){}
 
+    /**Metodo que mostra as instruções e a constantPool
+     */
     public void debug(){
         System.out.println("----------------------------------------\nConstant Pool:");
         for (int i = 0; i<constantpoll.size(); i++) {
@@ -204,7 +206,7 @@ public class tAssembler extends TasmBaseListener {
             boolean debug = false;
             List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
             for (String arg : inputArguments) {
-                if (arg.contains("jdwp") || arg.contains("Xdebug")) {
+                if (arg.contains("jdwp")) {
                     debug = true;
                     break;
                 }

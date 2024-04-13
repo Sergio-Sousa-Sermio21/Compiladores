@@ -1,7 +1,12 @@
-galloc 5
-iconst 12
-gstore 0
-gload 0
-galloc 5
-iprint
+dconst 3.3
+duminus
+iconst 1
+iconst 2
+iadd
+itod
+dmult
+dtos
+sconst " Ola"
+sadd
+sprint
 halt

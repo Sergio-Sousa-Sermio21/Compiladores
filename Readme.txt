@@ -1,0 +1,1 @@
+O modo trace é feito quando se corre o tAssembler ou a tVM me modo debug pelo IntelliJ
