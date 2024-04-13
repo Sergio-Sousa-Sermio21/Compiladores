@@ -1,3 +1,12 @@
-sconst "Ola\nAdeus"
+dconst 3.3
+duminus
+iconst 1
+iconst 2
+iadd
+itod
+dmult
+dtos
+sconst " Ola"
+sadd
 sprint
 halt
