@@ -1,6 +1,6 @@
-print 1 + 2 * 3;
 print 1 + 2.0 * 3;
-print 7 % (1 + 4);
-print true and (5 < 3.14159);
-print "pi = " + 3.14159;
-print "ma" + "ria" == "maria";
+print false or true - 6;
+print 1 + true;
+print 3 == 3.0;
+print "ana" >= "maria";
+print 1 + 2 * 400 % (2.0 + 3.1415);

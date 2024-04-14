@@ -20,6 +20,8 @@ import java.util.*;
 public class TesteNodes extends SolBaseListener {
     private final ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
 
+    private final ArrayList<String> errors = new ArrayList<>();
+
     public void setValues(ParseTree node, Class<?> a){
         values.put(node,a);
     }
@@ -34,14 +36,27 @@ public class TesteNodes extends SolBaseListener {
     @Override public void exitMULTDIV(SolParser.MULTDIVContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
         Class<?> rigth= getValues(ctx.exp(1));
-        if(left == String.class || rigth == String.class)
-            Error.trowError("Nada de strings em */");
-        if(left == Boolean.class || rigth == Boolean.class)
-            Error.trowError("Nada de Boolean em */");
-        if(left == Double.class || rigth == Double.class)
-            setValues(ctx,Double.class);
-        else
-            setValues(ctx, Integer.class);
+        if(left == Object.class || rigth == Object.class)
+            setValues(ctx, Object.class);
+        else {
+            if(ctx.op.getText().equals("%") && (left != Integer.class || rigth!= Integer.class)){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Error in operator % cannot use " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                setValues(ctx, Object.class);
+            }
+            else if(left == String.class || rigth == String.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type String is not allowed in " + ctx.op.getText());
+                setValues(ctx, Object.class);
+            }
+            else if(left == Boolean.class || rigth == Boolean.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean is not allowed in " + ctx.op.getText());
+                setValues(ctx, Object.class);
+            }
+            else if(left == Double.class || rigth == Double.class)
+                setValues(ctx,Double.class);
+            else
+                setValues(ctx, Integer.class);
+        }
+
     }
 
     @Override public void exitORDER(SolParser.ORDERContext ctx) {
@@ -49,14 +64,27 @@ public class TesteNodes extends SolBaseListener {
     }
     @Override public void exitNEGACION(SolParser.NEGACIONContext ctx) {
         Class<?> value = getValues(ctx.exp());
+        if(value == Object.class)
+            setValues(ctx, Object.class);
         if(ctx.op.getText().equals("-")){
-            if(value != Integer.class && value != Double.class)
-                Error.trowError("Negacao -");
-            setValues(ctx, value);
+            if(value != Integer.class && value != Double.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean and/or String cannot use " + ctx.op.getText() + " operator");
+                setValues(ctx, Object.class);
+            } else {
+                if(value == Double.class)
+                    setValues(ctx, Double.class);
+                else
+                    setValues(ctx, Integer.class);
+            }
         } else {
-            if(value != Boolean.class)
-                Error.trowError("Negacao not");
-            setValues(ctx, value);
+            if(value != Boolean.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type must be Boolean to use " + ctx.op.getText() + " operator");
+                setValues(ctx, Object.class);
+            }else{
+                setValues(ctx, Boolean.class);
+            }
+
+
         }
 
     }
@@ -64,47 +92,98 @@ public class TesteNodes extends SolBaseListener {
     @Override public void exitADDSUB(SolParser.ADDSUBContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
         Class<?> rigth= getValues(ctx.exp(1));
-        if(left == Boolean.class || rigth == Boolean.class)
-            Error.trowError("Nao podes ter boolean");
-        if(left == String.class || rigth == String.class)
-            setValues(ctx, String.class);
-        else if(left == Double.class || rigth ==  Double.class )
-            setValues(ctx, Double.class);
-        else
-            setValues(ctx, Integer.class);
+        if(ctx.op.getText().equals("+")){
+            if(left == Object.class || rigth == Object.class)
+                setValues(ctx, Object.class);
+            else
+                if((left == Boolean.class && rigth != String.class) || (left != String.class && rigth == Boolean.class)){
+                    errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                    setValues(ctx, Object.class);
+                } else {
+                    if(left == String.class || rigth == String.class)
+                        setValues(ctx, String.class);
+                    else if(left == Double.class || rigth ==  Double.class )
+                        setValues(ctx, Double.class);
+                    else
+                        setValues(ctx, Integer.class);
+                }
+        } else {
+                if(left == Object.class || rigth == Object.class)
+                    setValues(ctx, Object.class);
+                else {
+                    if((left == Boolean.class || rigth == Boolean.class) || (left == String.class || rigth == String.class)){
+                        errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                        setValues(ctx, Object.class);
+                    } else {
+                        if(left == Double.class || rigth ==  Double.class )
+                            setValues(ctx, Double.class);
+                        else
+                            setValues(ctx, Integer.class);
+                    }
+            }
+
+        }
+
     }
     @Override public void exitAND(SolParser.ANDContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
-        Class<?> right= getValues(ctx.exp(1));
-        if(left != Boolean.class || right != Boolean.class)
-            Error.trowError("And no Bolean");
-        setValues(ctx, Boolean.class);
+        Class<?> rigth= getValues(ctx.exp(1));
+        if(left == Object.class || rigth == Object.class)
+            setValues(ctx, Object.class);
+        else{
+            if(left != Boolean.class || rigth != Boolean.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator AND" );
+                setValues(ctx, Object.class);
+            } else {
+                setValues(ctx, Boolean.class);
+            }
+
+
+        }
     }
     @Override public void exitOR(SolParser.ORContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
         Class<?> rigth= getValues(ctx.exp(1));
-        if(left != Boolean.class || rigth != Boolean.class)
-            Error.trowError("Or no Bolean");
-        setValues(ctx, Boolean.class);
+        if(left == Object.class || rigth == Object.class)
+            setValues(ctx, Object.class);
+        else{
+            if(left != Boolean.class || rigth != Boolean.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator OR" );
+                setValues(ctx, Object.class);
+            } else {
+                setValues(ctx, Boolean.class);
+            }
+        }
+
     }
 
     @Override public void exitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
         Class<?> rigth= getValues(ctx.exp(1));
-        if(left==rigth)
-            setValues(ctx,Boolean.class);
-        else if((left == Integer.class && rigth == Double.class) || (left == Double.class && rigth == Integer.class))
-            setValues(ctx, Double.class);
-        else
-            Error.trowError("Nao pode comparar esses tipos de Variaveis");
-
+        if(left == Object.class || rigth == Object.class)
+            setValues(ctx, Object.class);
+        else{
+            if(left!=rigth && !((left == Integer.class && rigth == Double.class) || (left == Double.class && rigth == Integer.class))){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Cannot compare " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                setValues(ctx, Object.class);
+            } else
+                setValues(ctx, Boolean.class);
+        }
     }
     @Override public void exitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
-        Class<?> rigth= getValues(ctx.exp(1));
-        if(left == String.class || rigth == String.class || left == Boolean.class || rigth == Boolean.class)
-            Error.trowError("Nao podes ter string ou Boolean num Operador Logico");
-        setValues(ctx, Boolean.class);
+        Class<?> right= getValues(ctx.exp(1));
+        if(left == Object.class || right == Object.class)
+            setValues(ctx, Object.class);
+        else{
+            if(left == String.class || right == String.class || left == Boolean.class || right == Boolean.class){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
+                setValues(ctx, Object.class);
+            } else{
+                setValues(ctx, Boolean.class);
+            }
+        }
+
     }
 
 
@@ -145,7 +224,7 @@ public class TesteNodes extends SolBaseListener {
             ParseTree tree = parser.program();
             int numberOfErrors = parser.getNumberOfSyntaxErrors();
             if(numberOfErrors>0){
-                System.err.println("Foram detactados " + numberOfErrors + " erros de Syntax.");
+                System.err.println("Detected " + numberOfErrors + " Syntax errors.");
                 System.exit(0);
             }
             ParseTreeWalker walker = new ParseTreeWalker();
@@ -158,6 +237,8 @@ public class TesteNodes extends SolBaseListener {
     public ParseTreeProperty<Class<?>> TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
+        if(!errors.isEmpty())
+            Error.printErrors(errors);
         return values;
     }
     public static void main(String[] args) {
