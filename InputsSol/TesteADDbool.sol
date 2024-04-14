@@ -1,0 +1,12 @@
+print "fct " + "ualg";
+print 2.0 - 10.9;
+print 1 + 2;
+print 2.0 - 1;
+print 1 - 10;
+print true + false;
+print 1 + true;
+print "dog" + true;
+print true - false;
+print false - 1;
+print false - "cat";
+print "banana " - "banana";
