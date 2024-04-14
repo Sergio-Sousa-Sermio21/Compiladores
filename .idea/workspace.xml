@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MainSol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SolAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
-    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,22 +25,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/TesteNodes.java">
-      <ranges>
-        <range start1="41" end1="48" start2="41" end2="54" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="63" end1="69" start2="69" end2="78" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="70" end1="73" start2="79" end2="87" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="83" end1="93" start2="97" end2="111" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="103" end1="105" start2="121" end2="123" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="119" end1="120" start2="137" end2="139" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="134" end1="135" start2="153" end2="154" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="147" end1="148" start2="166" end2="167" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="194" end1="195" start2="213" end2="214" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="207" end1="208" start2="226" end2="228" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -95,9 +76,16 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MainSol">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Trabalho de Compiladores" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainSol" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="MainSol" />
       <module name="Trabalho de Compiladores" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,6 +143,7 @@
       <item itemvalue="Application.Sol" />
       <item itemvalue="Application.tAssembler" />
       <item itemvalue="Application.tVm" />
+      <item itemvalue="Application.MainSol" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -201,7 +190,7 @@
       <workItem from="1712853440848" duration="845000" />
       <workItem from="1712950644793" duration="19249000" />
       <workItem from="1712991422828" duration="2405000" />
-      <workItem from="1713047965395" duration="15191000" />
+      <workItem from="1713047965395" duration="15648000" />
     </task>
     <servers />
   </component>

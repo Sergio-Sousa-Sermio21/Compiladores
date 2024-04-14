@@ -198,7 +198,7 @@ public class SolAssembler extends SolBaseListener {
     }
 
     @Override public void exitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
-        if(getValues(ctx.getChild(0)) == Double.class){
+        if(getValues(ctx.getChild(0)) == Double.class || getValues(ctx.getChild(2)) == Double.class){
             switch (ctx.op.getText()) {
                 case "==" -> instrucoes.add(new Instrucion(Commands.DEQ));
                 case "!=" -> instrucoes.add(new Instrucion(Commands.DNEQ));
@@ -224,7 +224,8 @@ public class SolAssembler extends SolBaseListener {
         }
     }
     @Override public void exitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
-        if(getValues(ctx.getChild(0)) == Double.class || getValues(ctx.getChild(0)) != Double.class){
+        System.out.println(ctx.getChild(2).getText());
+        if(getValues(ctx.getChild(0)) == Double.class || getValues(ctx.getChild(2)) == Double.class){
             switch (ctx.op.getText()) {
                 case "<" -> instrucoes.add(new Instrucion(Commands.DLT));
                 case ">" -> {
