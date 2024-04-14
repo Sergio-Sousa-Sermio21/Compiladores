@@ -1,0 +1,5 @@
+dconst 4
+dconst 0
+ddiv
+dprint
+halt
