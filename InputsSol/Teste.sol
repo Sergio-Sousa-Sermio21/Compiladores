@@ -1,10 +1,6 @@
-print 5>=5;
-
-/*
-5<4
-iconst 5
-iconst 4
-ilt
-bprint
-halt
-*/
+print 1 + 2.0 * 3;
+print false or true - 6;
+print 1 + true;
+print 3 == 3.0;
+print "ana" >= "maria";
+print 1 + 2 * 400 % (2.0 + 3.1415);

@@ -224,7 +224,6 @@ public class SolAssembler extends SolBaseListener {
         }
     }
     @Override public void exitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
-        System.out.println(ctx.getChild(2).getText());
         if(getValues(ctx.getChild(0)) == Double.class || getValues(ctx.getChild(2)) == Double.class){
             switch (ctx.op.getText()) {
                 case "<" -> instrucoes.add(new Instrucion(Commands.DLT));
@@ -336,17 +335,23 @@ public class SolAssembler extends SolBaseListener {
             walker.walk(this, tree);
         }
         catch (IOException e) {
-            System.out.println(e);
+            System.err.println("File Not Found.");
+            System.exit(0);
         }
     }
 
-    public void execute(String[] args, boolean debug) throws IOException {
-        init(args);
-        if(debug)
-            debug();
-        writeBytecode(args);
+    public void execute(String[] args, boolean debug){
+        try{
+            init(args);
+            if(debug)
+                debug();
+            writeBytecode(args);
+        } catch (Exception e){
+            System.exit(0);
+        }
+
     }
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         SolAssembler a = new SolAssembler();
         a.execute(args, false);
     }

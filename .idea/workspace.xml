@@ -7,10 +7,12 @@
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SolAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
+      <change beforePath="$PROJECT_DIR$/InputsSol/TesteRD.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/TesteRD.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,6 +45,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
     "Application.MainSol.executor": "Run",
     "Application.Sol.executor": "Run",
@@ -191,6 +194,7 @@
       <workItem from="1712950644793" duration="19249000" />
       <workItem from="1712991422828" duration="2405000" />
       <workItem from="1713047965395" duration="15648000" />
+      <workItem from="1713102993806" duration="1099000" />
     </task>
     <servers />
   </component>
@@ -207,5 +211,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
