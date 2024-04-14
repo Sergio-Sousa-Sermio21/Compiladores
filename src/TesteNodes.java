@@ -39,13 +39,19 @@ public class TesteNodes extends SolBaseListener {
         if(left == Object.class || rigth == Object.class)
             setValues(ctx, Object.class);
         else {
-            if(ctx.op.getText().equals("%") && (left != Integer.class || rigth!= Integer.class))
-                errors.add("Error no operador % nao pode usar " + left.getSimpleName() + " e " + rigth.getSimpleName());
-            if(left == String.class || rigth == String.class)
-                errors.add("Nada de strings em */");
-            if(left == Boolean.class || rigth == Boolean.class)
-                errors.add("Nada de Boolean em */");
-            if(left == Double.class || rigth == Double.class)
+            if(ctx.op.getText().equals("%") && (left != Integer.class || rigth!= Integer.class)){
+                errors.add("Error in operator % cannot use " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                setValues(ctx, Object.class);
+            }
+            else if(left == String.class || rigth == String.class){
+                errors.add("Type String is not allowed in " + ctx.op.getText());
+                setValues(ctx, Object.class);
+            }
+            else if(left == Boolean.class || rigth == Boolean.class){
+                errors.add("Type Boolean is not allowed in " + ctx.op.getText());
+                setValues(ctx, Object.class);
+            }
+            else if(left == Double.class || rigth == Double.class)
                 setValues(ctx,Double.class);
             else
                 setValues(ctx, Integer.class);
@@ -61,16 +67,24 @@ public class TesteNodes extends SolBaseListener {
         if(value == Object.class)
             setValues(ctx, Object.class);
         if(ctx.op.getText().equals("-")){
-            if(value != Integer.class && value != Double.class)
-                errors.add("Negacao -");
-            if(value == Double.class)
-                setValues(ctx, Double.class);
-            else
-                setValues(ctx, Integer.class);
+            if(value != Integer.class && value != Double.class){
+                errors.add("Type Boolean and/or String cannot use " + ctx.op.getText() + " operator");
+                setValues(ctx, Object.class);
+            } else {
+                if(value == Double.class)
+                    setValues(ctx, Double.class);
+                else
+                    setValues(ctx, Integer.class);
+            }
         } else {
-            if(value != Boolean.class)
-                errors.add("Negacao not");
-            setValues(ctx, Boolean.class);
+            if(value != Boolean.class){
+                errors.add("Type must be Boolean to use " + ctx.op.getText() + " operator");
+                setValues(ctx, Object.class);
+            }else{
+                setValues(ctx, Boolean.class);
+            }
+
+
         }
 
     }
@@ -81,16 +95,20 @@ public class TesteNodes extends SolBaseListener {
         if(left == Object.class || rigth == Object.class)
             setValues(ctx, Object.class);
         else {
-            if((left == Boolean.class && rigth != String.class) || (left != String.class && rigth == Boolean.class))
-                errors.add("O operador " + ctx.op.getText() + " nao e valido entre " + left.getSimpleName() + " e " + rigth.getSimpleName());
-            if(left == String.class || rigth == String.class)
-                setValues(ctx, String.class);
-            else if(left == Double.class || rigth ==  Double.class )
-                setValues(ctx, Double.class);
-            else if(left == Integer.class && rigth == Integer.class)
-                setValues(ctx, Integer.class);
-            else
+
+            if((left == Boolean.class && rigth != String.class) || (left != String.class && rigth == Boolean.class)){
+                errors.add("The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
                 setValues(ctx, Object.class);
+            } else {
+                if(left == String.class || rigth == String.class)
+                    setValues(ctx, String.class);
+                else if(left == Double.class || rigth ==  Double.class )
+                    setValues(ctx, Double.class);
+                else if(left == Integer.class && rigth == Integer.class){
+                    setValues(ctx, Integer.class);
+                }
+
+            }
         }
 
     }
@@ -101,8 +119,8 @@ public class TesteNodes extends SolBaseListener {
             setValues(ctx, Object.class);
         else{
             if(left != Boolean.class || rigth != Boolean.class){
-                errors.add("And no Bolean");
-                
+                errors.add("Must use Type Boolean for the operator AND" );
+                setValues(ctx, Object.class);
             } else {
                 setValues(ctx, Boolean.class);
             }
@@ -117,7 +135,8 @@ public class TesteNodes extends SolBaseListener {
             setValues(ctx, Object.class);
         else{
             if(left != Boolean.class || rigth != Boolean.class){
-                errors.add("Or no Bolean");
+                errors.add("Must use Type Boolean for the operator OR" );
+                setValues(ctx, Object.class);
             } else {
                 setValues(ctx, Boolean.class);
             }
@@ -132,7 +151,7 @@ public class TesteNodes extends SolBaseListener {
             setValues(ctx, Object.class);
         else{
             if(left!=rigth && !((left == Integer.class && rigth == Double.class) || (left == Double.class && rigth == Integer.class))){
-                errors.add("Nao pode comparar esses tipos de Variaveis");
+                errors.add("Cannot compare " + left.getSimpleName() + " and " + rigth.getSimpleName());
                 setValues(ctx, Object.class);
             } else
                 setValues(ctx, Boolean.class);
@@ -145,7 +164,7 @@ public class TesteNodes extends SolBaseListener {
             setValues(ctx, Object.class);
         else{
             if(left == String.class || right == String.class || left == Boolean.class || right == Boolean.class){
-                errors.add("Nao podes ter string ou Boolean num Operador Logico");
+                errors.add("Can't use type String or Booleanon a logical operator.");
                 setValues(ctx, Object.class);
             } else{
                 setValues(ctx, Boolean.class);
@@ -192,7 +211,7 @@ public class TesteNodes extends SolBaseListener {
             ParseTree tree = parser.program();
             int numberOfErrors = parser.getNumberOfSyntaxErrors();
             if(numberOfErrors>0){
-                System.err.println("Foram detactados " + numberOfErrors + " erros de Syntax.");
+                System.err.println("Detected " + numberOfErrors + " Syntax errors.");
                 System.exit(0);
             }
             ParseTreeWalker walker = new ParseTreeWalker();
@@ -205,7 +224,8 @@ public class TesteNodes extends SolBaseListener {
     public ParseTreeProperty<Class<?>> TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
-        Error.printErrors(errors);
+        if(!errors.isEmpty())
+            Error.printErrors(errors);
         return values;
     }
     public static void main(String[] args) {

@@ -44,7 +44,7 @@ public class SolAssembler extends SolBaseListener {
     private void writeBytecode(String[] args) throws IOException {
         File file = new File(args[0]);
         String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
-        newFile = "inputs/" + newFile;
+        newFile = "inputsSol/" + newFile;
         FileOutputStream fos = new FileOutputStream(newFile);
         DataOutputStream bytecodes = new DataOutputStream(fos);
         for (Instrucion instruction : instrucoes) {
@@ -118,9 +118,6 @@ public class SolAssembler extends SolBaseListener {
                     instrucoes.add(new Instrucion(Commands.IDIV));
             }
             case "%" -> {
-                if(getValues(ctx) == Double.class)
-                    System.out.println("dmod");
-                else
                     instrucoes.add(new Instrucion(Commands.IMOD));
             }
         }
@@ -230,16 +227,28 @@ public class SolAssembler extends SolBaseListener {
         if(getValues(ctx.getChild(0)) == Double.class || getValues(ctx.getChild(0)) != Double.class){
             switch (ctx.op.getText()) {
                 case "<" -> instrucoes.add(new Instrucion(Commands.DLT));
-                case ">" -> System.out.println("dgt");
+                case ">" -> {
+                    instrucoes.add(new Instrucion(Commands.DLEQ));
+                    instrucoes.add(new Instrucion(Commands.NOT));
+                }
                 case "<=" -> instrucoes.add(new Instrucion(Commands.DLEQ));
-                case ">=" -> System.out.println("dgeq");
+                case ">=" -> {
+                    instrucoes.add(new Instrucion(Commands.DLT));
+                    instrucoes.add(new Instrucion(Commands.NOT));
+                }
             }
         } else {
             switch (ctx.op.getText()) {
                 case "<" -> instrucoes.add(new Instrucion(Commands.ILT));
-                case ">" -> System.out.println("igt");
+                case ">" -> {
+                    instrucoes.add(new Instrucion(Commands.ILEQ));
+                    instrucoes.add(new Instrucion(Commands.NOT));
+                }
                 case "<=" -> instrucoes.add(new Instrucion(Commands.ILEQ));
-                case ">=" -> System.out.println("igeq");
+                case ">=" -> {
+                    instrucoes.add(new Instrucion(Commands.ILT));
+                    instrucoes.add(new Instrucion(Commands.NOT));
+                }
             }
         }
         if(getValues(ctx.getParent()) == String.class) {
@@ -329,11 +338,16 @@ public class SolAssembler extends SolBaseListener {
             System.out.println(e);
         }
     }
-    public static void main(String[] args) {
-        System.out.println();
+
+    public void execute(String[] args, boolean debug) throws IOException {
+        init(args);
+        if(debug)
+            debug();
+        writeBytecode(args);
+    }
+    public static void main(String[] args) throws IOException {
         SolAssembler a = new SolAssembler();
-        a.init(args);
-        a.debug();
+        a.execute(args, false);
     }
 
 }
