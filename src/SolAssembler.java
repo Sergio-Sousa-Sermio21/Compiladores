@@ -146,10 +146,10 @@ public class SolAssembler extends SolBaseListener {
         }
         if(getValues(ctx.getParent()) == String.class)
             if(getValues(ctx) == Double.class) {
-                instrucoes.add(new Instrucion(Commands.ITOS));
+                instrucoes.add(new Instrucion(Commands.DTOS));
             }
             else if(getValues(ctx) == Integer.class) {
-                instrucoes.add(new Instrucion(Commands.DTOS));
+                instrucoes.add(new Instrucion(Commands.ITOS));
             }
             else {
                 instrucoes.add(new Instrucion(Commands.BTOS));
@@ -330,6 +330,7 @@ public class SolAssembler extends SolBaseListener {
         }
     }
     public static void main(String[] args) {
+        System.out.println();
         SolAssembler a = new SolAssembler();
         a.init(args);
         a.debug();
