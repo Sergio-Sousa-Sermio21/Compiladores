@@ -62,7 +62,7 @@ public class tAssembler extends TasmBaseListener {
      * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
      */
     public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
-            bytecodes.write(Commands.CONSTANTPOOL.ordinal());
+            bytecodes.write(Commands.values().length);
             for (Object constant: constantpoll){
                 if(constant instanceof Double){
                     bytecodes.write(0);

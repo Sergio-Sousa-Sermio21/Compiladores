@@ -18,6 +18,7 @@ import java.util.*;
 
 public class SolAssembler extends SolBaseListener {
     private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
+    // ArrayLists que contem as instrucoes e os seus valores respetivos
     private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
     private final ArrayList<Object> constantpoll = new ArrayList<>();
     public Class<?> getValues(ParseTree node){
@@ -40,11 +41,14 @@ public class SolAssembler extends SolBaseListener {
         instrucoes.add(new Instrucion(Commands.HALT));
     }
 
-
+    /** Escreve bytecode em um file com base nas instruções fornecidas
+     *
+     * @param args Argumentos presentes na linha de comando.
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+     */
     private void writeBytecode(String[] args) throws IOException {
         File file = new File(args[0]);
-        String newFile = file.getName().replaceFirst("[.][^.]+$", ".tbc");
-        newFile = "inputsSol/" + newFile;
+        String newFile = file.getPath().replaceFirst("[.][^.]+$", ".tbc");
         FileOutputStream fos = new FileOutputStream(newFile);
         DataOutputStream bytecodes = new DataOutputStream(fos);
         for (Instrucion instruction : instrucoes) {
@@ -55,9 +59,13 @@ public class SolAssembler extends SolBaseListener {
         }
         writeConstantPoll(bytecodes);
     }
-
+    /** Escreve a tabela de constantes em bytecode no fim do file
+     *
+     * @param bytecodes Serve para a criação de dados em byte
+     * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
+     */
     public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
-        bytecodes.write(Commands.CONSTANTPOOL.ordinal());
+        bytecodes.write(Commands.values().length);
         for (Object constant: constantpoll){
             if(constant instanceof Double){
                 bytecodes.write(0);

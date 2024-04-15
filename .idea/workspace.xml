@@ -4,8 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="" />
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
+    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/InputsSol/OrdemTeste.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsSol/OrdemTeste.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsSol/WorkTypes.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SolAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
+    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
+      <change beforePath="$PROJECT_DIR$/src/SolAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +35,27 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/TesteNodes.java">
+      <ranges>
+        <range start1="18" end1="18" start2="18" end2="19" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="24" end1="24" start2="25" end2="30" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="28" end1="28" start2="34" end2="39" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="32" end1="32" start2="43" end2="47" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="209" end1="236" start2="224" end2="224" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="243" end1="248" start2="231" end2="231" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/SolAssembler.java">
+      <ranges>
+        <range start1="20" end1="20" start2="20" end2="21" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="42" end1="43" start2="43" end2="48" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="45" end1="47" start2="50" end2="51" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="57" end1="58" start2="61" end2="66" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
+        <range start1="59" end1="60" start2="67" end2="68" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -40,7 +76,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
-    "Application.MainSol.executor": "Debug",
+    "Application.MainSol.executor": "Run",
     "Application.Sol.executor": "Run",
     "Application.Teste.executor": "Run",
     "Application.tAssembler.executor": "Debug",
@@ -82,7 +118,7 @@
     </configuration>
     <configuration name="MainSol" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="MainSol" />
-      <module name="Trabalho de Compiladores" />
+      <module name="Compiladores" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -116,19 +152,6 @@
       <module name="Trabalho de Compiladores" />
       <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tbc" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/inputs" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Compiladores" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Compiladores" />
-      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -190,6 +213,7 @@
       <workItem from="1713102993806" duration="1099000" />
       <workItem from="1713104273130" duration="5836000" />
       <workItem from="1713116989460" duration="9000" />
+      <workItem from="1713179923285" duration="6272000" />
     </task>
     <servers />
   </component>

@@ -36,7 +36,7 @@ public class tVM {
         DataInputStream din = new DataInputStream(new FileInputStream(args[0]));
         while(din.available()>0){
             byte bytes = din.readByte();
-            if (bytes != Commands.CONSTANTPOOL.ordinal()) {
+            if (bytes != Commands.values().length) {
                 switch (commands.get((int) bytes)) {
                     case ICONST -> instructions.add(new Instrucion(Commands.ICONST, din.readInt()));
 
