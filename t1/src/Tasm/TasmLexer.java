@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Sol.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -110,7 +110,7 @@ public class TasmLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Tasm.g4"; }
+	public String getGrammarFileName() { return "Sol.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Sol.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

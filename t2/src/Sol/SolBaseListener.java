@@ -1,245 +1,245 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Tasm.g4 by ANTLR 4.13.1
-package Tasm;
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t2/Sol.g4 by ANTLR 4.13.1
+package Sol;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link TasmListener},
+ * This class provides an empty implementation of {@link SolListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class TasmBaseListener implements TasmListener {
+public class SolBaseListener implements SolListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExecutable(TasmParser.ExecutableContext ctx) { }
+	@Override public void enterExecutable(SolParser.ExecutableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExecutable(TasmParser.ExecutableContext ctx) { }
+	@Override public void exitExecutable(SolParser.ExecutableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommand(TasmParser.CommandContext ctx) { }
+	@Override public void enterCommand(SolParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommand(TasmParser.CommandContext ctx) { }
+	@Override public void exitCommand(SolParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstInteger(TasmParser.ConstIntegerContext ctx) { }
+	@Override public void enterTypes(SolParser.TypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstInteger(TasmParser.ConstIntegerContext ctx) { }
+	@Override public void exitTypes(SolParser.TypesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstDoubleInteger(TasmParser.ConstDoubleIntegerContext ctx) { }
+	@Override public void enterParenthesis(SolParser.ParenthesisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstDoubleInteger(TasmParser.ConstDoubleIntegerContext ctx) { }
+	@Override public void exitParenthesis(SolParser.ParenthesisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstDouble(TasmParser.ConstDoubleContext ctx) { }
+	@Override public void enterMultiplication(SolParser.MultiplicationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstDouble(TasmParser.ConstDoubleContext ctx) { }
+	@Override public void exitMultiplication(SolParser.MultiplicationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstString(TasmParser.ConstStringContext ctx) { }
+	@Override public void enterAddition(SolParser.AdditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstString(TasmParser.ConstStringContext ctx) { }
+	@Override public void exitAddition(SolParser.AdditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntegerOperation(TasmParser.IntegerOperationContext ctx) { }
+	@Override public void enterNegation(SolParser.NegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerOperation(TasmParser.IntegerOperationContext ctx) { }
+	@Override public void exitNegation(SolParser.NegationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDoubleOperation(TasmParser.DoubleOperationContext ctx) { }
+	@Override public void enterSubctraction(SolParser.SubctractionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDoubleOperation(TasmParser.DoubleOperationContext ctx) { }
+	@Override public void exitSubctraction(SolParser.SubctractionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringOperation(TasmParser.StringOperationContext ctx) { }
+	@Override public void enterRelations(SolParser.RelationsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringOperation(TasmParser.StringOperationContext ctx) { }
+	@Override public void exitRelations(SolParser.RelationsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoolOperation(TasmParser.BoolOperationContext ctx) { }
+	@Override public void enterDivision(SolParser.DivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoolOperation(TasmParser.BoolOperationContext ctx) { }
+	@Override public void exitDivision(SolParser.DivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJumpOperation(TasmParser.JumpOperationContext ctx) { }
+	@Override public void enterModule(SolParser.ModuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJumpOperation(TasmParser.JumpOperationContext ctx) { }
+	@Override public void exitModule(SolParser.ModuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayOperation(TasmParser.ArrayOperationContext ctx) { }
+	@Override public void enterType(SolParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayOperation(TasmParser.ArrayOperationContext ctx) { }
+	@Override public void exitType(SolParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHalt(TasmParser.HaltContext ctx) { }
+	@Override public void enterNegate(SolParser.NegateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHalt(TasmParser.HaltContext ctx) { }
+	@Override public void exitNegate(SolParser.NegateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntegerOP(TasmParser.IntegerOPContext ctx) { }
+	@Override public void enterLt(SolParser.LtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerOP(TasmParser.IntegerOPContext ctx) { }
+	@Override public void exitLt(SolParser.LtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDoubleOP(TasmParser.DoubleOPContext ctx) { }
+	@Override public void enterMt(SolParser.MtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDoubleOP(TasmParser.DoubleOPContext ctx) { }
+	@Override public void exitMt(SolParser.MtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringOP(TasmParser.StringOPContext ctx) { }
+	@Override public void enterEqual(SolParser.EqualContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringOP(TasmParser.StringOPContext ctx) { }
+	@Override public void exitEqual(SolParser.EqualContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoolOP(TasmParser.BoolOPContext ctx) { }
+	@Override public void enterNotEqual(SolParser.NotEqualContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoolOP(TasmParser.BoolOPContext ctx) { }
+	@Override public void exitNotEqual(SolParser.NotEqualContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJumpOP(TasmParser.JumpOPContext ctx) { }
+	@Override public void enterAnd(SolParser.AndContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJumpOP(TasmParser.JumpOPContext ctx) { }
+	@Override public void exitAnd(SolParser.AndContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayOP(TasmParser.ArrayOPContext ctx) { }
+	@Override public void enterOr(SolParser.OrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayOP(TasmParser.ArrayOPContext ctx) { }
+	@Override public void exitOr(SolParser.OrContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,9 +1,9 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Tasm.g4 by ANTLR 4.13.1
-package Tasm;
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t2/Sol.g4 by ANTLR 4.13.1
+package Sol;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
- * This class provides an empty implementation of {@link TasmVisitor},
+ * This class provides an empty implementation of {@link SolVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
@@ -11,138 +11,138 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public class TasmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements TasmVisitor<T> {
+public class SolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements SolVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExecutable(TasmParser.ExecutableContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecutable(SolParser.ExecutableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCommand(TasmParser.CommandContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCommand(SolParser.CommandContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConstInteger(TasmParser.ConstIntegerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTypes(SolParser.TypesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConstDoubleInteger(TasmParser.ConstDoubleIntegerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitParenthesis(SolParser.ParenthesisContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConstDouble(TasmParser.ConstDoubleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultiplication(SolParser.MultiplicationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConstString(TasmParser.ConstStringContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAddition(SolParser.AdditionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntegerOperation(TasmParser.IntegerOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNegation(SolParser.NegationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDoubleOperation(TasmParser.DoubleOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSubctraction(SolParser.SubctractionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringOperation(TasmParser.StringOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRelations(SolParser.RelationsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBoolOperation(TasmParser.BoolOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDivision(SolParser.DivisionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJumpOperation(TasmParser.JumpOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitModule(SolParser.ModuleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArrayOperation(TasmParser.ArrayOperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitType(SolParser.TypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHalt(TasmParser.HaltContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNegate(SolParser.NegateContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntegerOP(TasmParser.IntegerOPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLt(SolParser.LtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDoubleOP(TasmParser.DoubleOPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMt(SolParser.MtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringOP(TasmParser.StringOPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEqual(SolParser.EqualContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBoolOP(TasmParser.BoolOPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNotEqual(SolParser.NotEqualContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJumpOP(TasmParser.JumpOPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAnd(SolParser.AndContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArrayOP(TasmParser.ArrayOPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOr(SolParser.OrContext ctx) { return visitChildren(ctx); }
 }
