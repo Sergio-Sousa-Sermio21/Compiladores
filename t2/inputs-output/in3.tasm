@@ -1,3 +1,0 @@
-cicloi : jump ciclof
-ciclof : jump cicloi
-halt

@@ -1,6 +1,0 @@
-dconst 3
-sconst "Abriged"
-sprint
-dadd
-dprint
-halt

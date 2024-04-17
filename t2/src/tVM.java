@@ -21,7 +21,7 @@ public class tVM {
      * @param tbc file
      */
     public void addInstructions(DataInputStream tbc) throws IOException {
-        int cp = TokenTasm.CONSTANTPOOL.getValue();
+        int cp = TokenTasm.CONSTANTPOOL.ordinal();
         while (tbc.available() > 0) {
             byte bs = tbc.readByte();
             if (bs == cp)
@@ -75,17 +75,17 @@ public class tVM {
     public void execute() {
         for (int i = 0; i < instructions.size(); i++) {
             Instruction instruction = instructions.get(i);
-            TokenTasm op = instruction.getToken1();
+            TokenTasm op = instruction.getOp();
             try {
                 switch (op) {
                     case ICONST:
-                        stack.push(new ObjectValue(instruction.getToken2()));
+                        stack.push(new ObjectValue(instruction.getArgument()));
                         break;
                     case DCONST:
-                        stack.push(new ObjectValue((Double) constantPool.get(instruction.getToken2())));
+                        stack.push(new ObjectValue((Double) constantPool.get(instruction.getArgument())));
                         break;
                     case SCONST:
-                        stack.push(new ObjectValue((String) constantPool.get(instruction.getToken2())));
+                        stack.push(new ObjectValue((String) constantPool.get(instruction.getArgument())));
                         break;
                     case TCONST:
                         stack.push(new ObjectValue(true));
@@ -217,29 +217,29 @@ public class tVM {
                         break;
                     //It indicates the line in the tasm file so its -2 (for the next loop iteration and arrayList access)
                     case JUMP:
-                        i = instruction.getToken2()-2;
+                        i = instruction.getArgument()-2;
                         break;
                     case JUMPT:
                         if (stack.pop().getBool(i))
-                            i = instruction.getToken2()-2;
+                            i = instruction.getArgument()-2;
                         break;
                     case JUMPF:
                         if (!stack.pop().getBool(i))
-                            i = instruction.getToken2()-2;
+                            i = instruction.getArgument()-2;
                         break;
                     case GALLOC:
-                        for (int j = 0; j <= instruction.getToken2(); j++)
+                        for (int j = 0; j <= instruction.getArgument(); j++)
                             globalMemory.add(new ObjectValue("NIL"));
                         break;
                     case GLOAD:
-                        Integer indexLoad = instruction.getToken2();
+                        Integer indexLoad = instruction.getArgument();
                         if (globalMemory.size()<indexLoad)
                             throw new IllegalArgumentException("Cannot access global memory in index "+indexLoad+" at line "+
                                     i+" instruction " + op);
                         stack.push(globalMemory.get(indexLoad));
                         break;
                     case GSTORE:
-                        Integer indexStore = instruction.getToken2();
+                        Integer indexStore = instruction.getArgument();
                         if (globalMemory.size()<indexStore)
                             throw new IllegalArgumentException("Cannot access global memory in index "+indexStore+" at line "+
                                     i+" instruction " + op);
@@ -281,7 +281,7 @@ public class tVM {
             if (Debug.isDebugging()){
                 System.out.println("Instructions:");
                 for (Instruction i : vm.instructions)
-                    System.out.println(i.getToken1()+": "+ i.getToken2());
+                    System.out.println(i.getOp()+": "+ i.getArgument());
                 System.out.println("\nConstant Pool:");
                 System.out.println(vm.constantPool);
             }

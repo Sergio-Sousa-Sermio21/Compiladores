@@ -70,11 +70,4 @@ public enum TokenTasm {
     public static TokenTasm valueOf(int tokenTasm) {
         return (TokenTasm) map.get(tokenTasm);
     }
-
-    /**
-     *  Getter for Enum value
-     */
-    public Integer getValue() {
-        return value;
-    }
 }

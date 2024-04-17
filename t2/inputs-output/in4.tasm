@@ -1,9 +1,0 @@
-begin: sconst "We "
-sconst "hate "
-sadd
-sconst "the "
-sadd
-sconst "french :P"
-sadd
-sprint
-halt
