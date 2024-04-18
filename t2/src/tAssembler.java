@@ -3,7 +3,6 @@ import Sol.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import javax.management.InvalidAttributeValueException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,19 +45,19 @@ class tAssembler extends SolBaseVisitor{
 
     /**
      * Performs semantic checks, such as ensuring the presence of a HALT instruction and linking jump instructions to labels.
-     * @param solVisitor The SolVisitor instance to perform semantic checks on.
+     * @param solVisitorTypeCheck The SolVisitor instance to perform semantic checks on.
      */
-    public static void testeSemantico(SolVisitor solVisitor){
+    public static void testeSemantico(SolVisitorTypeCheck solVisitorTypeCheck){
 
     }
 
     /**
      * Checks if the instructions contain a HALT instruction.
-     * @param solVisitor The SolVisitor instance to check.
+     * @param solVisitorTypeCheck The SolVisitor instance to check.
      */
-    public static void hasHalt(SolVisitor solVisitor){
+    public static void hasHalt(SolVisitorTypeCheck solVisitorTypeCheck){
         int checkHalt = 0;
-        for (Instruction inst : solVisitor.getInstructions()) {
+        for (Instruction inst : solVisitorTypeCheck.getInstructions()) {
             if (inst.getOp() == TokenTasm.HALT){
                 checkHalt++;
                 break;
@@ -90,20 +89,19 @@ class tAssembler extends SolBaseVisitor{
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SolParser parser = new SolParser(tokens);
             ParseTree tree = parser.executable();
-            ParseTreeWalker walker = new ParseTreeWalker();
-            SolVisitor solVisitor = new SolVisitor();
+            SolVisitorTypeCheck solVisitorTypeCheck = new SolVisitorTypeCheck();
             String errors = "";
             try {
-                Object v = solVisitor.visit(tree);
+                Object v = solVisitorTypeCheck.visit(tree);
                 if (Debug.isDebugging()) {
                     System.out.println("Instructions:");
-                    for (Instruction i : solVisitor.getInstructions())
+                    for (Instruction i : solVisitorTypeCheck.getInstructions())
                         System.out.println(i.getOp() + ": " + i.getArgument());
                     System.out.println("\nConstant Pool:");
-                    System.out.println(solVisitor.getConstantPool());
+                    System.out.println(solVisitorTypeCheck.getConstantPool());
                 }
                 // Perform semantic checks
-                testeSemantico(solVisitor);
+                testeSemantico(solVisitorTypeCheck);
             }catch (RuntimeException e) {
                 errors += e+"\n";
             }
@@ -112,8 +110,8 @@ class tAssembler extends SolBaseVisitor{
                 System.exit(1);
             }
             if (asmMode){
-                ArrayList inst = solVisitor.getInstructions();
-                ArrayList cp = solVisitor.getConstantPool();
+                ArrayList inst = solVisitorTypeCheck.getInstructions();
+                ArrayList cp = solVisitorTypeCheck.getConstantPool();
                 System.out.println("Constant Pool");
                 for (int i = 0; i<cp.size(); i++)
                     System.out.println(i+":"+cp.get(i));
@@ -126,7 +124,7 @@ class tAssembler extends SolBaseVisitor{
             if (inputFile != null) {
                 FileOutputStream output = new FileOutputStream(inputFile.replaceFirst("[.][^.]+$", ".tbc"));
                 DataOutputStream byteStream = new DataOutputStream(output);
-                writeInstruction(byteStream, solVisitor.getInstructions(), solVisitor.getConstantPool());
+                writeInstruction(byteStream, solVisitorTypeCheck.getInstructions(), solVisitorTypeCheck.getConstantPool());
             }
         }
         catch (java.io.IOException e) {

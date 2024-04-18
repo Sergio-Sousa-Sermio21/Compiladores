@@ -25,7 +25,6 @@ STRING=24
 INT=25
 DOUBLE=26
 WS=27
-EOL=28
 ';'=1
 '('=4
 ')'=5

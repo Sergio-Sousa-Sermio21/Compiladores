@@ -52,30 +52,6 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitParenthesis(SolParser.ParenthesisContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Multiplication}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultiplication(SolParser.MultiplicationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Multiplication}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultiplication(SolParser.MultiplicationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Addition}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterAddition(SolParser.AdditionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Addition}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitAddition(SolParser.AdditionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Negation}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
@@ -88,17 +64,29 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitNegation(SolParser.NegationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Subctraction}
+	 * Enter a parse tree produced by the {@code AddSub}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubctraction(SolParser.SubctractionContext ctx);
+	void enterAddSub(SolParser.AddSubContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Subctraction}
+	 * Exit a parse tree produced by the {@code AddSub}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubctraction(SolParser.SubctractionContext ctx);
+	void exitAddSub(SolParser.AddSubContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultDivMod}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultDivMod(SolParser.MultDivModContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultDivMod}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultDivMod(SolParser.MultDivModContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Relations}
 	 * labeled alternative in {@link SolParser#op}.
@@ -111,30 +99,6 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRelations(SolParser.RelationsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Division}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterDivision(SolParser.DivisionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Division}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitDivision(SolParser.DivisionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Module}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterModule(SolParser.ModuleContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Module}
-	 * labeled alternative in {@link SolParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitModule(SolParser.ModuleContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SolParser#type}.
 	 * @param ctx the parse tree
@@ -156,53 +120,29 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitNegate(SolParser.NegateContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Lt}
+	 * Enter a parse tree produced by the {@code CompareMore}
 	 * labeled alternative in {@link SolParser#rel}.
 	 * @param ctx the parse tree
 	 */
-	void enterLt(SolParser.LtContext ctx);
+	void enterCompareMore(SolParser.CompareMoreContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Lt}
+	 * Exit a parse tree produced by the {@code CompareMore}
 	 * labeled alternative in {@link SolParser#rel}.
 	 * @param ctx the parse tree
 	 */
-	void exitLt(SolParser.LtContext ctx);
+	void exitCompareMore(SolParser.CompareMoreContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Mt}
+	 * Enter a parse tree produced by the {@code Compare}
 	 * labeled alternative in {@link SolParser#rel}.
 	 * @param ctx the parse tree
 	 */
-	void enterMt(SolParser.MtContext ctx);
+	void enterCompare(SolParser.CompareContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Mt}
+	 * Exit a parse tree produced by the {@code Compare}
 	 * labeled alternative in {@link SolParser#rel}.
 	 * @param ctx the parse tree
 	 */
-	void exitMt(SolParser.MtContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Equal}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void enterEqual(SolParser.EqualContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Equal}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void exitEqual(SolParser.EqualContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code NotEqual}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void enterNotEqual(SolParser.NotEqualContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code NotEqual}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void exitNotEqual(SolParser.NotEqualContext ctx);
+	void exitCompare(SolParser.CompareContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code And}
 	 * labeled alternative in {@link SolParser#rel}.

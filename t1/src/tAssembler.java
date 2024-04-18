@@ -40,20 +40,20 @@ class tAssembler extends TasmBaseListener{
 
     /**
      * Performs semantic checks, such as ensuring the presence of a HALT instruction and linking jump instructions to labels.
-     * @param solListener The TasmListener instance to perform semantic checks on.
+     * @param tasmListener The TasmListener instance to perform semantic checks on.
      */
-    public static void testeSemantico(SolListener solListener){
-        hasHalt(solListener);
-        solListener.labelLink();
+    public static void testeSemantico(TasmListener tasmListener){
+        hasHalt(tasmListener);
+        tasmListener.labelLink();
     }
 
     /**
      * Checks if the instructions contain a HALT instruction.
-     * @param solListener The TasmListener instance to check.
+     * @param tasmListener The TasmListener instance to check.
      */
-    public static void hasHalt(SolListener solListener){
+    public static void hasHalt(TasmListener tasmListener){
         int checkHalt = 0;
-        for (Instruction inst : solListener.getInstructions()) {
+        for (Instruction inst : tasmListener.getInstructions()) {
             if (inst.getToken1() == TokenTasm.HALT){
                 checkHalt++;
                 break;
@@ -78,19 +78,19 @@ class tAssembler extends TasmBaseListener{
             TasmParser parser = new TasmParser(tokens);
             ParseTree tree = parser.executable();
             ParseTreeWalker walker = new ParseTreeWalker();
-            SolListener solListener = new SolListener();
+            TasmListener tasmListener = new TasmListener();
             String errors = "";
             try {
-                walker.walk(solListener,tree);
+                walker.walk(tasmListener,tree);
                 if (Debug.isDebugging()){
                     System.out.println("Instructions:");
-                    for (Instruction i : solListener.getInstructions())
+                    for (Instruction i : tasmListener.getInstructions())
                         System.out.println(i.getToken1()+": "+ i.getToken2());
                     System.out.println("\nConstant Pool:");
-                    System.out.println(solListener.getConstantPool());
+                    System.out.println(tasmListener.getConstantPool());
                 }
                 // Perform semantic checks
-                testeSemantico(solListener);
+                testeSemantico(tasmListener);
             }catch (IllegalArgumentException e){
                 errors += e+"\n";
             }
@@ -105,7 +105,7 @@ class tAssembler extends TasmBaseListener{
             if (inputFile != null) {
                 FileOutputStream output = new FileOutputStream(inputFile.replaceFirst("[.][^.]+$", ".tbc"));
                 DataOutputStream byteStream = new DataOutputStream(output);
-                writeInstruction(byteStream, solListener.getInstructions(), solListener.getConstantPool());
+                writeInstruction(byteStream, tasmListener.getInstructions(), tasmListener.getConstantPool());
             }
         }
         catch (java.io.IOException e) {

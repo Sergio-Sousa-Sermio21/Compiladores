@@ -1,4 +1,3 @@
-jump salto
-halt
+salto: jump salto
 salto : sconst "Womp Womp"
 sprint

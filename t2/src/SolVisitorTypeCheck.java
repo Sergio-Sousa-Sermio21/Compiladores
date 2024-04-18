@@ -1,19 +1,22 @@
 // Import necessary packages and classes
 import Sol.SolBaseVisitor;
 import Sol.SolParser;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 
 // Define the class SolVisitor which extends SolBaseVisitor
-public class SolVisitor extends SolBaseVisitor {
+public class SolVisitorTypeCheck extends SolBaseVisitor {
     // Declare instance variables
+    private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Instruction> instructions;
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
     private ArrayList<String> errors;
 
     // Constructor initializes instance variables
-    SolVisitor() {
+    SolVisitorTypeCheck() {
+        tree = new ParseTreeProperty<Class<?>>();
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
         teste = new TesteSemantico();
@@ -42,7 +45,7 @@ public class SolVisitor extends SolBaseVisitor {
     public Object visitType(SolParser.TypeContext ctx) {
         if (ctx.INT() != null) {
             Integer i = Integer.getInteger(ctx.INT().getText());
-            instructions.add(new Instruction(TokenTasm.ICONST, i));
+            tree.put();
             return i;
         } else if (ctx.DOUBLE() != null){
             Double d = Double.parseDouble(ctx.DOUBLE().getText());

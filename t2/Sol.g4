@@ -7,11 +7,8 @@ command : PRINT (op)+ ';'
 
 op: LPARENTHESIS op RPARENTHESIS #Parenthesis
  | negate #Negation
- | op MULT op #Multiplication //check type
- | op DIV op #Division//check type
- | op MOD op #Module//check type
- | op ADD op #Addition //check type
- | op SUB op #Subctraction
+ | op multdivmodOp=(MULT|DIV|MOD) op #MultDivMod
+ | op addsubOP=(ADD|SUB) op #AddSub
  | rel #Relations
  | type #Types
  ;
@@ -28,14 +25,10 @@ negate: SUB op
  | NOT op
  ;
 
-rel: type LT type #Lt //check type
- | type MT type #Mt //check type
- | type LTE type #Lt //check type
- | type MTE type #Mt //check type
- | type EQUAL type #Equal //check type
- | type NEQUAL type #NotEqual //check type
- | type AND type #And //check type
- | type OR type #Or //check type
+rel: type compareMoreOp=(LT|MT|LTE|MTE) type #CompareMore //check type
+ | type compareOP=(EQUAL|NEQUAL) type #Compare //check type
+ | type AND type #And
+ | type OR type #Or
  ;
 
 SL_COMMENT : '//' .*? (EOF|'\n') -> skip;
