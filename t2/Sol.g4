@@ -25,7 +25,7 @@ negate: SUB op
  | NOT op
  ;
 
-rel: type compareMoreOp=(LT|MT|LTE|MTE) type #CompareMore //check type
+rel: type compareMoreOp=(LT|MT|LTE|MTE) type #CompareMore
  | type compareOP=(EQUAL|NEQUAL) type #Compare //check type
  | type AND type #And
  | type OR type #Or

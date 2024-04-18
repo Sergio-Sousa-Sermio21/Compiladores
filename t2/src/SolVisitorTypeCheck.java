@@ -44,41 +44,20 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     @Override
     public Object visitType(SolParser.TypeContext ctx) {
         if (ctx.INT() != null) {
-            Integer i = Integer.getInteger(ctx.INT().getText());
-            tree.put();
-            return i;
+            tree.put(ctx, Integer.class);
+            return Integer.parseInt(ctx.INT().getText());
         } else if (ctx.DOUBLE() != null){
-            Double d = Double.parseDouble(ctx.DOUBLE().getText());
-            constantPool.add(d);
-            instructions.add(new Instruction(TokenTasm.DCONST,constantPool.size()-1));
-            return d;
+            tree.put(ctx, Double.class);
+            return Double.parseDouble(ctx.DOUBLE().getText());
         }else if(ctx.STRING()!=null){
-            String s = ctx.STRING().getText();
-            constantPool.add(s);
-            instructions.add(new Instruction(TokenTasm.SCONST,constantPool.size()-1));
-            return s;
-        }else if (ctx.TRUE() != null) {
-            Boolean t = Boolean.getBoolean(ctx.TRUE().getText());
-            instructions.add(new Instruction(TokenTasm.TCONST));
-            return t;
-        }else {
-            Boolean f = Boolean.getBoolean(ctx.FALSE().getText());
-            instructions.add(new Instruction(TokenTasm.TCONST));
-            return f;
+            tree.put(ctx, String.class);
+            return ctx.STRING().getText();
         }
+        tree.put(ctx, Boolean.class);
+        return ctx.TRUE()!=null?Boolean.parseBoolean(ctx.TRUE().toString())
+                :Boolean.parseBoolean(ctx.FALSE().toString());
     }
 
-    /**
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitParenthesis(SolParser.ParenthesisContext ctx) {
-        return visit(ctx.op());
-    }
-
-    //TODO
     /**
      *
      * @param ctx the parse tree
@@ -86,7 +65,20 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitNegate(SolParser.NegateContext ctx) {
-        return visit(ctx.op());
+        Object op = visit(ctx.op());
+        if (ctx.SUB() != null) {
+            if (op instanceof String || op instanceof Boolean)
+                errors.add(teste.invalidOperator(ctx.op().getRuleIndex(), op));
+            if (op instanceof Integer)
+                tree.put(ctx, Integer.class);
+            else
+                tree.put(ctx, Double.class);
+            return op;
+        }
+        if (!(op instanceof Boolean))
+            errors.add(teste.invalidOperator(ctx.op().getRuleIndex(), op));
+        tree.put(ctx, Boolean.class);
+        return op;
     }
 
     /**
@@ -98,21 +90,15 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     public Object visitAddSub(SolParser.AddSubContext ctx) {
         Object left = visit(ctx.op(0));
         Object right = visit(ctx.op(1));
-        TokenTasm[] operator = null;
-        if (ctx.addsubOP.getText().compareTo("+") == 0)
-            operator = new TokenTasm[]{TokenTasm.SADD, TokenTasm.DADD, TokenTasm.IADD};
-        else
-            operator = new TokenTasm[]{null, TokenTasm.DSUB, TokenTasm.ISUB};
-        if ((left instanceof String || right instanceof String) && operator[0]!=null) {
-            instructions.add(new Instruction(operator[0]));
-        }
-        else if (left instanceof Boolean || right instanceof Boolean)
-            errors.add(teste.invalidOperator(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean, right instanceof Boolean));
-        else if (left instanceof Double || right instanceof Double) {
-            instructions.add(new Instruction(operator[1]));
+        if (left instanceof String || right instanceof String)
+            tree.put(ctx, String.class);
+        else if(left instanceof Boolean || right instanceof Boolean)
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean, right instanceof Boolean));
+        else if(left instanceof Double || right instanceof Double) {
+            tree.put(ctx, Double.class);
             return Double.parseDouble(left.toString())+Double.parseDouble(right.toString());
         }
-        instructions.add(new Instruction(operator[2]));
+        tree.put(ctx, Integer.class);
         return Integer.parseInt(left.toString())+Integer.parseInt(right.toString());
     }
 
@@ -120,31 +106,50 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     public Object visitMultDivMod(SolParser.MultDivModContext ctx) {
         Object left = visit(ctx.op(0));
         Object right = visit(ctx.op(1));
-        TokenTasm[] operator = null;
-        if (ctx.multdivmodOp.getText().equals("*"))
-            operator = new TokenTasm[]{TokenTasm.DMULT, TokenTasm.IMULT};
-        else if (ctx.multdivmodOp.getText().equals("/"))
-            operator = new TokenTasm[]{TokenTasm.DMULT, TokenTasm.IMULT};
-        else
-            operator = new TokenTasm[]{null, TokenTasm.ISUB};
         if (left instanceof Boolean || right instanceof Boolean || left instanceof String || right instanceof String)
-            errors.add(teste.invalidOperator(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean ||left instanceof String, right instanceof Boolean ||right instanceof String));
-        else if ((left instanceof Double || right instanceof Double) && operator[0] != null) {
-            instructions.add(new Instruction(operator[0]));
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean ||left instanceof String, right instanceof Boolean ||right instanceof String));
+        else if (left instanceof Double || right instanceof Double) {
+            if (ctx.MOD() != null)
+                errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Double, right instanceof Double));
+            tree.put(ctx, Double.class);
             return Double.parseDouble(left.toString())/Double.parseDouble(right.toString());
         }
-        instructions.add(new Instruction(operator[1]));
+        tree.put(ctx, Integer.class);
         return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
     }
 
+    /**
+     *
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Object visitCompareMore(SolParser.CompareMoreContext ctx) {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
-        if (!(left instanceof Integer && right instanceof Integer))
-            errors.add(teste.invalidOperator(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Integer), !(right instanceof Integer)));
-        instructions.add(new Instruction(TokenTasm.IMOD));
-        return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
+        if (!((left instanceof Integer||left instanceof Double) && (right instanceof Integer || right instanceof Double)))
+            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Integer||left instanceof Double), !(right instanceof Integer||right instanceof Double)));
+        tree.put(ctx, Boolean.class);
+        return true;
+    }
+
+    /**
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitCompare(SolParser.CompareContext ctx) {
+        Object left = visit(ctx.type(0));
+        Object right = visit(ctx.type(1));
+        if (left instanceof Boolean &&!(right instanceof Boolean))
+            errors.add(teste.invalidComparison(ctx.type(0).getRuleIndex(),left,right));
+        else if (left instanceof String && !(right instanceof String))
+            errors.add(teste.invalidComparison(ctx.type(0).getRuleIndex(),left,right));
+        else if (!(left instanceof Double || left instanceof Integer) || !(right instanceof Double || right instanceof Integer))
+            errors.add(teste.invalidComparison(ctx.type(0).getRuleIndex(),left,right));
+        tree.put(ctx, Boolean.class);
+        return true;
     }
 
     /**
@@ -157,8 +162,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
         if (!(left instanceof Boolean && right instanceof Boolean))
-            errors.add(teste.invalidOperator(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
-        instructions.add(new Instruction(TokenTasm.AND));
+            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
+        tree.put(ctx, Boolean.class);
         return Boolean.parseBoolean(left.toString()) && Boolean.parseBoolean(right.toString());
     }
 
@@ -172,8 +177,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
         if (!(left instanceof Boolean && right instanceof Boolean))
-            errors.add(teste.invalidOperator(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
-        instructions.add(new Instruction(TokenTasm.OR));
+            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
+        tree.put(ctx, Boolean.class);
         return Boolean.parseBoolean(left.toString()) || Boolean.parseBoolean(right.toString());
     }
 }

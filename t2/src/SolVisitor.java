@@ -1,6 +1,7 @@
 // Import necessary packages and classes
 import Sol.SolBaseVisitor;
 import Sol.SolParser;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 
@@ -8,12 +9,14 @@ import java.util.ArrayList;
 public class SolVisitor extends SolBaseVisitor {
     // Declare instance variables
     private ArrayList<Instruction> instructions;
+    private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
     private ArrayList<String> errors;
 
     // Constructor initializes instance variables
     SolVisitor() {
+        tree = new ParseTreeProperty<Class<?>>();
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
         teste = new TesteSemantico();
@@ -104,7 +107,7 @@ public class SolVisitor extends SolBaseVisitor {
             instructions.add(new Instruction(operator[0]));
         }
         else if (left instanceof Boolean || right instanceof Boolean)
-            errors.add(teste.invalidOperator(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean, right instanceof Boolean));
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean, right instanceof Boolean));
         else if (left instanceof Double || right instanceof Double) {
             instructions.add(new Instruction(operator[1]));
             return Double.parseDouble(left.toString())+Double.parseDouble(right.toString());
@@ -124,8 +127,9 @@ public class SolVisitor extends SolBaseVisitor {
             operator = new TokenTasm[]{TokenTasm.DMULT, TokenTasm.IMULT};
         else
             operator = new TokenTasm[]{null, TokenTasm.ISUB};
+
         if (left instanceof Boolean || right instanceof Boolean || left instanceof String || right instanceof String)
-            errors.add(teste.invalidOperator(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean ||left instanceof String, right instanceof Boolean ||right instanceof String));
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean ||left instanceof String, right instanceof Boolean ||right instanceof String));
         else if ((left instanceof Double || right instanceof Double) && operator[0] != null) {
             instructions.add(new Instruction(operator[0]));
             return Double.parseDouble(left.toString())/Double.parseDouble(right.toString());
@@ -139,7 +143,7 @@ public class SolVisitor extends SolBaseVisitor {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
         if (!(left instanceof Integer && right instanceof Integer))
-            errors.add(teste.invalidOperator(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Integer), !(right instanceof Integer)));
+            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Integer), !(right instanceof Integer)));
         instructions.add(new Instruction(TokenTasm.IMOD));
         return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
     }
@@ -154,7 +158,7 @@ public class SolVisitor extends SolBaseVisitor {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
         if (!(left instanceof Boolean && right instanceof Boolean))
-            errors.add(teste.invalidOperator(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
+            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
         instructions.add(new Instruction(TokenTasm.AND));
         return Boolean.parseBoolean(left.toString()) && Boolean.parseBoolean(right.toString());
     }
@@ -169,7 +173,7 @@ public class SolVisitor extends SolBaseVisitor {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
         if (!(left instanceof Boolean && right instanceof Boolean))
-            errors.add(teste.invalidOperator(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
+            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
         instructions.add(new Instruction(TokenTasm.OR));
         return Boolean.parseBoolean(left.toString()) || Boolean.parseBoolean(right.toString());
     }
