@@ -38,7 +38,7 @@ public class SolVisitor extends SolBaseVisitor {
     @Override
     public Object visitType(SolParser.TypeContext ctx) {
         if (tree.get(ctx) == Integer.class) {
-            Integer i = Integer.getInteger(ctx.INT().getText());
+            Integer i = Integer.parseInt(ctx.INT().getText());
             instructions.add(new Instruction(TokenTasm.ICONST, i));
             if (tree.get(ctx.getParent().getParent()) == String.class)
                 instructions.add(new Instruction(TokenTasm.ITOS));
@@ -73,7 +73,15 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     @Override
+    public Object visitExecutable(SolParser.ExecutableContext ctx) {
+        Object result = super.visitExecutable(ctx);
+        instructions.add(new Instruction(TokenTasm.HALT));
+        return result;
+    }
+
+    @Override
     public Object visitCommand(SolParser.CommandContext ctx) {
+        Object result = super.visitCommand(ctx);
         if (tree.get(ctx.op()) == Integer.class)
             instructions.add(new Instruction(TokenTasm.IPRINT));
         if (tree.get(ctx.op()) == Double.class)
@@ -82,7 +90,7 @@ public class SolVisitor extends SolBaseVisitor {
             instructions.add(new Instruction(TokenTasm.SPRINT));
         if (tree.get(ctx.op()) == Boolean.class)
             instructions.add(new Instruction(TokenTasm.BPRINT));
-        return super.visitCommand(ctx);
+        return result;
     }
 
     /**
@@ -130,10 +138,10 @@ public class SolVisitor extends SolBaseVisitor {
         else
             operator = new TokenTasm[]{TokenTasm.DSUB, TokenTasm.ISUB};
         if (tree.get(ctx) == Double.class) {
-            instructions.add(new Instruction(operator[1]));
+            instructions.add(new Instruction(operator[0]));
             return Double.parseDouble(left.toString())+Double.parseDouble(right.toString());
         }
-        instructions.add(new Instruction(operator[2]));
+        instructions.add(new Instruction(operator[1]));
         return Integer.parseInt(left.toString())+Integer.parseInt(right.toString());
     }
 

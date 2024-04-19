@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // Define the class tAssembler
-class tAssembler extends SolBaseVisitor{
+class solAssembler extends SolBaseVisitor{
 
     private static final String asmFlag = "-asm";
 
@@ -65,17 +65,22 @@ class tAssembler extends SolBaseVisitor{
             SolParser parser = new SolParser(tokens);
             ParseTree tree = parser.executable();
             SolVisitorTypeCheck solVisitorTypeCheck = new SolVisitorTypeCheck();
-            SolVisitor solVisitor = new SolVisitor(solVisitorTypeCheck.getTree());
-            if (Debug.isDebugging()) {
-                System.out.println("Instructions:");
-                for (Instruction i : solVisitor.getInstructions())
-                    System.out.println(i.getOp() + ": " + i.getArgument());
-                System.out.println("\nConstant Pool:");
-                System.out.println(solVisitor.getConstantPool());
-            }
+            solVisitorTypeCheck.visit(tree);
             if (!solVisitorTypeCheck.getErrors().isEmpty()){
                 System.out.println(solVisitorTypeCheck.getErrors());
                 System.exit(1);
+            }
+            SolVisitor solVisitor = new SolVisitor(solVisitorTypeCheck.getTree());
+            solVisitor.visit(tree);
+            if (Debug.isDebugging()) {
+                System.out.println("Instructions:");
+                for (Instruction i : solVisitor.getInstructions())
+                    if (i.getArgument() != null)
+                        System.out.println(i.getOp() + ": " + i.getArgument());
+                    else
+                        System.out.println(i.getOp());
+                System.out.println("\nConstant Pool:");
+                System.out.println(solVisitor.getConstantPool());
             }
             if (asmMode){
                 ArrayList<Instruction> inst = solVisitor.getInstructions();
