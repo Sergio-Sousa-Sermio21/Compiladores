@@ -90,28 +90,21 @@ class tAssembler extends SolBaseVisitor{
             SolParser parser = new SolParser(tokens);
             ParseTree tree = parser.executable();
             SolVisitorTypeCheck solVisitorTypeCheck = new SolVisitorTypeCheck();
-            String errors = "";
-            try {
-                Object v = solVisitorTypeCheck.visit(tree);
-                if (Debug.isDebugging()) {
-                    System.out.println("Instructions:");
-                    for (Instruction i : solVisitorTypeCheck.getInstructions())
-                        System.out.println(i.getOp() + ": " + i.getArgument());
-                    System.out.println("\nConstant Pool:");
-                    System.out.println(solVisitorTypeCheck.getConstantPool());
-                }
-                // Perform semantic checks
-                testeSemantico(solVisitorTypeCheck);
-            }catch (RuntimeException e) {
-                errors += e+"\n";
+            SolVisitor solVisitor = new SolVisitor(solVisitorTypeCheck.getTree());
+            if (Debug.isDebugging()) {
+                System.out.println("Instructions:");
+                for (Instruction i : solVisitor.getInstructions())
+                    System.out.println(i.getOp() + ": " + i.getArgument());
+                System.out.println("\nConstant Pool:");
+                System.out.println(solVisitor.getConstantPool());
             }
-            if (!errors.isEmpty()){
-                System.out.println(errors);
+            if (!solVisitorTypeCheck.getErrors().isEmpty()){
+                System.out.println(solVisitorTypeCheck.getErrors());
                 System.exit(1);
             }
             if (asmMode){
-                ArrayList inst = solVisitorTypeCheck.getInstructions();
-                ArrayList cp = solVisitorTypeCheck.getConstantPool();
+                ArrayList<Instruction> inst = solVisitor.getInstructions();
+                ArrayList<Object> cp = solVisitor.getConstantPool();
                 System.out.println("Constant Pool");
                 for (int i = 0; i<cp.size(); i++)
                     System.out.println(i+":"+cp.get(i));
@@ -124,7 +117,7 @@ class tAssembler extends SolBaseVisitor{
             if (inputFile != null) {
                 FileOutputStream output = new FileOutputStream(inputFile.replaceFirst("[.][^.]+$", ".tbc"));
                 DataOutputStream byteStream = new DataOutputStream(output);
-                writeInstruction(byteStream, solVisitorTypeCheck.getInstructions(), solVisitorTypeCheck.getConstantPool());
+                writeInstruction(byteStream, solVisitor.getInstructions(), solVisitor.getConstantPool());
             }
         }
         catch (java.io.IOException e) {

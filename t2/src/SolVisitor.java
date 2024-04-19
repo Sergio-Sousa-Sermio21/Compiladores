@@ -12,15 +12,13 @@ public class SolVisitor extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
-    private ArrayList<String> errors;
 
     // Constructor initializes instance variables
-    SolVisitor() {
-        tree = new ParseTreeProperty<Class<?>>();
+    SolVisitor(ParseTreeProperty<Class<?>> t) {
+        tree = t;
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
         teste = new TesteSemantico();
-        errors = new ArrayList<String>();
     }
 
     // Getter method for instructions
@@ -33,26 +31,28 @@ public class SolVisitor extends SolBaseVisitor {
         return constantPool;
     }
 
-    public ArrayList<String> getErrors() {
-        return errors;
-    }
-
     /**
      * @param ctx the parse tree
      * @return
      */
     @Override
     public Object visitType(SolParser.TypeContext ctx) {
-        if (ctx.INT() != null) {
+        if (tree.get(ctx) == Integer.class) {
             Integer i = Integer.getInteger(ctx.INT().getText());
             instructions.add(new Instruction(TokenTasm.ICONST, i));
+            if (tree.get(ctx.getParent().getParent()) == String.class)
+                instructions.add(new Instruction(TokenTasm.ITOS));
+            else if (tree.get(ctx.getParent().getParent()) == Double.class)
+                instructions.add(new Instruction(TokenTasm.ITOD));
             return i;
-        } else if (ctx.DOUBLE() != null){
+        } else if (tree.get(ctx) == Double.class){
             Double d = Double.parseDouble(ctx.DOUBLE().getText());
             constantPool.add(d);
             instructions.add(new Instruction(TokenTasm.DCONST,constantPool.size()-1));
+            if (tree.get(ctx.getParent().getParent()) == String.class)
+                instructions.add(new Instruction(TokenTasm.DTOS));
             return d;
-        }else if(ctx.STRING()!=null){
+        }else if(tree.get(ctx) == String.class){
             String s = ctx.STRING().getText();
             constantPool.add(s);
             instructions.add(new Instruction(TokenTasm.SCONST,constantPool.size()-1));
@@ -60,12 +60,29 @@ public class SolVisitor extends SolBaseVisitor {
         }else if (ctx.TRUE() != null) {
             Boolean t = Boolean.getBoolean(ctx.TRUE().getText());
             instructions.add(new Instruction(TokenTasm.TCONST));
+            if (tree.get(ctx.getParent().getParent()) == String.class)
+                instructions.add(new Instruction(TokenTasm.BTOS));
             return t;
         }else {
             Boolean f = Boolean.getBoolean(ctx.FALSE().getText());
-            instructions.add(new Instruction(TokenTasm.TCONST));
+            instructions.add(new Instruction(TokenTasm.FCONST));
+            if (tree.get(ctx.getParent().getParent()) == String.class)
+                instructions.add(new Instruction(TokenTasm.BTOS));
             return f;
         }
+    }
+
+    @Override
+    public Object visitCommand(SolParser.CommandContext ctx) {
+        if (tree.get(ctx.op()) == Integer.class)
+            instructions.add(new Instruction(TokenTasm.IPRINT));
+        if (tree.get(ctx.op()) == Double.class)
+            instructions.add(new Instruction(TokenTasm.DPRINT));
+        if (tree.get(ctx.op()) == String.class)
+            instructions.add(new Instruction(TokenTasm.SPRINT));
+        if (tree.get(ctx.op()) == Boolean.class)
+            instructions.add(new Instruction(TokenTasm.BPRINT));
+        return super.visitCommand(ctx);
     }
 
     /**
@@ -78,7 +95,6 @@ public class SolVisitor extends SolBaseVisitor {
         return visit(ctx.op());
     }
 
-    //TODO
     /**
      *
      * @param ctx the parse tree
@@ -86,6 +102,12 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitNegate(SolParser.NegateContext ctx) {
+        if (tree.get(ctx) == Boolean.class)
+            instructions.add(new Instruction(TokenTasm.NOT));
+        else if (tree.get(ctx) == Integer.class)
+            instructions.add(new Instruction(TokenTasm.IUMINUS));
+        else
+            instructions.add(new Instruction(TokenTasm.DUMINUS));
         return visit(ctx.op());
     }
 
@@ -99,16 +121,15 @@ public class SolVisitor extends SolBaseVisitor {
         Object left = visit(ctx.op(0));
         Object right = visit(ctx.op(1));
         TokenTasm[] operator = null;
-        if (ctx.addsubOP.getText().compareTo("+") == 0)
-            operator = new TokenTasm[]{TokenTasm.SADD, TokenTasm.DADD, TokenTasm.IADD};
-        else
-            operator = new TokenTasm[]{null, TokenTasm.DSUB, TokenTasm.ISUB};
-        if ((left instanceof String || right instanceof String) && operator[0]!=null) {
-            instructions.add(new Instruction(operator[0]));
+        if (tree.get(ctx) == String.class){
+            instructions.add(new Instruction(TokenTasm.SADD));
+            return left.toString()+right.toString();
         }
-        else if (left instanceof Boolean || right instanceof Boolean)
-            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean, right instanceof Boolean));
-        else if (left instanceof Double || right instanceof Double) {
+        if (ctx.addsubOP.getText().compareTo("+") == 0)
+            operator = new TokenTasm[]{TokenTasm.DADD, TokenTasm.IADD};
+        else
+            operator = new TokenTasm[]{TokenTasm.DSUB, TokenTasm.ISUB};
+        if (tree.get(ctx) == Double.class) {
             instructions.add(new Instruction(operator[1]));
             return Double.parseDouble(left.toString())+Double.parseDouble(right.toString());
         }
@@ -116,6 +137,11 @@ public class SolVisitor extends SolBaseVisitor {
         return Integer.parseInt(left.toString())+Integer.parseInt(right.toString());
     }
 
+    /**
+     *
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Object visitMultDivMod(SolParser.MultDivModContext ctx) {
         Object left = visit(ctx.op(0));
@@ -126,11 +152,8 @@ public class SolVisitor extends SolBaseVisitor {
         else if (ctx.multdivmodOp.getText().equals("/"))
             operator = new TokenTasm[]{TokenTasm.DMULT, TokenTasm.IMULT};
         else
-            operator = new TokenTasm[]{null, TokenTasm.ISUB};
-
-        if (left instanceof Boolean || right instanceof Boolean || left instanceof String || right instanceof String)
-            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, left instanceof Boolean ||left instanceof String, right instanceof Boolean ||right instanceof String));
-        else if ((left instanceof Double || right instanceof Double) && operator[0] != null) {
+            operator = new TokenTasm[]{null, TokenTasm.IMOD};
+        if (tree.get(ctx) == Double.class && operator[0] != null) {
             instructions.add(new Instruction(operator[0]));
             return Double.parseDouble(left.toString())/Double.parseDouble(right.toString());
         }
@@ -138,14 +161,67 @@ public class SolVisitor extends SolBaseVisitor {
         return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
     }
 
+    /**
+     *
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Object visitCompareMore(SolParser.CompareMoreContext ctx) {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
-        if (!(left instanceof Integer && right instanceof Integer))
-            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Integer), !(right instanceof Integer)));
-        instructions.add(new Instruction(TokenTasm.IMOD));
-        return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
+        TokenTasm[] operator = null;
+        Instruction addNot = null;
+        switch (ctx.compareMoreOp.getText()){
+            case "<" ->{
+                operator = new TokenTasm[]{TokenTasm.DLT, TokenTasm.ILT};
+            }
+            case ">" ->{
+                operator = new TokenTasm[]{TokenTasm.DLT, TokenTasm.ILT};
+                addNot=new Instruction(TokenTasm.NOT);
+            }
+            case "<=" ->{
+                operator = new TokenTasm[]{TokenTasm.DLEQ, TokenTasm.ILEQ};
+            }
+            default ->{
+                operator = new TokenTasm[]{TokenTasm.DLEQ, TokenTasm.ILEQ};
+                addNot=new Instruction(TokenTasm.NOT);
+            }
+        }
+        if (tree.get(ctx) == Double.class) {
+            instructions.add(new Instruction(operator[0]));
+            if (addNot != null)
+                instructions.add(addNot);
+            return Double.parseDouble(left.toString()) < Double.parseDouble(right.toString());
+        }
+        instructions.add(new Instruction(operator[1]));
+        if (tree.get(ctx) == Double.class){
+            if (addNot != null)
+                instructions.add(addNot);
+        }
+        return Integer.parseInt(left.toString())<Integer.parseInt(right.toString());
+    }
+
+    /**TODO
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitCompare(SolParser.CompareContext ctx) {
+        Object left = visit(ctx.type(0));
+        Object right = visit(ctx.type(1));
+        TokenTasm[] operator = null;
+        if (ctx.compareOP.getText().equals("=="))
+            operator = new TokenTasm[]{TokenTasm.DEQ, TokenTasm.IEQ};
+        else
+            operator = new TokenTasm[]{TokenTasm.DNEQ, TokenTasm.INEQ};
+        if (tree.get(ctx) == Double.class) {
+            instructions.add(new Instruction(operator[0]));
+            return Double.parseDouble(left.toString()) < Double.parseDouble(right.toString());
+        }
+        instructions.add(new Instruction(operator[1]));
+        return Integer.parseInt(left.toString())<Integer.parseInt(right.toString());
     }
 
     /**
@@ -157,8 +233,6 @@ public class SolVisitor extends SolBaseVisitor {
     public Object visitAnd(SolParser.AndContext ctx) {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
-        if (!(left instanceof Boolean && right instanceof Boolean))
-            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
         instructions.add(new Instruction(TokenTasm.AND));
         return Boolean.parseBoolean(left.toString()) && Boolean.parseBoolean(right.toString());
     }
@@ -172,8 +246,6 @@ public class SolVisitor extends SolBaseVisitor {
     public Object visitOr(SolParser.OrContext ctx) {
         Object left = visit(ctx.type(0));
         Object right = visit(ctx.type(1));
-        if (!(left instanceof Boolean && right instanceof Boolean))
-            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
         instructions.add(new Instruction(TokenTasm.OR));
         return Boolean.parseBoolean(left.toString()) || Boolean.parseBoolean(right.toString());
     }
