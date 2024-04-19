@@ -2,7 +2,7 @@ grammar Sol;
 
 executable : (command)+  EOF;
 
-command : PRINT (op)+ ';'
+commafnd : PRINT op ';'
   ;
 
 op: LPARENTHESIS op RPARENTHESIS #Parenthesis
