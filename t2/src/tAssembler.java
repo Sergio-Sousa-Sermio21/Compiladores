@@ -43,32 +43,7 @@ class tAssembler extends SolBaseVisitor{
         }
     }
 
-    /**
-     * Performs semantic checks, such as ensuring the presence of a HALT instruction and linking jump instructions to labels.
-     * @param solVisitorTypeCheck The SolVisitor instance to perform semantic checks on.
-     */
-    public static void testeSemantico(SolVisitorTypeCheck solVisitorTypeCheck){
-
-    }
-
-    /**
-     * Checks if the instructions contain a HALT instruction.
-     * @param solVisitorTypeCheck The SolVisitor instance to check.
-     */
-    public static void hasHalt(SolVisitorTypeCheck solVisitorTypeCheck){
-        int checkHalt = 0;
-        for (Instruction inst : solVisitorTypeCheck.getInstructions()) {
-            if (inst.getOp() == TokenTasm.HALT){
-                checkHalt++;
-                break;
-            }
-        }
-        if(checkHalt == 0)
-            throw new RuntimeException("No Halt detected");
-    }
-
     // Main method
-    //TODO asmMode
     public static void main(String[] args) throws Exception {
         boolean asmMode = false;
         String inputFile = null;
