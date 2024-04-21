@@ -1,9 +1,6 @@
 import Sol.SolBaseListener;
 import Sol.SolLexer;
 import Sol.SolParser;
-import Tasm.TasmBaseListener;
-import Tasm.TasmLexer;
-import Tasm.TasmParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -11,12 +8,11 @@ import org.antlr.v4.runtime.ConsoleErrorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
 import java.util.*;
 
-public class SolAssembler {
+public class solCompiler {
 
     static class Parse extends  SolBaseListener{
         private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
@@ -26,7 +22,8 @@ public class SolAssembler {
         public Class<?> getValues(ParseTree node){
             return values.get(node);
         }
-
+        /**Metodo que mostra as instruções e a constantPool
+         */
         public void debug(){
             System.out.println("----------------------------------------\nConstant Pool:");
             for (int i = 0; i<constantpoll.size(); i++) {
@@ -353,7 +350,7 @@ public class SolAssembler {
         public void execute(String[] args, boolean debug){
             try{
                 init(args);
-                if(debug)
+                if(debug || args[1].equals("-asm"))
                     debug();
                 writeBytecode(args);
             } catch (Exception e){

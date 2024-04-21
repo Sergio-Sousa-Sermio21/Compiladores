@@ -1,7 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
-import java.util.List;
 
 public class MainSol {
     public static void main(String[] args) throws Exception {
@@ -18,7 +16,7 @@ public class MainSol {
         String name = reader.readLine();
         String[] file = new String[2];
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsSol\\" + name + ".sol";
-        SolAssembler.Parse assembler = new SolAssembler.Parse();
+        solCompiler.Parse assembler = new solCompiler.Parse();
         assembler.execute(file, false);
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsSol\\" + name + ".tbc";
         System.out.println();

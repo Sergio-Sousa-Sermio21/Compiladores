@@ -42,7 +42,7 @@ public class TesteNodes extends SolBaseListener {
     }
 
     /**Para todos os Exits
-     * Metodo chamado quando
+     * Metodo chamado para percorrer a arvore
      * @param ctx the parse tree
      */
     @Override public void exitInstrucao(SolParser.InstrucaoContext ctx) {
