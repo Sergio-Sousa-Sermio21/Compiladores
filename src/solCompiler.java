@@ -74,7 +74,7 @@ public class solCompiler {
 
             }
         }
-        
+
         /**Para todos os Exits
          * Metodo chamado para percorrer a arvore
          * @param ctx the parse tree
