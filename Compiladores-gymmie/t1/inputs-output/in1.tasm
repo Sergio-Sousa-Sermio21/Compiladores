@@ -1,0 +1,9 @@
+iconst 2
+iconst 4
+iadd
+iprint
+dconst 6.2
+dconst 3.0
+dadd
+dprint
+halt
