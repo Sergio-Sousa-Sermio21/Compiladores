@@ -142,11 +142,11 @@ public class TesteNodes extends SolBaseListener {
     }
     @Override public void exitAND(SolParser.ANDContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
-        Class<?> rigth= getValues(ctx.exp(1));
-        if(left == Object.class || rigth == Object.class)
+        Class<?> right= getValues(ctx.exp(1));
+        if(left == Object.class || right == Object.class)
             setValues(ctx, Object.class);
         else{
-            if(left != Boolean.class || rigth != Boolean.class){
+            if(left != Boolean.class || right != Boolean.class){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator AND" );
                 setValues(ctx, Object.class);
             } else {
@@ -158,11 +158,11 @@ public class TesteNodes extends SolBaseListener {
     }
     @Override public void exitOR(SolParser.ORContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
-        Class<?> rigth= getValues(ctx.exp(1));
-        if(left == Object.class || rigth == Object.class)
+        Class<?> right= getValues(ctx.exp(1));
+        if(left == Object.class || right == Object.class)
             setValues(ctx, Object.class);
         else{
-            if(left != Boolean.class || rigth != Boolean.class){
+            if(left != Boolean.class || right != Boolean.class){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator OR" );
                 setValues(ctx, Object.class);
             } else {
@@ -174,12 +174,12 @@ public class TesteNodes extends SolBaseListener {
 
     @Override public void exitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
-        Class<?> rigth= getValues(ctx.exp(1));
-        if(left == Object.class || rigth == Object.class)
+        Class<?> right= getValues(ctx.exp(1));
+        if(left == Object.class || right == Object.class)
             setValues(ctx, Object.class);
         else{
-            if(left!=rigth && !((left == Integer.class && rigth == Double.class) || (left == Double.class && rigth == Integer.class))){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Cannot compare " + left.getSimpleName() + " and " + rigth.getSimpleName());
+            if(left!=right && !((left == Integer.class && right == Double.class) || (left == Double.class && right == Integer.class))){
+                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Cannot compare " + left.getSimpleName() + " and " + right.getSimpleName());
                 setValues(ctx, Object.class);
             } else
                 setValues(ctx, Boolean.class);

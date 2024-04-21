@@ -18,7 +18,7 @@ public class MainSol {
         String name = reader.readLine();
         String[] file = new String[2];
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsSol\\" + name + ".sol";
-        SolAssembler assembler = new SolAssembler();
+        SolAssembler.Parse assembler = new SolAssembler.Parse();
         assembler.execute(file, false);
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsSol\\" + name + ".tbc";
         System.out.println();

@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainSol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainSol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SolAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SolAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -181,6 +184,7 @@
       <workItem from="1713116989460" duration="9000" />
       <workItem from="1713179923285" duration="6274000" />
       <workItem from="1713374834090" duration="670000" />
+      <workItem from="1713450947416" duration="3871000" />
     </task>
     <servers />
   </component>
