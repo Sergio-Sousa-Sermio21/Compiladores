@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteEQUALerror.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/TesteEQUALerror.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteEVERY.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/TesteTudo.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteEVERY.tbc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainSol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainSol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SolAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteEVERY.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/TesteTudo.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
-    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,45 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/InputsSol/TesteTudo.sol">
-      <ranges>
-        <range start1="0" end1="1" start2="0" end2="1" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="2" end1="4" start2="2" end2="4" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="5" end1="7" start2="5" end2="7" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="8" end1="10" start2="8" end2="10" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="11" end1="13" start2="11" end2="13" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="14" end1="16" start2="14" end2="16" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="17" end1="19" start2="17" end2="19" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="20" end1="22" start2="20" end2="22" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="23" end1="25" start2="23" end2="25" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="26" end1="28" start2="26" end2="28" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="29" end1="31" start2="29" end2="31" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="32" end1="34" start2="32" end2="34" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="35" end1="37" start2="35" end2="37" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="38" end1="39" start2="38" end2="39" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="40" end1="42" start2="40" end2="42" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="43" end1="45" start2="43" end2="45" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="49" end1="51" start2="49" end2="51" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="55" end1="57" start2="55" end2="57" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="61" end1="63" start2="61" end2="63" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="64" end1="66" start2="64" end2="66" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="70" end1="72" start2="70" end2="72" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="73" end1="74" start2="73" end2="74" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="84" end1="85" start2="84" end2="85" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="101" end1="102" start2="101" end2="102" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="103" end1="105" start2="103" end2="105" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="106" end1="108" start2="106" end2="108" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="112" end1="114" start2="112" end2="114" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="115" end1="117" start2="115" end2="117" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="121" end1="123" start2="121" end2="123" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="124" end1="126" start2="124" end2="126" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="127" end1="129" start2="127" end2="129" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="130" end1="132" start2="130" end2="132" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="133" end1="134" start2="133" end2="134" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -233,7 +182,7 @@
       <workItem from="1713179923285" duration="6274000" />
       <workItem from="1713374834090" duration="670000" />
       <workItem from="1713450947416" duration="3871000" />
-      <workItem from="1713721911153" duration="2093000" />
+      <workItem from="1713721911153" duration="2188000" />
     </task>
     <servers />
   </component>

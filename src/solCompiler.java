@@ -36,10 +36,6 @@ public class solCompiler {
             System.out.println("-----------------------------------------");
         }
 
-        @Override public void exitProgram(SolParser.ProgramContext ctx) {
-            instrucoes.add(new Instrucion(Commands.HALT));
-        }
-
         /** Escreve bytecode em um file com base nas instruções fornecidas
          *
          * @param args Argumentos presentes na linha de comando.
@@ -77,6 +73,14 @@ public class solCompiler {
                 }
 
             }
+        }
+        
+        /**Para todos os Exits
+         * Metodo chamado para percorrer a arvore
+         * @param ctx the parse tree
+         */
+        @Override public void exitProgram(SolParser.ProgramContext ctx) {
+            instrucoes.add(new Instrucion(Commands.HALT));
         }
         @Override public void exitORDER(SolParser.ORDERContext ctx) {
             Class<?> Order = getValues(ctx);
