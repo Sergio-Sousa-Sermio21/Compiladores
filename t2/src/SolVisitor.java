@@ -5,7 +5,10 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 
-// Define the class SolVisitor which extends SolBaseVisitor
+/**
+ * SolVisitor extends SolBaseVisitor to provide custom visiting functionality
+ * for the Sol language parse tree.
+ */
 public class SolVisitor extends SolBaseVisitor {
     // Declare instance variables
     private ArrayList<Instruction> instructions;
@@ -13,7 +16,12 @@ public class SolVisitor extends SolBaseVisitor {
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
 
-    // Constructor initializes instance variables
+    /**
+     * Constructor for SolVisitor.
+     * Initializes instance variables.
+     *
+     * @param t ParseTreeProperty containing type information.
+     */
     SolVisitor(ParseTreeProperty<Class<?>> t) {
         tree = t;
         instructions = new ArrayList<Instruction>();
@@ -21,19 +29,30 @@ public class SolVisitor extends SolBaseVisitor {
         teste = new TesteSemantico();
     }
 
-    // Getter method for instructions
+    /**
+     * Retrieves the list of instructions generated during traversal.
+     *
+     * @return ArrayList of instructions.
+     */
     public ArrayList<Instruction> getInstructions() {
         return instructions;
     }
 
-    // Getter method for constant pool
+    /**
+     * Retrieves the constant pool containing all literals.
+     *
+     * @return ArrayList of constants.
+     */
     public ArrayList<Object> getConstantPool() {
         return constantPool;
     }
 
+
     /**
-     * @param ctx the parse tree
-     * @return
+     * Visits type nodes in the parse tree and generates instructions accordingly.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitType(SolParser.TypeContext ctx) {
@@ -72,6 +91,12 @@ public class SolVisitor extends SolBaseVisitor {
         }
     }
 
+    /**
+     * Visits executable nodes in the parse tree and appends HALT instruction.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
+     */
     @Override
     public Object visitExecutable(SolParser.ExecutableContext ctx) {
         Object result = super.visitExecutable(ctx);
@@ -79,6 +104,12 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
+    /**
+     * Visits command nodes in the parse tree and generates print instructions.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
+     */
     @Override
     public Object visitCommand(SolParser.CommandContext ctx) {
         Object result = super.visitCommand(ctx);
@@ -94,9 +125,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits parenthesis nodes in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitParenthesis(SolParser.ParenthesisContext ctx) {
@@ -104,9 +136,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits negate nodes in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitNegate(SolParser.NegateContext ctx) {
@@ -120,9 +153,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits add/subtract nodes in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitAddSub(SolParser.AddSubContext ctx) {
@@ -146,9 +180,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits multiply/divide/modulus nodes in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitMultDivMod(SolParser.MultDivModContext ctx) {
@@ -170,9 +205,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits comparison nodes for '<', '>', '<=', '>=' operators in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitCompareMore(SolParser.CompareMoreContext ctx) {
@@ -210,10 +246,11 @@ public class SolVisitor extends SolBaseVisitor {
         return Integer.parseInt(left.toString())<Integer.parseInt(right.toString());
     }
 
-    /**TODO
+    /**
+     * Visits comparison nodes for '==' and '!=' operators in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitCompare(SolParser.CompareContext ctx) {
@@ -233,9 +270,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits logical 'and' nodes in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitAnd(SolParser.AndContext ctx) {
@@ -246,9 +284,10 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
+     * Visits logical 'or' nodes in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitOr(SolParser.OrContext ctx) {

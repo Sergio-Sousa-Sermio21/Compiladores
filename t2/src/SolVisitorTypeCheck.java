@@ -6,40 +6,74 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 
-// Define the class SolVisitor which extends SolBaseVisitor
+/**
+ * SolVisitorTypeCheck extends SolBaseVisitor to provide type checking functionality
+ * for the Sol language parse tree.
+ */
 public class SolVisitorTypeCheck extends SolBaseVisitor {
     // Declare instance variables
     private ParseTreeProperty<Class<?>> tree;
     private TesteSemantico teste;
     private ArrayList<String> errors;
 
-    // Constructor initializes instance variables
+    /**
+     * Constructor for SolVisitorTypeCheck.
+     * Initializes instance variables.
+     */
     SolVisitorTypeCheck() {
         tree = new ParseTreeProperty<Class<?>>();
         teste = new TesteSemantico();
         errors = new ArrayList<String>();
     }
 
+    /**
+     * Retrieves the list of type checking errors.
+     *
+     * @return ArrayList of error messages.
+     */
     public ArrayList<String> getErrors() {
         return errors;
     }
 
+    /**
+     * Retrieves the type tree containing type information.
+     *
+     * @return ParseTreeProperty containing type information.
+     */
     public ParseTreeProperty<Class<?>> getTree() {
         return tree;
     }
 
+    /**
+     * Visits parenthesis context nodes in the parse tree to handle nested expressions and perform type checking.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
+     */
     @Override
     public Object visitParenthesis(SolParser.ParenthesisContext ctx) {
         tree.put(ctx, tree.get(ctx.op()));
         return super.visitParenthesis(ctx);
     }
 
+    /**
+     * Visits relation context nodes in the parse tree to handle relational operations and perform type checking.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
+     */
     @Override
     public Object visitRelations(SolParser.RelationsContext ctx) {
         tree.put(ctx, tree.get(ctx.rel()));
         return super.visitRelations(ctx);
     }
 
+    /**
+     * Visits types context nodes in the parse tree to handle type definitions and perform type checking.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
+     */
     @Override
     public Object visitTypes(SolParser.TypesContext ctx) {
         tree.put(ctx, tree.get(ctx.type()));
@@ -47,8 +81,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
-     * @param ctx the parse tree
-     * @return
+     * Visits type context nodes in the parse tree to assign types.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitType(SolParser.TypeContext ctx) {
@@ -68,9 +104,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits negate context nodes in the parse tree to handle negation and perform type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitNegate(SolParser.NegateContext ctx) {
@@ -91,9 +128,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits add/subtract context nodes in the parse tree to handle arithmetic operations and perform type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitAddSub(SolParser.AddSubContext ctx) {
@@ -114,6 +152,12 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return Integer.parseInt(left.toString())+Integer.parseInt(right.toString());
     }
 
+    /**
+     * Visits multiply/divide/modulus context nodes in the parse tree to handle arithmetic operations and perform type checking.
+     *
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
+     */
     @Override
     public Object visitMultDivMod(SolParser.MultDivModContext ctx) {
         Object left = visit(ctx.op(0));
@@ -133,9 +177,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits comparison context nodes to handle comparison operations and perform type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitCompareMore(SolParser.CompareMoreContext ctx) {
@@ -149,9 +194,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits comparison context nodes to handle comparison operations and perform type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitCompare(SolParser.CompareContext ctx) {
@@ -171,9 +217,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits logical 'and' context nodes in the parse tree to handle logical operations and perform type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitAnd(SolParser.AndContext ctx) {
@@ -187,9 +234,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits logical 'or' context nodes in the parse tree to handle logical operations and perform type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree node to visit.
+     * @return the value associated with the node.
      */
     @Override
     public Object visitOr(SolParser.OrContext ctx) {

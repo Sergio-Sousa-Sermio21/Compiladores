@@ -12,7 +12,7 @@ import java.util.List;
  * The solAssembler class provides functionality to assemble Sol programs
  * into bytecode.
  */
-class solAssembler extends SolBaseVisitor {
+class solCompiler extends SolBaseVisitor {
 
     private static final String asmFlag = "-asm";
 
@@ -73,6 +73,8 @@ class solAssembler extends SolBaseVisitor {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SolParser parser = new SolParser(tokens);
             ParseTree tree = parser.executable();
+            if (parser.getNumberOfSyntaxErrors()>0)
+                System.exit(1);
             SolVisitorTypeCheck solVisitorTypeCheck = new SolVisitorTypeCheck();
             solVisitorTypeCheck.visit(tree);
             if (!solVisitorTypeCheck.getErrors().isEmpty()) {
@@ -108,7 +110,7 @@ class solAssembler extends SolBaseVisitor {
                 DataOutputStream byteStream = new DataOutputStream(output);
                 writeInstruction(byteStream, solVisitor.getInstructions(), solVisitor.getConstantPool());
             }
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
     }

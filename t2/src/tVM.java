@@ -286,7 +286,7 @@ public class tVM {
                 System.out.println(vm.constantPool);
             }
             vm.execute();
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
