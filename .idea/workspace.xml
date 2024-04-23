@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compiladores.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Compiladores.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +42,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainSol.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.MainSol.executor&quot;: &quot;Run&quot;,
     &quot;Application.Sol.executor&quot;: &quot;Run&quot;,
     &quot;Application.Teste.executor&quot;: &quot;Run&quot;,
     &quot;Application.tAssembler.executor&quot;: &quot;Debug&quot;,
@@ -78,14 +77,12 @@
   <component name="RunManager" selected="Application.Sol">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Compiladores" />
+      <module name="Trabalho de Compiladores" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="MainSol" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="MainSol" />
       <module name="Compiladores" />
       <method v="2">
@@ -93,16 +90,16 @@
       </method>
     </configuration>
     <configuration name="Sol" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="SolAssembler" />
+      <option name="MAIN_CLASS_NAME" value="solCompiler" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="InputsSol\Teste.sol" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\TesteTudo.sol -asm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Teste" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="TesteNodes" />
-      <module name="Compiladores" />
+      <module name="Trabalho de Compiladores" />
       <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\Teste.sol" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -110,16 +107,16 @@
     </configuration>
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
-      <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs\testeINT.tasm" />
+      <module name="Trabalho de Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="tVm" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="tVM" />
-      <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tbc" />
+      <module name="Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\TesteTudo.tbc" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/inputs" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -137,7 +134,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
@@ -181,16 +178,17 @@
       <workItem from="1713047965395" duration="15648000" />
       <workItem from="1713102993806" duration="1099000" />
       <workItem from="1713104273130" duration="5836000" />
-      <workItem from="1713633168639" duration="934000" />
-      <workItem from="1713721964309" duration="1820000" />
+      <workItem from="1713116989460" duration="9000" />
+      <workItem from="1713179923285" duration="6274000" />
+      <workItem from="1713374834090" duration="670000" />
+      <workItem from="1713450947416" duration="3871000" />
+      <workItem from="1713721911153" duration="2788000" />
+      <workItem from="1713790471831" duration="613000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sol" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
