@@ -1,14 +1,15 @@
 grammar Sol;
 
-program: (instrucao | types';')* EOF;
+program: (instrucao | tiposNoCodigo';')* EOF;
 
 instrucao: 'print' exp ';';
+
+tiposNoCodigo: types declaracao (','declaracao)*;
 
 types: 'int' #INTT
 | 'double' #DOUBLET
 | 'boolean' #BOLEANT
-| 'string' #STRINGT
-| types declaracao (','declaracao)* #DECLARACAO;
+| 'string' #STRINGT;
 
 declaracao: NOME ('=' INT)?
             | NOME ('=' DOUBLE)?
