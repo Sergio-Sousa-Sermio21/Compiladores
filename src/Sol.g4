@@ -1,14 +1,23 @@
 grammar Sol;
 
-program: (instrucao | declaracao)* EOF;
+program: (instrucao | types';')* EOF;
 
 instrucao: 'print' exp ';';
 
-declaracao: 'int' NOME ('=' INT)? ';' #INTD
-            | 'double' NOME ('=' DOUBLE)? ';' #DOUBLED
-            | 'boolean' NOME ('=' TRUE)? ';' #TRUED
-            | 'boolean' NOME ('=' FALSE)? ';'#FALSED
-            | 'string' NOME ('=' STRING)? ';'#STRINGD ;
+types: 'int' declaracao+ #INTD
+| 'double' declaracao+#DOUBLED
+| 'boolean' declaracao+#TRUED
+| 'boolean'declaracao+#FALSED
+| 'string' declaracao+ #STRINGD
+|declaracao #VIRGULA;
+
+declaracao: NOME ('=' INT)?
+            | NOME ('=' DOUBLE)?
+            | NOME ('=' TRUE)?
+            | NOME ('=' FALSE)?
+            | NOME ('=' STRING)?
+            | ',' declaracao;
+
 exp: '(' exp ')' #ORDER
      | op=(NOT|SUB) exp #NEGACION
      | exp op=(MULT|DIV|RESTDIV) exp #MULTDIV
