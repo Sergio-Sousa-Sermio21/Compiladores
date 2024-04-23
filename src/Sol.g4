@@ -2,7 +2,25 @@ grammar Sol;
 
 program: (instrucao | tiposNoCodigo';')* EOF;
 
-instrucao: 'print' exp ';';
+
+instrucao: 'print' exp ';'
+            | bloco
+            | whileState
+            | forState
+            | ifState
+            | empty
+            | break
+            | NOME '=' exp;
+
+whileState: 'while' exp 'do' instrucao;
+
+forState: 'for' NOME '=' INT 'to' INT 'do' instrucao;
+
+ifState: 'if' exp 'then' instrucao ('else' instrucao)?;
+
+empty: ';';
+
+break: 'break' ';';
 
 tiposNoCodigo: types declaracao (','declaracao)*;
 
@@ -17,6 +35,8 @@ declaracao: NOME ('=' INT)?
             | NOME ('=' FALSE)?
             | NOME ('=' STRING)?;
 
+bloco: 'begin' (instrucao | tiposNoCodigo ';')* 'end';
+
 exp: '(' exp ')' #ORDER
      | op=(NOT|SUB) exp #NEGACION
      | exp op=(MULT|DIV|RESTDIV) exp #MULTDIV
@@ -30,7 +50,8 @@ exp: '(' exp ')' #ORDER
      | TRUE #TRUE
      | FALSE #FALSE
      | STRING #STRING
-     ;
+     | NOME #NOME;
+
 
 NOTEQUAL: '!=';
 EQUAL: '==';
