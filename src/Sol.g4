@@ -4,19 +4,17 @@ program: (instrucao | types';')* EOF;
 
 instrucao: 'print' exp ';';
 
-types: 'int' declaracao+ #INTD
-| 'double' declaracao+#DOUBLED
-| 'boolean' declaracao+#TRUED
-| 'boolean'declaracao+#FALSED
-| 'string' declaracao+ #STRINGD
-|declaracao #VIRGULA;
+types: 'int' #INTT
+| 'double' #DOUBLET
+| 'boolean' #BOLEANT
+| 'string' #STRINGT
+| types declaracao (','declaracao)* #DECLARACAO;
 
 declaracao: NOME ('=' INT)?
             | NOME ('=' DOUBLE)?
             | NOME ('=' TRUE)?
             | NOME ('=' FALSE)?
-            | NOME ('=' STRING)?
-            | ',' declaracao;
+            | NOME ('=' STRING)?;
 
 exp: '(' exp ')' #ORDER
      | op=(NOT|SUB) exp #NEGACION
