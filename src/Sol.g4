@@ -1,23 +1,29 @@
 grammar Sol;
 
-program: (instrucao | tiposNoCodigo';')* EOF;
+program: (instrucao)* EOF;
 
 
-instrucao: 'print' exp ';'
+instrucao: print
             | bloco
             | whileState
             | forState
             | ifState
             | empty
             | break
+            | tiposNoCodigo ';'
             | NOME '=' exp;
+
+print: 'print' exp ';';
 
 whileState: 'while' exp 'do' instrucao;
 
 forState: 'for' NOME '=' INT 'to' INT 'do' instrucao;
 
-ifState: 'if' exp 'then' instrucao ('else' instrucao)?;
+ifState: IF exp THEN instrucao (ELSE instrucao)?;
 
+IF:'if';
+THEN:'then';
+ELSE:'else';
 empty: ';';
 
 break: 'break' ';';
@@ -45,13 +51,14 @@ exp: '(' exp ')' #ORDER
      | exp op=(EQUAL|NOTEQUAL) exp #LOGICALOPERATOREQUALNOT
      | exp AND exp #AND
      | exp OR exp #OR
-     | INT #INT
-     | DOUBLE #DOUBLE
-     | TRUE #TRUE
-     | FALSE #FALSE
-     | STRING #STRING
-     | NOME #NOME;
+     | variaveis #Va;
 
+variaveis: INT #INT
+           | DOUBLE #DOUBLE
+           | TRUE #TRUE
+           | FALSE #FALSE
+           | STRING #STRING
+           | NOME #NOME;
 
 NOTEQUAL: '!=';
 EQUAL: '==';

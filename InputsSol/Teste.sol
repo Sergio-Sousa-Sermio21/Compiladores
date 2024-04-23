@@ -1,4 +1,8 @@
-print 2>0.5;
-print 2>=2;
-print 3>2;
-print 3>=2;
+if 10==10
+then
+begin
+print 30;
+print 10;
+end
+else
+print 0;

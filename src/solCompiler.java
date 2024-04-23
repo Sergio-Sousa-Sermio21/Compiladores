@@ -1,10 +1,8 @@
 import Sol.SolBaseListener;
 import Sol.SolLexer;
 import Sol.SolParser;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ConsoleErrorListener;
+import Sol.SolBaseVisitor;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -14,316 +12,96 @@ import java.util.*;
 
 public class solCompiler {
 
-    static class Parse extends  SolBaseListener{
-        private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
-        // ArrayLists que contem as instrucoes e os seus valores respetivos
-        private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
-        private final ArrayList<Object> constantpoll = new ArrayList<>();
-        public Class<?> getValues(ParseTree node){
-            return values.get(node);
-        }
-        /**Metodo que mostra as instruções e a constantPool
-         */
-        public void debug(){
-            System.out.println("----------------------------------------\nConstant Pool:");
-            for (int i = 0; i<constantpoll.size(); i++) {
-                System.out.println(i + ": " + constantpoll.get(i));
-            }
-            System.out.println("-----------------------------------------\nInstrution array:");
-            for (int i = 0; i<instrucoes.size(); i++) {
-                System.out.println(i + ": " + instrucoes.get(i));
-            }
-            System.out.println("-----------------------------------------");
-        }
-
-        /** Escreve bytecode em um file com base nas instruções fornecidas
-         *
-         * @param args Argumentos presentes na linha de comando.
-         * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
-         */
-        private void writeBytecode(String[] args) throws IOException {
-            File file = new File(args[0]);
-            String newFile = file.getPath().replaceFirst("[.][^.]+$", ".tbc");
-            FileOutputStream fos = new FileOutputStream(newFile);
-            DataOutputStream bytecodes = new DataOutputStream(fos);
-            for (Instrucion instruction : instrucoes) {
-                bytecodes.write(instruction.getCommand().ordinal());
-                if(instruction.getValue() != null){
-                    bytecodes.writeInt( instruction.getValue());
-                }
-            }
-            writeConstantPoll(bytecodes);
-        }
-        /** Escreve a tabela de constantes em bytecode no fim do file
-         *
-         * @param bytecodes Serve para a criação de dados em byte
-         * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
-         */
-        public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
-            bytecodes.write(Commands.values().length);
-            for (Object constant: constantpoll){
-                if(constant instanceof Double){
-                    bytecodes.write(0);
-                    bytecodes.writeDouble((double) constant);
-                } else if (constant instanceof String finalstring){
-                    finalstring = finalstring.substring(1,finalstring.length()-1);
-                    bytecodes.write(1);
-                    bytecodes.writeInt(finalstring.length());
-                    bytecodes.writeChars(finalstring);
-                }
-
-            }
-        }
-
-        /**Para todos os Exits
-         * Metodo chamado para percorrer a arvore
-         * @param ctx the parse tree
-         */
-        @Override public void exitProgram(SolParser.ProgramContext ctx) {
-            instrucoes.add(new Instrucion(Commands.HALT));
-        }
-        @Override public void exitORDER(SolParser.ORDERContext ctx) {
-            Class<?> Order = getValues(ctx);
-            Class<?> Parent = getValues(ctx.getParent());
-            if(Order != Parent){
-                if(Parent == String.class)
-                    if(Order == Integer.class){
-                        instrucoes.add(new Instrucion(Commands.ITOS));
-                    }
-                    else if(Order == Double.class) {
-                        instrucoes.add(new Instrucion(Commands.DTOS));
-                    }
-                    else {
-                        instrucoes.add(new Instrucion(Commands.BTOS));
-                    }
-                else if(Parent==Double.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOD));
-                }
-            }
-        }
-
-        @Override public void exitInstrucao(SolParser.InstrucaoContext ctx) {
-            if(getValues(ctx) == Integer.class){
-                instrucoes.add(new Instrucion(Commands.IPRINT));
-            } else if(getValues(ctx) == Double.class){
-                instrucoes.add(new Instrucion(Commands.DPRINT));
-            } else if(getValues(ctx) == String.class){
-                instrucoes.add(new Instrucion(Commands.SPRINT));
-            } else {
-                instrucoes.add(new Instrucion(Commands.BPRINT));
-            }
-
-        }
-        @Override public void exitMULTDIV(SolParser.MULTDIVContext ctx) {
-            switch (ctx.op.getText()){
-                case "*" -> {
-                    if(getValues(ctx) == Double.class)
-                        instrucoes.add(new Instrucion(Commands.DMULT));
-                    else
-                        instrucoes.add(new Instrucion(Commands.IMULT));
-                }
-                case "/" -> {
-                    if(getValues(ctx) == Double.class)
-                        instrucoes.add(new Instrucion(Commands.DDIV));
-                    else
-                        instrucoes.add(new Instrucion(Commands.IDIV));
-                }
-                case "%" -> {
-                    instrucoes.add(new Instrucion(Commands.IMOD));
-                }
-            }
-            if(getValues(ctx.getParent()) == String.class)
-                if(getValues(ctx) == Double.class)
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                else
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-            else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class)
-                instrucoes.add(new Instrucion(Commands.ITOD));
-        }
-        @Override public void exitNEGACION(SolParser.NEGACIONContext ctx) {
-            switch (ctx.op.getText()){
-                case "-" -> {
-                    if(getValues(ctx) == Double.class)
-                        instrucoes.add(new Instrucion(Commands.DUMINUS));
-                    else
-                        instrucoes.add(new Instrucion(Commands.IUMINUS));
-                }
-                case "not" -> {
-                    instrucoes.add(new Instrucion(Commands.NOT));
-                }
-            }
-            if(getValues(ctx.getParent()) == String.class)
-                if(getValues(ctx) == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                }
-                else if(getValues(ctx) == Integer.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-                }
-                else {
-                    instrucoes.add(new Instrucion(Commands.BTOS));
-                }
-            else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class) {
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            }
-        }
-
-        @Override public void exitADDSUB(SolParser.ADDSUBContext ctx) {
-            switch (ctx.op.getText()){
-                case "+" -> {
-                    if(getValues(ctx) == Double.class)
-                        instrucoes.add(new Instrucion(Commands.DADD));
-                    else if(getValues(ctx) == Integer.class)
-                        instrucoes.add(new Instrucion(Commands.IADD));
-                    else
-                        instrucoes.add(new Instrucion(Commands.SADD));
-                }
-                case "-" -> {
-                    if(getValues(ctx) == Double.class)
-                        instrucoes.add(new Instrucion(Commands.DSUB));
-                    else
-                        instrucoes.add(new Instrucion(Commands.ISUB));
-                }
-            }
-            if(getValues(ctx.getParent()) == String.class)
-                if(getValues(ctx) == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                }
-                else if(getValues(ctx) == Integer.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-                }
-                else if (getValues(ctx) != Double.class && getValues(ctx.getParent()) == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOD));
-                }
-        }
-        @Override public void exitAND(SolParser.ANDContext ctx) {
-            instrucoes.add(new Instrucion(Commands.AND));
-            if(getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-        }
-        @Override public void exitOR(SolParser.ORContext ctx) {
-            instrucoes.add(new Instrucion(Commands.OR));
-            if(getValues(ctx.getParent()) == String.class){
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-        }
-
-        @Override public void exitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
-            if(getValues(ctx.exp(0)) == Double.class || getValues(ctx.exp(1)) == Double.class){
-                switch (ctx.op.getText()) {
-                    case "==" -> instrucoes.add(new Instrucion(Commands.DEQ));
-                    case "!=" -> instrucoes.add(new Instrucion(Commands.DNEQ));
-                }
-            } else if (getValues(ctx.exp(0)) == Integer.class) {
-                switch (ctx.op.getText()) {
-                    case "==" -> instrucoes.add(new Instrucion(Commands.IEQ));
-                    case "!=" -> instrucoes.add(new Instrucion(Commands.INEQ));
-                }
-            } else if(getValues(ctx.exp(0)) == String.class){
-                switch (ctx.op.getText()) {
-                    case "==" -> instrucoes.add(new Instrucion(Commands.SEQ));
-                    case "!=" -> instrucoes.add(new Instrucion(Commands.SNEQ));
-                }
-            } else{
-                switch (ctx.op.getText()) {
-                    case "==" -> instrucoes.add(new Instrucion(Commands.BEQ));
-                    case "!=" -> instrucoes.add(new Instrucion(Commands.BNEQ));
-                }
-            }
-            if(getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-        }
-        @Override public void exitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
-            if(getValues(ctx.exp(0)) == Double.class || getValues(ctx.exp(1)) == Double.class){
-                switch (ctx.op.getText()) {
-                    case "<" -> instrucoes.add(new Instrucion(Commands.DLT));
-                    case ">" -> {
-                        instrucoes.add(new Instrucion(Commands.DLEQ));
-                        instrucoes.add(new Instrucion(Commands.NOT));
-                    }
-                    case "<=" -> instrucoes.add(new Instrucion(Commands.DLEQ));
-                    case ">=" -> {
-                        instrucoes.add(new Instrucion(Commands.DLT));
-                        instrucoes.add(new Instrucion(Commands.NOT));
-                    }
-                }
-            } else {
-                switch (ctx.op.getText()) {
-                    case "<" -> instrucoes.add(new Instrucion(Commands.ILT));
-                    case ">" -> {
-                        instrucoes.add(new Instrucion(Commands.ILEQ));
-                        instrucoes.add(new Instrucion(Commands.NOT));
-                    }
-                    case "<=" -> instrucoes.add(new Instrucion(Commands.ILEQ));
-                    case ">=" -> {
-                        instrucoes.add(new Instrucion(Commands.ILT));
-                        instrucoes.add(new Instrucion(Commands.NOT));
-                    }
-                }
-            }
-            if(getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
+    static class Visitor extends SolBaseVisitor<Void> {
+        public Void visitProgram(SolParser.ProgramContext ctx) {
+            visitChildren(ctx);
+            return null;
         }
 
 
-        //Listener de valores
-        //-----------------------------------------------------------------------------------------------------------------------------------------------
-
-        @Override public void exitINT(SolParser.INTContext ctx) {
-            instrucoes.add(new Instrucion(Commands.ICONST, Integer.parseInt(ctx.getText())));
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.ITOS));
-            } else if (getValues(ctx.getParent()) == Double.class) {
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            } else if (getValues(ctx.getParent()) == Boolean.class) {
-                if (getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOD));
-                }
-            }
-        }
-        @Override public void exitDOUBLE(SolParser.DOUBLEContext ctx) {
-            int i = constantpoll.indexOf(Double.parseDouble(ctx.getText()));
-            if(i==-1){
-                instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
-                constantpoll.add(Double.parseDouble(ctx.getText()));
-            } else
-                instrucoes.add(new Instrucion(Commands.DCONST, i));
-
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.DTOS));
-            }
-        }
-        @Override public void exitSTRING(SolParser.STRINGContext ctx) {
-            int i = constantpoll.indexOf(ctx.getText());
-            if(i==-1){
-                instrucoes.add(new Instrucion(Commands.SCONST, constantpoll.size()));
-                constantpoll.add(ctx.getText());
-            } else {
-                instrucoes.add(new Instrucion(Commands.SCONST, i));
-            }
-
+        public Void visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
+            visitChildren(ctx);
+            System.out.println("LOGICALOPERATOREQUALNOT: " + ctx.getText() + " " + ctx.op.getText());
+            return null;
         }
 
-        @Override public void exitTRUE(SolParser.TRUEContext ctx) {
-            instrucoes.add(new Instrucion(Commands.TCONST));
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
+        public Void visitInstrucao(SolParser.InstrucaoContext ctx) {
+            visitChildren(ctx);
+            return null;
         }
 
-        @Override public void exitFALSE(SolParser.FALSEContext ctx) {
-            instrucoes.add(new Instrucion(Commands.FCONST));
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
+        public Void visitPrint(SolParser.PrintContext ctx) {
+            visitChildren(ctx);
+            System.out.println("Print: " + ctx.getText());
+            return null;
         }
 
-        //-----------------------------------------------------------------------------------------------------------------------------------------------
-        public void init(String[] args){
+        public Void visitWhileState(SolParser.WhileStateContext ctx) {
+            System.out.println("WHILE: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitForState(SolParser.ForStateContext ctx) {
+            System.out.println("FOR: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitIfState(SolParser.IfStateContext ctx) {
+            visit(ctx.exp());
+            System.out.println("IF: " + ctx.getText());
+            for(int i =0; i<ctx.instrucao().size(); i++)
+                visit(ctx.instrucao().get(i));
+            return null;
+        }
+
+        public Void visitEmpty(SolParser.EmptyContext ctx) {
+            System.out.println("EMPTY: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitBreak(SolParser.BreakContext ctx) {
+            System.out.println("BREAK: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitBloco(SolParser.BlocoContext ctx) {
+            visitChildren(ctx);
+            System.out.println("Bloco: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitMULTDIV(SolParser.MULTDIVContext ctx) {
+            System.out.println("MULTDIV: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitOR(SolParser.ORContext ctx) {
+            System.out.println("OR: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitINT(SolParser.INTContext ctx) {
+            System.out.println("INT: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitSTRING(SolParser.STRINGContext ctx) {
+            System.out.println("STRING: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitDOUBLE(SolParser.DOUBLEContext ctx) {
+            System.out.println("DOUBLE: " + ctx.getText());
+            return null;
+        }
+
+        public Void visitNOME(SolParser.NOMEContext ctx) {
+            System.out.println("NOME: " + ctx.getText());
+            return null;
+        }
+        public void execute(String[] args) {
             String inputFile = null;
-            if ( args.length>0 )
+            if (args.length > 0)
                 inputFile = args[0];
             InputStream is = System.in;
             try {
@@ -336,37 +114,23 @@ public class solCompiler {
                 parser.addErrorListener(new ConsoleErrorListener());
                 ParseTree tree = parser.program();
                 int numberOfErrors = parser.getNumberOfSyntaxErrors();
-                if(numberOfErrors>0){
-                    System.err.println("Foram detactados " + numberOfErrors + " erros de Syntax.");
+                if (numberOfErrors > 0) {
+                    System.err.println("Foram detectados " + numberOfErrors + " erros de Syntax.");
                     System.exit(0);
                 }
-                TesteNodes teste = new TesteNodes();
-                values = teste.TestTree(tree);
-                ParseTreeWalker walker = new ParseTreeWalker();
-                walker.walk(this, tree);
-            }
-            catch (IOException e) {
+                this.visit(tree);
+            } catch (IOException e) {
                 System.err.println("File Not Found.");
                 System.exit(0);
             }
         }
 
-        public void execute(String[] args, boolean debug){
-            try{
-                init(args);
-                if(debug || args[1].equals("-asm"))
-                    debug();
-                writeBytecode(args);
-            } catch (Exception e){
-                System.exit(0);
-            }
-
-        }
     }
 
-    public static void main(String[] args){
-        Parse a = new Parse();
-        a.execute(args, false);
+
+    public static void main(String[] args) {
+        Visitor visitor = new Visitor();
+        visitor.execute(args);
     }
 
 }

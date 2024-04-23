@@ -46,8 +46,10 @@ public class TesteNodes extends SolBaseListener {
      * @param ctx the parse tree
      */
     @Override public void exitInstrucao(SolParser.InstrucaoContext ctx) {
-        setValues(ctx, getValues(ctx.exp()));
+        setValues(ctx, getValues(ctx));
     }
+
+
     @Override public void exitMULTDIV(SolParser.MULTDIVContext ctx) {
         Class<?> left= getValues(ctx.exp(0));
         Class<?> rigth= getValues(ctx.exp(1));
