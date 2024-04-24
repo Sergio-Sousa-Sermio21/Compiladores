@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
-    </list>
+    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +183,7 @@
       <workItem from="1713721911153" duration="2788000" />
       <workItem from="1713790471831" duration="613000" />
       <workItem from="1713895198864" duration="4940000" />
-      <workItem from="1713964134593" duration="1591000" />
+      <workItem from="1713964134593" duration="1993000" />
     </task>
     <servers />
   </component>
