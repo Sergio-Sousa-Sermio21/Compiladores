@@ -5,33 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gen/Sol.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/Sol.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolBaseListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolBaseVisitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolLexer.interp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolLexer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolLexer.tokens" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gen/SolVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainSol.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TesteNodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -210,7 +184,7 @@
       <workItem from="1713450947416" duration="3871000" />
       <workItem from="1713721911153" duration="2788000" />
       <workItem from="1713790471831" duration="613000" />
-      <workItem from="1713895198864" duration="4065000" />
+      <workItem from="1713895198864" duration="4940000" />
     </task>
     <servers />
   </component>
