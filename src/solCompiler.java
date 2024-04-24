@@ -15,6 +15,7 @@ public class solCompiler {
     static class Visitor extends SolBaseVisitor<Void> {
         public Void visitProgram(SolParser.ProgramContext ctx) {
             visitChildren(ctx);
+            System.out.println("Halt");
             return null;
         }
 
@@ -37,12 +38,15 @@ public class solCompiler {
         }
 
         public Void visitWhileState(SolParser.WhileStateContext ctx) {
+            visit(ctx.exp());
             System.out.println("WHILE: " + ctx.getText());
+            visit(ctx.instrucao());
             return null;
         }
 
         public Void visitForState(SolParser.ForStateContext ctx) {
             System.out.println("FOR: " + ctx.getText());
+            visitChildren(ctx);
             return null;
         }
 
@@ -65,6 +69,7 @@ public class solCompiler {
         }
 
         public Void visitBloco(SolParser.BlocoContext ctx) {
+            System.out.println("Bloco: " + ctx.getText());
             visitChildren(ctx);
             System.out.println("Bloco: " + ctx.getText());
             return null;
@@ -97,6 +102,13 @@ public class solCompiler {
 
         public Void visitNOME(SolParser.NOMEContext ctx) {
             System.out.println("NOME: " + ctx.getText());
+            return null;
+        }
+
+        @Override
+        public Void visitDeclaracao(SolParser.DeclaracaoContext ctx) {
+            visitChildren(ctx);
+            System.out.println("Declaracoa-" + ctx.getText());
             return null;
         }
         public void execute(String[] args) {

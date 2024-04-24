@@ -17,7 +17,7 @@ print: 'print' exp ';';
 
 whileState: 'while' exp 'do' instrucao;
 
-forState: 'for' NOME '=' INT 'to' INT 'do' instrucao;
+forState: 'for' NOME '=' INT 'to' (INT|NOME) 'do' instrucao;
 
 ifState: IF exp THEN instrucao (ELSE instrucao)?;
 
@@ -35,11 +35,7 @@ types: 'int' #INTT
 | 'boolean' #BOLEANT
 | 'string' #STRINGT;
 
-declaracao: NOME ('=' INT)?
-            | NOME ('=' DOUBLE)?
-            | NOME ('=' TRUE)?
-            | NOME ('=' FALSE)?
-            | NOME ('=' STRING)?;
+declaracao: NOME ('='variaveis)?;
 
 bloco: 'begin' (instrucao | tiposNoCodigo ';')* 'end';
 

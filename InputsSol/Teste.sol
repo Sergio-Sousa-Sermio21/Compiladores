@@ -1,8 +1,5 @@
-if 10==10
-then
-begin
-print 30;
-print 10;
+int i = 0;
+while i==4 do
+begin 
+print i;
 end
-else
-print 0;
