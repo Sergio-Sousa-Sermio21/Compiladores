@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/inputs/teste2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs/teste2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste2.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+=======
+    </list>
+    <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="">
+      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -180,6 +187,22 @@
       <workItem from="1712682182391" duration="45000" />
       <workItem from="1712853440848" duration="845000" />
       <workItem from="1712950644793" duration="19249000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1712991422828" duration="2405000" />
+      <workItem from="1713047965395" duration="15648000" />
+      <workItem from="1713102993806" duration="1099000" />
+      <workItem from="1713104273130" duration="5836000" />
+      <workItem from="1713116989460" duration="9000" />
+      <workItem from="1713179923285" duration="6274000" />
+      <workItem from="1713374834090" duration="670000" />
+      <workItem from="1713450947416" duration="3871000" />
+      <workItem from="1713721911153" duration="2788000" />
+      <workItem from="1713790471831" duration="613000" />
+      <workItem from="1713895198864" duration="4940000" />
+      <workItem from="1713964134593" duration="1993000" />
+      <workItem from="1714060779176" duration="19005000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
