@@ -13,6 +13,7 @@ import java.util.*;
 public class solCompiler {
 
     static class Visitor extends SolBaseVisitor<Void> {
+        private Map<String, String> tiposVariaveis = new HashMap<>();
         public Void visitProgram(SolParser.ProgramContext ctx) {
             visitChildren(ctx);
             System.out.println("Halt");
@@ -86,7 +87,8 @@ public class solCompiler {
         }
 
         public Void visitINT(SolParser.INTContext ctx) {
-            System.out.println("INT: " + ctx.getText());
+            String value = ctx.getText();
+            System.out.println("iconst " + value);
             return null;
         }
 
@@ -108,9 +110,11 @@ public class solCompiler {
         @Override
         public Void visitDeclaracao(SolParser.DeclaracaoContext ctx) {
             visitChildren(ctx);
-            System.out.println("Declaracoa-" + ctx.getText());
+            System.out.println("Declaracao - " + ctx.getText());
             return null;
         }
+
+
         public void execute(String[] args) {
             String inputFile = null;
             if (args.length > 0)

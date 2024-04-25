@@ -21,6 +21,7 @@ import java.util.*;
 public class TesteNodes extends SolBaseListener {
     private final ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
 
+    private final Map<String, String> tiposVariaveis = new HashMap<>();
     private final ArrayList<String> errors = new ArrayList<>();
 
     /**
@@ -202,7 +203,19 @@ public class TesteNodes extends SolBaseListener {
         }
 
     }
+    @Override
+    public void exitDeclaracao(SolParser.DeclaracaoContext ctx) {
+        String nomeVariavel = ctx.NOME().getText();
+        String tipoVariavel = ctx.getChild(0).getText();
+        String tipoEsquerda = tiposVariaveis.get(nomeVariavel);
 
+        if (tipoEsquerda.equals(Object.class)) {
+            return;
+        }
+        if (!tipoEsquerda.equals(tipoVariavel)) {
+            errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) + " error: O tipo da variável " + nomeVariavel + " (" + tipoEsquerda + ") não corresponde ao tipo especificado (" + tipoVariavel + ")");
+        }
+    }
 
     //Listener de valores
     //-----------------------------------------------------------------------------------------------------------------------------------------------
