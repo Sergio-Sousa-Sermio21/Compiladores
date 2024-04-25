@@ -1,25 +1,25 @@
 grammar Sol;
 
-program: (instrucao)* EOF;
+program: tiposNoCodigo* (instrucao)* EOF;
 
 
 instrucao: print
-            | bloco
             | whileState
             | forState
             | ifState
             | empty
             | break
-            | tiposNoCodigo ';'
-            | NOME '=' exp;
+            | declarar;
+
+declarar: NOME '=' exp (','NOME '=' exp)*;
 
 print: 'print' exp ';';
 
-whileState: 'while' exp 'do' instrucao;
+whileState: 'while' exp 'do' (bloco|instrucao);
 
-forState: 'for' NOME '=' INT 'to' (INT|NOME) 'do' instrucao;
+forState: 'for' NOME '=' exp 'to' (exp) 'do' (bloco|instrucao);
 
-ifState: IF exp THEN instrucao (ELSE instrucao)?;
+ifState: IF exp THEN (bloco|instrucao) (ELSE (bloco|instrucao))?;
 
 IF:'if';
 THEN:'then';
@@ -28,7 +28,7 @@ empty: ';';
 
 break: 'break' ';';
 
-tiposNoCodigo: types declaracao (','declaracao)*;
+tiposNoCodigo: types declaracao (','declaracao)* ';';
 
 types: 'int' #INTT
 | 'double' #DOUBLET
@@ -37,7 +37,7 @@ types: 'int' #INTT
 
 declaracao: NOME ('='variaveis)?;
 
-bloco: 'begin' (instrucao | tiposNoCodigo ';')* 'end';
+bloco: 'begin' (instrucao)* 'end';
 
 exp: '(' exp ')' #ORDER
      | op=(NOT|SUB) exp #NEGACION
@@ -47,7 +47,8 @@ exp: '(' exp ')' #ORDER
      | exp op=(EQUAL|NOTEQUAL) exp #LOGICALOPERATOREQUALNOT
      | exp AND exp #AND
      | exp OR exp #OR
-     | variaveis #Va;
+     | variaveis #Variavel;
+
 
 variaveis: INT #INT
            | DOUBLE #DOUBLE

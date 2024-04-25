@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -27,6 +27,16 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInstrucao(SolParser.InstrucaoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SolParser#declarar}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclarar(SolParser.DeclararContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SolParser#declarar}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclarar(SolParser.DeclararContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SolParser#print}.
 	 * @param ctx the parse tree
@@ -202,6 +212,18 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitORDER(SolParser.ORDERContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Variavel}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariavel(SolParser.VariavelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Variavel}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariavel(SolParser.VariavelContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NEGACION}
 	 * labeled alternative in {@link SolParser#exp}.
 	 * @param ctx the parse tree
@@ -261,18 +283,6 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Va}
-	 * labeled alternative in {@link SolParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterVa(SolParser.VaContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Va}
-	 * labeled alternative in {@link SolParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitVa(SolParser.VaContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code INT}
 	 * labeled alternative in {@link SolParser#variaveis}.

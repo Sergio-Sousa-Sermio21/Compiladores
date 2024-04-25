@@ -13,7 +13,7 @@ import java.util.*;
 public class solCompiler {
 
     static class Visitor extends SolBaseVisitor<Void> {
-        private Map<String, String> tiposVariaveis = new HashMap<>();
+        private Map<String, Class<?>> tiposVariaveis = new HashMap<>();
         public Void visitProgram(SolParser.ProgramContext ctx) {
             visitChildren(ctx);
             System.out.println("Halt");
@@ -110,7 +110,19 @@ public class solCompiler {
         @Override
         public Void visitDeclaracao(SolParser.DeclaracaoContext ctx) {
             visitChildren(ctx);
+            System.out.println(ctx.NOME());
             System.out.println("Declaracao - " + ctx.getText());
+            return null;
+        }
+
+        @Override public Void visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
+            visitChildren(ctx);
+            System.out.println("Type - " + ctx.getText());
+            return null;
+        }
+        @Override
+        public Void visitINTT(SolParser.INTTContext ctx) {
+            System.out.println("Tipo-"  + ctx.getText());
             return null;
         }
 
@@ -130,11 +142,14 @@ public class solCompiler {
                 parser.addErrorListener(new ConsoleErrorListener());
                 ParseTree tree = parser.program();
                 int numberOfErrors = parser.getNumberOfSyntaxErrors();
+                VerifyNodes teste = new VerifyNodes();
+                teste.TestTree(tree);
                 if (numberOfErrors > 0) {
                     System.err.println("Foram detectados " + numberOfErrors + " erros de Syntax.");
                     System.exit(0);
                 }
-                this.visit(tree);
+
+                //this.visit(tree);
             } catch (IOException e) {
                 System.err.println("File Not Found.");
                 System.exit(0);

@@ -1,5 +1,12 @@
-int i = 0;
-while banana == 4 do
+int i = 0, n = 10;
+double r = 3.24;
+int n;
+boolean b = 5;
+string s;
+while s <= n do
 begin
-print i;
+print i * i + z;
+i = i + 1;
 end
+break;
+print "Fim!";

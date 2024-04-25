@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -22,6 +22,12 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstrucao(SolParser.InstrucaoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SolParser#declarar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclarar(SolParser.DeclararContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SolParser#print}.
 	 * @param ctx the parse tree
@@ -126,6 +132,13 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitORDER(SolParser.ORDERContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Variavel}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariavel(SolParser.VariavelContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NEGACION}
 	 * labeled alternative in {@link SolParser#exp}.
 	 * @param ctx the parse tree
@@ -160,13 +173,6 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Va}
-	 * labeled alternative in {@link SolParser#exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVa(SolParser.VaContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code INT}
 	 * labeled alternative in {@link SolParser#variaveis}.
