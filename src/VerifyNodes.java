@@ -17,10 +17,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private boolean insideLoop = false;
     private boolean breakFound = false;
     public Class<?> visitProgram(SolParser.ProgramContext ctx) {
-        for(int i = 0; i<ctx.tiposNoCodigo().size(); i++)
-            visit(ctx.tiposNoCodigo(i));
-        for(int i = 0; i<ctx.instrucao().size(); i++)
-            visit(ctx.instrucao(i));
+        visitChildren(ctx);
         System.out.println("Halt");
         return null;
     }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class Error {
@@ -13,5 +14,11 @@ public class Error {
         if(e.getClass() == IllegalArgumentException.class)
             Error.trowError("Line:" + linha + ". In instruction " + instrucao + " " + e.getMessage());
         Error.trowError("Line:" + linha + " " + e);
+    }
+
+    public static void printErrors(ArrayList<String> errors){
+        for(String error : errors)
+            System.err.println(error);
+        System.exit(0);
     }
 }

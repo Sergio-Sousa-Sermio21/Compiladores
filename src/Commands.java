@@ -47,5 +47,4 @@ public enum Commands {
     GSTORE,
     LABEL,
     HALT,
-    CONSTANTPOOL,
 }

@@ -1,5 +1,4 @@
-// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
-package Sol;
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -22,18 +21,6 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstrucao(SolParser.InstrucaoContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SolParser#declarar}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclarar(SolParser.DeclararContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link SolParser#print}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrint(SolParser.PrintContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SolParser#whileState}.
 	 * @param ctx the parse tree
@@ -118,6 +105,27 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMULTDIV(SolParser.MULTDIVContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code OR}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOR(SolParser.ORContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TRUE}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTRUE(SolParser.TRUEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code INT}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitINT(SolParser.INTContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LOGICALOPERATOREQUALNOT}
 	 * labeled alternative in {@link SolParser#exp}.
 	 * @param ctx the parse tree
@@ -132,26 +140,12 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitORDER(SolParser.ORDERContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Variavel}
-	 * labeled alternative in {@link SolParser#exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariavel(SolParser.VariavelContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code NEGACION}
 	 * labeled alternative in {@link SolParser#exp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNEGACION(SolParser.NEGACIONContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code OR}
-	 * labeled alternative in {@link SolParser#exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOR(SolParser.ORContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ADDSUB}
 	 * labeled alternative in {@link SolParser#exp}.
@@ -174,43 +168,29 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code INT}
-	 * labeled alternative in {@link SolParser#variaveis}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitINT(SolParser.INTContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code DOUBLE}
-	 * labeled alternative in {@link SolParser#variaveis}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDOUBLE(SolParser.DOUBLEContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TRUE}
-	 * labeled alternative in {@link SolParser#variaveis}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTRUE(SolParser.TRUEContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code FALSE}
-	 * labeled alternative in {@link SolParser#variaveis}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFALSE(SolParser.FALSEContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code STRING}
-	 * labeled alternative in {@link SolParser#variaveis}.
+	 * labeled alternative in {@link SolParser#exp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSTRING(SolParser.STRINGContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FALSE}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFALSE(SolParser.FALSEContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DOUBLE}
+	 * labeled alternative in {@link SolParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDOUBLE(SolParser.DOUBLEContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NOME}
-	 * labeled alternative in {@link SolParser#variaveis}.
+	 * labeled alternative in {@link SolParser#exp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
