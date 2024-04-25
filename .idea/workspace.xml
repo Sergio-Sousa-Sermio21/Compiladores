@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolVisitor.java" afterDir="false" />
-    </list>
-    <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="">
       <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
+    <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,21 +24,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/Sol.g4">
-      <ranges>
-        <range start1="2" end1="3" start2="2" end2="3" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="6" end1="7" start2="6" end2="6" changelist="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" />
-        <range start1="12" end1="14" start2="11" end2="14" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="17" end1="18" start2="17" end2="18" changelist="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" />
-        <range start1="19" end1="20" start2="19" end2="20" changelist="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" />
-        <range start1="21" end1="22" start2="21" end2="22" changelist="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" />
-        <range start1="30" end1="31" start2="30" end2="31" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="39" end1="40" start2="39" end2="40" changelist="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" />
-        <range start1="49" end1="50" start2="49" end2="51" changelist="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -83,7 +52,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "BackupPedro",
+    "git-widget-placeholder": "SegundaParteRenato",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
     "kotlin-language-version-configured": "true",
