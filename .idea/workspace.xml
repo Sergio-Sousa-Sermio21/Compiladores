@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
     </list>
     <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -191,6 +190,7 @@
       <workItem from="1713964134593" duration="1993000" />
       <workItem from="1714060779176" duration="18219000" />
       <workItem from="1714081617770" duration="46000" />
+      <workItem from="1714126708778" duration="1496000" />
     </task>
     <servers />
   </component>
