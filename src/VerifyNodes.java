@@ -16,6 +16,15 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private final ArrayList<String> errors = new ArrayList<>();
     private boolean insideLoop = false;
     private boolean breakFound = false;
+
+    /**
+     * Metodo que associa o um valor com um node da arvore
+     * @param node O node da arvore
+     * @param a A classe que representa o valor do node
+     */
+    public void setValues(ParseTree node, Class<?> a){
+        values.put(node,a);
+    }
     public Class<?> visitProgram(SolParser.ProgramContext ctx) {
         visitChildren(ctx);
         System.out.println("Halt");
@@ -28,16 +37,22 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
         Class<?> left = visit(ctx.exp(0));
         Class<?> right = visit(ctx.exp(1));
-        if(left == Object.class || right == Object.class)
+        if(left == Object.class || right == Object.class){
+            setValues(ctx, Object.class);
             return Object.class;
+            }
         else{
             if(left!=right && !((left == Integer.class && right == Double.class) || (left == Double.class && right == Integer.class))){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Cannot compare " + left.getSimpleName() + " and " + right.getSimpleName());
+                setValues(ctx, Object.class);
                 return Object.class;
-            } else
+            } else {
+                setValues(ctx, Boolean.class);
                 return Boolean.class;
+            }
         }
     }
+
     @Override
     public Class<?> visitORDER(SolParser.ORDERContext ctx) {
         return visit(ctx.exp());
@@ -53,32 +68,48 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         Class<?> left = visit(ctx.exp(0));
         Class<?> rigth = visit(ctx.exp(1));
         if(ctx.op.getText().equals("+")){
-            if(left == Object.class || rigth == Object.class)
-               return Object.class;
+            if(left == Object.class || rigth == Object.class){
+                setValues(ctx, Object.class);
+                return Object.class;
+               }
             else
             if((left == Boolean.class && rigth != String.class) || (left != String.class && rigth == Boolean.class)){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                setValues(ctx, Object.class);
                 return Object.class;
             } else {
-                if(left == String.class || rigth == String.class)
-                    return  String.class;
-                else if(left == Double.class || rigth ==  Double.class )
+                if(left == String.class || rigth == String.class) {
+                    setValues(ctx, String.class);
+                    return String.class;
+                }
+                else if(left == Double.class || rigth ==  Double.class ) {
+                    setValues(ctx, Double.class);
                     return Double.class;
-                else
+                }
+                else {
+                    setValues(ctx, Integer.class);
                     return Integer.class;
+                }
             }
         } else {
-            if(left == Object.class || rigth == Object.class)
+            if(left == Object.class || rigth == Object.class) {
+                setValues(ctx, Object.class);
                 return Object.class;
+            }
             else {
                 if((left == Boolean.class || rigth == Boolean.class) || (left == String.class || rigth == String.class)){
                     errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                    setValues(ctx, Object.class);
                     return Object.class;
                 } else {
-                    if(left == Double.class || rigth ==  Double.class )
+                    if(left == Double.class || rigth ==  Double.class ) {
+                        setValues(ctx, Double.class);
                         return Double.class;
-                    else
+                    }
+                    else{
+                        setValues(ctx, Integer.class);
                         return Integer.class;
+                    }
                 }
             }
         }
@@ -88,25 +119,34 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
         Class<?> left = visit(ctx.exp(0));
         Class<?> rigth = visit(ctx.exp(1));
-        if(left == Object.class || rigth == Object.class)
+        if(left == Object.class || rigth == Object.class) {
+            setValues(ctx, Object.class);
             return Object.class;
+        }
         else {
             if(ctx.op.getText().equals("%") && (left != Integer.class || rigth!= Integer.class)){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Error in operator % cannot use " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                setValues(ctx, Object.class);
                 return Object.class;
             }
             else if(left == String.class || rigth == String.class){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type String is not allowed in " + ctx.op.getText());
+                setValues(ctx, Object.class);
                 return Object.class;
             }
             else if(left == Boolean.class || rigth == Boolean.class){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean is not allowed in " + ctx.op.getText());
+                setValues(ctx, Object.class);
                 return Object.class;
             }
-            else if(left == Double.class || rigth == Double.class)
+            else if(left == Double.class || rigth == Double.class){
+                setValues(ctx, Double.class);
                 return Double.class;
-            else
+            }
+            else {
+                setValues(ctx, Integer.class);
                 return Integer.class;
+            }
         }
     }
 
@@ -114,13 +154,17 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
         Class<?> left = visit(ctx.exp(0));
         Class<?> right = visit(ctx.exp(1));
-        if(left == Object.class || right == Object.class)
+        if(left == Object.class || right == Object.class){
+            setValues(ctx, Object.class);
             return  Object.class;
+        }
         else{
             if(left == String.class || right == String.class || left == Boolean.class || right == Boolean.class){
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
+                setValues(ctx, Object.class);
                 return Object.class;
             } else{
+                setValues(ctx, Boolean.class);
                 return Boolean.class;
             }
         }
@@ -143,10 +187,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         insideLoop = true;
         breakFound = false;
         Class<?> conditionType = visit(ctx.exp());
-        if (!conditionType.equals(Boolean.class))
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
+        if (!conditionType.equals(Boolean.class)) {
+            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
                     " error: While expression must be of type bool");
 
+        }
         if (ctx.instrucao()!=null)
             visit(ctx.instrucao());
         else
@@ -238,21 +283,25 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //Types-------------------------------------------------------------------------------------------
     @Override
     public Class<?>  visitINTT(SolParser.INTTContext ctx) {
+        setValues(ctx, Integer.class);
         return Integer.class;
     }
 
     @Override
     public Class<?>  visitDOUBLET(SolParser.DOUBLETContext ctx) {
+        setValues(ctx, Double.class);
         return Double.class;
     }
 
     @Override
     public Class<?>  visitSTRINGT(SolParser.STRINGTContext ctx) {
+        setValues(ctx, String.class);
         return String.class;
     }
 
     @Override
     public Class<?>  visitBOLEANT(SolParser.BOLEANTContext ctx) {
+        setValues(ctx, Boolean.class);
         return Boolean.class;
     }
     //Types-------------------------------------------------------------------------------------------
@@ -260,25 +309,30 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //Variveis----------------------------------------------------------------------------------------
     @Override
     public Class<?>  visitINT(SolParser.INTContext ctx) {
+        setValues(ctx, Integer.class);
         return Integer.class;
     }
     @Override
     public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
+        setValues(ctx, Double.class);
         return Double.class;
     }
 
     @Override
     public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
+        setValues(ctx, Boolean.class);
         return Boolean.class;
     }
 
     @Override
     public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
+        setValues(ctx, Boolean.class);
         return Boolean.class;
     }
 
     @Override
     public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
+        setValues(ctx, System.class);
         return System.class;
     }
 
@@ -287,6 +341,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         if(!tiposVariaveis.containsKey(ctx.NOME().getText())){
             System.err.println("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                             " error: Variavel nao defenida " + ctx.getText());
+            setValues(ctx, Object.class);
             return Object.class;
         }
         return tiposVariaveis.get(ctx.NOME().getText());
@@ -308,6 +363,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         System.out.println("Declarar-" + ctx.getText());
         return null;
     }
+
 
     public ParseTreeProperty<Class<?>> TestTree(ParseTree tree){
         this.visit(tree);
