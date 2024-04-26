@@ -1,4 +1,4 @@
-// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 

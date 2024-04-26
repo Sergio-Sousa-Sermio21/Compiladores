@@ -9,17 +9,18 @@ instrucao: print
             | ifState
             | empty
             | break
+            | bloco
             | declarar;
 
 declarar: NOME '=' exp (','NOME '=' exp)*;
 
 print: 'print' exp ';';
 
-whileState: 'while' exp 'do' (bloco|instrucao);
+whileState: 'while' exp 'do' (instrucao);
 
-forState: 'for' NOME '=' exp 'to' (exp) 'do' (bloco|instrucao);
+forState: 'for' NOME '=' exp 'to' (exp) 'do' (instrucao);
 
-ifState: IF exp THEN (bloco|instrucao) (ELSE (bloco|instrucao))?;
+ifState: IF exp THEN (instrucao) (ELSE (instrucao))?;
 
 IF:'if';
 THEN:'then';
@@ -31,8 +32,8 @@ break: 'break' ';';
 tiposNoCodigo: types declaracao (','declaracao)* ';';
 
 types: 'int' #INTT
-| 'double' #DOUBLET
-| 'boolean' #BOLEANT
+| 'real' #DOUBLET
+| 'bool' #BOLEANT
 | 'string' #STRINGT;
 
 declaracao: NOME ('='variaveis)?;

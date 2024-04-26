@@ -158,6 +158,11 @@ public class solCompiler {
 
     }
 
+    public void executeSol(String[] args){
+        Visitor visitor = new Visitor();
+        visitor.execute(args);
+    }
+
 
     public static void main(String[] args) {
         Visitor visitor = new Visitor();

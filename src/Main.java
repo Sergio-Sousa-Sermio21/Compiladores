@@ -17,12 +17,12 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         String[] file = new String[2];
-        file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\inputs\\" + name + ".tasm";
-        tAssembler assembler = new tAssembler();
-        assembler.execute(file, false);
-        file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\inputs\\" + name + ".tbc";
-        System.out.println();
-        tVM vm = new tVM(file);
-        vm.runCodeMemory(false);
+        file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".sol";
+        solCompiler assembler = new solCompiler();
+        assembler.executeSol(file);
+        //file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".tbc";
+        //System.out.println();
+        //tVM vm = new tVM(file);
+        //vm.runCodeMemory(false);
     }
 }
