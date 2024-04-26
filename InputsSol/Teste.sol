@@ -1,12 +1,7 @@
-int i = 0, n = 10;
-double r = 3.24;
-int n;
-boolean b = 5;
-string s;
-while s <= n do
-begin
-print i * i + z;
-i = i + 1;
-end
-break;
-print "Fim!";
+int i, j;
+ for i=10 to 20 do
+   begin
+     for j=20 to 30 do
+       print i+j;
+    break;
+ end

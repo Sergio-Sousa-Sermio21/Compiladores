@@ -165,7 +165,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                     " error: While expression must be of type bool");
         System.out.println("FOR: " + ctx.getText());
         visitChildren(ctx);
-        insideLoop = true;
+        insideLoop = false;
         return null;
     }
     @Override
