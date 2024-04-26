@@ -339,7 +339,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
         if(!tiposVariaveis.containsKey(ctx.NOME().getText())){
-            System.err.println("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+            errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                             " error: Variavel nao defenida " + ctx.getText());
             setValues(ctx, Object.class);
             return Object.class;
