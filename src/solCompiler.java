@@ -81,15 +81,13 @@ public class solCompiler {
                     System.out.println("Instrução: ITOD");
             }
 
-            System.out.println(ctx.getText());
             visitChildren(ctx);
-            System.out.println(ctx.getText());
             return Parent;
         }
         @Override
         public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
             String operador = ctx.op.getText();
-            Class<?> Order = visit(ctx);
+            Class<?> Order = visitChildren(ctx);
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "-":
@@ -119,7 +117,7 @@ public class solCompiler {
         @Override
         public Class<?> visitADDSUB(SolParser.ADDSUBContext ctx) {
             String operador = ctx.op.getText();
-            Class<?> Order = visit(ctx);
+            Class<?> Order = visitChildren(ctx);
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "+":
@@ -154,7 +152,7 @@ public class solCompiler {
         @Override
         public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
             String operador = ctx.op.getText();
-            Class<?> Order = visit(ctx);
+            Class<?> Order = visitChildren(ctx);
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "*":
@@ -191,9 +189,7 @@ public class solCompiler {
         //EXP---------------------------------------------------------------------------------
         @Override
         public Class<?>  visitInstrucao(SolParser.InstrucaoContext ctx) {
-            System.out.println(ctx.getText());
             visitChildren(ctx);
-            System.out.println(ctx.getText());
             return null;
         }
         @Override
@@ -308,36 +304,36 @@ public class solCompiler {
         //Variveis----------------------------------------------------------------------------------------
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
-            System.out.println("iconst");
+            System.out.println("iconst " + ctx.getText());
             return Integer.class;
         }
         @Override
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
-            System.out.println("dconst");
+            System.out.println("dconst " + ctx.getText());
             return Double.class;
         }
 
         @Override
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
-            System.out.println("true");
+            System.out.println("true " + ctx.getText());
             return Boolean.class;
         }
 
         @Override
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
-            System.out.println("false");
+            System.out.println("false " + ctx.getText());
             return Boolean.class;
         }
 
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
-            System.out.println("sconst");
+            System.out.println("sconst " + ctx.getText());
             return String.class;
         }
 
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
-            System.out.println("gload");
+            System.out.println("gload " + ctx.getText());
             return null;
         }
         //Variveis----------------------------------------------------------------------------------------
