@@ -1,4 +1,4 @@
-int x = 1;
-if x < 10 then print "ola";
+bool x = true;
+if 1+1 then print "ola";
 begin
 end

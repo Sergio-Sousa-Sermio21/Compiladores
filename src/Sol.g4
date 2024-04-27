@@ -36,7 +36,7 @@ types: 'int' #INTT
 | 'bool' #BOLEANT
 | 'string' #STRINGT;
 
-declaracao: NOME ('='variaveis)?;
+declaracao: NOME ('='exp)?;
 
 bloco: 'begin' (instrucao)* 'end';
 
@@ -51,12 +51,12 @@ exp: '(' exp ')' #ORDER
      | variaveis #Variavel;
 
 
-variaveis: INT
-           | DOUBLE
-           | TRUE
-           | FALSE
-           | STRING
-           | NOME;
+variaveis: INT #INT
+           | DOUBLE #DOUBLE
+           | TRUE #TRUE
+           | FALSE #FALSE
+           | STRING #STRING
+           | NOME #NOME;
 
 NOTEQUAL: '!=';
 EQUAL: '==';

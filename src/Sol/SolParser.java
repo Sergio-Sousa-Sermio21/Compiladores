@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -938,8 +938,8 @@ public class SolParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class DeclaracaoContext extends ParserRuleContext {
 		public TerminalNode NOME() { return getToken(SolParser.NOME, 0); }
-		public VariaveisContext variaveis() {
-			return getRuleContext(VariaveisContext.class,0);
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
 		}
 		public DeclaracaoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -977,7 +977,7 @@ public class SolParser extends Parser {
 				setState(115);
 				match(T__0);
 				setState(116);
-				variaveis();
+				exp(0);
 				}
 			}
 
@@ -1787,7 +1787,7 @@ public class SolParser extends Parser {
 		"\n\u0000\u0000mq\u0005\u000b\u0000\u0000nq\u0005\f\u0000\u0000oq\u0005"+
 		"\r\u0000\u0000pl\u0001\u0000\u0000\u0000pm\u0001\u0000\u0000\u0000pn\u0001"+
 		"\u0000\u0000\u0000po\u0001\u0000\u0000\u0000q\u0015\u0001\u0000\u0000"+
-		"\u0000ru\u0005(\u0000\u0000st\u0005\u0001\u0000\u0000tv\u0003\u001c\u000e"+
+		"\u0000ru\u0005(\u0000\u0000st\u0005\u0001\u0000\u0000tv\u0003\u001a\r"+
 		"\u0000us\u0001\u0000\u0000\u0000uv\u0001\u0000\u0000\u0000v\u0017\u0001"+
 		"\u0000\u0000\u0000w{\u0005\u000e\u0000\u0000xz\u0003\u0002\u0001\u0000"+
 		"yx\u0001\u0000\u0000\u0000z}\u0001\u0000\u0000\u0000{y\u0001\u0000\u0000"+
