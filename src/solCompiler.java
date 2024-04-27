@@ -13,7 +13,7 @@ import java.util.*;
 public class solCompiler {
 
     static class Visitor extends SolBaseVisitor<Void> {
-        private Map<String, Class<?>> tiposVariaveis = new HashMap<>();
+        private final Map<String, Class<?>> tiposVariaveis = new HashMap<>();
         public Void visitProgram(SolParser.ProgramContext ctx) {
             visitChildren(ctx);
             System.out.println("Halt");

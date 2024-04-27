@@ -51,12 +51,12 @@ exp: '(' exp ')' #ORDER
      | variaveis #Variavel;
 
 
-variaveis: INT #INT
-           | DOUBLE #DOUBLE
-           | TRUE #TRUE
-           | FALSE #FALSE
-           | STRING #STRING
-           | NOME #NOME;
+variaveis: INT
+           | DOUBLE
+           | TRUE
+           | FALSE
+           | STRING
+           | NOME;
 
 NOTEQUAL: '!=';
 EQUAL: '==';

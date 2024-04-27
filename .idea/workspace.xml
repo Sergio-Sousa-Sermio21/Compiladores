@@ -5,14 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteBreak.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteFor.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteWhile.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteIf.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/Sol.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/Sol.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolBaseListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolBaseVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolLexer.interp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolLexer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolLexer.tokens" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sol/SolVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsParte3/TesteFor.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteFor.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsParte3/TesteWhile.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteWhile.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
+    <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
-    <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +62,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
-    "Application.MainSol.executor": "Debug",
+    "Application.MainSol.executor": "Run",
     "Application.Sol.executor": "Run",
     "Application.Teste.executor": "Run",
     "Application.tAssembler.executor": "Debug",
@@ -142,7 +156,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
       </set>
     </attachedChunks>
   </component>
@@ -198,6 +212,7 @@
       <workItem from="1714140720333" duration="3532000" />
       <workItem from="1714147712034" duration="608000" />
       <workItem from="1714229127445" duration="2157000" />
+      <workItem from="1714231617041" duration="3363000" />
     </task>
     <servers />
   </component>

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
-    private HashMap<String, Class<?>> tiposVariaveis = new HashMap<String, Class<?>>();
+    private final HashMap<String, Class<?>> tiposVariaveis = new HashMap<String, Class<?>>();
     private final ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
 
     private final ArrayList<String> errors = new ArrayList<>();
@@ -36,7 +36,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //EXP---------------------------------------------------------------------------------
     @Override
     public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
-        
         Class<?> left = visit(ctx.exp(0));
         Class<?> right = visit(ctx.exp(1));
         if(left == Object.class || right == Object.class){
@@ -158,7 +157,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
-        
         Class<?> left = visit(ctx.exp(0));
         Class<?> right = visit(ctx.exp(1));
         if(left == Object.class || right == Object.class){
@@ -195,7 +193,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         
         loopCount++;
         Class<?> conditionType = visit(ctx.exp());
-        if ( visit(ctx.exp())!=Object.class && !conditionType.equals(Boolean.class)) {
+        if ( conditionType !=Object.class && !conditionType.equals(Boolean.class)) {
             errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
                     " error: While expression must be of type bool");
 
@@ -207,8 +205,19 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?>  visitForState(SolParser.ForStateContext ctx) {
         loopCount++;
+        Class<?>  variavel;
+        if(tiposVariaveis.containsKey(ctx.NOME().getText())){
+            variavel = tiposVariaveis.get(ctx.NOME().getText());
+        } else {
+            errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                    " error: Variavel nao defenida " + ctx.getText());
+            variavel = Object.class;
+        }
         Class<?> conditionType = visit(ctx.exp(0));
         Class<?> target = visit(ctx.exp(1));
+        if(variavel != Object.class && variavel!=Integer.class)
+            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
+                    " error: For variable needs to be of type int and it is: " + variavel.getSimpleName());
         if (!(target == Object.class || conditionType == Object.class ) && (!conditionType.equals(Integer.class) && target != Integer.class))
             errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
                     " error: For expression must be of type int");
@@ -220,7 +229,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
         
         Class<?> conditionType = visit(ctx.exp());
-        if ( visit(ctx.exp())!=Object.class && !conditionType.equals(Boolean.class)) {
+        if ( conditionType!=Object.class && !conditionType.equals(Boolean.class)) {
             errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
                     " error: While expression must be of type bool");
 
@@ -352,7 +361,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
-        
         if(!tiposVariaveis.containsKey(ctx.NOME().getText())){
             errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                     " error: Variavel nao defenida " + ctx.getText());
@@ -366,7 +374,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
         
         for(int i = 0; i<ctx.exp().size();i++){
-            Class<?> tipo = visit(ctx.exp().get(i));
+            Class<?> tipo = visit(ctx.exp(i));
             if(tiposVariaveis.containsKey(ctx.NOME().get(i).getText())){
                 if(tipo!=tiposVariaveis.get(ctx.NOME().get(i).getText())) {
                     System.err.println("Tipo errado" + " " + tipo.getSimpleName() + " hash " + tiposVariaveis.get(ctx.NOME().get(i).getText()));
@@ -374,11 +382,13 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                             " error: Tipo errado para a variavel " + ctx.NOME().get(i).getText());
                 }
 
+            } else {
+                errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                        " error: Variavel nao defenida " + ctx.getText());
             }
         }
         return null;
     }
-
 
     public ParseTreeProperty<Class<?>> TestTree(ParseTree tree){
         this.visit(tree);
