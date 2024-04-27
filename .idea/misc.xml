@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/Sol.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\xampp\htdocs\Compiladores" />
+          <option name="outputDir" value="C:\xampp\htdocs\Compiladores\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="Sol" />

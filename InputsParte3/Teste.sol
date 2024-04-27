@@ -1,12 +1,35 @@
-int i = 0, n = 10;
-real r = 3.24;
-int n;
-bool b = 5;
-string s;
-while s <= n do
+print 1*(2+3);
+/*
+int i = 0;
+print i;
+for i = 10 to 20 do
 begin
-print i * i + z;
-i = i + 1;
+print i;
+if i>10 then
+   break;
 end
-break;
-print "Fim!";
+*/
+
+/*
+int contciclos = -1;
+ArrayList<ArrayList>
+for i = 10 to 20 do
+
+    begin
+        break;  jump -1
+        while i>10 do
+            begin
+                print i;
+                for j = 20 to 40 do
+                    begin
+                    print j;
+                    break;
+                    end
+                break;   jump -1
+            end
+        break; jump -1
+    end
+
+0
+0->
+*/
