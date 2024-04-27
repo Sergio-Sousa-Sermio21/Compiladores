@@ -17,7 +17,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         String[] file = new String[2];
-        file[0] = "C:\\xampp\\htdocs\\Compiladores\\InputsParte3\\" + name + ".sol";
+        file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".sol";
         solCompiler assembler = new solCompiler();
         assembler.executeSol(file);
         //file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".tbc";
