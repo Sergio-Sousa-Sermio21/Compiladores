@@ -5,40 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/InputsParte3/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsSol/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteADDbool.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteADDbool.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteANDORerror.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteANDORerror.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteDError.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteDError.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteEQUALerror.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteEQUALerror.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteILTerror.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteILTerror.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteMULTerror.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteMULTerror.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteRD.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteRD.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteTudo.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteTudo.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/TesteTudo.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/TesteTudo.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/WorkTypes.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/WorkTypes.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsSol/WorkTypes.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/WorkTypes.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
     <list id="e6713fde-1e57-47e0-a02a-9b0a9efc32f8" name="Changes by ASUS" comment="" />
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
-    </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,33 +23,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/VerifyNodes.java">
-      <ranges>
-        <range start1="16" end1="18" start2="16" end2="17" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="29" end1="30" start2="28" end2="28" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="42" end1="43" start2="40" end2="41" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="73" end1="74" start2="71" end2="72" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="181" end1="182" start2="179" end2="179" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="186" end1="188" start2="183" end2="184" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="194" end1="199" start2="190" end2="192" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="203" end1="205" start2="196" end2="197" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="207" end1="208" start2="199" end2="200" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="209" end1="211" start2="201" end2="202" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="212" end1="213" start2="203" end2="204" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="217" end1="219" start2="208" end2="214" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="225" end1="226" start2="220" end2="220" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="230" end1="232" start2="224" end2="225" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="234" end1="239" start2="227" end2="228" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="244" end1="245" start2="233" end2="233" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="246" end1="247" start2="234" end2="234" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="251" end1="252" start2="238" end2="238" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="334" end1="336" start2="320" end2="322" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="342" end1="343" start2="328" end2="329" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="362" end1="363" start2="348" end2="348" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
