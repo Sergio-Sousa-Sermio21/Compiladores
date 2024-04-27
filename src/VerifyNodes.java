@@ -16,6 +16,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private final ArrayList<String> errors = new ArrayList<>();
     private int loopCount = 0;
 
+    int count = 0;
+
     /**
      * Metodo que associa o um valor com um node da arvore
      * @param node O node da arvore
@@ -25,6 +27,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         values.put(node,a);
     }
     public Class<?> visitProgram(SolParser.ProgramContext ctx) {
+        
         visitChildren(ctx);
         return null;
     }
@@ -33,6 +36,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //EXP---------------------------------------------------------------------------------
     @Override
     public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
+        
         Class<?> left = visit(ctx.exp(0));
         Class<?> right = visit(ctx.exp(1));
         if(left == Object.class || right == Object.class){
@@ -53,16 +57,19 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?> visitORDER(SolParser.ORDERContext ctx) {
+        
         return visit(ctx.exp());
     }
     @Override
     public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
+        
         Class<?> tipo = visit(ctx.exp());
         return tipo;
     }
 
     @Override
     public Class<?> visitADDSUB(SolParser.ADDSUBContext ctx) {
+        
         Class<?> left = visit(ctx.exp(0));
         Class<?> rigth = visit(ctx.exp(1));
         if(ctx.op.getText().equals("+")){
@@ -115,6 +122,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
+        
         Class<?> left = visit(ctx.exp(0));
         Class<?> rigth = visit(ctx.exp(1));
         if(left == Object.class || rigth == Object.class) {
@@ -150,6 +158,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
+        
         Class<?> left = visit(ctx.exp(0));
         Class<?> right = visit(ctx.exp(1));
         if(left == Object.class || right == Object.class){
@@ -171,16 +180,19 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //EXP---------------------------------------------------------------------------------
     @Override
     public Class<?>  visitInstrucao(SolParser.InstrucaoContext ctx) {
+        
         visitChildren(ctx);
         return null;
     }
     @Override
     public Class<?>  visitPrint(SolParser.PrintContext ctx) {
+        
         visitChildren(ctx);
         return null;
     }
     @Override
     public Class<?>  visitWhileState(SolParser.WhileStateContext ctx) {
+        
         loopCount++;
         Class<?> conditionType = visit(ctx.exp());
         if ( visit(ctx.exp())!=Object.class && !conditionType.equals(Boolean.class)) {
@@ -196,16 +208,17 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitForState(SolParser.ForStateContext ctx) {
         loopCount++;
         Class<?> conditionType = visit(ctx.exp(0));
-        Class<?> target = visit(ctx.exp(0));
+        Class<?> target = visit(ctx.exp(1));
         if (!(target == Object.class || conditionType == Object.class ) && (!conditionType.equals(Integer.class) && target != Integer.class))
             errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
                     " error: For expression must be of type int");
-        visitChildren(ctx);
+        visit(ctx.instrucao());
         loopCount--;
         return null;
     }
     @Override
     public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
+        
         Class<?> conditionType = visit(ctx.exp());
         if ( visit(ctx.exp())!=Object.class && !conditionType.equals(Boolean.class)) {
             errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
@@ -218,10 +231,12 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
     public Class<?>  visitEmpty(SolParser.EmptyContext ctx) {
+        
         return null;
     }
     @Override
     public Class<?> visitBreak(SolParser.BreakContext ctx) {
+        
         if (loopCount == 0) {
             errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                     " error: Break statement can only occur inside a loop");
@@ -231,16 +246,19 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
+        
         visitChildren(ctx);
         return null;
     }
     @Override
     public Class<?>  visitOR(SolParser.ORContext ctx) {
+        
         return null;
     }
 
     @Override
     public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
+
         Class<?> tipo = visitChildren(ctx);
         if(tipo == null)
             tipo = Object.class;
@@ -249,6 +267,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
     @Override public Class<?>  visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
+        
         Class<?> tipo = visit(ctx.types());
         for(int i = 0; i<ctx.declaracao().size(); i++){
             Class<?> verificar = visit(ctx.declaracao().get(i));
@@ -269,24 +288,28 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //Types-------------------------------------------------------------------------------------------
     @Override
     public Class<?>  visitINTT(SolParser.INTTContext ctx) {
+        
         setValues(ctx, Integer.class);
         return Integer.class;
     }
 
     @Override
     public Class<?>  visitDOUBLET(SolParser.DOUBLETContext ctx) {
+        
         setValues(ctx, Double.class);
         return Double.class;
     }
 
     @Override
     public Class<?>  visitSTRINGT(SolParser.STRINGTContext ctx) {
+        
         setValues(ctx, String.class);
         return String.class;
     }
 
     @Override
     public Class<?>  visitBOLEANT(SolParser.BOLEANTContext ctx) {
+        
         setValues(ctx, Boolean.class);
         return Boolean.class;
     }
@@ -295,35 +318,41 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //Variveis----------------------------------------------------------------------------------------
     @Override
     public Class<?>  visitINT(SolParser.INTContext ctx) {
+        
         setValues(ctx, Integer.class);
         return Integer.class;
     }
     @Override
     public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
+        
         setValues(ctx, Double.class);
         return Double.class;
     }
 
     @Override
     public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
+        
         setValues(ctx, Boolean.class);
         return Boolean.class;
     }
 
     @Override
     public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
+        
         setValues(ctx, Boolean.class);
         return Boolean.class;
     }
 
     @Override
     public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
+        
         setValues(ctx, String.class);
         return String.class;
     }
 
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
+        
         if(!tiposVariaveis.containsKey(ctx.NOME().getText())){
             errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                     " error: Variavel nao defenida " + ctx.getText());
@@ -335,6 +364,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //Variveis----------------------------------------------------------------------------------------
 
     @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
+        
         for(int i = 0; i<ctx.exp().size();i++){
             Class<?> tipo = visit(ctx.exp().get(i));
             if(tiposVariaveis.containsKey(ctx.NOME().get(i).getText())){

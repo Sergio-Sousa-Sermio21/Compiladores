@@ -142,12 +142,13 @@ public class solCompiler {
                 parser.addErrorListener(new ConsoleErrorListener());
                 ParseTree tree = parser.program();
                 int numberOfErrors = parser.getNumberOfSyntaxErrors();
-                VerifyNodes teste = new VerifyNodes();
-                teste.TestTree(tree);
                 if (numberOfErrors > 0) {
                     System.err.println("Foram detectados " + numberOfErrors + " erros de Syntax.");
                     System.exit(0);
                 }
+                VerifyNodes teste = new VerifyNodes();
+                teste.TestTree(tree);
+
 
                 //this.visit(tree);
             } catch (IOException e) {
