@@ -1,14 +1,16 @@
-print (2+3)*1/3;
-/*
-int i = 0;
-print i;
-for i = 10 to 20 do
+
+
+
+int i, n;
+n = 7;
+i = 1;
+while i <= 10 do
 begin
-print i;
-if i>10 then
-   break;
+print n + " x " + i + " = " + n*i;
+i = i + 1;
 end
-*/
+
+
 
 /*
 int contciclos = -1;

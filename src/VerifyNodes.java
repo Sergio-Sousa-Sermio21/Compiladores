@@ -133,7 +133,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
-
         Class<?> left = visit(ctx.exp(0));
         Class<?> rigth = visit(ctx.exp(1));
         if(left == Object.class || rigth == Object.class) {
@@ -174,7 +173,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                 errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
                 setValues(ctx, Object.class);
                 return Object.class;
-            } else{
+            } else{int i;
                 setValues(ctx, Boolean.class);
             }
         }
@@ -191,7 +190,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
     @Override
     public Class<?>  visitPrint(SolParser.PrintContext ctx) {
-        setValues(ctx, visitChildren(ctx));
+        setValues(ctx, visit(ctx.exp()));
         return null;
     }
     @Override
@@ -403,6 +402,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             setValues(ctx, Object.class);
             return Object.class;
         }
+        setValues(ctx, tiposVariaveis.get(ctx.NOME().getText()));
         return tiposVariaveis.get(ctx.NOME().getText());
     }
     //Variveis----------------------------------------------------------------------------------------

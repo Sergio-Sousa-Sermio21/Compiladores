@@ -13,15 +13,18 @@ import java.util.*;
 public class solCompiler {
 
     static class Visitor extends SolBaseVisitor<Class<?>> {
-        private final Map<String, Class<?>> tiposVariaveis = new HashMap<>();
+        private final Map<String, Integer> PosicaoVariaveis = new HashMap<>();
         private ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>();
         private int ciclos = -1;
+
+        private int countVariable = 0;
 
         int count = 0;
         private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
         public Class<?> visitProgram(SolParser.ProgramContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             visitChildren(ctx);
+            System.out.println("halt");
             return null;
         }
 
@@ -155,9 +158,9 @@ public class solCompiler {
 
         @Override
         public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
-            Class<?> Order = visitChildren(ctx);
+            Class<?> Order = visitChildren(ctx.exp(0));
+            visitChildren(ctx.exp(1));
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "*" -> {
@@ -203,7 +206,7 @@ public class solCompiler {
         @Override
         public Class<?>  visitPrint(SolParser.PrintContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Atual = visitChildren(ctx);
+            Class<?> Atual = visit(ctx.exp());
             if(Atual == Integer.class)
                 System.out.println("iprint");
             else if(Atual == Double.class)
@@ -217,6 +220,7 @@ public class solCompiler {
         @Override
         public Class<?>  visitWhileState(SolParser.WhileStateContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            breaks.add(new ArrayList<>());
             ciclos++;
             System.out.println("jumpf while");
             visitChildren(ctx);
@@ -227,16 +231,27 @@ public class solCompiler {
         @Override
         public Class<?>  visitForState(SolParser.ForStateContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            breaks.add(new ArrayList<>());
             ciclos++;
-            System.out.println("jumpf for");
-            visitChildren(ctx);
+            visit(ctx.exp(0));
+            System.out.println("gstore " + PosicaoVariaveis.get(ctx.NOME().getText()));
+            System.out.println("gload " + PosicaoVariaveis.get(ctx.NOME().getText()));
+            visit(ctx.exp(1));
+            System.out.println("ileq");
+            System.out.println("jumpf -1 For");
+            visit(ctx.instrucao());
             ciclos--;
+            System.out.println("gload " + PosicaoVariaveis.get(ctx.NOME().getText()));
+            System.out.println("iconst 1");
+            System.out.println("gstore " + PosicaoVariaveis.get(ctx.NOME().getText()));
+            System.out.println("iadd");
             System.out.println("jump for");
             return null;
         }
         @Override
         public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+
             System.out.println("jumpf if");
             visitChildren(ctx);
             System.out.println("jump if");
@@ -276,15 +291,15 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             if(ctx.exp()!=null){
                 visitChildren(ctx.exp());
-                System.out.println("gload" + ctx.NOME());
+                System.out.println("gstore " + countVariable);
             }
-
+            PosicaoVariaveis.put(ctx.NOME().getText(), countVariable++);
             return null;
         }
 
         @Override public Class<?>  visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            System.out.println("GALLOC " + ctx.declaracao().size());
+            System.out.println("galloc " + ctx.declaracao().size());
             visitChildren(ctx);
             return null;
         }
@@ -292,7 +307,7 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
                     for(int i = 0; i<ctx.exp().size(); i++){
                         visitChildren(ctx.exp(i));
-                        System.out.println("gstore" + ctx.NOME(i).getText());
+                        System.out.println("gstore " + PosicaoVariaveis.get(ctx.NOME(i).getText()));
                     }
                     return null;
         }
@@ -357,12 +372,12 @@ public class solCompiler {
             System.out.println("sconst " + ctx.getText());
             return String.class;
         }
-
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            System.out.println("gload " + ctx.getText());
-            return null;
+            System.out.println("gload " + PosicaoVariaveis.get(ctx.getText()));
+            Class<?> Variavel
+            return getValues(ctx);
         }
         //Variveis----------------------------------------------------------------------------------------
 
