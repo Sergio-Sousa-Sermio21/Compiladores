@@ -279,17 +279,21 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             breaks.add(new ArrayList<>());
             ciclos++;
+            int inicioWHILE = instrucoes.size();
             visit(ctx.exp());
-            System.out.println("jumpf while");
+            int posicaoJumpf = instrucoes.size();
+            instrucoes.add(new Instrucion(Commands.JUMPF, -1));
             visit(ctx.instrucao());
+            instrucoes.add(new Instrucion(Commands.JUMP, inicioWHILE));
+            instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
+            setBreaks();
             ciclos--;
-            System.out.println("jump while");
             return null;
         }
 
         public void setBreaks( ){
             for (int i = 0; i< breaks.get(ciclos).size(); i++){
-                instrucoes.get(i).setValue(instrucoes.size());
+                instrucoes.get(breaks.get(ciclos).get(i)).setValue(instrucoes.size());
             }
             breaks.remove(ciclos);
         }
@@ -298,9 +302,9 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             breaks.add(new ArrayList<>());
             ciclos++;
-            int iniciofor = instrucoes.size();
             visit(ctx.exp(0));
             instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
+            int iniciofor = instrucoes.size();
             instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.NOME().getText())));
             visit(ctx.exp(1));
             instrucoes.add(new Instrucion(Commands.ILEQ));
@@ -309,8 +313,8 @@ public class solCompiler {
             visit(ctx.instrucao());
             instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.NOME().getText())));
             instrucoes.add(new Instrucion(Commands.ICONST, 1));
-            instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
             instrucoes.add(new Instrucion(Commands.IADD));
+            instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
             instrucoes.add(new Instrucion(Commands.JUMP, iniciofor));
             instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
             setBreaks();
@@ -339,7 +343,7 @@ public class solCompiler {
         @Override
         public Class<?> visitBreak(SolParser.BreakContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            breaks.get(ciclos).add(ciclos);
+            breaks.get(ciclos).add(instrucoes.size());
             instrucoes.add(new Instrucion(Commands.JUMP, -1));
             return null;
         }
@@ -387,8 +391,8 @@ public class solCompiler {
         @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
                     for(int i = 0; i<ctx.exp().size(); i++){
-                        visitChildren(ctx.exp(i));
-                        instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.getText())));
+                        visit(ctx.exp(i));
+                        instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME(i).getText())));
                     }
                     return null;
         }
@@ -459,7 +463,7 @@ public class solCompiler {
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
+            instrucoes.add(new Instrucion(Commands.SCONST, constantpoll.size()));
             constantpoll.add(ctx.getText());
             return String.class;
         }
@@ -492,7 +496,57 @@ public class solCompiler {
         }
         //Variveis----------------------------------------------------------------------------------------
 
+        /** Escreve bytecode em um file com base nas instruções fornecidas
+         *
+         * @param args Argumentos presentes na linha de comando.
+         * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+         */
+        private void writeBytecode(String[] args) throws IOException {
+            File file = new File(args[0]);
+            String newFile = file.getPath().replaceFirst("[.][^.]+$", ".tbc");
+            FileOutputStream fos = new FileOutputStream(newFile);
+            DataOutputStream bytecodes = new DataOutputStream(fos);
+            for (Instrucion instruction : instrucoes) {
+                bytecodes.write(instruction.getCommand().ordinal());
+                if(instruction.getValue() != null){
+                    bytecodes.writeInt( instruction.getValue());
+                }
+            }
+            writeConstantPoll(bytecodes);
+        }
 
+        /** Escreve a tabela de constantes em bytecode no fim do file
+         *
+         * @param bytecodes Serve para a criação de dados em byte
+         * @throws IOException Se ocorrer algum erro de E/S ao escrever na constant
+         */
+        public void writeConstantPoll(DataOutputStream bytecodes) throws IOException{
+            bytecodes.write(Commands.values().length);
+            for (Object constant: constantpoll){
+                if(constant instanceof Double){
+                    bytecodes.write(0);
+                    bytecodes.writeDouble((double) constant);
+                } else if (constant instanceof String finalstring){
+                    finalstring = finalstring.substring(1,finalstring.length()-1);
+                    bytecodes.write(1);
+                    bytecodes.writeInt(finalstring.length());
+                    bytecodes.writeChars(finalstring);
+                }
+
+            }
+        }
+
+        public void debug(){
+            System.out.println("----------------------------------------\nConstant Pool:");
+            for (int i = 0; i<constantpoll.size(); i++) {
+                System.out.println(i + ": " + constantpoll.get(i));
+            }
+            System.out.println("-----------------------------------------\nInstrution array:");
+            for (int i = 0; i<instrucoes.size(); i++) {
+                System.out.println("L"+i + ": " + instrucoes.get(i));
+            }
+            System.out.println("-----------------------------------------");
+        }
 
 
         public void execute(String[] args) {
@@ -527,15 +581,17 @@ public class solCompiler {
 
     }
 
-    public void executeSol(String[] args){
+    public void executeSol(String[] args) throws IOException {
         Visitor visitor = new Visitor();
         visitor.execute(args);
+        visitor.writeBytecode(args);
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Visitor visitor = new Visitor();
         visitor.execute(args);
+        visitor.writeBytecode(args);
     }
 
 }

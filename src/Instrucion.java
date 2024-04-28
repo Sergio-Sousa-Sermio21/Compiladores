@@ -20,7 +20,10 @@ public class Instrucion {
     @Override
     public String toString() {
         if(value != null){
-            return  command.name() + " " +  value;
+            if(command == Commands.JUMP || command == Commands.JUMPF || command == Commands.JUMPT)
+                return  command.name() + " L" +  value;
+            else
+                return  command.name() + " " +  value;
         }
         return command.name();
     }

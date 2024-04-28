@@ -20,9 +20,8 @@ public class Main {
         file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".sol";
         solCompiler assembler = new solCompiler();
         assembler.executeSol(file);
-        //file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".tbc";
-        //System.out.println();
-        //tVM vm = new tVM(file);
-        //vm.runCodeMemory(false);
+        file[0] = "C:\\Users\\ASUS\\Documents\\Lab1typescript\\Compiladores\\InputsParte3\\" + name + ".tbc";
+        tVM vm = new tVM(file);
+        vm.runCodeMemory(false);
     }
 }
