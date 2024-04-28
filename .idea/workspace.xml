@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InputsParte3/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/Teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Instrucion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Instrucion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
-    </list>
+    <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,30 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/solCompiler.java">
-      <ranges>
-        <range start1="281" end1="281" start2="281" end2="282" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="282" end1="283" start2="283" end2="285" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="284" end1="284" start2="286" end2="289" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="285" end1="286" start2="290" end2="290" changelist="170c5e65-f68c-40a4-bf26-a725979397ee" />
-        <range start1="291" end1="292" start2="295" end2="296" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="300" end1="301" start2="304" end2="304" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="303" end1="303" start2="306" end2="307" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="311" end1="312" start2="315" end2="315" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="313" end1="313" start2="316" end2="317" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="341" end1="342" start2="345" end2="346" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="389" end1="391" start2="393" end2="395" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="461" end1="462" start2="465" end2="466" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="494" end1="494" start2="498" end2="534" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="495" end1="495" start2="535" end2="549" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="529" end1="530" start2="583" end2="584" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="532" end1="532" start2="586" end2="587" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="535" end1="536" start2="590" end2="591" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="538" end1="538" start2="593" end2="594" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -220,7 +189,7 @@
       <workItem from="1714253343948" duration="361000" />
       <workItem from="1714265444420" duration="3838000" />
       <workItem from="1714270045274" duration="655000" />
-      <workItem from="1714328854764" duration="3604000" />
+      <workItem from="1714328854764" duration="3962000" />
     </task>
     <servers />
   </component>

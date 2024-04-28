@@ -46,7 +46,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
         else{
             if(left!=right && !((left == Integer.class && right == Double.class) || (left == Double.class && right == Integer.class))){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Cannot compare " + left.getSimpleName() + " and " + right.getSimpleName());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Cannot compare " + left.getSimpleName() + " and " + right.getSimpleName());
                 setValues(ctx, Object.class);
             } else {
                 setValues(ctx, Boolean.class);
@@ -67,7 +67,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             setValues(ctx, Object.class);
         if(ctx.op.getText().equals("-")){
             if(value != Integer.class && value != Double.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean and/or String cannot use " + ctx.op.getText() + " operator");
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean and/or String cannot use " + ctx.op.getText() + " operator");
                 setValues(ctx, Object.class);
             } else {
                 if(value == Double.class)
@@ -77,7 +77,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             }
         } else {
             if(value != Boolean.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type must be Boolean to use " + ctx.op.getText() + " operator");
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type must be Boolean to use " + ctx.op.getText() + " operator");
                 setValues(ctx, Object.class);
             }else{
                 setValues(ctx, Boolean.class);
@@ -98,7 +98,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             }
             else
             if((left == Boolean.class && rigth != String.class) || (left != String.class && rigth == Boolean.class)){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
                 setValues(ctx, Object.class);
             } else {
                 if(left == String.class || rigth == String.class) {
@@ -117,7 +117,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             }
             else {
                 if((left == Boolean.class || rigth == Boolean.class) || (left == String.class || rigth == String.class)){
-                    errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                    errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: The operator " + ctx.op.getText() + " isn't valid between " + left.getSimpleName() + " and " + rigth.getSimpleName());
                     setValues(ctx, Object.class);
                 } else {
                     if(left == Double.class || rigth ==  Double.class ) {
@@ -141,15 +141,15 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
         else {
             if(ctx.op.getText().equals("%") && (left != Integer.class || rigth!= Integer.class)){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Error in operator % cannot use " + left.getSimpleName() + " and " + rigth.getSimpleName());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Error in operator % cannot use " + left.getSimpleName() + " and " + rigth.getSimpleName());
                 setValues(ctx, Object.class);
             }
             else if(left == String.class || rigth == String.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type String is not allowed in " + ctx.op.getText());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type String is not allowed in " + ctx.op.getText());
                 setValues(ctx, Object.class);
             }
             else if(left == Boolean.class || rigth == Boolean.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean is not allowed in " + ctx.op.getText());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Type Boolean is not allowed in " + ctx.op.getText());
                 setValues(ctx, Object.class);
             }
             else if(left == Double.class || rigth == Double.class){
@@ -171,7 +171,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
         else{
             if(left == String.class || right == String.class || left == Boolean.class || right == Boolean.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
                 setValues(ctx, Object.class);
                 return Object.class;
             } else{int i;
@@ -215,8 +215,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         if(tiposVariaveis.containsKey(ctx.NOME().getText())){
             variavel = tiposVariaveis.get(ctx.NOME().getText());
         } else {
-            errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
-                    " error: Variavel nao defenida " + ctx.getText());
+            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                    " error: Variable not defined " + ctx.getText());
             variavel = Object.class;
         }
         Class<?> conditionType = visit(ctx.exp(0));
@@ -276,7 +276,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
         else{
             if(left != Boolean.class || right != Boolean.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator AND" );
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator AND" );
                 return Object.class;
             } else {
                 return Boolean.class;
@@ -293,7 +293,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
         else{
             if(left != Boolean.class || right != Boolean.class){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator OR" );
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator OR" );
                 return Object.class;
             } else {
                 return Boolean.class;
@@ -322,7 +322,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                         " error: " + verificar + " type mismatch");
             }
             if(tiposVariaveis.containsKey(ctx.declaracao().get(i).NOME().getText())){
-                errors.add("Line" + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
             }
             else
                 tiposVariaveis.put(ctx.declaracao().get(i).NOME().getText(), tipo);
@@ -398,7 +398,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
         if(!tiposVariaveis.containsKey(ctx.NOME().getText())){
-            errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                     " error: Variavel nao defenida " + ctx.getText());
             setValues(ctx, Object.class);
             return Object.class;
@@ -421,7 +421,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                 }
 
             } else {
-                errors.add("line" + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                         " error: Variavel nao defenida " + ctx.getText());
             }
         }
