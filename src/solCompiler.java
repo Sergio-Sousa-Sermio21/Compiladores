@@ -190,7 +190,6 @@ public class solCompiler {
         @Override
         public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            System.out.println(ctx.getText());
             visitChildren(ctx);
             System.out.println(ctx.getText());
             return getValues(ctx);
@@ -223,8 +222,9 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             breaks.add(new ArrayList<>());
             ciclos++;
+            visit(ctx.exp());
             System.out.println("jumpf while");
-            visitChildren(ctx);
+            visit(ctx.instrucao());
             ciclos--;
             System.out.println("jump while");
             return null;
@@ -314,11 +314,22 @@ public class solCompiler {
         }
 
         //Variveis----------------------------------------------------------------------------------------
+        
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Parent = getValues(ctx.getParent());
             System.out.println("iconst " + ctx.getText());
+            if (Parent == String.class) {
+                System.out.println("itos");
+            } else if (Parent == Double.class) {
+                System.out.println("itod");
+            } else if (Parent == Boolean.class) {
+                if (getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class) {
+                    System.out.println("itod");
+                }
+            }
+
             return Parent;
         }
         @Override

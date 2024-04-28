@@ -1,10 +1,14 @@
 
 
 
-int i;
-for i=1 to 5 do
-print i*i;
-print "Fim!";
+int i, n;
+n = 7;
+i = 1;
+while i <= 10 do
+begin
+print n + " x " + i + " = " + n*i;
+i = i + 1;
+end
 
 
 
