@@ -206,7 +206,8 @@ public class solCompiler {
         @Override
         public Class<?>  visitPrint(SolParser.PrintContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Atual = visit(ctx.exp());
+            visit(ctx.exp());
+            Class<?> Atual = getValues(ctx);
             if(Atual == Integer.class)
                 System.out.println("iprint");
             else if(Atual == Double.class)
@@ -312,72 +313,63 @@ public class solCompiler {
                     return null;
         }
 
-        //Types-------------------------------------------------------------------------------------------
-        @Override
-        public Class<?>  visitINTT(SolParser.INTTContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
-            return Integer.class;
-        }
-
-        @Override
-        public Class<?>  visitDOUBLET(SolParser.DOUBLETContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
-            return Double.class;
-        }
-
-        @Override
-        public Class<?>  visitSTRINGT(SolParser.STRINGTContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
-            return String.class;
-        }
-
-        @Override
-        public Class<?>  visitBOLEANT(SolParser.BOLEANTContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
-            return Boolean.class;
-        }
-        //Types-------------------------------------------------------------------------------------------
-
         //Variveis----------------------------------------------------------------------------------------
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            Class<?> Parent = getValues(ctx.getParent());
             System.out.println("iconst " + ctx.getText());
-            return Integer.class;
+            return Parent;
         }
         @Override
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            Class<?> Parent = getValues(ctx.getParent());
             System.out.println("dconst " + ctx.getText());
-            return Double.class;
+            if (Parent == String.class) {
+                System.out.println("dtos");
+            }
+            return Parent;
         }
 
         @Override
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            Class<?> Parent = getValues(ctx.getParent());
             System.out.println("true " + ctx.getText());
-            return Boolean.class;
+            if (Parent == String.class) {
+                System.out.println("btos");
+            }
+
+            return Parent;
         }
 
         @Override
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            Class<?> Parent = getValues(ctx.getParent());
             System.out.println("false " + ctx.getText());
-            return Boolean.class;
+            if (Parent == String.class) {
+                System.out.println("btos");
+            }
+
+            return Parent;
         }
 
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            Class<?> Parent = getValues(ctx.getParent());
             System.out.println("sconst " + ctx.getText());
-            return String.class;
+            return Parent;
         }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("gload " + PosicaoVariaveis.get(ctx.getText()));
-            Class<?> Variavel
-            return getValues(ctx);
+            Class<?> Parent = getValues(ctx.getParent());
+            Class<?> Variavel = getValues(ctx);
+            return Parent;
         }
         //Variveis----------------------------------------------------------------------------------------
 
