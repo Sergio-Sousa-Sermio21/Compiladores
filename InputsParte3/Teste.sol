@@ -1,5 +1,7 @@
 
 
+print "Ola" + (3.0);
+/*
 int i, n;
 n = 7;
 i = 1;
@@ -8,7 +10,7 @@ begin
 print n + " x " + i + " = " + n*i;
 i = i + 1;
 end
-
+*/
 
 
 /*

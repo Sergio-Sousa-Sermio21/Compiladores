@@ -75,12 +75,15 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Order = visit(ctx.exp());
             Class<?> Parent = getValues(ctx.getParent());
+            
             if(Parent == String.class) {
                 if (Order != Parent) {
                     System.out.println("Instruction: ITOS");
                 }
                 else if (Order.equals(Double.class)) {
                     System.out.println("Instruction: DTOS");
+                } else {
+                    System.out.println("btos");
                 }
             }
             else if (Parent == Double.class) {
