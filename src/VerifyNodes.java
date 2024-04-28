@@ -405,6 +405,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         setValues(ctx, tiposVariaveis.get(ctx.NOME().getText()));
         return tiposVariaveis.get(ctx.NOME().getText());
     }
+
     //Variveis----------------------------------------------------------------------------------------
 
     @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {

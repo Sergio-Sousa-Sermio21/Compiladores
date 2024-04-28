@@ -378,8 +378,22 @@ public class solCompiler {
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("gload " + PosicaoVariaveis.get(ctx.getText()));
-            Class<?> Parent = getValues(ctx.getParent());
+            Class<?> Parent = getValues(ctx.getParent().getParent());
             Class<?> Variavel = getValues(ctx);
+            if (Parent == String.class && Variavel.equals(Integer.class)) {
+                System.out.println("itos");
+            } else if (Parent == Double.class && Variavel.equals(Integer.class)) {
+                System.out.println("itod");
+            } else if (Parent == Boolean.class && Variavel.equals(Integer.class)) {
+                if (getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class) {
+                    System.out.println("itod");
+                }
+            } else if (Parent == String.class && Variavel.equals(Boolean.class)) {
+                System.out.println("btos");
+            } else if (Parent == String.class && Variavel.equals(Double.class)) {
+                System.out.println("dtos");
+            }
+
             return Parent;
         }
         //Variveis----------------------------------------------------------------------------------------
