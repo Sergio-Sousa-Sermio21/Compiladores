@@ -1,4 +1,4 @@
-print 1*(2+3);
+print (2+3)*1/3;
 /*
 int i = 0;
 print i;

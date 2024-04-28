@@ -16,9 +16,11 @@ public class solCompiler {
         private final Map<String, Class<?>> tiposVariaveis = new HashMap<>();
         private ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>();
         private int ciclos = -1;
+
+        int count = 0;
         private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
         public Class<?> visitProgram(SolParser.ProgramContext ctx) {
-
+            //System.out.println(ctx.getText() + "-" + count++);
             visitChildren(ctx);
             return null;
         }
@@ -30,6 +32,7 @@ public class solCompiler {
         //EXP---------------------------------------------------------------------------------
         @Override
         public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             String operator = ctx.op.getText();
             Class<?> leftType = visit(ctx.exp(0));
             Class<?> rightType = visit(ctx.exp(1));
@@ -66,6 +69,7 @@ public class solCompiler {
 
         @Override
         public Class<?> visitORDER(SolParser.ORDERContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Order = visit(ctx.exp());
             Class<?> Parent = getValues(ctx.getParent());
             if(Parent == String.class) {
@@ -80,12 +84,11 @@ public class solCompiler {
                 if (Order == Integer.class)
                     System.out.println("Instrução: ITOD");
             }
-
-            visitChildren(ctx);
             return Parent;
         }
         @Override
         public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
             Class<?> Order = visitChildren(ctx);
             Class<?> Parent = getValues(ctx.getParent());
@@ -116,6 +119,7 @@ public class solCompiler {
         }
         @Override
         public Class<?> visitADDSUB(SolParser.ADDSUBContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
             Class<?> Order = visitChildren(ctx);
             Class<?> Parent = getValues(ctx.getParent());
@@ -151,22 +155,24 @@ public class solCompiler {
 
         @Override
         public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
             Class<?> Order = visitChildren(ctx);
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
-                case "*":
+                case "*" -> {
                     if (Order == Double.class)
                         System.out.println("DMULT");
                     else
                         System.out.println("IMULT");
-                case "/":
+                }
+                case "/" ->{
                     if(Order == Double.class)
                         System.out.println("DDIV");
                     else
                         System.out.println("IDIV");
-                case "%":
-                    System.out.println("IMOD");
+                }
+                case "%"-> System.out.println("IMOD");
             }
             if (Parent == String.class){
                 if (Order == Double.class)
@@ -180,6 +186,7 @@ public class solCompiler {
 
         @Override
         public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println(ctx.getText());
             visitChildren(ctx);
             System.out.println(ctx.getText());
@@ -189,11 +196,13 @@ public class solCompiler {
         //EXP---------------------------------------------------------------------------------
         @Override
         public Class<?>  visitInstrucao(SolParser.InstrucaoContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             visitChildren(ctx);
             return null;
         }
         @Override
         public Class<?>  visitPrint(SolParser.PrintContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Atual = visitChildren(ctx);
             if(Atual == Integer.class)
                 System.out.println("iprint");
@@ -207,6 +216,7 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitWhileState(SolParser.WhileStateContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             ciclos++;
             System.out.println("jumpf while");
             visitChildren(ctx);
@@ -216,6 +226,7 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitForState(SolParser.ForStateContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             ciclos++;
             System.out.println("jumpf for");
             visitChildren(ctx);
@@ -225,6 +236,7 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("jumpf if");
             visitChildren(ctx);
             System.out.println("jump if");
@@ -233,6 +245,7 @@ public class solCompiler {
 
         @Override
         public Class<?> visitBreak(SolParser.BreakContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             breaks.get(ciclos).add(ciclos);
             System.out.println("jump -1");
             return null;
@@ -240,6 +253,7 @@ public class solCompiler {
 
         @Override
         public Class<?> visitAND(SolParser.ANDContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("AND");
             if (getValues(ctx.getParent()) == String.class) {
                 System.out.println("BTOS");
@@ -248,6 +262,7 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitOR(SolParser.ORContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             visitChildren(ctx);
             System.out.println("OR");
             if (getValues(ctx.getParent()) == String.class) {
@@ -258,6 +273,7 @@ public class solCompiler {
 
         @Override
         public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             if(ctx.exp()!=null){
                 visitChildren(ctx.exp());
                 System.out.println("gload" + ctx.NOME());
@@ -267,11 +283,13 @@ public class solCompiler {
         }
 
         @Override public Class<?>  visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("GALLOC " + ctx.declaracao().size());
             visitChildren(ctx);
             return null;
         }
         @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
                     for(int i = 0; i<ctx.exp().size(); i++){
                         visitChildren(ctx.exp(i));
                         System.out.println("gstore" + ctx.NOME(i).getText());
@@ -282,21 +300,25 @@ public class solCompiler {
         //Types-------------------------------------------------------------------------------------------
         @Override
         public Class<?>  visitINTT(SolParser.INTTContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             return Integer.class;
         }
 
         @Override
         public Class<?>  visitDOUBLET(SolParser.DOUBLETContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             return Double.class;
         }
 
         @Override
         public Class<?>  visitSTRINGT(SolParser.STRINGTContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             return String.class;
         }
 
         @Override
         public Class<?>  visitBOLEANT(SolParser.BOLEANTContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             return Boolean.class;
         }
         //Types-------------------------------------------------------------------------------------------
@@ -304,35 +326,41 @@ public class solCompiler {
         //Variveis----------------------------------------------------------------------------------------
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("iconst " + ctx.getText());
             return Integer.class;
         }
         @Override
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("dconst " + ctx.getText());
             return Double.class;
         }
 
         @Override
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("true " + ctx.getText());
             return Boolean.class;
         }
 
         @Override
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("false " + ctx.getText());
             return Boolean.class;
         }
 
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("sconst " + ctx.getText());
             return String.class;
         }
 
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
+            //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("gload " + ctx.getText());
             return null;
         }
