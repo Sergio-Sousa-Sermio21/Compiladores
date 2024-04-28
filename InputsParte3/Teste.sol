@@ -1,6 +1,11 @@
 
+int n = 11;
+if n % 2 == 0
+then print "par";
+else print "impar";
+print "Fim!";
 
-print "Ola" + (3.0);
+
 /*
 int i, n;
 n = 7;

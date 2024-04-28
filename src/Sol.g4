@@ -1,6 +1,6 @@
 grammar Sol;
 
-program: tiposNoCodigo* (instrucao)* EOF;
+program: tiposNoCodigo* (instrucao)+ EOF;
 
 
 instrucao: print

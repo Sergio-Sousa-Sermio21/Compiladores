@@ -7,6 +7,16 @@
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/InputsParte3/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/Teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsSol/OrdemTeste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/OrdemTeste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sol/SolVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
@@ -74,6 +84,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsParte3" />
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>

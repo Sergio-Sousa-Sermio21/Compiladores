@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
 import java.util.*;
@@ -66,8 +67,9 @@ public class solCompiler {
             }
             if (getValues(ctx.getParent()) == String.class) {
                 System.out.println("BTOS");
+                return String.class;
             }
-            return null;
+            return Boolean.class;
         }
 
         @Override
@@ -77,7 +79,7 @@ public class solCompiler {
             Class<?> Parent = getValues(ctx.getParent());
             
             if(Parent == String.class) {
-                if (Order != Parent) {
+                if (Order.equals(Integer.class)) {
                     System.out.println("Instruction: ITOS");
                 }
                 else if (Order.equals(Double.class)) {
@@ -90,7 +92,9 @@ public class solCompiler {
                 if (Order == Integer.class)
                     System.out.println("Instrução: ITOD");
             }
-            return Parent;
+            if(Parent != Boolean.class)
+                return Parent;
+            return Order;
         }
         @Override
         public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
@@ -121,13 +125,16 @@ public class solCompiler {
             } else if (Order != Double.class && Parent == Double.class) {
                 System.out.println("ITOD");
             }
-            return Parent;
+            if(Parent != Boolean.class)
+                return Parent;
+            return Order;
         }
         @Override
         public Class<?> visitADDSUB(SolParser.ADDSUBContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
-            Class<?> Order = visitChildren(ctx);
+            Class<?> Order = visit(ctx.exp(0));
+            visit(ctx.exp(1));
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "+":
@@ -156,14 +163,16 @@ public class solCompiler {
             }else if (Order != Double.class && Parent == Double.class) {
                 System.out.println("ITOD");
             }
-            return Parent;
+            if(Parent != Boolean.class)
+                return Parent;
+            return Order;
         }
-
+        int countdiv = 0;
         @Override
         public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
             String operador = ctx.op.getText();
-            Class<?> Order = visitChildren(ctx.exp(0));
-            visitChildren(ctx.exp(1));
+            Class<?> Order = visit(ctx.exp(0));
+            visit(ctx.exp(1));
             Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "*" -> {
@@ -187,15 +196,56 @@ public class solCompiler {
                     System.out.println("ITOS");
             } else if (Order != Double.class && Parent == Double.class)
                 System.out.println("ITOD");
-            return Parent;
+            if(Parent != Boolean.class)
+                return Parent;
+            return Order;
         }
 
         @Override
         public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
-            visitChildren(ctx);
-            System.out.println(ctx.getText());
-            return getValues(ctx);
+            switch (ctx.op.getText()) {
+                case "<" -> {
+                    Class<?> leftType = visit(ctx.exp(0));
+                    Class<?> rightType = visit(ctx.exp(1));
+                    if (leftType == Double.class || rightType == Double.class) {
+                        System.out.println("DLT");
+                    } else {
+                        System.out.println("ILT");;
+                    }
+                }
+                case ">" -> {
+                    Class<?> leftType = visit(ctx.exp(1));
+                    Class<?> rightType = visit(ctx.exp(0));
+                    if (leftType == Double.class || rightType == Double.class) {
+                        System.out.println("DLT");
+                    } else {
+                        System.out.println("ILT");
+                    }
+                }
+                case "<=" -> {
+                    Class<?> leftType = visit(ctx.exp(0));
+                    Class<?> rightType = visit(ctx.exp(1));
+                    if (leftType == Double.class || rightType == Double.class) {
+                        System.out.println("DLEQ");
+                    } else {
+                        System.out.println("ILEQ");
+                    }
+                }
+                case ">=" -> {
+                    Class<?> leftType = visit(ctx.exp(1));
+                    Class<?> rightType = visit(ctx.exp(0));
+                    if (leftType == Double.class || rightType == Double.class) {
+                        System.out.println("DLEQ");
+                    } else {
+                        System.out.println("ILEQ");
+                    }
+                }
+            }
+            if (getValues(ctx.getParent()) == String.class) {
+                System.out.println("BTOS");
+                return String.class;
+            }
+            return Boolean.class;
         }
 
         //EXP---------------------------------------------------------------------------------
@@ -255,10 +305,13 @@ public class solCompiler {
         @Override
         public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-
-            System.out.println("jumpf if");
-            visitChildren(ctx);
-            System.out.println("jump if");
+            visit(ctx.exp());
+            System.out.println("jumpf -1 If");
+            visit(ctx.instrucao(0));
+            if(ctx.ELSE() != null){
+                System.out.println("jump If");
+                visit(ctx.instrucao(1));
+            }
             return null;
         }
 
@@ -273,6 +326,8 @@ public class solCompiler {
         @Override
         public Class<?> visitAND(SolParser.ANDContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
+            visit(ctx.exp(0));
+            visit(ctx.exp(1));
             System.out.println("AND");
             if (getValues(ctx.getParent()) == String.class) {
                 System.out.println("BTOS");
@@ -282,7 +337,8 @@ public class solCompiler {
         @Override
         public Class<?>  visitOR(SolParser.ORContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            visitChildren(ctx);
+            visit(ctx.exp(0));
+            visit(ctx.exp(1));
             System.out.println("OR");
             if (getValues(ctx.getParent()) == String.class) {
                 System.out.println("BTOS");
@@ -317,87 +373,99 @@ public class solCompiler {
         }
 
         //Variveis----------------------------------------------------------------------------------------
+
+        public ParseTree variable(ParserRuleContext exp, int varivavel){
+            return exp.getChild(varivavel).getChild(0);
+        }
         
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent());
+            Class<?> Parent = getValues(ctx.getParent().getParent());
+            ParserRuleContext exp = ctx.getParent().getParent();
             System.out.println("iconst " + ctx.getText());
             if (Parent == String.class) {
                 System.out.println("itos");
             } else if (Parent == Double.class) {
                 System.out.println("itod");
             } else if (Parent == Boolean.class) {
-                if (getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class) {
+                if (getValues(variable(exp,0)) == Double.class || getValues(variable(exp,2)) == Double.class) {
                     System.out.println("itod");
+                    return Double.class;
                 }
+                return Integer.class;
             }
-
-            return Parent;
+            return Objects.requireNonNullElse(Parent, Integer.class);
         }
         @Override
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent());
+            Class<?> Parent = getValues(ctx.getParent().getParent());
             System.out.println("dconst " + ctx.getText());
             if (Parent == String.class) {
                 System.out.println("dtos");
             }
-            return Parent;
+            if(Parent == Boolean.class)
+                return Double.class;
+            return Objects.requireNonNullElse(Parent, Double.class);
         }
 
         @Override
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent());
-            System.out.println("true " + ctx.getText());
+            Class<?> Parent = getValues(ctx.getParent().getParent());
+            System.out.println("true");
             if (Parent == String.class) {
                 System.out.println("btos");
             }
 
-            return Parent;
+            return Objects.requireNonNullElse(Parent, Boolean.class);
         }
 
         @Override
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent());
-            System.out.println("false " + ctx.getText());
+            Class<?> Parent = getValues(ctx.getParent().getParent());
+            System.out.println("false");
             if (Parent == String.class) {
                 System.out.println("btos");
             }
 
-            return Parent;
+            return Objects.requireNonNullElse(Parent, Boolean.class);
         }
 
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent());
             System.out.println("sconst " + ctx.getText());
-            return Parent;
+            return String.class;
         }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             System.out.println("gload " + PosicaoVariaveis.get(ctx.getText()));
-            Class<?> Parent = getValues(ctx.getParent().getParent());
+            ParserRuleContext exp = ctx.getParent().getParent();
+            Class<?> Parent = getValues(exp);
             Class<?> Variavel = getValues(ctx);
             if (Parent == String.class && Variavel.equals(Integer.class)) {
                 System.out.println("itos");
             } else if (Parent == Double.class && Variavel.equals(Integer.class)) {
                 System.out.println("itod");
             } else if (Parent == Boolean.class && Variavel.equals(Integer.class)) {
-                if (getValues(ctx.getParent().getChild(0)) == Double.class || getValues(ctx.getParent().getChild(2)) == Double.class) {
+
+                if (getValues(exp.getChild(0).getChild(0)) == Double.class || getValues(exp.getChild(2).getChild(0)) == Double.class) {
                     System.out.println("itod");
+                    return Double.class;
                 }
+                return Integer.class;
             } else if (Parent == String.class && Variavel.equals(Boolean.class)) {
                 System.out.println("btos");
             } else if (Parent == String.class && Variavel.equals(Double.class)) {
                 System.out.println("dtos");
             }
-
-            return Parent;
+            if(Parent == Boolean.class)
+                return Variavel;
+            return Objects.requireNonNullElse(Parent, Variavel);
         }
         //Variveis----------------------------------------------------------------------------------------
 
