@@ -200,7 +200,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         loopCount++;
         Class<?> conditionType = visit(ctx.exp());
         if ( conditionType !=Object.class && !conditionType.equals(Boolean.class)) {
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
                     " error: While expression must be of type bool");
 
         }
@@ -215,17 +215,17 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         if(tiposVariaveis.containsKey(ctx.NOME().getText())){
             variavel = tiposVariaveis.get(ctx.NOME().getText());
         } else {
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                     " error: Variable not defined " + ctx.getText());
             variavel = Object.class;
         }
         Class<?> conditionType = visit(ctx.exp(0));
         Class<?> target = visit(ctx.exp(1));
         if(variavel != Object.class && variavel!=Integer.class)
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
                     " error: For variable needs to be of type int and it is: " + variavel.getSimpleName());
         if (!(target == Object.class || conditionType == Object.class ) && (!conditionType.equals(Integer.class) && target != Integer.class))
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine()+1 +
                     " error: For expression must be of type int");
         visit(ctx.instrucao());
         loopCount--;
@@ -236,7 +236,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         
         Class<?> conditionType = visit(ctx.exp());
         if ( conditionType!=Object.class && !conditionType.equals(Boolean.class)) {
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() + 1 +
                     " error: If expression must be of type bool");
 
         }
@@ -253,7 +253,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?> visitBreak(SolParser.BreakContext ctx) {
         
         if (loopCount == 0) {
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
                     " error: Break statement can only occur inside a loop");
         }
         return null;
@@ -317,7 +317,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         for(int i = 0; i<ctx.declaracao().size(); i++){
             Class<?> verificar = visit(ctx.declaracao().get(i));
             if(verificar != Object.class && verificar != tipo && !(tipo==Double.class && verificar == Integer.class)) {
-                errors.add("line " + ctx.declaracao().get(i).getStart().getLine() + ":" +
+                errors.add("Line " + ctx.declaracao().get(i).getStart().getLine() + ":" +
                         ctx.declaracao().get(i).getStart().getCharPositionInLine() +
                         " error: " + verificar + " type mismatch");
             }
@@ -398,8 +398,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
         if(!tiposVariaveis.containsKey(ctx.NOME().getText())){
-            errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
-                    " error: Variavel nao defenida " + ctx.getText());
+            errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                    " error: Variable not defined " + ctx.getText());
             setValues(ctx, Object.class);
             return Object.class;
         }
@@ -415,14 +415,14 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             Class<?> tipo = visit(ctx.exp(i));
             if(tiposVariaveis.containsKey(ctx.NOME().get(i).getText())){
                 if(tipo!=tiposVariaveis.get(ctx.NOME().get(i).getText())) {
-                    System.err.println("Tipo errado" + " " + tipo.getSimpleName() + " hash " + tiposVariaveis.get(ctx.NOME().get(i).getText()));
-                    errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
-                            " error: Tipo errado para a variavel " + ctx.NOME().get(i).getText());
+                    System.err.println("Type error" + " " + tipo.getSimpleName() + " hash " + tiposVariaveis.get(ctx.NOME().get(i).getText()));
+                    errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                            " error: Wrong type for variable " + ctx.NOME().get(i).getText());
                 }
 
             } else {
-                errors.add("line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
-                        " error: Variavel nao defenida " + ctx.getText());
+                errors.add("Line " + ctx.getStart().getLine() + ":" + ctx.getStart().getCharPositionInLine() +
+                        " error: Variable not defined " + ctx.getText());
             }
         }
         return null;
