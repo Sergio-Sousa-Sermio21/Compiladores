@@ -16,6 +16,10 @@ public class solCompiler {
     static class Visitor extends SolBaseVisitor<Class<?>> {
         private final Map<String, Integer> PosicaoVariaveis = new HashMap<>();
         private ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>();
+
+        private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
+
+        private final ArrayList<Object> constantpoll = new ArrayList<>();
         private int ciclos = -1;
 
         private int countVariable = 0;
@@ -25,7 +29,7 @@ public class solCompiler {
         public Class<?> visitProgram(SolParser.ProgramContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             visitChildren(ctx);
-            System.out.println("halt");
+            instrucoes.add(new Instrucion(Commands.HALT));
             return null;
         }
 
@@ -44,29 +48,29 @@ public class solCompiler {
             switch (operator) {
                 case "==":
                     if (leftType == Double.class || rightType == Double.class) {
-                        System.out.println("DEQ");
+                        instrucoes.add(new Instrucion(Commands.DEQ));
                     } else if (leftType == Integer.class) {
-                        System.out.println("IEQ");
+                        instrucoes.add(new Instrucion(Commands.IEQ));
                     } else if (leftType == String.class) {
-                        System.out.println("SEQ");
+                        instrucoes.add(new Instrucion(Commands.SEQ));
                     } else {
-                        System.out.println("BEQ");
+                        instrucoes.add(new Instrucion(Commands.BEQ));
                     }
                     break;
                 case "!=":
                     if (leftType == Double.class || rightType == Double.class) {
-                        System.out.println("DNEQ");
+                        instrucoes.add(new Instrucion(Commands.DNEQ));
                     } else if (leftType == Integer.class) {
-                        System.out.println("INEQ");
+                        instrucoes.add(new Instrucion(Commands.INEQ));
                     } else if (leftType == String.class) {
-                        System.out.println("SNEQ");
+                        instrucoes.add(new Instrucion(Commands.SNEQ));
                     } else {
-                        System.out.println("BNEQ");
+                        instrucoes.add(new Instrucion(Commands.BNEQ));
                     }
                     break;
             }
             if (getValues(ctx.getParent()) == String.class) {
-                System.out.println("BTOS");
+                instrucoes.add(new Instrucion(Commands.BTOS));
                 return String.class;
             }
             return Boolean.class;
@@ -80,17 +84,17 @@ public class solCompiler {
             
             if(Parent == String.class) {
                 if (Order.equals(Integer.class)) {
-                    System.out.println("Instruction: ITOS");
+                    instrucoes.add(new Instrucion(Commands.ITOS));
                 }
                 else if (Order.equals(Double.class)) {
-                    System.out.println("Instruction: DTOS");
+                    instrucoes.add(new Instrucion(Commands.DTOS));
                 } else {
-                    System.out.println("btos");
+                    instrucoes.add(new Instrucion(Commands.BTOS));
                 }
             }
             else if (Parent == Double.class) {
                 if (Order == Integer.class)
-                    System.out.println("Instrução: ITOD");
+                    instrucoes.add(new Instrucion(Commands.ITOD));
             }
             if(Parent != Boolean.class)
                 return Parent;
@@ -105,25 +109,25 @@ public class solCompiler {
             switch (operador) {
                 case "-":
                     if (Order == Double.class) {
-                        System.out.println("DUMINUS");
+                        instrucoes.add(new Instrucion(Commands.DUMINUS));
                     } else {
-                        System.out.println("IUMINUS");
+                        instrucoes.add(new Instrucion(Commands.IUMINUS));
                     }
                     break;
                 case "not":
-                    System.out.println("NOT");
+                    instrucoes.add(new Instrucion(Commands.NOT));
                     break;
             }
             if (Parent == String.class) {
                 if (Order == Double.class) {
-                    System.out.println("DTOS");
+                    instrucoes.add(new Instrucion(Commands.DTOS));
                 } else if (Order == Integer.class) {
-                    System.out.println("ITOS");
+                    instrucoes.add(new Instrucion(Commands.ITOS));
                 } else {
-                    System.out.println("BTOS");
+                    instrucoes.add(new Instrucion(Commands.BTOS));
                 }
             } else if (Order != Double.class && Parent == Double.class) {
-                System.out.println("ITOD");
+                instrucoes.add(new Instrucion(Commands.ITOD));
             }
             if(Parent != Boolean.class)
                 return Parent;
@@ -139,29 +143,29 @@ public class solCompiler {
             switch (operador) {
                 case "+":
                     if (Order == Double.class) {
-                        System.out.println("DADD");
+                        instrucoes.add(new Instrucion(Commands.DADD));
                     } else if (Order == Integer.class) {
-                        System.out.println("IADD");
+                        instrucoes.add(new Instrucion(Commands.IADD));
                     } else {
-                        System.out.println("SADD");
+                        instrucoes.add(new Instrucion(Commands.SADD));
                     }
                     break;
                 case "-":
                     if (Order == Double.class) {
-                        System.out.println("DSUB");
+                        instrucoes.add(new Instrucion(Commands.DSUB));
                     } else {
-                        System.out.println("ISUB");
+                        instrucoes.add(new Instrucion(Commands.ISUB));
                     }
                     break;
             }
             if (Parent == String.class) {
                 if (Order == Double.class) {
-                    System.out.println("DTOS");
+                    instrucoes.add(new Instrucion(Commands.DTOS));
                 } else if (Order == Integer.class) {
-                    System.out.println("ITOS");
+                    instrucoes.add(new Instrucion(Commands.ITOS));
                 }
             }else if (Order != Double.class && Parent == Double.class) {
-                System.out.println("ITOD");
+                instrucoes.add(new Instrucion(Commands.ITOD));
             }
             if(Parent != Boolean.class)
                 return Parent;
@@ -177,25 +181,25 @@ public class solCompiler {
             switch (operador) {
                 case "*" -> {
                     if (Order == Double.class)
-                        System.out.println("DMULT");
+                        instrucoes.add(new Instrucion(Commands.DMULT));
                     else
-                        System.out.println("IMULT");
+                        instrucoes.add(new Instrucion(Commands.IMULT));
                 }
                 case "/" ->{
                     if(Order == Double.class)
-                        System.out.println("DDIV");
+                        instrucoes.add(new Instrucion(Commands.DDIV));
                     else
-                        System.out.println("IDIV");
+                        instrucoes.add(new Instrucion(Commands.IDIV));
                 }
-                case "%"-> System.out.println("IMOD");
+                case "%"-> instrucoes.add(new Instrucion(Commands.IMOD));
             }
             if (Parent == String.class){
                 if (Order == Double.class)
-                    System.out.println("DTOS");
+                    instrucoes.add(new Instrucion(Commands.DTOS));
                 else
-                    System.out.println("ITOS");
+                    instrucoes.add(new Instrucion(Commands.ITOS));
             } else if (Order != Double.class && Parent == Double.class)
-                System.out.println("ITOD");
+                instrucoes.add(new Instrucion(Commands.ITOD));
             if(Parent != Boolean.class)
                 return Parent;
             return Order;
@@ -208,41 +212,41 @@ public class solCompiler {
                     Class<?> leftType = visit(ctx.exp(0));
                     Class<?> rightType = visit(ctx.exp(1));
                     if (leftType == Double.class || rightType == Double.class) {
-                        System.out.println("DLT");
+                        instrucoes.add(new Instrucion(Commands.DLT));
                     } else {
-                        System.out.println("ILT");;
+                        instrucoes.add(new Instrucion(Commands.ILT));
                     }
                 }
                 case ">" -> {
                     Class<?> leftType = visit(ctx.exp(1));
                     Class<?> rightType = visit(ctx.exp(0));
                     if (leftType == Double.class || rightType == Double.class) {
-                        System.out.println("DLT");
+                        instrucoes.add(new Instrucion(Commands.DLT));
                     } else {
-                        System.out.println("ILT");
+                        instrucoes.add(new Instrucion(Commands.ILT));
                     }
                 }
                 case "<=" -> {
                     Class<?> leftType = visit(ctx.exp(0));
                     Class<?> rightType = visit(ctx.exp(1));
                     if (leftType == Double.class || rightType == Double.class) {
-                        System.out.println("DLEQ");
+                        instrucoes.add(new Instrucion(Commands.DLEQ));
                     } else {
-                        System.out.println("ILEQ");
+                        instrucoes.add(new Instrucion(Commands.ILEQ));
                     }
                 }
                 case ">=" -> {
                     Class<?> leftType = visit(ctx.exp(1));
                     Class<?> rightType = visit(ctx.exp(0));
                     if (leftType == Double.class || rightType == Double.class) {
-                        System.out.println("DLEQ");
+                        instrucoes.add(new Instrucion(Commands.DLEQ));
                     } else {
-                        System.out.println("ILEQ");
+                        instrucoes.add(new Instrucion(Commands.ILEQ));
                     }
                 }
             }
             if (getValues(ctx.getParent()) == String.class) {
-                System.out.println("BTOS");
+                instrucoes.add(new Instrucion(Commands.BTOS));
                 return String.class;
             }
             return Boolean.class;
@@ -261,13 +265,13 @@ public class solCompiler {
             visit(ctx.exp());
             Class<?> Atual = getValues(ctx);
             if(Atual == Integer.class)
-                System.out.println("iprint");
+                instrucoes.add(new Instrucion(Commands.IPRINT));
             else if(Atual == Double.class)
-                System.out.println("dprint");
+                instrucoes.add(new Instrucion(Commands.DPRINT));
             else if(Atual == String.class)
-                System.out.println("sprint");
+                instrucoes.add(new Instrucion(Commands.SPRINT));
             else if(Atual == Boolean.class)
-                System.out.println("bprint");
+                instrucoes.add(new Instrucion(Commands.BPRINT));
             return null;
         }
         @Override
@@ -282,35 +286,52 @@ public class solCompiler {
             System.out.println("jump while");
             return null;
         }
+
+        public void setBreaks( ){
+            for (int i = 0; i< breaks.get(ciclos).size(); i++){
+                instrucoes.get(i).setValue(instrucoes.size());
+            }
+            breaks.remove(ciclos);
+        }
         @Override
         public Class<?>  visitForState(SolParser.ForStateContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             breaks.add(new ArrayList<>());
             ciclos++;
+            int iniciofor = instrucoes.size();
             visit(ctx.exp(0));
-            System.out.println("gstore " + PosicaoVariaveis.get(ctx.NOME().getText()));
-            System.out.println("gload " + PosicaoVariaveis.get(ctx.NOME().getText()));
+            instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
+            instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.NOME().getText())));
             visit(ctx.exp(1));
-            System.out.println("ileq");
-            System.out.println("jumpf -1 For");
+            instrucoes.add(new Instrucion(Commands.ILEQ));
+            int posicaoJumpf = instrucoes.size();
+            instrucoes.add(new Instrucion(Commands.JUMPF, -1));
             visit(ctx.instrucao());
+            instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.NOME().getText())));
+            instrucoes.add(new Instrucion(Commands.ICONST, 1));
+            instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
+            instrucoes.add(new Instrucion(Commands.IADD));
+            instrucoes.add(new Instrucion(Commands.JUMP, iniciofor));
+            instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
+            setBreaks();
             ciclos--;
-            System.out.println("gload " + PosicaoVariaveis.get(ctx.NOME().getText()));
-            System.out.println("iconst 1");
-            System.out.println("gstore " + PosicaoVariaveis.get(ctx.NOME().getText()));
-            System.out.println("iadd");
-            System.out.println("jump for");
             return null;
         }
         @Override
         public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             visit(ctx.exp());
-            System.out.println("jumpf -1 If");
+            int inicioIF = instrucoes.size();
+            instrucoes.add(new Instrucion(Commands.JUMPF, -1));
             visit(ctx.instrucao(0));
             if(ctx.ELSE() != null){
-                System.out.println("jump If");
+                int inicioElse = instrucoes.size();
+                instrucoes.add(new Instrucion(Commands.JUMP, -1));
+                instrucoes.get(inicioIF).setValue(instrucoes.size());
                 visit(ctx.instrucao(1));
+                instrucoes.get(inicioElse).setValue(instrucoes.size());
+            } else {
+                instrucoes.get(inicioIF).setValue(instrucoes.size());
             }
             return null;
         }
@@ -319,7 +340,7 @@ public class solCompiler {
         public Class<?> visitBreak(SolParser.BreakContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             breaks.get(ciclos).add(ciclos);
-            System.out.println("jump -1");
+            instrucoes.add(new Instrucion(Commands.JUMP, -1));
             return null;
         }
 
@@ -328,9 +349,9 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             visit(ctx.exp(0));
             visit(ctx.exp(1));
-            System.out.println("AND");
+            instrucoes.add(new Instrucion(Commands.AND));
             if (getValues(ctx.getParent()) == String.class) {
-                System.out.println("BTOS");
+                instrucoes.add(new Instrucion(Commands.BTOS));
             }
             return Boolean.class;
         }
@@ -339,9 +360,9 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             visit(ctx.exp(0));
             visit(ctx.exp(1));
-            System.out.println("OR");
+            instrucoes.add(new Instrucion(Commands.OR));
             if (getValues(ctx.getParent()) == String.class) {
-                System.out.println("BTOS");
+                instrucoes.add(new Instrucion(Commands.BTOS));
             }
             return Boolean.class;
         }
@@ -351,7 +372,7 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             if(ctx.exp()!=null){
                 visitChildren(ctx.exp());
-                System.out.println("gstore " + countVariable);
+                instrucoes.add(new Instrucion(Commands.GSTORE, countVariable));
             }
             PosicaoVariaveis.put(ctx.NOME().getText(), countVariable++);
             return null;
@@ -359,7 +380,7 @@ public class solCompiler {
 
         @Override public Class<?>  visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            System.out.println("galloc " + ctx.declaracao().size());
+            instrucoes.add(new Instrucion(Commands.GALLOC, ctx.declaracao().size()));
             visitChildren(ctx);
             return null;
         }
@@ -367,14 +388,14 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
                     for(int i = 0; i<ctx.exp().size(); i++){
                         visitChildren(ctx.exp(i));
-                        System.out.println("gstore " + PosicaoVariaveis.get(ctx.NOME(i).getText()));
+                        instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.getText())));
                     }
                     return null;
         }
 
         //Variveis----------------------------------------------------------------------------------------
 
-        public ParseTree variable(ParserRuleContext exp, int varivavel){
+        public ParseTree getvariable(ParserRuleContext exp, int varivavel){
             return exp.getChild(varivavel).getChild(0);
         }
         
@@ -383,14 +404,14 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Parent = getValues(ctx.getParent().getParent());
             ParserRuleContext exp = ctx.getParent().getParent();
-            System.out.println("iconst " + ctx.getText());
+            instrucoes.add(new Instrucion(Commands.ICONST, Integer.parseInt(ctx.getText())));
             if (Parent == String.class) {
-                System.out.println("itos");
+                instrucoes.add(new Instrucion(Commands.ITOS));
             } else if (Parent == Double.class) {
-                System.out.println("itod");
+                instrucoes.add(new Instrucion(Commands.ITOD));
             } else if (Parent == Boolean.class) {
-                if (getValues(variable(exp,0)) == Double.class || getValues(variable(exp,2)) == Double.class) {
-                    System.out.println("itod");
+                if (getValues(getvariable(exp,0)) == Double.class || getValues(getvariable(exp,2)) == Double.class) {
+                    instrucoes.add(new Instrucion(Commands.ITOD));
                     return Double.class;
                 }
                 return Integer.class;
@@ -401,9 +422,10 @@ public class solCompiler {
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Parent = getValues(ctx.getParent().getParent());
-            System.out.println("dconst " + ctx.getText());
+            instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
+            constantpoll.add(Double.parseDouble(ctx.getText()));
             if (Parent == String.class) {
-                System.out.println("dtos");
+                instrucoes.add(new Instrucion(Commands.DTOS));
             }
             if(Parent == Boolean.class)
                 return Double.class;
@@ -414,9 +436,9 @@ public class solCompiler {
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Parent = getValues(ctx.getParent().getParent());
-            System.out.println("true");
+            instrucoes.add(new Instrucion(Commands.TCONST));
             if (Parent == String.class) {
-                System.out.println("btos");
+                instrucoes.add(new Instrucion(Commands.BTOS));
             }
 
             return Objects.requireNonNullElse(Parent, Boolean.class);
@@ -426,9 +448,9 @@ public class solCompiler {
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Parent = getValues(ctx.getParent().getParent());
-            System.out.println("false");
+            instrucoes.add(new Instrucion(Commands.FCONST));
             if (Parent == String.class) {
-                System.out.println("btos");
+                instrucoes.add(new Instrucion(Commands.BTOS));
             }
 
             return Objects.requireNonNullElse(Parent, Boolean.class);
@@ -437,31 +459,32 @@ public class solCompiler {
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            System.out.println("sconst " + ctx.getText());
+            instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
+            constantpoll.add(ctx.getText());
             return String.class;
         }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            System.out.println("gload " + PosicaoVariaveis.get(ctx.getText()));
+            instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
             ParserRuleContext exp = ctx.getParent().getParent();
             Class<?> Parent = getValues(exp);
             Class<?> Variavel = getValues(ctx);
             if (Parent == String.class && Variavel.equals(Integer.class)) {
-                System.out.println("itos");
+                instrucoes.add(new Instrucion(Commands.ITOS));
             } else if (Parent == Double.class && Variavel.equals(Integer.class)) {
-                System.out.println("itod");
+                instrucoes.add(new Instrucion(Commands.ITOD));
             } else if (Parent == Boolean.class && Variavel.equals(Integer.class)) {
 
                 if (getValues(exp.getChild(0).getChild(0)) == Double.class || getValues(exp.getChild(2).getChild(0)) == Double.class) {
-                    System.out.println("itod");
+                    instrucoes.add(new Instrucion(Commands.ITOD));
                     return Double.class;
                 }
                 return Integer.class;
             } else if (Parent == String.class && Variavel.equals(Boolean.class)) {
-                System.out.println("btos");
+                instrucoes.add(new Instrucion(Commands.BTOS));
             } else if (Parent == String.class && Variavel.equals(Double.class)) {
-                System.out.println("dtos");
+                instrucoes.add(new Instrucion(Commands.DTOS));
             }
             if(Parent == Boolean.class)
                 return Variavel;
