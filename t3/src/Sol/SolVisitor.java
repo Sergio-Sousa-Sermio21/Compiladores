@@ -29,11 +29,11 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(SolParser.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SolParser#codeType}.
+	 * Visit a parse tree produced by {@link SolParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCodeType(SolParser.CodeTypeContext ctx);
+	T visitDeclaration(SolParser.DeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SolParser#while}.
 	 * @param ctx the parse tree
@@ -52,6 +52,12 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIf(SolParser.IfContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SolParser#else}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElse(SolParser.ElseContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SolParser#empty}.
 	 * @param ctx the parse tree
@@ -93,40 +99,11 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBooleanType(SolParser.BooleanTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IntegerDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
+	 * Visit a parse tree produced by {@link SolParser#declarationDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntegerDeclaration(SolParser.IntegerDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code DoubleDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDoubleDeclaration(SolParser.DoubleDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code StringDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStringDeclaration(SolParser.StringDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TrueDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTrueDeclaration(SolParser.TrueDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code FalseDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFalseDeclaration(SolParser.FalseDeclarationContext ctx);
+	T visitDeclarationDef(SolParser.DeclarationDefContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Types}
 	 * labeled alternative in {@link SolParser#op}.

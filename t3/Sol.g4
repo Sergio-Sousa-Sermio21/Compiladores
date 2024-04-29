@@ -1,6 +1,6 @@
 grammar Sol;
 
-executable: (command | codeType)* EOF;
+executable: (command | declaration)* EOF;
 
 command: PRINT op ';'
             | block
@@ -11,15 +11,17 @@ command: PRINT op ';'
             | break
             | VAR '=' op;
 
-block: 'begin' (command | codeType ';')* 'end';
+block: 'begin' (command | declaration ';')* 'end';
 
-codeType: declarationType declarationDef (',' declarationDef)*;
+declaration: declarationType declarationDef (',' declarationDef)*;
 
 while: 'while' op 'do' command;
 
 for: 'for' VAR '=' INT 'to' INT 'do' command;
 
-if: 'if' op 'then' command ('else' command)?;
+if: 'if' op 'then' command else?;
+
+else: 'else' command;
 
 empty: ';';
 
@@ -31,11 +33,11 @@ declarationType: 'int' #IntegerType
     | 'boolean' #BooleanType
     ;
 
-declarationDef: VAR ('=' INT)? #IntegerDeclaration
-             | VAR ('=' DOUBLE)? #DoubleDeclaration
-             | VAR ('=' STRING)? #StringDeclaration
-             | VAR ('=' TRUE)? #TrueDeclaration
-             | VAR ('=' FALSE)? #FalseDeclaration
+declarationDef: VAR ('=' INT)?
+             | VAR ('=' DOUBLE)?
+             | VAR ('=' STRING)?
+             | VAR ('=' TRUE)?
+             | VAR ('=' FALSE)?
              ;
 
 op: LPARENTHESIS op RPARENTHESIS #Parenthesis

@@ -38,15 +38,15 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitBlock(SolParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SolParser#codeType}.
+	 * Enter a parse tree produced by {@link SolParser#declaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterCodeType(SolParser.CodeTypeContext ctx);
+	void enterDeclaration(SolParser.DeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link SolParser#codeType}.
+	 * Exit a parse tree produced by {@link SolParser#declaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitCodeType(SolParser.CodeTypeContext ctx);
+	void exitDeclaration(SolParser.DeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SolParser#while}.
 	 * @param ctx the parse tree
@@ -77,6 +77,16 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf(SolParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SolParser#else}.
+	 * @param ctx the parse tree
+	 */
+	void enterElse(SolParser.ElseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SolParser#else}.
+	 * @param ctx the parse tree
+	 */
+	void exitElse(SolParser.ElseContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SolParser#empty}.
 	 * @param ctx the parse tree
@@ -146,65 +156,15 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitBooleanType(SolParser.BooleanTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IntegerDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
+	 * Enter a parse tree produced by {@link SolParser#declarationDef}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntegerDeclaration(SolParser.IntegerDeclarationContext ctx);
+	void enterDeclarationDef(SolParser.DeclarationDefContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code IntegerDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
+	 * Exit a parse tree produced by {@link SolParser#declarationDef}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntegerDeclaration(SolParser.IntegerDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code DoubleDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterDoubleDeclaration(SolParser.DoubleDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code DoubleDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitDoubleDeclaration(SolParser.DoubleDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code StringDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterStringDeclaration(SolParser.StringDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code StringDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitStringDeclaration(SolParser.StringDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code TrueDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterTrueDeclaration(SolParser.TrueDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code TrueDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitTrueDeclaration(SolParser.TrueDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code FalseDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void enterFalseDeclaration(SolParser.FalseDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code FalseDeclaration}
-	 * labeled alternative in {@link SolParser#declarationDef}.
-	 * @param ctx the parse tree
-	 */
-	void exitFalseDeclaration(SolParser.FalseDeclarationContext ctx);
+	void exitDeclarationDef(SolParser.DeclarationDefContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Types}
 	 * labeled alternative in {@link SolParser#op}.

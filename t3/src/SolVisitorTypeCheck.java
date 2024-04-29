@@ -80,6 +80,61 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return super.visitTypes(ctx);
     }
 
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitIntegerType(SolParser.IntegerTypeContext ctx) {
+        tree.put(ctx, Integer.class);
+        return super.visitIntegerType(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitDoubleType(SolParser.DoubleTypeContext ctx) {
+        tree.put(ctx, Double.class);
+        return super.visitDoubleType(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitStringType(SolParser.StringTypeContext ctx) {
+        tree.put(ctx, String.class);
+        return super.visitStringType(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitBooleanType(SolParser.BooleanTypeContext ctx) {
+        tree.put(ctx, Boolean.class);
+        return super.visitBooleanType(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitCodeType(SolParser.CodeTypeContext ctx) {
+        tree.put(ctx, tree.get(ctx.declarationType()));
+        return super.visitCodeType(ctx);
+    }
+
     /**
      * Visits type context nodes in the parse tree to assign types.
      *

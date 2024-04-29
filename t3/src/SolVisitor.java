@@ -16,6 +16,8 @@ public class SolVisitor extends SolBaseVisitor {
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
 
+    private ArrayList<String> gallocContent;
+
     /**
      * Constructor for SolVisitor.
      * Initializes instance variables.
@@ -47,6 +49,113 @@ public class SolVisitor extends SolBaseVisitor {
         return constantPool;
     }
 
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitIf(SolParser.IfContext ctx) {
+        int jumpHere = instructions.size();
+        visit(ctx.op());
+        instructions.add(new Instruction(TokenTasm.JUMPF, jumpHere)); //jump out of the loop
+        int indexOfJump = instructions.size()-1;
+        Object result = visit(ctx.command());
+        instructions.add(new Instruction(TokenTasm.JUMP, 0));
+        int indexOfElseJump=instructions.size()-1;
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        if (ctx.else_()!= null)
+            visit(ctx.else_());
+        instructions.set(indexOfElseJump, new Instruction(TokenTasm.JUMP, instructions.size()));
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitWhile(SolParser.WhileContext ctx) {
+        int jumpHere = instructions.size();
+        visit(ctx.op());
+        instructions.add(new Instruction(TokenTasm.JUMPF, jumpHere)); //jump out of the loop
+        int indexOfJump = instructions.size()-1;
+        Object result = visit(ctx.command());
+        instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFor(SolParser.ForContext ctx) {
+        instructions.add(new Instruction(TokenTasm.GALLOC,1));
+        String var = ctx.VAR().getText();
+        gallocContent.add(var);
+        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.INT(0).getText())));
+        instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        int jumpHere = instructions.size();
+        instructions.add(new Instruction(TokenTasm.GLOAD, gallocContent.indexOf(var)));
+        instructions.add(new Instruction(TokenTasm.ICONST, 1));
+        instructions.add(new Instruction(TokenTasm.IADD));
+        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.INT(1).getText())));
+        instructions.add(new Instruction(TokenTasm.ILEQ));
+        instructions.add(new Instruction(TokenTasm.JUMPF, jumpHere)); //jump out of the loop
+        int indexOfJump = instructions.size()-1;
+        Object result = visit(ctx.command());
+        instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        gallocContent.remove(var);
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitDeclaration(SolParser.DeclarationContext ctx) {
+        instructions.add(new Instruction(TokenTasm.GALLOC,ctx.declarationDef().size()));
+        Object result = null;
+        for (SolParser.DeclarationDefContext i:ctx.declarationDef())
+            result = visit(i);
+        return result;
+    }
+
+    /**TODO comment and validate
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
+        gallocContent.add(ctx.VAR().getText());
+        if (ctx.INT()!=null){
+            instructions.add(new Instruction(TokenTasm.ICONST,Integer.parseInt(ctx.INT().getText())));
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        } else if (ctx.DOUBLE()!=null) {
+            constantPool.add(Double.parseDouble(ctx.DOUBLE().getText()));
+            instructions.add(new Instruction(TokenTasm.DCONST, constantPool.size()-1));
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        }else if (ctx.STRING()!=null) {
+            constantPool.add(ctx.STRING().getText());
+            instructions.add(new Instruction(TokenTasm.SCONST,constantPool.size()-1));
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        } else if (ctx.TRUE()!=null) {
+            instructions.add(new Instruction(TokenTasm.TCONST));
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        } else if (ctx.FALSE()!=null) {
+            instructions.add(new Instruction(TokenTasm.FCONST));
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        }
+        return super.visitDeclarationDef(ctx);
+    }
 
     /**
      * Visits type nodes in the parse tree and generates instructions accordingly.
