@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.util.*;
 
@@ -69,43 +70,20 @@ public class solCompiler {
                     }
                     break;
             }
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-                return String.class;
-            }
-            return Boolean.class;
+            return TypesConverter(ctx.getParent(), leftType);
         }
 
         @Override
         public Class<?> visitORDER(SolParser.ORDERContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Order = visit(ctx.exp());
-            Class<?> Parent = getValues(ctx.getParent());
-            
-            if(Parent == String.class) {
-                if (Order.equals(Integer.class)) {
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-                }
-                else if (Order.equals(Double.class)) {
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                } else {
-                    instrucoes.add(new Instrucion(Commands.BTOS));
-                }
-            }
-            else if (Parent == Double.class) {
-                if (Order == Integer.class)
-                    instrucoes.add(new Instrucion(Commands.ITOD));
-            }
-            if(Parent != Boolean.class)
-                return Parent;
-            return Order;
+            return TypesConverter(ctx.getParent(), Order);
         }
         @Override
         public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
             Class<?> Order = visitChildren(ctx);
-            Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "-":
                     if (Order == Double.class) {
@@ -118,20 +96,8 @@ public class solCompiler {
                     instrucoes.add(new Instrucion(Commands.NOT));
                     break;
             }
-            if (Parent == String.class) {
-                if (Order == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                } else if (Order == Integer.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-                } else {
-                    instrucoes.add(new Instrucion(Commands.BTOS));
-                }
-            } else if (Order != Double.class && Parent == Double.class) {
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            }
-            if(Parent != Boolean.class)
-                return Parent;
-            return Order;
+
+            return TypesConverter(ctx.getParent(), Order);
         }
         @Override
         public Class<?> visitADDSUB(SolParser.ADDSUBContext ctx) {
@@ -158,18 +124,7 @@ public class solCompiler {
                     }
                     break;
             }
-            if (Parent == String.class) {
-                if (Order == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                } else if (Order == Integer.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-                }
-            }else if (Order != Double.class && Parent == Double.class) {
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            }
-            if(Parent != Boolean.class)
-                return Parent;
-            return Order;
+            return TypesConverter(ctx.getParent(), Order);
         }
         int countdiv = 0;
         @Override
@@ -193,16 +148,8 @@ public class solCompiler {
                 }
                 case "%"-> instrucoes.add(new Instrucion(Commands.IMOD));
             }
-            if (Parent == String.class){
-                if (Order == Double.class)
-                    instrucoes.add(new Instrucion(Commands.DTOS));
-                else
-                    instrucoes.add(new Instrucion(Commands.ITOS));
-            } else if (Order != Double.class && Parent == Double.class)
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            if(Parent != Boolean.class)
-                return Parent;
-            return Order;
+
+            return TypesConverter(ctx.getParent(), Order);
         }
 
         @Override
@@ -245,11 +192,8 @@ public class solCompiler {
                     }
                 }
             }
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-                return String.class;
-            }
-            return Boolean.class;
+
+            return TypesConverter(ctx.getParent(), Boolean.class);
         }
 
         //EXP---------------------------------------------------------------------------------
@@ -354,10 +298,7 @@ public class solCompiler {
             visit(ctx.exp(0));
             visit(ctx.exp(1));
             instrucoes.add(new Instrucion(Commands.AND));
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-            return Boolean.class;
+            return TypesConverter(ctx.getParent(), Boolean.class);
         }
         @Override
         public Class<?>  visitOR(SolParser.ORContext ctx) {
@@ -365,10 +306,7 @@ public class solCompiler {
             visit(ctx.exp(0));
             visit(ctx.exp(1));
             instrucoes.add(new Instrucion(Commands.OR));
-            if (getValues(ctx.getParent()) == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-            return Boolean.class;
+            return TypesConverter(ctx.getParent(), Boolean.class);
         }
 
         @Override
@@ -399,6 +337,30 @@ public class solCompiler {
 
         //Variveis----------------------------------------------------------------------------------------
 
+        public Class<?> TypesConverter(ParserRuleContext Parent, Class<?> Atual){
+            Class<?> ClassParent = getValues(Parent);
+            if (ClassParent == String.class && Atual.equals(Integer.class)) {
+                instrucoes.add(new Instrucion(Commands.ITOS));
+            } else if (ClassParent == Double.class && Atual.equals(Integer.class)) {
+                instrucoes.add(new Instrucion(Commands.ITOD));
+            } else if (ClassParent == Boolean.class && Atual.equals(Integer.class)) {
+
+                if (getValues(getvariable(Parent,0)) == Double.class || getValues(getvariable(Parent,2)) == Double.class) {
+                    instrucoes.add(new Instrucion(Commands.ITOD));
+                    return Double.class;
+                }
+                return Integer.class;
+            } else if (ClassParent == String.class && Atual.equals(Boolean.class)) {
+                instrucoes.add(new Instrucion(Commands.BTOS));
+            } else if (ClassParent == String.class && Atual.equals(Double.class)) {
+                instrucoes.add(new Instrucion(Commands.DTOS));
+            }
+            if(ClassParent == Boolean.class)
+                return Atual;
+            return Objects.requireNonNullElse(ClassParent, Atual);
+
+        }
+
         public ParseTree getvariable(ParserRuleContext exp, int varivavel){
             return exp.getChild(varivavel).getChild(0);
         }
@@ -406,58 +368,33 @@ public class solCompiler {
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent().getParent());
             ParserRuleContext exp = ctx.getParent().getParent();
             instrucoes.add(new Instrucion(Commands.ICONST, Integer.parseInt(ctx.getText())));
-            if (Parent == String.class) {
-                instrucoes.add(new Instrucion(Commands.ITOS));
-            } else if (Parent == Double.class) {
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            } else if (Parent == Boolean.class) {
-                if (getValues(getvariable(exp,0)) == Double.class || getValues(getvariable(exp,2)) == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOD));
-                    return Double.class;
-                }
-                return Integer.class;
-            }
-            return Objects.requireNonNullElse(Parent, Integer.class);
+            return TypesConverter(exp, getValues(ctx));
         }
         @Override
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent().getParent());
             instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
             constantpoll.add(Double.parseDouble(ctx.getText()));
-            if (Parent == String.class) {
-                instrucoes.add(new Instrucion(Commands.DTOS));
-            }
-            if(Parent == Boolean.class)
-                return Double.class;
-            return Objects.requireNonNullElse(Parent, Double.class);
+            ParserRuleContext exp = ctx.getParent().getParent();
+            return TypesConverter(exp, getValues(ctx));
         }
 
         @Override
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent().getParent());
             instrucoes.add(new Instrucion(Commands.TCONST));
-            if (Parent == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-
-            return Objects.requireNonNullElse(Parent, Boolean.class);
+            ParserRuleContext exp = ctx.getParent().getParent();
+            return TypesConverter(exp, getValues(ctx));
         }
 
         @Override
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
-            Class<?> Parent = getValues(ctx.getParent().getParent());
             instrucoes.add(new Instrucion(Commands.FCONST));
-            if (Parent == String.class) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            }
-
-            return Objects.requireNonNullElse(Parent, Boolean.class);
+            ParserRuleContext exp = ctx.getParent().getParent();
+            return TypesConverter(exp, getValues(ctx));
         }
 
         @Override
@@ -472,40 +409,63 @@ public class solCompiler {
             //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
             ParserRuleContext exp = ctx.getParent().getParent();
-            Class<?> Parent = getValues(exp);
-            Class<?> Variavel = getValues(ctx);
-            if (Parent == String.class && Variavel.equals(Integer.class)) {
-                instrucoes.add(new Instrucion(Commands.ITOS));
-            } else if (Parent == Double.class && Variavel.equals(Integer.class)) {
-                instrucoes.add(new Instrucion(Commands.ITOD));
-            } else if (Parent == Boolean.class && Variavel.equals(Integer.class)) {
-
-                if (getValues(exp.getChild(0).getChild(0)) == Double.class || getValues(exp.getChild(2).getChild(0)) == Double.class) {
-                    instrucoes.add(new Instrucion(Commands.ITOD));
-                    return Double.class;
-                }
-                return Integer.class;
-            } else if (Parent == String.class && Variavel.equals(Boolean.class)) {
-                instrucoes.add(new Instrucion(Commands.BTOS));
-            } else if (Parent == String.class && Variavel.equals(Double.class)) {
-                instrucoes.add(new Instrucion(Commands.DTOS));
-            }
-            if(Parent == Boolean.class)
-                return Variavel;
-            return Objects.requireNonNullElse(Parent, Variavel);
+            return  TypesConverter(exp, getValues(ctx));
         }
         //Variveis----------------------------------------------------------------------------------------
 
-        /** Escreve bytecode em um file com base nas instruções fornecidas
-         *
-         * @param args Argumentos presentes na linha de comando.
-         * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
-         */
-        private void writeBytecode(String[] args) throws IOException {
+        private void write(String[] args) throws IOException{
             File file = new File(args[0]);
             String newFile = file.getPath().replaceFirst("[.][^.]+$", ".tbc");
             FileOutputStream fos = new FileOutputStream(newFile);
-            DataOutputStream bytecodes = new DataOutputStream(fos);
+            DataOutputStream bytescodes = new DataOutputStream(fos);
+            writeBytecode(bytescodes);
+
+            newFile = file.getPath().replaceFirst("[.][^.]+$", ".tasm");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+            writeTasm(writer);
+        }
+        public boolean isCommandAJump(Commands command){
+            return command.equals(Commands.JUMP) || command.equals(Commands.JUMPF) || command.equals(Commands.JUMPT);
+        }
+        public boolean isValueInConstantPool(Commands coomand){
+            return coomand.equals(Commands.DCONST) || coomand.equals(Commands.SCONST);
+        }
+
+        /** Escreve Tams Commands em um file com base nas instruções fornecidas
+         *
+         * @param tasmcodes DataOutputStream para onde os comandos vão ser escritos
+         * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+         */
+        private void writeTasm(BufferedWriter tasmcodes) throws IOException {
+            int line = 0;
+            for (Instrucion  instruction : instrucoes) {
+                System.out.println(instruction);
+                if (!instruction.isValueNull()) {
+                    if (isValueInConstantPool(instruction.getCommand()))
+                        tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " " + constantpoll.get(instruction.getValue()));
+                    else if (isCommandAJump(instruction.getCommand())) {
+                        tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " L" + instruction.getValue());
+                    } else {
+                        tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " " + instruction.getValue());
+                    }
+                } else {
+                    tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase());
+                }
+                tasmcodes.newLine(); // Add a new line for each instruction
+                line++;
+            }
+            // Flush and close the BufferedWriter after writing
+            tasmcodes.flush();
+            tasmcodes.close();
+        }
+
+
+        /** Escreve bytecode em um file com base nas instruções fornecidas
+         *
+         * @param bytecodes DataOutputStream para onde os comandos vão ser escritos
+         * @throws IOException Se ocorrer algum erro de E/S ao escrever o file em bytecode
+         */
+        private void writeBytecode(DataOutputStream bytecodes) throws IOException {
             for (Instrucion instruction : instrucoes) {
                 bytecodes.write(instruction.getCommand().ordinal());
                 if(instruction.getValue() != null){
@@ -584,14 +544,14 @@ public class solCompiler {
     public void executeSol(String[] args) throws IOException {
         Visitor visitor = new Visitor();
         visitor.execute(args);
-        visitor.writeBytecode(args);
+        visitor.write(args);
     }
 
 
     public static void main(String[] args) throws IOException {
         Visitor visitor = new Visitor();
         visitor.execute(args);
-        visitor.writeBytecode(args);
+        visitor.write(args);
     }
 
 }

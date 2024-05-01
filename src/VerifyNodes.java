@@ -272,16 +272,16 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         Class<?> right= visit(ctx.exp(1));
         if(left == Object.class || right == Object.class){
             setValues(ctx, Object.class);
-            return Object.class;
         }
         else{
             if(left != Boolean.class || right != Boolean.class){
                 errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator AND" );
-                return Object.class;
+                setValues(ctx, Object.class);
             } else {
-                return Boolean.class;
+                setValues(ctx, Boolean.class);
             }
         }
+        return getValues(ctx);
     }
     @Override
     public Class<?>  visitOR(SolParser.ORContext ctx) {
@@ -289,16 +289,16 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         Class<?> right= visit(ctx.exp(1));
         if(left == Object.class || right == Object.class){
             setValues(ctx, Object.class);
-            return Object.class;
         }
         else{
             if(left != Boolean.class || right != Boolean.class){
                 errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Must use Type Boolean for the operator OR" );
-                return Object.class;
+                setValues(ctx, Object.class);
             } else {
-                return Boolean.class;
+                setValues(ctx, Boolean.class);
             }
         }
+        return getValues(ctx);
     }
 
     @Override

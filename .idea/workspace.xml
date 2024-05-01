@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/InputsParte3/Teste.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsParte3/WorkTypes.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="">
+      <change beforePath="$PROJECT_DIR$/InputsParte3/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/Teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsParte3/Teste.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsParte3/WorkTypes.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/WorkTypes.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InputsParte3/WorkTypes.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/WorkTypes.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Instrucion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Instrucion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
     </list>
+    <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,34 +49,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainSol.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Sol.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Teste.executor&quot;: &quot;Run&quot;,
-    &quot;Application.tAssembler.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.tVm.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;SegundaParteRenato&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Application.MainSol.executor": "Run",
+    "Application.Sol.executor": "Run",
+    "Application.Teste.executor": "Run",
+    "Application.tAssembler.executor": "Run",
+    "Application.tVm.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "SegundaParteRenato",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
@@ -77,7 +86,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.tVm">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compiladores" />
@@ -108,10 +117,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="tAssembler" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
-      <module name="Trabalho de Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs\testeINT.tasm" />
+      <module name="Compiladores" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsParte3\Teste.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,7 +128,7 @@
     <configuration name="tVm" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="tVM" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsSol\TesteTudo.tbc" />
+      <option name="PROGRAM_PARAMETERS" value="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\InputsParte3\Teste.tbc" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/inputs" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -192,6 +201,7 @@
       <workItem from="1714265444420" duration="3838000" />
       <workItem from="1714270045274" duration="655000" />
       <workItem from="1714328854764" duration="4221000" />
+      <workItem from="1714522171293" duration="5801000" />
     </task>
     <servers />
   </component>

@@ -1,16 +1,20 @@
-int i = 0, n = 10;
-real r = 3.24;
-int n;
-bool b = 5;
-string s;
-while s <= n do
+/*
+* Computes all prime numbers upto n
+*/
+int i, j, n = 30;
+bool isPrime;
+string result = "";
+for i = 1 to n do
 begin
-print i * i + z;
-i = i + 1;
+    // check if i is prime
+    isPrime = true;
+        for j = 2 to i/2 do
+            if i % j == 0 then
+            begin
+                isPrime = false;
+                break;
+            end
+    if isPrime
+    then result = result + " " + i;
 end
-break;
-print "Fim!";
-
-
-
-
+print "Prime numbers upto " + n + ":" + result;

@@ -13,6 +13,10 @@ public class Instrucion {
 
     public Commands getCommand(){   return  command;    }
 
+    public boolean isValueNull(){
+        return value == null;
+    }
+
     public Integer getValue(){   return value;   }
 
     public void setValue(Integer valor){ value=valor;}
