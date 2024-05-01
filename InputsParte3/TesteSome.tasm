@@ -1,0 +1,264 @@
+L0: galloc 1
+L1: iconst 10
+L2: gstore 0
+L3: galloc 1
+L4: iconst 2
+L5: gstore 1
+L6: galloc 1
+L7: dconst 3.5
+L8: gstore 2
+L9: gload 0
+L10: gload 0
+L11: iadd
+L12: gload 1
+L13: imult
+L14: gload 0
+L15: imult
+L16: iprint
+L17: gload 0
+L18: gload 0
+L19: gload 1
+L20: imult
+L21: gload 0
+L22: imult
+L23: iadd
+L24: iprint
+L25: gload 0
+L26: gload 0
+L27: gload 1
+L28: imult
+L29: gload 0
+L30: imult
+L31: iadd
+L32: iprint
+L33: gload 0
+L34: gload 0
+L35: gload 1
+L36: gload 0
+L37: imult
+L38: imult
+L39: iadd
+L40: iprint
+L41: gload 0
+L42: gload 0
+L43: iadd
+L44: gload 1
+L45: imult
+L46: gload 0
+L47: imult
+L48: itos
+L49: sconst "ualg"
+L50: sadd
+L51: dconst 1.2
+L52: dtos
+L53: sadd
+L54: sprint
+L55: gload 0
+L56: gload 0
+L57: imult
+L58: gload 1
+L59: gload 0
+L60: imod
+L61: idiv
+L62: itod
+L63: gload 2
+L64: dmult
+L65: dprint
+L66: gload 2
+L67: gload 0
+L68: gload 0
+L69: gload 1
+L70: idiv
+L71: imult
+L72: gload 0
+L73: imod
+L74: itod
+L75: dsub
+L76: gload 2
+L77: dadd
+L78: dprint
+L79: gload 2
+L80: gload 0
+L81: gload 0
+L82: gload 1
+L83: idiv
+L84: imult
+L85: gload 0
+L86: imod
+L87: itod
+L88: dsub
+L89: gload 2
+L90: dadd
+L91: dtos
+L92: sconst "true"
+L93: sadd
+L94: dconst 1.3
+L95: iconst 600
+L96: itod
+L97: dmult
+L98: dtos
+L99: sconst "teste"
+L100: sadd
+L101: sneq
+L102: fconst
+L103: tconst
+L104: and
+L105: or
+L106: bprint
+L107: tconst
+L108: tconst
+L109: and
+L110: tconst
+L111: and
+L112: tconst
+L113: fconst
+L114: or
+L115: and
+L116: fconst
+L117: or
+L118: bprint
+L119: gload 0
+L120: iconst 10000
+L121: ileq
+L122: jumpf L263
+L123: sconst "Loop Start"
+L124: sprint
+L125: iconst 10001
+L126: gstore 0
+L127: gload 0
+L128: iconst 10003
+L129: ileq
+L130: jumpf L259
+L131: gload 0
+L132: iconst 10002
+L133: ieq
+L134: jumpf L194
+L135: tconst
+L136: fconst
+L137: or
+L138: tconst
+L139: or
+L140: fconst
+L141: or
+L142: tconst
+L143: or
+L144: fconst
+L145: or
+L146: tconst
+L147: or
+L148: fconst
+L149: or
+L150: tconst
+L151: or
+L152: fconst
+L153: or
+L154: tconst
+L155: or
+L156: fconst
+L157: or
+L158: tconst
+L159: or
+L160: fconst
+L161: or
+L162: tconst
+L163: or
+L164: fconst
+L165: or
+L166: tconst
+L167: or
+L168: fconst
+L169: or
+L170: tconst
+L171: or
+L172: fconst
+L173: or
+L174: tconst
+L175: or
+L176: fconst
+L177: or
+L178: tconst
+L179: or
+L180: fconst
+L181: or
+L182: tconst
+L183: or
+L184: fconst
+L185: or
+L186: tconst
+L187: or
+L188: fconst
+L189: or
+L190: tconst
+L191: or
+L192: bprint
+L193: jump L252
+L194: fconst
+L195: fconst
+L196: and
+L197: fconst
+L198: fconst
+L199: and
+L200: or
+L201: fconst
+L202: fconst
+L203: and
+L204: or
+L205: fconst
+L206: fconst
+L207: and
+L208: or
+L209: fconst
+L210: fconst
+L211: and
+L212: or
+L213: fconst
+L214: fconst
+L215: and
+L216: or
+L217: fconst
+L218: fconst
+L219: and
+L220: or
+L221: fconst
+L222: fconst
+L223: and
+L224: or
+L225: fconst
+L226: fconst
+L227: and
+L228: or
+L229: fconst
+L230: fconst
+L231: and
+L232: or
+L233: fconst
+L234: fconst
+L235: and
+L236: or
+L237: fconst
+L238: fconst
+L239: and
+L240: or
+L241: fconst
+L242: fconst
+L243: and
+L244: or
+L245: fconst
+L246: fconst
+L247: and
+L248: tconst
+L249: and
+L250: or
+L251: bprint
+L252: gload 0
+L253: iprint
+L254: gload 0
+L255: iconst 1
+L256: iadd
+L257: gstore 0
+L258: jump L127
+L259: gload 2
+L260: dprint
+L261: jump L263
+L262: jump L119
+L263: halt

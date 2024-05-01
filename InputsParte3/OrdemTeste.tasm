@@ -1,0 +1,51 @@
+L0: iconst 2
+L1: iconst 3
+L2: iadd
+L3: iconst 4
+L4: iconst 5
+L5: imult
+L6: iconst 2
+L7: idiv
+L8: iconst 5
+L9: imod
+L10: isub
+L11: iconst 2
+L12: iuminus
+L13: iconst 3
+L14: iadd
+L15: iadd
+L16: iprint
+L17: fconst
+L18: tconst
+L19: tconst
+L20: and
+L21: or
+L22: bprint
+L23: tconst
+L24: fconst
+L25: beq
+L26: tconst
+L27: bneq
+L28: bprint
+L29: iconst 4
+L30: iconst 2
+L31: iconst 3
+L32: iadd
+L33: ileq
+L34: iconst 2
+L35: iconst 2
+L36: iadd
+L37: iconst 5
+L38: ileq
+L39: and
+L40: iconst 2
+L41: iconst 3
+L42: ilt
+L43: iconst 3
+L44: iconst 4
+L45: ilt
+L46: and
+L47: not
+L48: and
+L49: bprint
+L50: halt

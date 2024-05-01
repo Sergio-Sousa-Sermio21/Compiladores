@@ -39,6 +39,12 @@ public class solCompiler {
         }
 
         //EXP---------------------------------------------------------------------------------
+
+        /**
+         *
+         * @param ctx the parse tree
+         * @return
+         */
         @Override
         public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
             //System.out.println(ctx.getText() + "-" + count++);
@@ -412,7 +418,12 @@ public class solCompiler {
             return  TypesConverter(exp, getValues(ctx));
         }
         //Variveis----------------------------------------------------------------------------------------
-
+        /**
+         * Escreve os bytecodes no arquivo com extensão .tbc.
+         *
+         * @param args Um array de strings contendo os argumentos do programa.
+         * @throws IOException Se ocorrer um erro de entrada/saida durante a escrita do arquivo.
+         */
         private void write(String[] args) throws IOException{
             File file = new File(args[0]);
             String newFile = file.getPath().replaceFirst("[.][^.]+$", ".tbc");
@@ -424,11 +435,23 @@ public class solCompiler {
             BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
             writeTasm(writer);
         }
+        /**
+         * Verifica se um comando é um salto (jump).
+         *
+         * @param command O comando a ser verificado.
+         * @return true se o comando for um salto, false caso contrario.
+         */
         public boolean isCommandAJump(Commands command){
             return command.equals(Commands.JUMP) || command.equals(Commands.JUMPF) || command.equals(Commands.JUMPT);
         }
-        public boolean isValueInConstantPool(Commands coomand){
-            return coomand.equals(Commands.DCONST) || coomand.equals(Commands.SCONST);
+        /**
+         * Verifica se um valor está na pool de constantes.
+         *
+         * @param command O comando a ser verificado.
+         * @return true se o valor estiver na pool de constantes, false caso contrario.
+         */
+        public boolean isValueInConstantPool(Commands command){
+            return command.equals(Commands.DCONST) || command.equals(Commands.SCONST);
         }
 
         /** Escreve Tams Commands em um file com base nas instruções fornecidas
@@ -495,7 +518,8 @@ public class solCompiler {
 
             }
         }
-
+        /**Metodo que mostra as instruções e a constantPool
+         */
         public void debug(){
             System.out.println("----------------------------------------\nConstant Pool:");
             for (int i = 0; i<constantpoll.size(); i++) {
