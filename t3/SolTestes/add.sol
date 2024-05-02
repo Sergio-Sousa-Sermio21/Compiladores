@@ -1,2 +1,2 @@
-while 3>4 do
-break;
+int i;
+i=1;

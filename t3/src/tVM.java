@@ -229,7 +229,7 @@ public class tVM {
                             i = instruction.getArgument();
                         break;
                     case GALLOC:
-                        for (int j = 0; j <= instruction.getArgument(); j++)
+                        for (int j = 0; j < instruction.getArgument(); j++)
                             globalMemory.add(new ObjectValue("NIL"));
                         break;
                     case GLOAD:

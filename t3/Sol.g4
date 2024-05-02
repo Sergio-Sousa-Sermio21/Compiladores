@@ -1,8 +1,8 @@
 grammar Sol;
 
-executable: (command | declaration)* EOF;
+executable: (command ';' | declaration ';')* EOF;
 
-command: PRINT op ';'
+command: PRINT op
             | block
             | while
             | for

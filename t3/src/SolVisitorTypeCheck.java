@@ -61,6 +61,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     public Object visitCommand(SolParser.CommandContext ctx) {
         if (ctx.VAR() != null && !gallocContent.contains(ctx.VAR().getText()))
             errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
+
         Object result = null;
         if (ctx.while_() != null){
             insideLoop = true;
@@ -100,7 +101,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.type(0), "Integer"));
         if (!(visit(ctx.type(1)) instanceof Integer))
             errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.type(1), "Integer"));
-        return ctx.type(0);
+        return visit(ctx.command());
     }
 
     /**TODO comment
@@ -116,6 +117,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return visit(ctx.else_());
     }
 
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Object visitBreak(SolParser.BreakContext ctx) {
         if (!insideLoop)
@@ -210,8 +216,13 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitDeclaration(SolParser.DeclarationContext ctx) {
+        Object result =super.visitDeclaration(ctx);
+        Class<?> type = tree.get(ctx.declarationType());
+        for (SolParser.DeclarationDefContext dd:ctx.declarationDef())
+            if (dd.getChildCount()>1 && tree.get(dd)!= type)
+                errors.add(teste.invalidType(ctx.getRuleIndex(),dd.toString(),type.getName()));
         tree.put(ctx, tree.get(ctx.declarationType()));
-        return super.visitDeclaration(ctx);
+        return result;
     }
 
     /**TODO comment
@@ -222,6 +233,19 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
         gallocContent.add(ctx.VAR().getText());
+        if (ctx.INT() != null) {
+            tree.put(ctx, Integer.class);
+            return Integer.parseInt(ctx.INT().getText());
+        } else if (ctx.DOUBLE() != null){
+            tree.put(ctx, Double.class);
+            return Double.parseDouble(ctx.DOUBLE().getText());
+        }else if(ctx.STRING()!=null){
+            tree.put(ctx, String.class);
+            return ctx.STRING().getText();
+        }else if (ctx.FALSE()!= null || ctx.TRUE()!=null)
+            tree.put(ctx, Boolean.class);
+        else
+            errors.add(teste.invalidType(ctx.getRuleIndex(), ctx,""));
         return super.visitDeclarationDef(ctx);
     }
 
