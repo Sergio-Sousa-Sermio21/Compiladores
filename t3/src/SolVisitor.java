@@ -15,7 +15,7 @@ public class SolVisitor extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
-
+    private int breakIndex;
     private ArrayList<String> gallocContent;
 
     /**
@@ -29,6 +29,8 @@ public class SolVisitor extends SolBaseVisitor {
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
         teste = new TesteSemantico();
+        gallocContent = new ArrayList<String>();
+        breakIndex =-1;
     }
 
     /**
@@ -83,7 +85,10 @@ public class SolVisitor extends SolBaseVisitor {
         int indexOfJump = instructions.size()-1;
         Object result = visit(ctx.command());
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
-        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        int indexOutLoop = instructions.size();
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
+        if (breakIndex>-1)
+            instructions.set(breakIndex, new Instruction(TokenTasm.JUMP,indexOutLoop));
         return result;
     }
 
@@ -97,21 +102,36 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.add(new Instruction(TokenTasm.GALLOC,1));
         String var = ctx.VAR().getText();
         gallocContent.add(var);
-        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.INT(0).getText())));
+        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.type(0).getText())));
         instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
         int jumpHere = instructions.size();
         instructions.add(new Instruction(TokenTasm.GLOAD, gallocContent.indexOf(var)));
         instructions.add(new Instruction(TokenTasm.ICONST, 1));
         instructions.add(new Instruction(TokenTasm.IADD));
-        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.INT(1).getText())));
+        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.type(1).getText())));
         instructions.add(new Instruction(TokenTasm.ILEQ));
-        instructions.add(new Instruction(TokenTasm.JUMPF, jumpHere)); //jump out of the loop
+        instructions.add(new Instruction(TokenTasm.JUMPF)); //jump out of the loop
         int indexOfJump = instructions.size()-1;
         Object result = visit(ctx.command());
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
-        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        int indexOutLoop = instructions.size();
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
+        if (breakIndex>-1)
+            instructions.set(breakIndex, new Instruction(TokenTasm.JUMP,indexOutLoop));
         gallocContent.remove(var);
         return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitBreak(SolParser.BreakContext ctx) {
+        breakIndex = instructions.size();
+        instructions.add(new Instruction(TokenTasm.JUMP));
+        return super.visitBreak(ctx);
     }
 
     /**TODO comment

@@ -16,6 +16,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     private TesteSemantico teste;
     private ArrayList<String> errors;
 
+    private ArrayList<String> gallocContent;
+    private boolean insideLoop;
+
     /**
      * Constructor for SolVisitorTypeCheck.
      * Initializes instance variables.
@@ -24,6 +27,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         tree = new ParseTreeProperty<Class<?>>();
         teste = new TesteSemantico();
         errors = new ArrayList<String>();
+        gallocContent = new ArrayList<>();
+        insideLoop=false;
     }
 
     /**
@@ -42,6 +47,80 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     public ParseTreeProperty<Class<?>> getTree() {
         return tree;
+    }
+
+    /**
+     * Visits all the possible commands
+     * (print, block, while, for, if, break, and variable values)
+     * Verifies if variables are declared
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitCommand(SolParser.CommandContext ctx) {
+        if (ctx.VAR() != null && !gallocContent.contains(ctx.VAR().getText()))
+            errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
+        Object result = null;
+        if (ctx.while_() != null){
+            insideLoop = true;
+            result = visit(ctx.while_());
+            insideLoop = false;
+            return result;
+        }
+        if (ctx.for_() !=null){
+            insideLoop = true;
+            result = visit(ctx.for_());
+            insideLoop = false;
+            return result;
+        }
+        return super.visitCommand(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitWhile(SolParser.WhileContext ctx) {
+        if (!(visit(ctx.op()) instanceof Boolean))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.op(), "boolean"));
+        return visit(ctx.command());
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFor(SolParser.ForContext ctx) {
+        if (!(visit(ctx.type(0)) instanceof Integer))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.type(0), "Integer"));
+        if (!(visit(ctx.type(1)) instanceof Integer))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.type(1), "Integer"));
+        return ctx.type(0);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitIf(SolParser.IfContext ctx) {
+        if (!(visit(ctx.op()) instanceof Boolean))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.op(),"boolean"));
+        visit(ctx.command());
+        return visit(ctx.else_());
+    }
+
+    @Override
+    public Object visitBreak(SolParser.BreakContext ctx) {
+        if (!insideLoop)
+            errors.add(teste.invalidBreak(ctx.getRuleIndex()));
+        return super.visitBreak(ctx);
     }
 
     /**
@@ -130,9 +209,20 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      * @return
      */
     @Override
-    public Object visitCodeType(SolParser.CodeTypeContext ctx) {
+    public Object visitDeclaration(SolParser.DeclarationContext ctx) {
         tree.put(ctx, tree.get(ctx.declarationType()));
-        return super.visitCodeType(ctx);
+        return super.visitDeclaration(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
+        gallocContent.add(ctx.VAR().getText());
+        return super.visitDeclarationDef(ctx);
     }
 
     /**

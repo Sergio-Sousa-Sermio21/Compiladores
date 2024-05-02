@@ -555,9 +555,11 @@ public class SolParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class ForContext extends ParserRuleContext {
 		public TerminalNode VAR() { return getToken(SolParser.VAR, 0); }
-		public List<TerminalNode> INT() { return getTokens(SolParser.INT); }
-		public TerminalNode INT(int i) {
-			return getToken(SolParser.INT, i);
+		public List<TypeContext> type() {
+			return getRuleContexts(TypeContext.class);
+		}
+		public TypeContext type(int i) {
+			return getRuleContext(TypeContext.class,i);
 		}
 		public CommandContext command() {
 			return getRuleContext(CommandContext.class,0);
@@ -594,11 +596,11 @@ public class SolParser extends Parser {
 			setState(84);
 			match(T__1);
 			setState(85);
-			match(INT);
+			type();
 			setState(86);
 			match(T__8);
 			setState(87);
-			match(INT);
+			type();
 			setState(88);
 			match(T__6);
 			setState(89);
@@ -1780,8 +1782,8 @@ public class SolParser extends Parser {
 		"JK\u0001\u0000\u0000\u0000K\u0007\u0001\u0000\u0000\u0000LJ\u0001\u0000"+
 		"\u0000\u0000MN\u0005\u0006\u0000\u0000NO\u0003\u0018\f\u0000OP\u0005\u0007"+
 		"\u0000\u0000PQ\u0003\u0002\u0001\u0000Q\t\u0001\u0000\u0000\u0000RS\u0005"+
-		"\b\u0000\u0000ST\u0005*\u0000\u0000TU\u0005\u0002\u0000\u0000UV\u0005"+
-		"\'\u0000\u0000VW\u0005\t\u0000\u0000WX\u0005\'\u0000\u0000XY\u0005\u0007"+
+		"\b\u0000\u0000ST\u0005*\u0000\u0000TU\u0005\u0002\u0000\u0000UV\u0003"+
+		"\u001a\r\u0000VW\u0005\t\u0000\u0000WX\u0003\u001a\r\u0000XY\u0005\u0007"+
 		"\u0000\u0000YZ\u0003\u0002\u0001\u0000Z\u000b\u0001\u0000\u0000\u0000"+
 		"[\\\u0005\n\u0000\u0000\\]\u0003\u0018\f\u0000]^\u0005\u000b\u0000\u0000"+
 		"^`\u0003\u0002\u0001\u0000_a\u0003\u000e\u0007\u0000`_\u0001\u0000\u0000"+

@@ -11,7 +11,19 @@ public class TesteSemantico {
     }
 
     public String invalidComparison(int line, Object firstOperator, Object secondOperator){
-        return "error in line: "+line+": invalid comparison between operators "+firstOperator
+        return "error in line "+line+": invalid comparison between operators "+firstOperator
                 +" and invalid attribute "+ secondOperator+ ".\n";
+    }
+
+    public String invalidVariable(int line, Object var){
+        return "error in line "+line+": invalid variable, "+var+" is not defined." ;
+    }
+
+    public String invalidType(int line, Object var, String type){
+        return "error in line "+line+": invalid type, "+var.getClass()+" should be "+ type +"." ;
+    }
+
+    public String invalidBreak(int line){
+        return "error in line "+line+": incorrect use of the break command, not inside a loop.";
     }
 }
