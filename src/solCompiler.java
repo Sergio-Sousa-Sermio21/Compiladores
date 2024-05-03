@@ -241,6 +241,9 @@ public class solCompiler {
             return null;
         }
 
+        /**
+         * Atualiza as instrucoes breaks
+         */
         public void setBreaks( ){
             for (int i = 0; i< breaks.get(ciclos).size(); i++){
                 instrucoes.get(breaks.get(ciclos).get(i)).setValue(instrucoes.size());
@@ -462,7 +465,6 @@ public class solCompiler {
         private void writeTasm(BufferedWriter tasmcodes) throws IOException {
             int line = 0;
             for (Instrucion  instruction : instrucoes) {
-                System.out.println(instruction);
                 if (!instruction.isValueNull()) {
                     if (isValueInConstantPool(instruction.getCommand()))
                         tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " " + constantpoll.get(instruction.getValue()));

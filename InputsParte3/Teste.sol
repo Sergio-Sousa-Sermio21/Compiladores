@@ -14,7 +14,9 @@ begin
                 isPrime = false;
                 break;
             end
+    break;
     if isPrime
     then result = result + " " + i;
 end
 print "Prime numbers upto " + n + ":" + result;
+
