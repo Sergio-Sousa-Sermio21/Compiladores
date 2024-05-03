@@ -46,6 +46,7 @@ op: LPARENTHESIS op RPARENTHESIS #Parenthesis
  | op addsubOP=(ADD|SUB) op #AddSub
  | rel #Relations
  | type #Types
+ | VAR #Variable
  ;
 
 type: INT

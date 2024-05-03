@@ -190,6 +190,18 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitParenthesis(SolParser.ParenthesisContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Variable}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariable(SolParser.VariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Variable}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariable(SolParser.VariableContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Negation}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree

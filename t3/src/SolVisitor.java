@@ -138,6 +138,12 @@ public class SolVisitor extends SolBaseVisitor {
         return super.visitBreak(ctx);
     }
 
+    @Override
+    public Object visitVariable(SolParser.VariableContext ctx) {
+        instructions.add(new Instruction(TokenTasm.GLOAD,gallocContent.indexOf(ctx.VAR().getText())));
+        return super.visitVariable(ctx);
+    }
+
     /**TODO comment
      *
      * @param ctx the parse tree
