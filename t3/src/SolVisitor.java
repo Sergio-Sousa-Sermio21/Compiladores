@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * SolVisitor extends SolBaseVisitor to provide custom visiting functionality
@@ -16,7 +17,7 @@ public class SolVisitor extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
-    private int breakIndex;
+    private Stack<Integer> breakInstructions;
     private ArrayList<String> gallocContent;
 
     /**
@@ -27,11 +28,11 @@ public class SolVisitor extends SolBaseVisitor {
      */
     SolVisitor(ParseTreeProperty<Class<?>> t) {
         tree = t;
+        breakInstructions = new Stack<>();
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
         teste = new TesteSemantico();
         gallocContent = new ArrayList<String>();
-        breakIndex =-1;
     }
 
     /**
@@ -88,8 +89,8 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
         int indexOutLoop = instructions.size()-1;
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
-        if (breakIndex>-1)
-            instructions.set(breakIndex, new Instruction(TokenTasm.JUMP,indexOutLoop));
+        while (breakInstructions.peek()< instructions.size())
+            instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
         return result;
     }
 
@@ -120,8 +121,8 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
         int indexOutLoop = instructions.size()-1;
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
-        if (breakIndex>-1)
-            instructions.set(breakIndex, new Instruction(TokenTasm.JUMP,indexOutLoop));
+        while (breakInstructions.peek()< instructions.size())
+            instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
         gallocContent.remove(var);
         return result;
     }
@@ -133,7 +134,7 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitBreak(SolParser.BreakContext ctx) {
-        breakIndex = instructions.size();
+        breakInstructions.push(instructions.size());
         instructions.add(new Instruction(TokenTasm.JUMP));
         return super.visitBreak(ctx);
     }

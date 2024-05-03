@@ -78,7 +78,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         if (ctx.VAR() != null) {
             String type = gallocContent.get(ctx.VAR().getText());
             visit(ctx.op());
-            String opType = tree.get(ctx.op()).getName();
+            String opType = tree.get(ctx.op()).getSimpleName();
             if (type==null)
                 errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
             else if (!type.equals(opType))
@@ -97,10 +97,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         String type = gallocContent.get(ctx.VAR().getText());
         if (type!=null)
             switch (type) {
-                case "java.lang.Integer" -> tree.put(ctx, Integer.class);
-                case "java.lang.Double" -> tree.put(ctx, Double.class);
-                case "java.lang.String" -> tree.put(ctx, String.class);
-                case "java.lang.Boolean" -> tree.put(ctx, Boolean.class);
+                case "Integer" -> tree.put(ctx, Integer.class);
+                case "Double" -> tree.put(ctx, Double.class);
+                case "String" -> tree.put(ctx, String.class);
+                case "Boolean" -> tree.put(ctx, Boolean.class);
             }
         else
             errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
@@ -263,15 +263,15 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
         Class<?> type = tree.get(ctx);
-        gallocContent.put(ctx.VAR().getText(), type.getName());
+        gallocContent.put(ctx.VAR().getText(), type.getSimpleName());
         if (ctx.INT() != null && type != Integer.class) {
-            errors.add(teste.invalidType(ctx.getRuleIndex(),type.getSimpleName(),type.getSimpleName()));
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"Integer",type.getSimpleName()));
         } else if (ctx.DOUBLE() != null && type != Double.class){
-            errors.add(teste.invalidType(ctx.getRuleIndex(),type.getSimpleName(),type.getSimpleName()));
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"Double",type.getSimpleName()));
         }else if(ctx.STRING()!=null && type != String.class){
-            errors.add(teste.invalidType(ctx.getRuleIndex(),type.getSimpleName(),type.getSimpleName()));
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"String",type.getSimpleName()));
         }else if ((ctx.FALSE()!= null || ctx.TRUE()!=null)&& type != Boolean.class)
-            errors.add(teste.invalidType(ctx.getRuleIndex(),type.getSimpleName(),type.getSimpleName()));
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"Boolean",type.getSimpleName()));
         return super.visitDeclarationDef(ctx);
     }
 
