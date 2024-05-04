@@ -20,11 +20,11 @@ public class TesteSemantico {
     }
 
     public String invalidType(int line, Object var, String type){
-        return "error in line "+line+": invalid type, "+var.getClass().getSimpleName()+" should be "+ type +"." ;
+        return "error in line "+line+": invalid type "+var.getClass().getSimpleName()+", should be "+ type +"." ;
     }
 
     public String invalidType(int line, String var, String type){
-        return "error in line "+line+": invalid type, "+var+" should be "+ type +"." ;
+        return "error in line "+line+": invalid type "+var+", should be "+ type +"." ;
     }
 
     public String invalidBreak(int line){

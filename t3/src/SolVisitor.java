@@ -89,7 +89,7 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
         int indexOutLoop = instructions.size()-1;
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
-        while (breakInstructions.peek()< instructions.size())
+        while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
             instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
         return result;
     }
@@ -121,7 +121,7 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
         int indexOutLoop = instructions.size()-1;
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
-        while (breakInstructions.peek()< instructions.size())
+        while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
             instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
         gallocContent.remove(var);
         return result;

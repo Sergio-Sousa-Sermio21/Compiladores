@@ -114,8 +114,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitWhile(SolParser.WhileContext ctx) {
-        if (!(visit(ctx.op()) instanceof Boolean))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.op(), "boolean"));
+        visit(ctx.op());
+        if (!(tree.get(ctx.op()) == Boolean.class))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.op()).getSimpleName(), "Boolean"));
         return visit(ctx.command());
     }
 
@@ -126,10 +127,12 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitFor(SolParser.ForContext ctx) {
-        if (!(visit(ctx.type(0)) instanceof Integer))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.type(0), "Integer"));
-        if (!(visit(ctx.type(1)) instanceof Integer))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.type(1), "Integer"));
+        visit(ctx.type(0));
+        visit(ctx.type(1));
+        if (!(tree.get(ctx.type(0)) == Integer.class))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.type(0)).getSimpleName(), "Integer"));
+        if (!(tree.get(ctx.type(1)) == Integer.class))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.type(1)).getSimpleName(), "Integer"));
         return visit(ctx.command());
     }
 
@@ -166,8 +169,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitParenthesis(SolParser.ParenthesisContext ctx) {
+        Object result = super.visitParenthesis(ctx);
         tree.put(ctx, tree.get(ctx.op()));
-        return super.visitParenthesis(ctx);
+        return result;
     }
 
     /**
@@ -190,8 +194,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitTypes(SolParser.TypesContext ctx) {
+        Object result = super.visitTypes(ctx);
         tree.put(ctx, tree.get(ctx.type()));
-        return super.visitTypes(ctx);
+        return result;
     }
 
     /**TODO comment

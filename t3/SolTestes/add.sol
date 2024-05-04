@@ -1,2 +1,2 @@
-i=1;
-print i;
+while (false) do
+print "e";
