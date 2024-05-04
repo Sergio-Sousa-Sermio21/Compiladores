@@ -189,7 +189,8 @@ public class tVM {
                         stack.push(new ObjectValue(String.valueOf(stack.pop().getInt(i))));
                         break;
                     case SADD:
-                        stack.push(new ObjectValue(stack.pop().getString(i) + stack.pop().getString(i)));
+                        String right = stack.pop().getString(i);
+                        stack.push(new ObjectValue(stack.pop().getString(i) + right));
                         break;
                     case SEQ:
                         stack.push(new ObjectValue((stack.pop().getString(i)).equals(stack.pop().getString(i))));
@@ -217,18 +218,18 @@ public class tVM {
                         break;
                     //It indicates the line in the tasm file so its -2 (for the next loop iteration and arrayList access)
                     case JUMP:
-                        i = instruction.getArgument()-2;
+                        i = instruction.getArgument();
                         break;
                     case JUMPT:
                         if (stack.pop().getBool(i))
-                            i = instruction.getArgument()-2;
+                            i = instruction.getArgument();
                         break;
                     case JUMPF:
                         if (!stack.pop().getBool(i))
-                            i = instruction.getArgument()-2;
+                            i = instruction.getArgument();
                         break;
                     case GALLOC:
-                        for (int j = 0; j <= instruction.getArgument(); j++)
+                        for (int j = 0; j < instruction.getArgument(); j++)
                             globalMemory.add(new ObjectValue("NIL"));
                         break;
                     case GLOAD:

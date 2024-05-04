@@ -4,6 +4,8 @@ import Sol.SolParser;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Stack;
 
 /**
  * SolVisitor extends SolBaseVisitor to provide custom visiting functionality
@@ -15,7 +17,7 @@ public class SolVisitor extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Object> constantPool;
     private TesteSemantico teste;
-
+    private Stack<Integer> breakInstructions;
     private ArrayList<String> gallocContent;
 
     /**
@@ -26,9 +28,11 @@ public class SolVisitor extends SolBaseVisitor {
      */
     SolVisitor(ParseTreeProperty<Class<?>> t) {
         tree = t;
+        breakInstructions = new Stack<>();
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
         teste = new TesteSemantico();
+        gallocContent = new ArrayList<String>();
     }
 
     /**
@@ -83,7 +87,10 @@ public class SolVisitor extends SolBaseVisitor {
         int indexOfJump = instructions.size()-1;
         Object result = visit(ctx.command());
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
-        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        int indexOutLoop = instructions.size()-1;
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
+        while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
+            instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
         return result;
     }
 
@@ -97,21 +104,45 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.add(new Instruction(TokenTasm.GALLOC,1));
         String var = ctx.VAR().getText();
         gallocContent.add(var);
-        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.INT(0).getText())));
-        instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
-        int jumpHere = instructions.size();
-        instructions.add(new Instruction(TokenTasm.GLOAD, gallocContent.indexOf(var)));
+        int varIndex = gallocContent.indexOf(var);
+        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.type(0).getText())));
+        instructions.add(new Instruction(TokenTasm.GSTORE, varIndex));
+        int jumpHere = instructions.size()-1;
+        instructions.add(new Instruction(TokenTasm.GLOAD, varIndex));
         instructions.add(new Instruction(TokenTasm.ICONST, 1));
         instructions.add(new Instruction(TokenTasm.IADD));
-        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.INT(1).getText())));
+        instructions.add(new Instruction(TokenTasm.GSTORE, varIndex));
+        instructions.add(new Instruction(TokenTasm.GLOAD, varIndex));
+        instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.type(1).getText())));
         instructions.add(new Instruction(TokenTasm.ILEQ));
-        instructions.add(new Instruction(TokenTasm.JUMPF, jumpHere)); //jump out of the loop
+        instructions.add(new Instruction(TokenTasm.JUMPF)); //jump out of the loop
         int indexOfJump = instructions.size()-1;
         Object result = visit(ctx.command());
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
-        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, instructions.size()));
+        int indexOutLoop = instructions.size()-1;
+        instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
+        while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
+            instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
         gallocContent.remove(var);
         return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitBreak(SolParser.BreakContext ctx) {
+        breakInstructions.push(instructions.size());
+        instructions.add(new Instruction(TokenTasm.JUMP));
+        return super.visitBreak(ctx);
+    }
+
+    @Override
+    public Object visitVariable(SolParser.VariableContext ctx) {
+        instructions.add(new Instruction(TokenTasm.GLOAD,gallocContent.indexOf(ctx.VAR().getText())));
+        return super.visitVariable(ctx);
     }
 
     /**TODO comment
@@ -155,6 +186,17 @@ public class SolVisitor extends SolBaseVisitor {
             instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
         }
         return super.visitDeclarationDef(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitTypes(SolParser.TypesContext ctx) {
+        tree.put(ctx, tree.get(ctx.type()));
+        return super.visitTypes(ctx);
     }
 
     /**
@@ -222,14 +264,19 @@ public class SolVisitor extends SolBaseVisitor {
     @Override
     public Object visitCommand(SolParser.CommandContext ctx) {
         Object result = super.visitCommand(ctx);
-        if (tree.get(ctx.op()) == Integer.class)
-            instructions.add(new Instruction(TokenTasm.IPRINT));
-        if (tree.get(ctx.op()) == Double.class)
-            instructions.add(new Instruction(TokenTasm.DPRINT));
-        if (tree.get(ctx.op()) == String.class)
-            instructions.add(new Instruction(TokenTasm.SPRINT));
-        if (tree.get(ctx.op()) == Boolean.class)
-            instructions.add(new Instruction(TokenTasm.BPRINT));
+        if (ctx.PRINT()!=null) {
+            if (tree.get(ctx.op()) == Integer.class)
+                instructions.add(new Instruction(TokenTasm.IPRINT));
+            if (tree.get(ctx.op()) == Double.class)
+                instructions.add(new Instruction(TokenTasm.DPRINT));
+            if (tree.get(ctx.op()) == String.class)
+                instructions.add(new Instruction(TokenTasm.SPRINT));
+            if (tree.get(ctx.op()) == Boolean.class)
+                instructions.add(new Instruction(TokenTasm.BPRINT));
+        }
+        if (ctx.VAR() != null){
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.indexOf(ctx.VAR().getText())));
+        }
         return result;
     }
 

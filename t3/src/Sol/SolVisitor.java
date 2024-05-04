@@ -119,6 +119,13 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesis(SolParser.ParenthesisContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Variable}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(SolParser.VariableContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Negation}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree

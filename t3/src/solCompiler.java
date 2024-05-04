@@ -24,7 +24,7 @@ class solCompiler extends SolBaseVisitor {
      * @param constantPool The list of constants to write.
      * @throws IOException if an I/O error occurs while writing to the stream.
      */
-    public static void writeInstruction(DataOutputStream byteStream, ArrayList<Instruction> instructions, ArrayList<Object> constantPool) throws IOException {
+    public static void writeInstructionByte(DataOutputStream byteStream, ArrayList<Instruction> instructions, ArrayList<Object> constantPool) throws IOException {
         // Write instructions to the stream
         for (Instruction instruction : instructions) {
             Integer[] i = instruction.getBytes();
@@ -45,6 +45,31 @@ class solCompiler extends SolBaseVisitor {
                 byteStream.writeUTF(string.substring(1, string.length() - 1));
             }
         }
+    }
+
+    /**TODO comment
+     *
+     * @param bw
+     * @param instructions
+     * @param constantPool
+     */
+    public static void writeInstructionTasm(BufferedWriter bw, ArrayList<Instruction> instructions, ArrayList<Object> constantPool) throws IOException {
+        for (int i=0; i<instructions.size();i++){
+            Instruction instruction = instructions.get(i);
+            TokenTasm op = instruction.getOp();
+            if(op==TokenTasm.SCONST||op==TokenTasm.DCONST)
+                bw.write("i"+i+":"+op+" "+constantPool.get(instruction.getArgument()));
+            else if (op==TokenTasm.JUMP||op==TokenTasm.JUMPT||op==TokenTasm.JUMPF) {
+                bw.write("i"+i+":"+op+" i"+instruction.getArgument());
+            } else if (instruction.getArgument()==null)
+                bw.write("i"+i+":"+op);
+            else
+                bw.write("i"+i+":"+op+" "+instruction.getArgument());
+            bw.write("\n");
+        }
+
+        bw.flush();
+        bw.close();
     }
 
     /**
@@ -106,9 +131,15 @@ class solCompiler extends SolBaseVisitor {
             }
             // If input file is provided, write to output file
             if (inputFile != null) {
+                //Tbc file
                 FileOutputStream output = new FileOutputStream(inputFile.replaceFirst("[.][^.]+$", ".tbc"));
                 DataOutputStream byteStream = new DataOutputStream(output);
-                writeInstruction(byteStream, solVisitor.getInstructions(), solVisitor.getConstantPool());
+                writeInstructionByte(byteStream, solVisitor.getInstructions(), solVisitor.getConstantPool());
+
+                //Tasm file
+                FileWriter tasm = new FileWriter(inputFile.replaceFirst("[.][^.]+$", ".tasm"));
+                BufferedWriter bw = new BufferedWriter(tasm);
+                writeInstructionTasm(bw, solVisitor.getInstructions(), solVisitor.getConstantPool());
             }
         } catch (IOException e) {
             System.out.println(e);

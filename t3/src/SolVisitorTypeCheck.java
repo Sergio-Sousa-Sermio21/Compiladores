@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * SolVisitorTypeCheck extends SolBaseVisitor to provide type checking functionality
@@ -16,6 +17,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     private TesteSemantico teste;
     private ArrayList<String> errors;
 
+    private HashMap<String, String> gallocContent;
+    private boolean insideLoop;
+
     /**
      * Constructor for SolVisitorTypeCheck.
      * Initializes instance variables.
@@ -24,6 +28,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         tree = new ParseTreeProperty<Class<?>>();
         teste = new TesteSemantico();
         errors = new ArrayList<String>();
+        gallocContent = new HashMap<>();
+        insideLoop=false;
     }
 
     /**
@@ -45,6 +51,117 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     }
 
     /**
+     * Visits all the possible commands
+     * (print, block, while, for, if, break, and variable values)
+     * Verifies if variables are declared
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitCommand(SolParser.CommandContext ctx) {
+        Object result = null;
+        if (ctx.while_() != null){
+            insideLoop = true;
+            result = visit(ctx.while_());
+            insideLoop = false;
+            return result;
+        }
+        if (ctx.for_() !=null){
+            insideLoop = true;
+            result = visit(ctx.for_());
+            insideLoop = false;
+            return result;
+        }
+        result = super.visitCommand(ctx);
+
+        if (ctx.VAR() != null) {
+            String type = gallocContent.get(ctx.VAR().getText());
+            visit(ctx.op());
+            String opType = tree.get(ctx.op()).getSimpleName();
+            if (type==null)
+                errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
+            else if (!type.equals(opType))
+                errors.add(teste.invalidType(ctx.getRuleIndex(), opType, type));
+        }
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitVariable(SolParser.VariableContext ctx) {
+        String type = gallocContent.get(ctx.VAR().getText());
+        if (type!=null)
+            switch (type) {
+                case "Integer" -> tree.put(ctx, Integer.class);
+                case "Double" -> tree.put(ctx, Double.class);
+                case "String" -> tree.put(ctx, String.class);
+                case "Boolean" -> tree.put(ctx, Boolean.class);
+            }
+        else
+            errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
+        return super.visitVariable(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitWhile(SolParser.WhileContext ctx) {
+        visit(ctx.op());
+        if (!(tree.get(ctx.op()) == Boolean.class))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.op()).getSimpleName(), "Boolean"));
+        return visit(ctx.command());
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFor(SolParser.ForContext ctx) {
+        visit(ctx.type(0));
+        visit(ctx.type(1));
+        if (!(tree.get(ctx.type(0)) == Integer.class))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.type(0)).getSimpleName(), "Integer"));
+        if (!(tree.get(ctx.type(1)) == Integer.class))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.type(1)).getSimpleName(), "Integer"));
+        return visit(ctx.command());
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitIf(SolParser.IfContext ctx) {
+        if (!(visit(ctx.op()) instanceof Boolean))
+            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.op(),"boolean"));
+        visit(ctx.command());
+        return visit(ctx.else_());
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitBreak(SolParser.BreakContext ctx) {
+        if (!insideLoop)
+            errors.add(teste.invalidBreak(ctx.getRuleIndex()));
+        return super.visitBreak(ctx);
+    }
+
+    /**
      * Visits parenthesis context nodes in the parse tree to handle nested expressions and perform type checking.
      *
      * @param ctx the parse tree node to visit.
@@ -52,8 +169,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitParenthesis(SolParser.ParenthesisContext ctx) {
+        Object result = super.visitParenthesis(ctx);
         tree.put(ctx, tree.get(ctx.op()));
-        return super.visitParenthesis(ctx);
+        return result;
     }
 
     /**
@@ -76,8 +194,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitTypes(SolParser.TypesContext ctx) {
+        Object result = super.visitTypes(ctx);
         tree.put(ctx, tree.get(ctx.type()));
-        return super.visitTypes(ctx);
+        return result;
     }
 
     /**TODO comment
@@ -130,9 +249,35 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      * @return
      */
     @Override
-    public Object visitCodeType(SolParser.CodeTypeContext ctx) {
+    public Object visitDeclaration(SolParser.DeclarationContext ctx) {
+        Object result = visit(ctx.declarationType());
+        Class<?> type = tree.get(ctx.declarationType());
+        for (SolParser.DeclarationDefContext dd:ctx.declarationDef()) {
+            tree.put(dd, type);
+            visit(dd);
+        }
         tree.put(ctx, tree.get(ctx.declarationType()));
-        return super.visitCodeType(ctx);
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
+        Class<?> type = tree.get(ctx);
+        gallocContent.put(ctx.VAR().getText(), type.getSimpleName());
+        if (ctx.INT() != null && type != Integer.class) {
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"Integer",type.getSimpleName()));
+        } else if (ctx.DOUBLE() != null && type != Double.class){
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"Double",type.getSimpleName()));
+        }else if(ctx.STRING()!=null && type != String.class){
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"String",type.getSimpleName()));
+        }else if ((ctx.FALSE()!= null || ctx.TRUE()!=null)&& type != Boolean.class)
+            errors.add(teste.invalidType(ctx.getRuleIndex(),"Boolean",type.getSimpleName()));
+        return super.visitDeclarationDef(ctx);
     }
 
     /**

@@ -1,8 +1,8 @@
 grammar Sol;
 
-executable: (command | declaration)* EOF;
+executable: (command ';' | declaration ';')* EOF;
 
-command: PRINT op ';'
+command: PRINT op
             | block
             | while
             | for
@@ -17,7 +17,7 @@ declaration: declarationType declarationDef (',' declarationDef)*;
 
 while: 'while' op 'do' command;
 
-for: 'for' VAR '=' INT 'to' INT 'do' command;
+for: 'for' VAR '=' type 'to' type 'do' command;
 
 if: 'if' op 'then' command else?;
 
@@ -46,6 +46,7 @@ op: LPARENTHESIS op RPARENTHESIS #Parenthesis
  | op addsubOP=(ADD|SUB) op #AddSub
  | rel #Relations
  | type #Types
+ | VAR #Variable
  ;
 
 type: INT
