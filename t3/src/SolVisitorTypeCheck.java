@@ -56,7 +56,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      * Verifies if variables are declared
      *
      * @param ctx the parse tree
-     * @return
+     * @return The result of visiting the command.
      */
     @Override
     public Object visitCommand(SolParser.CommandContext ctx) {
@@ -87,10 +87,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a variable declaration in the parse tree, validating and updating the type information.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the variable declaration.
+     * @return The result of visiting the variable declaration.
      */
     @Override
     public Object visitVariable(SolParser.VariableContext ctx) {
@@ -107,10 +108,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return super.visitVariable(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'while' loop in the parse tree, validating the loop condition.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'while' loop.
+     * @return The result of visiting the 'while' loop.
      */
     @Override
     public Object visitWhile(SolParser.WhileContext ctx) {
@@ -120,10 +122,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return visit(ctx.command());
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'for' loop in the parse tree, validating the loop condition and loop variable types.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'for' loop.
+     * @return The result of visiting the 'for' loop.
      */
     @Override
     public Object visitFor(SolParser.ForContext ctx) {
@@ -136,10 +139,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return visit(ctx.command());
     }
 
-    /**TODO comment
+    /**
+     * Visits an 'if' statement in the parse tree, validating the condition.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'if' statement.
+     * @return The result of visiting the 'if' statement.
      */
     @Override
     public Object visitIf(SolParser.IfContext ctx) {
@@ -149,10 +153,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return visit(ctx.else_());
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'break' statement in the parse tree, validating its usage within a loop.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'break' statement.
+     * @return The result of visiting the 'break' statement.
      */
     @Override
     public Object visitBreak(SolParser.BreakContext ctx) {
@@ -199,10 +204,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits an 'integerType' node in the parse tree, associating it with the Integer class type.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'integerType'.
+     * @return The result of visiting the 'integerType'.
      */
     @Override
     public Object visitIntegerType(SolParser.IntegerTypeContext ctx) {
@@ -210,10 +216,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return super.visitIntegerType(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'doubleType' node in the parse tree, associating it with the Double class type.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'doubleType'.
+     * @return The result of visiting the 'doubleType'.
      */
     @Override
     public Object visitDoubleType(SolParser.DoubleTypeContext ctx) {
@@ -221,10 +228,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return super.visitDoubleType(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'stringType' node in the parse tree, associating it with the String class type.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'stringType'.
+     * @return The result of visiting the 'stringType'.
      */
     @Override
     public Object visitStringType(SolParser.StringTypeContext ctx) {
@@ -232,10 +240,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return super.visitStringType(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'booleanType' node in the parse tree, associating it with the Boolean class type.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'booleanType'.
+     * @return The result of visiting the 'booleanType'.
      */
     @Override
     public Object visitBooleanType(SolParser.BooleanTypeContext ctx) {
@@ -243,10 +252,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return super.visitBooleanType(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a declaration statement in the parse tree, associating it with the declaration type and its definition.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the declaration statement.
+     * @return The result of visiting the declaration statement.
      */
     @Override
     public Object visitDeclaration(SolParser.DeclarationContext ctx) {
@@ -260,10 +270,11 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a declaration definition in the parse tree, associating it with the declaration type and performing type checking.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the declaration definition.
+     * @return The result of visiting the declaration definition.
      */
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {

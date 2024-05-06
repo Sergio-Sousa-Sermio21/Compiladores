@@ -53,10 +53,11 @@ public class SolVisitor extends SolBaseVisitor {
         return constantPool;
     }
 
-    /**TODO comment
+    /**
+     * Visits an 'if' statement in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'if' statement.
+     * @return The result of visiting the 'if' statement, typically generated TASM instructions.
      */
     @Override
     public Object visitIf(SolParser.IfContext ctx) {
@@ -74,10 +75,11 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'while' loop in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'while' loop.
+     * @return The result of visiting the 'while' loop, typically generated TASM instructions.
      */
     @Override
     public Object visitWhile(SolParser.WhileContext ctx) {
@@ -94,10 +96,11 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'for' loop in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'for' loop.
+     * @return The result of visiting the 'for' loop, typically generated TASM instructions.
      */
     @Override
     public Object visitFor(SolParser.ForContext ctx) {
@@ -127,10 +130,11 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'break' statement in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'break' statement.
+     * @return The result of visiting the 'break' statement.
      */
     @Override
     public Object visitBreak(SolParser.BreakContext ctx) {
@@ -145,10 +149,11 @@ public class SolVisitor extends SolBaseVisitor {
         return super.visitVariable(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a declaration statement in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the declaration statement.
+     * @return The result of visiting the declaration statement.
      */
     @Override
     public Object visitDeclaration(SolParser.DeclarationContext ctx) {
@@ -159,10 +164,11 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment and validate
+    /**
+     * Visits a declaration definition in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the declaration definition.
+     * @return The result of visiting the declaration definition.
      */
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
@@ -188,10 +194,11 @@ public class SolVisitor extends SolBaseVisitor {
         return super.visitDeclarationDef(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits a 'types' statement in the parse tree, generating corresponding TASM instructions.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx The parse tree node representing the 'types' statement.
+     * @return The result of visiting the 'types' statement.
      */
     @Override
     public Object visitTypes(SolParser.TypesContext ctx) {

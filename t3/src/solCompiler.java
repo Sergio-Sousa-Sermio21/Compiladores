@@ -47,11 +47,13 @@ class solCompiler extends SolBaseVisitor {
         }
     }
 
-    /**TODO comment
+    /**
+     * Writes instructions to a BufferedWriter in the format suitable for TASM (Turbo Assembler).
      *
-     * @param bw
-     * @param instructions
-     * @param constantPool
+     * @param bw             The BufferedWriter to write instructions to.
+     * @param instructions   An ArrayList of Instruction objects representing the instructions to be written.
+     * @param constantPool   An ArrayList of objects containing constants referenced by instructions.
+     * @throws IOException   If an I/O error occurs while writing to the BufferedWriter.
      */
     public static void writeInstructionTasm(BufferedWriter bw, ArrayList<Instruction> instructions, ArrayList<Object> constantPool) throws IOException {
         for (int i=0; i<instructions.size();i++){

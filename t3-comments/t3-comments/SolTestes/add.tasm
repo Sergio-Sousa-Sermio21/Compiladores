@@ -1,6 +1,0 @@
-i0:FCONST
-i1:JUMPF i4
-i2:SCONST "e"
-i3:SPRINT
-i4:JUMP i0
-i5:HALT
