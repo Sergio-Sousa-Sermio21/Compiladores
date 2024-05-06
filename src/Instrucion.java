@@ -1,7 +1,5 @@
-import org.antlr.runtime.Token;
-
 public class Instrucion {
-    private Commands command;
+    private final Commands command;
     private Integer value;
 
     public Instrucion(Commands codigo, Integer valor){

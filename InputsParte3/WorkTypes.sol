@@ -12,13 +12,13 @@ print 0*0*1.0;
 print 0.0*1.0*1.0;
 print "-----------------------------------------------------------------------------------------\n";
 
-print true + " true ";
-print " true " + true;
-print 1 + " 1 ";
-print " 1 " + 1;
-print 1.0 + " 1.0 ";
-print " 1.0 " + 1.0;
-print " string " + " string ";
+print true + " true " + 2;
+print 2 + " true " + true;
+print 1 + " 1 " + 2;
+print 2 +" 1 " + 1;
+print 1.0 + " 1.0 " + 2;
+print 2 + " 1.0 " + 1.0;
+print " string " + " string " + 2;
 print "-----------------------------------------------------------------------------------------\n";
 
 print true and false and false;

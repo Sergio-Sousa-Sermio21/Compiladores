@@ -1,0 +1,30 @@
+L0: galloc 1
+L1: galloc 1
+L2: galloc 1
+L3: sconst "teste"
+L4: gstore 2
+L5: iconst 2
+L6: gstore 0
+L7: gload 0
+L8: iconst 10
+L9: ileq
+L10: jumpf L29
+L11: iconst 1
+L12: gstore 1
+L13: gload 1
+L14: iconst 2
+L15: ileq
+L16: jumpf L24
+L17: gload 1
+L18: iprint
+L19: gload 1
+L20: iconst 1
+L21: iadd
+L22: gstore 1
+L23: jump L13
+L24: gload 0
+L25: iconst 1
+L26: iadd
+L27: gstore 0
+L28: jump L7
+L29: halt

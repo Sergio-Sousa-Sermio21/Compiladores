@@ -1,22 +1,19 @@
-import Sol.SolBaseListener;
+import Sol.SolBaseVisitor;
 import Sol.SolLexer;
 import Sol.SolParser;
-import Sol.SolBaseVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
-import javax.sound.midi.Soundbank;
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 
 public class solCompiler {
 
     static class Visitor extends SolBaseVisitor<Class<?>> {
         private final Map<String, Integer> PosicaoVariaveis = new HashMap<>();
-        private ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>();
+        private final ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>();
 
         private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
 
@@ -25,10 +22,8 @@ public class solCompiler {
 
         private int countVariable = 0;
 
-        int count = 0;
         private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
         public Class<?> visitProgram(SolParser.ProgramContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             visitChildren(ctx);
             instrucoes.add(new Instrucion(Commands.HALT));
             return null;
@@ -43,15 +38,12 @@ public class solCompiler {
         /**
          *
          * @param ctx the parse tree
-         * @return
          */
         @Override
         public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             String operator = ctx.op.getText();
             Class<?> leftType = visit(ctx.exp(0));
             Class<?> rightType = visit(ctx.exp(1));
-
             switch (operator) {
                 case "==":
                     if (leftType == Double.class || rightType == Double.class) {
@@ -81,18 +73,16 @@ public class solCompiler {
 
         @Override
         public Class<?> visitORDER(SolParser.ORDERContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             Class<?> Order = visit(ctx.exp());
             return TypesConverter(ctx.getParent(), Order);
         }
         @Override
         public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
-            Class<?> Order = visitChildren(ctx);
+            Class<?> NegacionClass = visitChildren(ctx);
             switch (operador) {
                 case "-":
-                    if (Order == Double.class) {
+                    if (NegacionClass == Double.class) {
                         instrucoes.add(new Instrucion(Commands.DUMINUS));
                     } else {
                         instrucoes.add(new Instrucion(Commands.IUMINUS));
@@ -103,51 +93,47 @@ public class solCompiler {
                     break;
             }
 
-            return TypesConverter(ctx.getParent(), Order);
+            return TypesConverter(ctx.getParent(), NegacionClass);
         }
         @Override
         public Class<?> visitADDSUB(SolParser.ADDSUBContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             String operador = ctx.op.getText();
-            Class<?> Order = visit(ctx.exp(0));
+            Class<?> expClass = visit(ctx.exp(0));
             visit(ctx.exp(1));
-            Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "+":
-                    if (Order == Double.class) {
+                    if (expClass == Double.class) {
                         instrucoes.add(new Instrucion(Commands.DADD));
-                    } else if (Order == Integer.class) {
+                    } else if (expClass == Integer.class) {
                         instrucoes.add(new Instrucion(Commands.IADD));
                     } else {
                         instrucoes.add(new Instrucion(Commands.SADD));
                     }
                     break;
                 case "-":
-                    if (Order == Double.class) {
+                    if (expClass == Double.class) {
                         instrucoes.add(new Instrucion(Commands.DSUB));
                     } else {
                         instrucoes.add(new Instrucion(Commands.ISUB));
                     }
                     break;
             }
-            return TypesConverter(ctx.getParent(), Order);
+            return TypesConverter(ctx.getParent(), expClass);
         }
-        int countdiv = 0;
         @Override
         public Class<?>  visitMULTDIV(SolParser.MULTDIVContext ctx) {
             String operador = ctx.op.getText();
-            Class<?> Order = visit(ctx.exp(0));
+            Class<?> MultDivClass = visit(ctx.exp(0));
             visit(ctx.exp(1));
-            Class<?> Parent = getValues(ctx.getParent());
             switch (operador) {
                 case "*" -> {
-                    if (Order == Double.class)
+                    if (MultDivClass == Double.class)
                         instrucoes.add(new Instrucion(Commands.DMULT));
                     else
                         instrucoes.add(new Instrucion(Commands.IMULT));
                 }
                 case "/" ->{
-                    if(Order == Double.class)
+                    if(MultDivClass == Double.class)
                         instrucoes.add(new Instrucion(Commands.DDIV));
                     else
                         instrucoes.add(new Instrucion(Commands.IDIV));
@@ -155,7 +141,7 @@ public class solCompiler {
                 case "%"-> instrucoes.add(new Instrucion(Commands.IMOD));
             }
 
-            return TypesConverter(ctx.getParent(), Order);
+            return TypesConverter(ctx.getParent(), MultDivClass);
         }
 
         @Override
@@ -205,13 +191,13 @@ public class solCompiler {
         //EXP---------------------------------------------------------------------------------
         @Override
         public Class<?>  visitInstrucao(SolParser.InstrucaoContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
+            
             visitChildren(ctx);
             return null;
         }
         @Override
         public Class<?>  visitPrint(SolParser.PrintContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
+            
             visit(ctx.exp());
             Class<?> Atual = getValues(ctx);
             if(Atual == Integer.class)
@@ -226,7 +212,6 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitWhileState(SolParser.WhileStateContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             breaks.add(new ArrayList<>());
             ciclos++;
             int inicioWHILE = instrucoes.size();
@@ -252,7 +237,6 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitForState(SolParser.ForStateContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             breaks.add(new ArrayList<>());
             ciclos++;
             visit(ctx.exp(0));
@@ -276,7 +260,6 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             visit(ctx.exp());
             int inicioIF = instrucoes.size();
             instrucoes.add(new Instrucion(Commands.JUMPF, -1));
@@ -295,7 +278,6 @@ public class solCompiler {
 
         @Override
         public Class<?> visitBreak(SolParser.BreakContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             breaks.get(ciclos).add(instrucoes.size());
             instrucoes.add(new Instrucion(Commands.JUMP, -1));
             return null;
@@ -303,7 +285,6 @@ public class solCompiler {
 
         @Override
         public Class<?> visitAND(SolParser.ANDContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             visit(ctx.exp(0));
             visit(ctx.exp(1));
             instrucoes.add(new Instrucion(Commands.AND));
@@ -311,7 +292,6 @@ public class solCompiler {
         }
         @Override
         public Class<?>  visitOR(SolParser.ORContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             visit(ctx.exp(0));
             visit(ctx.exp(1));
             instrucoes.add(new Instrucion(Commands.OR));
@@ -320,7 +300,6 @@ public class solCompiler {
 
         @Override
         public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             if(ctx.exp()!=null){
                 visitChildren(ctx.exp());
                 instrucoes.add(new Instrucion(Commands.GSTORE, countVariable));
@@ -330,13 +309,11 @@ public class solCompiler {
         }
 
         @Override public Class<?>  visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.GALLOC, ctx.declaracao().size()));
             visitChildren(ctx);
             return null;
         }
         @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
                     for(int i = 0; i<ctx.exp().size(); i++){
                         visit(ctx.exp(i));
                         instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME(i).getText())));
@@ -353,7 +330,6 @@ public class solCompiler {
             } else if (ClassParent == Double.class && Atual.equals(Integer.class)) {
                 instrucoes.add(new Instrucion(Commands.ITOD));
             } else if (ClassParent == Boolean.class && Atual.equals(Integer.class)) {
-
                 if (getValues(getvariable(Parent,0)) == Double.class || getValues(getvariable(Parent,2)) == Double.class) {
                     instrucoes.add(new Instrucion(Commands.ITOD));
                     return Double.class;
@@ -376,14 +352,12 @@ public class solCompiler {
         
         @Override
         public Class<?>  visitINT(SolParser.INTContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             ParserRuleContext exp = ctx.getParent().getParent();
             instrucoes.add(new Instrucion(Commands.ICONST, Integer.parseInt(ctx.getText())));
             return TypesConverter(exp, getValues(ctx));
         }
         @Override
         public Class<?>  visitDOUBLE(SolParser.DOUBLEContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.DCONST, constantpoll.size()));
             constantpoll.add(Double.parseDouble(ctx.getText()));
             ParserRuleContext exp = ctx.getParent().getParent();
@@ -392,7 +366,6 @@ public class solCompiler {
 
         @Override
         public Class<?> visitTRUE(SolParser.TRUEContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.TCONST));
             ParserRuleContext exp = ctx.getParent().getParent();
             return TypesConverter(exp, getValues(ctx));
@@ -400,7 +373,6 @@ public class solCompiler {
 
         @Override
         public Class<?> visitFALSE(SolParser.FALSEContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.FCONST));
             ParserRuleContext exp = ctx.getParent().getParent();
             return TypesConverter(exp, getValues(ctx));
@@ -408,14 +380,12 @@ public class solCompiler {
 
         @Override
         public Class<?>  visitSTRING(SolParser.STRINGContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.SCONST, constantpoll.size()));
             constantpoll.add(ctx.getText());
             return String.class;
         }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
-            //System.out.println(ctx.getText() + "-" + count++);
             instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
             ParserRuleContext exp = ctx.getParent().getParent();
             return  TypesConverter(exp, getValues(ctx));
@@ -575,8 +545,19 @@ public class solCompiler {
 
 
     public static void main(String[] args) throws IOException {
+        boolean debug = false;
+        List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+        for (String arg : inputArguments) {
+            if (arg.contains("jdwp")) {
+                debug = true;
+                break;
+            }
+        }
         Visitor visitor = new Visitor();
         visitor.execute(args);
+        if (debug){
+            visitor.debug();
+        }
         visitor.write(args);
     }
 

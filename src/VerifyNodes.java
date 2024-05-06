@@ -2,21 +2,19 @@ import Sol.SolBaseVisitor;
 import Sol.SolParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
-    private final HashMap<String, Class<?>> tiposVariaveis = new HashMap<String, Class<?>>();
+    private final HashMap<String, Class<?>> tiposVariaveis = new HashMap<>();
     private final ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
 
     private final ArrayList<String> errors = new ArrayList<>();
     private int loopCount = 0;
 
-    int count = 0;
+
 
     /**
      * Metodo que associa o um valor com um node da arvore
@@ -181,7 +179,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                 errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
                 setValues(ctx, Object.class);
                 return Object.class;
-            } else{int i;
+            } else{
                 setValues(ctx, Boolean.class);
             }
         }

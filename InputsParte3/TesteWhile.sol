@@ -1,6 +1,7 @@
 int n = 10;
-string s;
+int s = 5;
 while s <= n do
 begin
-end
+s = s + 1;
 break;
+end

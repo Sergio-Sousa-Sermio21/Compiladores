@@ -1,0 +1,17 @@
+L0: galloc 1
+L1: iconst 10
+L2: gstore 0
+L3: galloc 1
+L4: iconst 5
+L5: gstore 1
+L6: gload 1
+L7: gload 0
+L8: ileq
+L9: jumpf L16
+L10: gload 1
+L11: iconst 1
+L12: iadd
+L13: gstore 1
+L14: jump L16
+L15: jump L6
+L16: halt

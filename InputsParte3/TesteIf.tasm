@@ -1,0 +1,10 @@
+L0: galloc 1
+L1: tconst
+L2: gstore 0
+L3: gload 0
+L4: tconst
+L5: beq
+L6: jumpf L9
+L7: sconst "ola"
+L8: sprint
+L9: halt

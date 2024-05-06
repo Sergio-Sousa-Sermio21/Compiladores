@@ -1,14 +1,6 @@
-L0: galloc 1
+L0: dconst 0.1
 L1: iconst 1
-L2: gstore 0
-L3: galloc 1
-L4: iconst 2
-L5: gstore 1
-L6: gload 0
-L7: gload 1
-L8: ileq
-L9: jumpf L13
-L10: gload 0
-L11: iprint
-L12: jump L6
-L13: halt
+L2: itod
+L3: dmult
+L4: dprint
+L5: halt

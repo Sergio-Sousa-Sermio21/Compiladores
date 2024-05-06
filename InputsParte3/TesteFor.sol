@@ -1,8 +1,9 @@
-string i;
+int i;
 
 int j;
-w = "teste";
-for i = pao to 10 do
-    for i = pao to 2 do
+string w = "teste";
+for i = 2 to 10 do
 begin
+    for j = 1 to 2 do
+print j;
 end
