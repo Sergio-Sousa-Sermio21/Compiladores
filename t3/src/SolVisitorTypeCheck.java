@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * SolVisitorTypeCheck extends SolBaseVisitor to provide type checking functionality
@@ -16,9 +17,36 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private TesteSemantico teste;
     private ArrayList<String> errors;
+    class Var {
+        protected String name;
+        protected boolean initialized;
+        protected String type;
 
-    private HashMap<String, String> gallocContent;
-    private boolean insideLoop;
+        Var(String n){
+            name=n;
+            initialized=false;
+            type =null;
+        }
+        Var(String n, boolean i, String t){
+            name=n;
+            initialized=i;
+            type =t;
+        }
+        Var(String n, String t){
+            name=n;
+            initialized=false;
+            type =t;
+        }
+        public boolean equals(Object obj) {
+            return name.equals(obj.toString());
+        }
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+    private ArrayList<Var> gallocContent;
+    private Stack<Boolean> loops;
 
     /**
      * Constructor for SolVisitorTypeCheck.
@@ -28,8 +56,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         tree = new ParseTreeProperty<Class<?>>();
         teste = new TesteSemantico();
         errors = new ArrayList<String>();
-        gallocContent = new HashMap<>();
-        insideLoop=false;
+        gallocContent = new ArrayList<>();
+        loops=new Stack<>();
     }
 
     /**
@@ -62,27 +90,31 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     public Object visitCommand(SolParser.CommandContext ctx) {
         Object result = null;
         if (ctx.while_() != null){
-            insideLoop = true;
+            loops.push(true);
             result = visit(ctx.while_());
-            insideLoop = false;
+            loops.pop();
             return result;
         }
         if (ctx.for_() !=null){
-            insideLoop = true;
+            loops.push(true);
             result = visit(ctx.for_());
-            insideLoop = false;
+            loops.pop();
             return result;
         }
         result = super.visitCommand(ctx);
 
         if (ctx.VAR() != null) {
-            String type = gallocContent.get(ctx.VAR().getText());
+            int index = gallocContent.indexOf(new Var(ctx.VAR().getText()));
+            Var var = gallocContent.get(index);
+            String type = var.type;
+            var.initialized = true;
+            gallocContent.set(index, var);
             visit(ctx.op());
             String opType = tree.get(ctx.op()).getSimpleName();
             if (type==null)
-                errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
+                errors.add(teste.invalidVariable(ctx.start.getLine(), ctx.VAR().getText()));
             else if (!type.equals(opType))
-                errors.add(teste.invalidType(ctx.getRuleIndex(), opType, type));
+                errors.add(teste.invalidType(ctx.start.getLine(), opType, type));
         }
         return result;
     }
@@ -94,16 +126,22 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitVariable(SolParser.VariableContext ctx) {
-        String type = gallocContent.get(ctx.VAR().getText());
-        if (type!=null)
+        int index = gallocContent.indexOf(new Var(ctx.VAR().getText()));
+        if (index!=-1) {
+            Var var = gallocContent.get(index);
+            String type = var.type;
             switch (type) {
                 case "Integer" -> tree.put(ctx, Integer.class);
                 case "Double" -> tree.put(ctx, Double.class);
                 case "String" -> tree.put(ctx, String.class);
                 case "Boolean" -> tree.put(ctx, Boolean.class);
             }
-        else
-            errors.add(teste.invalidVariable(ctx.getRuleIndex(), ctx.VAR().getText()));
+            if (!var.initialized)
+                errors.add(teste.notInitialized(ctx.start.getLine(), var.name));
+        } else {
+            errors.add(teste.invalidVariable(ctx.start.getLine(), ctx.VAR().getText()));
+            tree.put(ctx, Integer.class);
+        }
         return super.visitVariable(ctx);
     }
 
@@ -116,7 +154,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     public Object visitWhile(SolParser.WhileContext ctx) {
         visit(ctx.op());
         if (!(tree.get(ctx.op()) == Boolean.class))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.op()).getSimpleName(), "Boolean"));
+            errors.add(teste.invalidType(ctx.start.getLine(),tree.get(ctx.op()).getSimpleName(), "Boolean"));
         return visit(ctx.command());
     }
 
@@ -130,9 +168,12 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         visit(ctx.type(0));
         visit(ctx.type(1));
         if (!(tree.get(ctx.type(0)) == Integer.class))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.type(0)).getSimpleName(), "Integer"));
+            errors.add(teste.invalidType(ctx.start.getLine(),tree.get(ctx.type(0)).getSimpleName(), "Integer"));
         if (!(tree.get(ctx.type(1)) == Integer.class))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),tree.get(ctx.type(1)).getSimpleName(), "Integer"));
+            errors.add(teste.invalidType(ctx.start.getLine(),tree.get(ctx.type(1)).getSimpleName(), "Integer"));
+        if (gallocContent.contains(new Var(ctx.VAR().getText(), "Integer")))
+            errors.add(teste.alreadyDefined(ctx.start.getLine(),ctx.VAR().getText()));
+        gallocContent.add(new Var(ctx.VAR().getText(),true, "Integer"));
         return visit(ctx.command());
     }
 
@@ -144,7 +185,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     @Override
     public Object visitIf(SolParser.IfContext ctx) {
         if (!(visit(ctx.op()) instanceof Boolean))
-            errors.add(teste.invalidType(ctx.getRuleIndex(),ctx.op(),"boolean"));
+            errors.add(teste.invalidType(ctx.start.getLine(),ctx.op(),"boolean"));
         visit(ctx.command());
         return visit(ctx.else_());
     }
@@ -156,8 +197,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitBreak(SolParser.BreakContext ctx) {
-        if (!insideLoop)
-            errors.add(teste.invalidBreak(ctx.getRuleIndex()));
+        if (loops.isEmpty())
+            errors.add(teste.invalidBreak(ctx.start.getLine()));
         return super.visitBreak(ctx);
     }
 
@@ -172,18 +213,6 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         Object result = super.visitParenthesis(ctx);
         tree.put(ctx, tree.get(ctx.op()));
         return result;
-    }
-
-    /**
-     * Visits relation context nodes in the parse tree to handle relational operations and perform type checking.
-     *
-     * @param ctx the parse tree node to visit.
-     * @return the value associated with the node.
-     */
-    @Override
-    public Object visitRelations(SolParser.RelationsContext ctx) {
-        tree.put(ctx, tree.get(ctx.rel()));
-        return super.visitRelations(ctx);
     }
 
     /**
@@ -268,15 +297,16 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
         Class<?> type = tree.get(ctx);
-        gallocContent.put(ctx.VAR().getText(), type.getSimpleName());
-        if (ctx.INT() != null && type != Integer.class) {
-            errors.add(teste.invalidType(ctx.getRuleIndex(),"Integer",type.getSimpleName()));
-        } else if (ctx.DOUBLE() != null && type != Double.class){
-            errors.add(teste.invalidType(ctx.getRuleIndex(),"Double",type.getSimpleName()));
-        }else if(ctx.STRING()!=null && type != String.class){
-            errors.add(teste.invalidType(ctx.getRuleIndex(),"String",type.getSimpleName()));
-        }else if ((ctx.FALSE()!= null || ctx.TRUE()!=null)&& type != Boolean.class)
-            errors.add(teste.invalidType(ctx.getRuleIndex(),"Boolean",type.getSimpleName()));
+        if (gallocContent.contains(new Var(ctx.VAR().getText())))
+            errors.add(teste.alreadyDefined(ctx.start.getLine(),ctx.VAR().getText()));
+        if (ctx.op()!=null) {
+            gallocContent.add(new Var(ctx.VAR().getText(), true, type.getSimpleName()));
+            visit(ctx.op());
+            Class<?> opType = tree.get(ctx.op());
+            if (opType != type)
+                errors.add(teste.invalidType(ctx.start.getLine(), opType.getSimpleName(), type.getSimpleName()));
+        } else
+            gallocContent.add(new Var(ctx.VAR().getText(), type.getSimpleName()));
         return super.visitDeclarationDef(ctx);
     }
 
@@ -349,7 +379,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             return Double.parseDouble(left.toString())+Double.parseDouble(right.toString());
         }
         tree.put(ctx, Integer.class);
-        return Integer.parseInt(left.toString())+Integer.parseInt(right.toString());
+        return 0;
     }
 
     /**
@@ -373,7 +403,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             return Double.parseDouble(left.toString())/Double.parseDouble(right.toString());
         }
         tree.put(ctx, Integer.class);
-        return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
+        return 0;
     }
 
     /**
@@ -384,10 +414,12 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitCompareMore(SolParser.CompareMoreContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
-        if (!((left instanceof Integer || left instanceof Double) && (right instanceof Integer || right instanceof Double))){
-            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Integer || left instanceof Double), !(right instanceof Integer || right instanceof Double)));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
+        Class<?> leftClass = tree.get(ctx.op(0));
+        Class<?> rightClass = tree.get(ctx.op(1));
+        if (!((leftClass == Integer.class || leftClass == Double.class) && (rightClass == Integer.class || rightClass == Double.class))){
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, !(leftClass == Integer.class || leftClass == Double.class), !(rightClass == Integer.class || rightClass == Double.class)));
             return left;
         }tree.put(ctx, Boolean.class);
         return true;
@@ -401,16 +433,18 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitCompare(SolParser.CompareContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
-        if (left instanceof Boolean &&!(right instanceof Boolean)) {
-            errors.add(teste.invalidComparison(ctx.type(0).getRuleIndex(), left, right));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
+        Class<?> leftClass = tree.get(ctx.op(0));
+        Class<?> rightClass = tree.get(ctx.op(1));
+        if (leftClass == Boolean.class &&!(rightClass == Boolean.class)) {
+            errors.add(teste.invalidComparison(ctx.op(0).getRuleIndex(), left, right));
             return left;
-        }else if (left instanceof String && !(right instanceof String)) {
-            errors.add(teste.invalidComparison(ctx.type(0).getRuleIndex(), left, right));
+        }else if (leftClass == String.class && !(rightClass == String.class)) {
+            errors.add(teste.invalidComparison(ctx.op(0).getRuleIndex(), left, right));
             return left;
-        }else if (!(left instanceof Double || left instanceof Integer) || !(right instanceof Double || right instanceof Integer)){
-            errors.add(teste.invalidComparison(ctx.type(0).getRuleIndex(),left,right));
+        }else if (!(leftClass == Double.class || leftClass == Integer.class) || !(rightClass == Double.class || rightClass == Integer.class)){
+            errors.add(teste.invalidComparison(ctx.op(0).getRuleIndex(),left,right));
             return left;
         }tree.put(ctx, Boolean.class);
         return true;
@@ -424,13 +458,15 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitAnd(SolParser.AndContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
-        if (!(left instanceof Boolean && right instanceof Boolean)) {
-            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
+        Class<?> leftClass = tree.get(ctx.op(0));
+        Class<?> rightClass = tree.get(ctx.op(1));
+        if (!(leftClass == Boolean.class && rightClass == Boolean.class)) {
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
             return left;
         }tree.put(ctx, Boolean.class);
-        return Boolean.parseBoolean(left.toString()) && Boolean.parseBoolean(right.toString());
+        return true;
     }
 
     /**
@@ -441,12 +477,14 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     @Override
     public Object visitOr(SolParser.OrContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
-        if (!(left instanceof Boolean && right instanceof Boolean)) {
-            errors.add(teste.invalidTwoOperators(ctx.type(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
+        Class<?> leftClass = tree.get(ctx.op(0));
+        Class<?> rightClass = tree.get(ctx.op(1));
+        if (!(leftClass == Boolean.class && rightClass == Boolean.class)) {
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, !(left instanceof Boolean), !(right instanceof Boolean)));
             return left;
         }tree.put(ctx, Boolean.class);
-        return Boolean.parseBoolean(left.toString()) || Boolean.parseBoolean(right.toString());
+        return true;
     }
 }

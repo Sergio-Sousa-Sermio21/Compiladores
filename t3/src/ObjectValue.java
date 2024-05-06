@@ -55,6 +55,14 @@ public class ObjectValue {
     }
 
     /**
+     * Checks if it is a specified String value.
+     * @return true if it is equal, false otherwise
+     */
+    public boolean equalsString(String string) {
+        return s.equals(string);
+    }
+
+    /**
      * Get the Boolean value at the specified index.
      * @param index the index in the stack
      * @return the Boolean value

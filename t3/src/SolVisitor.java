@@ -87,7 +87,7 @@ public class SolVisitor extends SolBaseVisitor {
         int indexOfJump = instructions.size()-1;
         Object result = visit(ctx.command());
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
-        int indexOutLoop = instructions.size()-1;
+        int indexOutLoop = instructions.size();
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
         while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
             instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
@@ -119,7 +119,7 @@ public class SolVisitor extends SolBaseVisitor {
         int indexOfJump = instructions.size()-1;
         Object result = visit(ctx.command());
         instructions.add(new Instruction(TokenTasm.JUMP, jumpHere)); //jump again for the loop
-        int indexOutLoop = instructions.size()-1;
+        int indexOutLoop = instructions.size();
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
         while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
             instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
@@ -163,29 +163,16 @@ public class SolVisitor extends SolBaseVisitor {
      *
      * @param ctx the parse tree
      * @return
-     */
+m     */
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
         gallocContent.add(ctx.VAR().getText());
-        if (ctx.INT()!=null){
-            instructions.add(new Instruction(TokenTasm.ICONST,Integer.parseInt(ctx.INT().getText())));
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
-        } else if (ctx.DOUBLE()!=null) {
-            constantPool.add(Double.parseDouble(ctx.DOUBLE().getText()));
-            instructions.add(new Instruction(TokenTasm.DCONST, constantPool.size()-1));
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
-        }else if (ctx.STRING()!=null) {
-            constantPool.add(ctx.STRING().getText());
-            instructions.add(new Instruction(TokenTasm.SCONST,constantPool.size()-1));
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
-        } else if (ctx.TRUE()!=null) {
-            instructions.add(new Instruction(TokenTasm.TCONST));
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
-        } else if (ctx.FALSE()!=null) {
-            instructions.add(new Instruction(TokenTasm.FCONST));
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size()-1));
+        Object result = null;
+        if (ctx.op() !=null) {
+            result = visit(ctx.op());
+            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size() - 1));
         }
-        return super.visitDeclarationDef(ctx);
+        return result;
     }
 
     /**TODO comment
@@ -332,7 +319,7 @@ public class SolVisitor extends SolBaseVisitor {
             return Double.parseDouble(left.toString())+Double.parseDouble(right.toString());
         }
         instructions.add(new Instruction(operator[1]));
-        return Integer.parseInt(left.toString())+Integer.parseInt(right.toString());
+        return 0;
     }
 
     /**
@@ -357,7 +344,7 @@ public class SolVisitor extends SolBaseVisitor {
             return Double.parseDouble(left.toString())/Double.parseDouble(right.toString());
         }
         instructions.add(new Instruction(operator[1]));
-        return Integer.parseInt(left.toString())/Integer.parseInt(right.toString());
+        return 0;
     }
 
     /**
@@ -368,8 +355,8 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitCompareMore(SolParser.CompareMoreContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
         TokenTasm[] operator = null;
         Instruction addNot = null;
         switch (ctx.compareMoreOp.getText()){
@@ -399,7 +386,7 @@ public class SolVisitor extends SolBaseVisitor {
             if (addNot != null)
                 instructions.add(addNot);
         }
-        return Integer.parseInt(left.toString())<Integer.parseInt(right.toString());
+        return true;
     }
 
     /**
@@ -410,8 +397,8 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitCompare(SolParser.CompareContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
         TokenTasm[] operator = null;
         if (ctx.compareOP.getText().equals("=="))
             operator = new TokenTasm[]{TokenTasm.DEQ, TokenTasm.IEQ};
@@ -422,7 +409,7 @@ public class SolVisitor extends SolBaseVisitor {
             return Double.parseDouble(left.toString()) < Double.parseDouble(right.toString());
         }
         instructions.add(new Instruction(operator[1]));
-        return Integer.parseInt(left.toString())<Integer.parseInt(right.toString());
+        return true;
     }
 
     /**
@@ -433,10 +420,10 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitAnd(SolParser.AndContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
         instructions.add(new Instruction(TokenTasm.AND));
-        return Boolean.parseBoolean(left.toString()) && Boolean.parseBoolean(right.toString());
+        return false;
     }
 
     /**
@@ -447,9 +434,9 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitOr(SolParser.OrContext ctx) {
-        Object left = visit(ctx.type(0));
-        Object right = visit(ctx.type(1));
+        Object left = visit(ctx.op(0));
+        Object right = visit(ctx.op(1));
         instructions.add(new Instruction(TokenTasm.OR));
-        return Boolean.parseBoolean(left.toString()) || Boolean.parseBoolean(right.toString());
+        return true;
     }
 }
