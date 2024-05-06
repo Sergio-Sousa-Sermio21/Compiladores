@@ -325,7 +325,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             if(verificar != Object.class && verificar != tipo && !(tipo==Double.class && verificar == Integer.class)) {
                 errors.add("Line " + ctx.declaracao().get(i).getStart().getLine() + ":" +
                         (ctx.declaracao().get(i).getStart().getCharPositionInLine() +1)+
-                        " error: " + verificar + " type mismatch");
+                        " error: " + verificar.getSimpleName() + " type mismatch on " + ctx.declaracao().get(i).NOME().getText());
             }
             if(tiposVariaveis.containsKey(ctx.declaracao().get(i).NOME().getText())){
                 errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
@@ -421,7 +421,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             Class<?> tipo = visit(ctx.exp(i));
             if(tiposVariaveis.containsKey(ctx.NOME().get(i).getText())){
                 if(tipo!=tiposVariaveis.get(ctx.NOME().get(i).getText())) {
-                    System.err.println("Type error" + " " + tipo.getSimpleName() + " hash " + tiposVariaveis.get(ctx.NOME().get(i).getText()));
                     errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                             " error: Wrong type for variable " + ctx.NOME().get(i).getText());
                 }

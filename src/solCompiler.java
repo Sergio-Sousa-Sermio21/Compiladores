@@ -301,7 +301,7 @@ public class solCompiler {
         @Override
         public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
             if(ctx.exp()!=null){
-                visitChildren(ctx.exp());
+                visitChildren(ctx);
                 instrucoes.add(new Instrucion(Commands.GSTORE, countVariable));
             }
             PosicaoVariaveis.put(ctx.NOME().getText(), countVariable++);

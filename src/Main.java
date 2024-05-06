@@ -16,10 +16,10 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         String[] file = new String[2];
-        file[0] = "InputsParte3\\" + name + ".sol";
+        file[0] = "inputs\\" + name + ".sol";
         solCompiler assembler = new solCompiler();
         assembler.executeSol(file);
-        file[0] = "InputsParte3\\" + name + ".tbc";
+        file[0] = "inputs\\" + name + ".tbc";
         tVM vm = new tVM(file);
         vm.runCodeMemory(false);
     }
