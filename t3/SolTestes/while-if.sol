@@ -1,4 +1,4 @@
-int i;
+int i=0;
 while i <= 20 do
     begin
         if i < 10 then

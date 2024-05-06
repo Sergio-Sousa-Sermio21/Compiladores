@@ -190,8 +190,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     public Object visitIf(SolParser.IfContext ctx) {
         if (!(visit(ctx.op()) instanceof Boolean))
             errors.add(teste.invalidType(ctx.start.getLine(),ctx.op(),"boolean"));
-        visit(ctx.command());
-        return visit(ctx.else_());
+        Object result = visit(ctx.command());
+        if (ctx.else_() != null)
+            visit(ctx.else_());
+        return result;
     }
 
     /**
