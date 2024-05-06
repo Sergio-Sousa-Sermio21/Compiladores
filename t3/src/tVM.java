@@ -218,15 +218,15 @@ public class tVM {
                         break;
                     //It indicates the line in the tasm file so its -2 (for the next loop iteration and arrayList access)
                     case JUMP:
-                        i = instruction.getArgument();
+                        i = instruction.getArgument()-1;
                         break;
                     case JUMPT:
                         if (stack.pop().getBool(i))
-                            i = instruction.getArgument();
+                            i = instruction.getArgument()-1;
                         break;
                     case JUMPF:
                         if (!stack.pop().getBool(i))
-                            i = instruction.getArgument();
+                            i = instruction.getArgument()-1;
                         break;
                     case GALLOC:
                         for (int j = 0; j < instruction.getArgument(); j++)

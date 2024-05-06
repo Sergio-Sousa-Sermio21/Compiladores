@@ -30,4 +30,12 @@ public class TesteSemantico {
     public String invalidBreak(int line){
         return "error in line "+line+": incorrect use of the break command, not inside a loop.";
     }
+
+    public String alreadyDefined(int line, String var){
+        return "error in line "+line+": "+var+" is already defined.";
+    }
+
+    public String notInitialized(int line, String var){
+        return "error in line "+line+": "+var+" is not initialized.";
+    }
 }

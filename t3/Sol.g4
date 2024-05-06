@@ -1,15 +1,15 @@
 grammar Sol;
 
-executable: (command ';' | declaration ';')* EOF;
+executable: (command | declaration ';')* EOF;
 
-command: PRINT op
+command: PRINT op';'
             | block
             | while
             | for
             | if
             | empty
             | break
-            | VAR '=' op;
+            | VAR '=' op ';';
 
 block: 'begin' (command | declaration ';')* 'end';
 
@@ -33,18 +33,16 @@ declarationType: 'int' #IntegerType
     | 'boolean' #BooleanType
     ;
 
-declarationDef: VAR ('=' INT)?
-             | VAR ('=' DOUBLE)?
-             | VAR ('=' STRING)?
-             | VAR ('=' TRUE)?
-             | VAR ('=' FALSE)?
-             ;
+declarationDef: VAR ('=' op)?;
 
 op: LPARENTHESIS op RPARENTHESIS #Parenthesis
  | negate #Negation
  | op multdivmodOp=(MULT|DIV|MOD) op #MultDivMod
  | op addsubOP=(ADD|SUB) op #AddSub
- | rel #Relations
+ | op compareMoreOp=(LT|MT|LTE|MTE) op #CompareMore
+ | op compareOP=(EQUAL|NEQUAL) op #Compare
+ | op AND op #And
+ | op OR op #Or
  | type #Types
  | VAR #Variable
  ;
@@ -58,12 +56,6 @@ type: INT
 
 negate: SUB op
  | NOT op
- ;
-
-rel: type compareMoreOp=(LT|MT|LTE|MTE) type #CompareMore
- | type compareOP=(EQUAL|NEQUAL) type #Compare
- | type AND type #And
- | type OR type #Or
  ;
 
 SL_COMMENT : '//' .*? (EOF|'\n') -> skip; // single-line comment

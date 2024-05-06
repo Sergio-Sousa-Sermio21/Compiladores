@@ -202,6 +202,18 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitVariable(SolParser.VariableContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterOr(SolParser.OrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitOr(SolParser.OrContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Negation}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
@@ -238,17 +250,41 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitMultDivMod(SolParser.MultDivModContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Relations}
+	 * Enter a parse tree produced by the {@code And}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelations(SolParser.RelationsContext ctx);
+	void enterAnd(SolParser.AndContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Relations}
+	 * Exit a parse tree produced by the {@code And}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelations(SolParser.RelationsContext ctx);
+	void exitAnd(SolParser.AndContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CompareMore}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompareMore(SolParser.CompareMoreContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CompareMore}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompareMore(SolParser.CompareMoreContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Compare}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompare(SolParser.CompareContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Compare}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompare(SolParser.CompareContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SolParser#type}.
 	 * @param ctx the parse tree
@@ -269,52 +305,4 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNegate(SolParser.NegateContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code CompareMore}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void enterCompareMore(SolParser.CompareMoreContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CompareMore}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void exitCompareMore(SolParser.CompareMoreContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Compare}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void enterCompare(SolParser.CompareContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Compare}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void exitCompare(SolParser.CompareContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code And}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void enterAnd(SolParser.AndContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code And}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void exitAnd(SolParser.AndContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Or}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void enterOr(SolParser.OrContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Or}
-	 * labeled alternative in {@link SolParser#rel}.
-	 * @param ctx the parse tree
-	 */
-	void exitOr(SolParser.OrContext ctx);
 }
