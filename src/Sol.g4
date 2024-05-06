@@ -20,14 +20,17 @@ whileState: 'while' exp 'do' (instrucao);
 
 forState: 'for' NOME '=' exp 'to' (exp) 'do' (instrucao);
 
+break: 'break' ';';
+
+empty: ';';
+
+bloco: 'begin' (instrucao)* 'end';
+
 ifState: IF exp THEN (instrucao) (ELSE (instrucao))?;
 
 IF:'if';
 THEN:'then';
 ELSE:'else';
-empty: ';';
-
-break: 'break' ';';
 
 tiposNoCodigo: types declaracao (','declaracao)* ';';
 
@@ -37,8 +40,6 @@ types: 'int' #INTT
 | 'string' #STRINGT;
 
 declaracao: NOME ('='exp)?;
-
-bloco: 'begin' (instrucao)* 'end';
 
 exp: '(' exp ')' #ORDER
      | op=(NOT|SUB) exp #NEGACION

@@ -1,6 +1,0 @@
-L0: dconst 0.1
-L1: iconst 1
-L2: itod
-L3: dmult
-L4: dprint
-L5: halt

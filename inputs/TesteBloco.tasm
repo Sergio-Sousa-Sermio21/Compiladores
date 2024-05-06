@@ -1,0 +1,14 @@
+L0: galloc 2
+L1: iconst 0
+L2: iconst 1
+L3: isub
+L4: gstore 0
+L5: iconst 3
+L6: iconst 2
+L7: iadd
+L8: gstore 1
+L9: gload 0
+L10: gload 1
+L11: iadd
+L12: iprint
+L13: halt

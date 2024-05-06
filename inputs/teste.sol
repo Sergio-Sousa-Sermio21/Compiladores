@@ -1,1 +1,5 @@
-print 1+1;
+string i = 2 + 2 ;
+print i;
+i = i + " 2";
+print i;
+
