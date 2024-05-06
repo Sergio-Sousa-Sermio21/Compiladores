@@ -1,9 +1,9 @@
-/*
-* Computes all prime numbers upto n
-*/
-bool t = false;
-if t then
-    print "Ola";
-    else
-    print "Adeus";
+int i=1;
+int n = 2;
+while i <= n do
+begin
+print i;
+end
+
+
 

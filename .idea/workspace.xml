@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteBloco.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteIfElse.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InputsParte3/TesteVaziu.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/InputsParte3/Teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/Teste.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/InputsParte3/Teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/InputsParte3/Teste.tasm" afterDir="false" />
@@ -199,6 +202,7 @@
       <workItem from="1714582900764" duration="4210000" />
       <workItem from="1714776218741" duration="1740000" />
       <workItem from="1714893430474" duration="649000" />
+      <workItem from="1714983998188" duration="2323000" />
     </task>
     <servers />
   </component>
