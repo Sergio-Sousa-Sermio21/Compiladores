@@ -148,51 +148,91 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitHALT(TasmParser.HALTContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code INTINSTRUCTION}
+	 * Enter a parse tree produced by the {@code InstrucaoInt}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx);
+	void enterInstrucaoInt(TasmParser.InstrucaoIntContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code INTINSTRUCTION}
+	 * Exit a parse tree produced by the {@code InstrucaoInt}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx);
+	void exitInstrucaoInt(TasmParser.InstrucaoIntContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code DOUBLEINSTRUCTION}
+	 * Enter a parse tree produced by the {@code InstrucaoDouble}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx);
+	void enterInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code DOUBLEINSTRUCTION}
+	 * Exit a parse tree produced by the {@code InstrucaoDouble}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx);
+	void exitInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code STRINGINSTRUCTION}
+	 * Enter a parse tree produced by the {@code InstrucaoString}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
+	void enterInstrucaoString(TasmParser.InstrucaoStringContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code STRINGINSTRUCTION}
+	 * Exit a parse tree produced by the {@code InstrucaoString}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
+	void exitInstrucaoString(TasmParser.InstrucaoStringContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code BOLEANINSTRUCION}
+	 * Enter a parse tree produced by the {@code InstrucaoBoolean}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	void enterInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code BOLEANINSTRUCION}
+	 * Exit a parse tree produced by the {@code InstrucaoBoolean}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	void exitInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#intinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntinstruction(TasmParser.IntinstructionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#intinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntinstruction(TasmParser.IntinstructionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#doubleinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleinstruction(TasmParser.DoubleinstructionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#doubleinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleinstruction(TasmParser.DoubleinstructionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#stringinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringinstruction(TasmParser.StringinstructionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#stringinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringinstruction(TasmParser.StringinstructionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#booleaninstruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleaninstruction(TasmParser.BooleaninstructionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#booleaninstruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleaninstruction(TasmParser.BooleaninstructionContext ctx);
 }

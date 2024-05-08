@@ -93,31 +93,55 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHALT(TasmParser.HALTContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code INTINSTRUCTION}
+	 * Visit a parse tree produced by the {@code InstrucaoInt}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx);
+	T visitInstrucaoInt(TasmParser.InstrucaoIntContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code DOUBLEINSTRUCTION}
+	 * Visit a parse tree produced by the {@code InstrucaoDouble}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx);
+	T visitInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code STRINGINSTRUCTION}
+	 * Visit a parse tree produced by the {@code InstrucaoString}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx);
+	T visitInstrucaoString(TasmParser.InstrucaoStringContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BOLEANINSTRUCION}
+	 * Visit a parse tree produced by the {@code InstrucaoBoolean}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	T visitInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#intinstruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntinstruction(TasmParser.IntinstructionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#doubleinstruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleinstruction(TasmParser.DoubleinstructionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#stringinstruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringinstruction(TasmParser.StringinstructionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#booleaninstruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleaninstruction(TasmParser.BooleaninstructionContext ctx);
 }

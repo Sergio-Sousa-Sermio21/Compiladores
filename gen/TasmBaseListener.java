@@ -1,4 +1,4 @@
-// Generated from C:/xampp/htdocs/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -203,6 +203,18 @@ public class TasmBaseListener implements TasmListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntinstruction(TasmParser.IntinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntinstruction(TasmParser.IntinstructionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

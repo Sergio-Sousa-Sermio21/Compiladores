@@ -1,4 +1,4 @@
-// Generated from C:/xampp/htdocs/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -119,4 +119,10 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#intinstruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntinstruction(TasmParser.IntinstructionContext ctx);
 }

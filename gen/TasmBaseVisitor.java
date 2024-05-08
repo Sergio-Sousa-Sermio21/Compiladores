@@ -1,4 +1,4 @@
-// Generated from C:/xampp/htdocs/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -123,4 +123,11 @@ public class TasmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements T
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIntinstruction(TasmParser.IntinstructionContext ctx) { return visitChildren(ctx); }
 }

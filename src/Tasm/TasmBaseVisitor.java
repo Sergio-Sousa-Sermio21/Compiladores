@@ -102,26 +102,54 @@ public class TasmBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements T
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoInt(TasmParser.InstrucaoIntContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoString(TasmParser.InstrucaoStringContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIntinstruction(TasmParser.IntinstructionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDoubleinstruction(TasmParser.DoubleinstructionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitStringinstruction(TasmParser.StringinstructionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitBooleaninstruction(TasmParser.BooleaninstructionContext ctx) { return visitChildren(ctx); }
 }

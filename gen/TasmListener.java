@@ -1,4 +1,4 @@
-// Generated from C:/xampp/htdocs/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Tasm.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -194,4 +194,14 @@ public interface TasmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#intinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntinstruction(TasmParser.IntinstructionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#intinstruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntinstruction(TasmParser.IntinstructionContext ctx);
 }

@@ -100,8 +100,8 @@ public class tAssembler extends TasmBaseListener {
                     System.err.println("Foram detactados " + numberOfErrors + " erros de Syntax.");
                     System.exit(0);
                 }
-                TestSemantico test = new TestSemantico();
-                test.TestTree(tree);
+                //TestSemantico test = new TestSemantico();
+                //test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
                 walker.walk(this, tree);
             }
@@ -165,19 +165,19 @@ public class tAssembler extends TasmBaseListener {
             resolveJumps(ctx.LABEL().getText(),ctx.JUMPF().getText());
         }
 
-        public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx){
+        public void enterInstrucaoInt(TasmParser.InstrucaoIntContext ctx){
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
-        public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx){
+        public void enterBooleaninstruction(TasmParser.BooleaninstructionContext ctx){
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
-        public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) {
+        public void enterInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
-        public void enterSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) {
+        public void enterInstrucaoString(TasmParser.InstrucaoStringContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 

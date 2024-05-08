@@ -14,13 +14,13 @@ instruction: ICONST INT #INTVALUE
            | GLOAD INT #GLOAD
            | GSTORE INT #GSTORE
            | HALT #HALT
-           | INTINSTRUCTION #INTINSTRUCTION
-           | DOUBLEINSTRUCTION #DOUBLEINSTRUCTION
-           | STRINGINSTRUCTION #STRINGINSTRUCTION
-           | BOLEANINSTRUCION #BOLEANINSTRUCION;
+           | intinstruction #InstrucaoInt
+           | doubleinstruction #InstrucaoDouble
+           | stringinstruction #InstrucaoString
+           | booleaninstruction #InstrucaoBoolean;
 
 //Regra para as instrucoes de int
-INTINSTRUCTION: IADD    | IDIV
+intinstruction: IADD    | IDIV
               | IEQ     | ILEQ
               | IMOD    | IMULT
               | INEQ    | IPRINT
@@ -29,7 +29,7 @@ INTINSTRUCTION: IADD    | IDIV
               | ITOD;
 
 //Regra para as instrucoes de double
-DOUBLEINSTRUCTION: DADD  | DDIV
+doubleinstruction: DADD  | DDIV
                  | DEQ   | DLEQ
                  | DLT   | DMULT
                  | DPRINT| DSUB
@@ -37,10 +37,10 @@ DOUBLEINSTRUCTION: DADD  | DDIV
                  | DNEQ;
 
 //Regra para as instrucoes de string
-STRINGINSTRUCTION: SADD | SEQ | SNEQ | SPRINT;
+stringinstruction: SADD | SEQ | SNEQ | SPRINT;
 
 //Regra para as instrucoes de booleans
-BOLEANINSTRUCION: BPRINT | BEQ | BNEQ | AND | OR | NOT | BTOS | TCONST | FCONST;
+booleaninstruction: BPRINT | BEQ | BNEQ | AND | OR | NOT | BTOS | TCONST | FCONST;
 
 // Comandos de inteiros
 ICONST: 'iconst';

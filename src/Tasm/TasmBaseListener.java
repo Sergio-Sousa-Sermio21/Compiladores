@@ -161,49 +161,97 @@ public class TasmBaseListener implements TasmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx) { }
+	@Override public void enterInstrucaoInt(TasmParser.InstrucaoIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitINTINSTRUCTION(TasmParser.INTINSTRUCTIONContext ctx) { }
+	@Override public void exitInstrucaoInt(TasmParser.InstrucaoIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) { }
+	@Override public void enterInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDOUBLEINSTRUCTION(TasmParser.DOUBLEINSTRUCTIONContext ctx) { }
+	@Override public void exitInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) { }
+	@Override public void enterInstrucaoString(TasmParser.InstrucaoStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSTRINGINSTRUCTION(TasmParser.STRINGINSTRUCTIONContext ctx) { }
+	@Override public void exitInstrucaoString(TasmParser.InstrucaoStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { }
+	@Override public void enterInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBOLEANINSTRUCION(TasmParser.BOLEANINSTRUCIONContext ctx) { }
+	@Override public void exitInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntinstruction(TasmParser.IntinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntinstruction(TasmParser.IntinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDoubleinstruction(TasmParser.DoubleinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDoubleinstruction(TasmParser.DoubleinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringinstruction(TasmParser.StringinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringinstruction(TasmParser.StringinstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBooleaninstruction(TasmParser.BooleaninstructionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleaninstruction(TasmParser.BooleaninstructionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

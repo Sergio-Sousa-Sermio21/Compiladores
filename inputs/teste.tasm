@@ -1,17 +1,3 @@
-L0: galloc 1
-L1: iconst 2
-L2: iconst 2
-L3: iadd
-L4: itos
-L5: sconst ""
-L6: sadd
-L7: gstore 0
-L8: gload 0
-L9: sprint
-L10: gload 0
-L11: sconst " 2"
-L12: sadd
-L13: gstore 0
-L14: gload 0
-L15: sprint
-L16: halt
+iconst 1
+iconst 2
+iadd
