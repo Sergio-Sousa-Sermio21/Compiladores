@@ -3,6 +3,7 @@ import java.io.InputStreamReader;
 
 
 public class Main {
+       
     public static void main(String[] args) throws Exception {
         /*
         List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
@@ -13,6 +14,7 @@ public class Main {
             }
         }
         System.out.println("O código não está sendo executado em modo de depuração.");*/
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         String[] file = new String[2];
