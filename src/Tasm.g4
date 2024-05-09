@@ -14,6 +14,13 @@ instruction: ICONST INT #INTVALUE
            | GLOAD INT #GLOAD
            | GSTORE INT #GSTORE
            | HALT #HALT
+           | LALLOC (NEGATIVE|INT) #LALLOC
+           | LLOAD (NEGATIVE|INT) #LLOAD
+           | LSTORE (NEGATIVE|INT) #LSTORE
+           | POP INT #POP
+           | CALL LABEL #CALL
+           | RETVAL INT #RETVAL
+           | RET INT #RET
            | intinstruction #InstrucaoInt
            | doubleinstruction #InstrucaoDouble
            | stringinstruction #InstrucaoString
@@ -94,18 +101,28 @@ FCONST: 'fconst';
 JUMP: 'jump';
 JUMPT: 'jumpt';
 JUMPF: 'jumpf';
+CALL: 'call';
 
 // Comandos de Load
 GALLOC: 'galloc';
 GLOAD: 'gload';
 GSTORE: 'gstore';
+LALLOC: 'lalloc';
+LLOAD: 'lload';
+LSTORE: 'lstore';
+
+//Commandos de return
+RETVAL: 'retval';
+RET: 'ret';
 
 // Outros comandos e tokens
+POP: 'pop';
 HALT: 'halt';
 STRING: '"' ( ESC_SEQ | ~[\\"\r\n] )* '"';
 fragment ESC_SEQ : '\\' . ;
 DOUBLE: INT+ '.' INT+;
 INT: [0-9]+;
+NEGATIVE: '-' INT;
 EOL: '\n';
 LABEL: [a-zA-Z_] [a-zA-Z_0-9-]*;
 WS: [ \t\r]+ -> skip;

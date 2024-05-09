@@ -93,6 +93,55 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHALT(TasmParser.HALTContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code LALLOC}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLALLOC(TasmParser.LALLOCContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LLOAD}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLLOAD(TasmParser.LLOADContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LSTORE}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLSTORE(TasmParser.LSTOREContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code POP}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPOP(TasmParser.POPContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CALL}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCALL(TasmParser.CALLContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RETVAL}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRETVAL(TasmParser.RETVALContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RET}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRET(TasmParser.RETContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code InstrucaoInt}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree

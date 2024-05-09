@@ -116,6 +116,7 @@ public class tAssembler extends TasmBaseListener {
      * @param ctx the parse tree
      */
     public void enterExpression(TasmParser.ExpressionContext ctx) {
+
             List<TerminalNode> value = ctx.LABEL();
             for (TerminalNode terminalNode : value){
                 labelsposicion.put(terminalNode.getText(), instrucoes.size());
@@ -132,12 +133,14 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
+
             String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.DCONST().getText().toUpperCase()), constantpoll.size()));
             constantpoll.add(Double.parseDouble(value));
         }
 
         public void enterSTRINGVALUE(TasmParser.STRINGVALUEContext ctx) {
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.SCONST().getText().toUpperCase()), constantpoll.size()));
             constantpoll.add(ctx.STRING().getText());
         }
@@ -155,30 +158,37 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterJUMP(TasmParser.JUMPContext ctx) {
+
             resolveJumps(ctx.LABEL().getText(),ctx.JUMP().getText());
         }
 
         public void enterJUMPT(TasmParser.JUMPTContext ctx) {
+
             resolveJumps(ctx.LABEL().getText(),ctx.JUMPT().getText());
         }
 
         public void enterJUMPF(TasmParser.JUMPFContext ctx) {
+
             resolveJumps(ctx.LABEL().getText(),ctx.JUMPF().getText());
         }
 
         public void enterInstrucaoInt(TasmParser.InstrucaoIntContext ctx){
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterBooleaninstruction(TasmParser.BooleaninstructionContext ctx){
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx) {
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterInstrucaoString(TasmParser.InstrucaoStringContext ctx) {
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
@@ -187,15 +197,22 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterGALLOC(TasmParser.GALLOCContext ctx) {
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GALLOC().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterGLOAD(TasmParser.GLOADContext ctx) {
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GLOAD().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
         }
 
         public void enterGSTORE(TasmParser.GSTOREContext ctx) {
+
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.GSTORE().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterLLOAD(TasmParser.LLOADContext ctx){
+
         }
 
         public void execute(String[] args, boolean debug) throws IOException {

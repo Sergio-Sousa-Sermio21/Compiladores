@@ -148,6 +148,90 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitHALT(TasmParser.HALTContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code LALLOC}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterLALLOC(TasmParser.LALLOCContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LALLOC}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitLALLOC(TasmParser.LALLOCContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LLOAD}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterLLOAD(TasmParser.LLOADContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LLOAD}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitLLOAD(TasmParser.LLOADContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LSTORE}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterLSTORE(TasmParser.LSTOREContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LSTORE}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitLSTORE(TasmParser.LSTOREContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code POP}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterPOP(TasmParser.POPContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code POP}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitPOP(TasmParser.POPContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CALL}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterCALL(TasmParser.CALLContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CALL}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitCALL(TasmParser.CALLContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RETVAL}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterRETVAL(TasmParser.RETVALContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RETVAL}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitRETVAL(TasmParser.RETVALContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RET}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterRET(TasmParser.RETContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RET}
+	 * labeled alternative in {@link TasmParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitRET(TasmParser.RETContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code InstrucaoInt}
 	 * labeled alternative in {@link TasmParser#instruction}.
 	 * @param ctx the parse tree
