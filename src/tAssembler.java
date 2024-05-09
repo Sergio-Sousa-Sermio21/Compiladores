@@ -18,6 +18,7 @@ public class tAssembler extends TasmBaseListener {
         private final Map<String, List<Integer>> labelsNotFound = new HashMap<>();
 
         private final ArrayList<Object> constantpoll = new ArrayList<>();
+
         public tAssembler(){}
 
     /**Metodo que mostra as instruções e a constantPool
@@ -202,6 +203,7 @@ public class tAssembler extends TasmBaseListener {
             writeBytecode(args, debug);
         }
         public static void main(String[] args) throws Exception {
+
             tAssembler assembler = new tAssembler();
             boolean debug = false;
             List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();

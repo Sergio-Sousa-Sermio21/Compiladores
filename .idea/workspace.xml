@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/Tasm.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/Tasm.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/Tasm.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/Tasm.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/TasmVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/TasmVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/Tasm.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/Tasm.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/Tasm.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/Tasm.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasm/TasmVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasm/TasmVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
@@ -70,7 +47,7 @@
     "Application.MainSol.executor": "Run",
     "Application.Sol.executor": "Debug",
     "Application.Teste.executor": "Run",
-    "Application.tAssembler.executor": "Debug",
+    "Application.tAssembler.executor": "Run",
     "Application.tVm.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -223,6 +200,7 @@
       <workItem from="1714988611823" duration="5162000" />
       <workItem from="1715008535100" duration="668000" />
       <workItem from="1715172899087" duration="1183000" />
+      <workItem from="1715194487371" duration="1562000" />
     </task>
     <servers />
   </component>
