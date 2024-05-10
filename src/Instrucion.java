@@ -22,7 +22,7 @@ public class Instrucion {
     @Override
     public String toString() {
         if(value != null){
-            if(command == Commands.JUMP || command == Commands.JUMPF || command == Commands.JUMPT)
+            if(command == Commands.JUMP || command == Commands.JUMPF || command == Commands.JUMPT || command == Commands.CALL)
                 return  command.name() + " L" +  value;
             else
                 return  command.name() + " " +  value;

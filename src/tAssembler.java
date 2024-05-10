@@ -30,7 +30,7 @@ public class tAssembler extends TasmBaseListener {
         }
         System.out.println("-----------------------------------------\nInstrution array:");
         for (int i = 0; i<instrucoes.size(); i++) {
-            System.out.println(i + ": " + instrucoes.get(i));
+            System.out.println("L" + i + ": " + instrucoes.get(i));
         }
         System.out.println("-----------------------------------------");
     }
@@ -133,7 +133,6 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterDOUBLEVALUE(TasmParser.DOUBLEVALUEContext ctx) {
-
             String value = ctx.INT() != null ? ctx.INT().getText() : ctx.DOUBLE().getText();
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.DCONST().getText().toUpperCase()), constantpoll.size()));
             constantpoll.add(Double.parseDouble(value));
@@ -145,7 +144,7 @@ public class tAssembler extends TasmBaseListener {
             constantpoll.add(ctx.STRING().getText());
         }
 
-        public void resolveJumps(String label, String command){
+        public void resolveLabel(String label, String command){
             if(labelsposicion.containsKey(label))
                 instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()), labelsposicion.get(label)));
             else{
@@ -158,18 +157,15 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterJUMP(TasmParser.JUMPContext ctx) {
-
-            resolveJumps(ctx.LABEL().getText(),ctx.JUMP().getText());
+            resolveLabel(ctx.LABEL().getText(),ctx.JUMP().getText());
         }
 
         public void enterJUMPT(TasmParser.JUMPTContext ctx) {
-
-            resolveJumps(ctx.LABEL().getText(),ctx.JUMPT().getText());
+            resolveLabel(ctx.LABEL().getText(),ctx.JUMPT().getText());
         }
 
         public void enterJUMPF(TasmParser.JUMPFContext ctx) {
-
-            resolveJumps(ctx.LABEL().getText(),ctx.JUMPF().getText());
+            resolveLabel(ctx.LABEL().getText(),ctx.JUMPF().getText());
         }
 
         public void enterInstrucaoInt(TasmParser.InstrucaoIntContext ctx){
@@ -212,9 +208,32 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterLLOAD(TasmParser.LLOADContext ctx){
-
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.LLOAD().getText().toUpperCase()), ctx.INT() != null ? Integer.parseInt(ctx.INT().getText()): Integer.parseInt(ctx.NEGATIVE().getText())));
         }
 
+        public void enterLSTORE(TasmParser.LSTOREContext ctx){
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.LSTORE().getText().toUpperCase()), ctx.INT() != null ? Integer.parseInt(ctx.INT().getText()): Integer.parseInt(ctx.NEGATIVE().getText())));
+        }
+
+        public void enterLALLOC(TasmParser.LALLOCContext ctx){
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.LALLOC().getText().toUpperCase()),Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterPOP(TasmParser.POPContext ctx){
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.POP().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterRETVAL(TasmParser.RETVALContext ctx){
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.RETVAL().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterRET(TasmParser.RETContext ctx){
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.RET().getText().toUpperCase()), Integer.parseInt(ctx.INT().getText())));
+        }
+
+        public void enterCALL(TasmParser.CALLContext ctx) {
+            resolveLabel(ctx.LABEL().getText(),ctx.CALL().getText());
+        }
         public void execute(String[] args, boolean debug) throws IOException {
             init(args);
             writeBytecode(args, debug);

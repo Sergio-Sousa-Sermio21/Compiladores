@@ -47,4 +47,11 @@ public enum Commands {
     GSTORE,
     LABEL,
     HALT,
+    LALLOC,
+    LLOAD,
+    LSTORE,
+    POP,
+    CALL,
+    RETVAL,
+    RET,
 }

@@ -14,7 +14,7 @@ instruction: ICONST INT #INTVALUE
            | GLOAD INT #GLOAD
            | GSTORE INT #GSTORE
            | HALT #HALT
-           | LALLOC (NEGATIVE|INT) #LALLOC
+           | LALLOC INT #LALLOC
            | LLOAD (NEGATIVE|INT) #LLOAD
            | LSTORE (NEGATIVE|INT) #LSTORE
            | POP INT #POP

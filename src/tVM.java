@@ -14,6 +14,8 @@ public class tVM {
     private final HashMap<Integer, Commands> commands = new HashMap<>();
     private final ArrayList<Instrucion> instructions = new ArrayList<>();
 
+    private int FP = 0;
+
     private final Stack<Value> stack = new Stack<>();
     public tVM(String[] args) throws IOException{
         initHash();
@@ -45,6 +47,20 @@ public class tVM {
                     case JUMPF -> instructions.add(new Instrucion(Commands.JUMPF, din.readInt()));
 
                     case JUMPT -> instructions.add(new Instrucion(Commands.JUMPT, din.readInt()));
+
+                    case RETVAL -> instructions.add(new Instrucion(Commands.RETVAL, din.readInt()));
+
+                    case LSTORE -> instructions.add(new Instrucion(Commands.LSTORE, din.readInt()));
+
+                    case LALLOC -> instructions.add(new Instrucion(Commands.LALLOC, din.readInt()));
+
+                    case LLOAD -> instructions.add(new Instrucion(Commands.LLOAD, din.readInt()));
+
+                    case RET -> instructions.add(new Instrucion(Commands.RET, din.readInt()));
+
+                    case POP -> instructions.add(new Instrucion(Commands.POP, din.readInt()));
+
+                    case CALL -> instructions.add(new Instrucion(Commands.CALL, din.readInt()));
 
                     case GALLOC -> instructions.add(new Instrucion(Commands.GALLOC, din.readInt()));
 
@@ -100,7 +116,7 @@ public class tVM {
             if(globalMemory.size() >1 && j<globalMemory.size()-1)
                 System.out.print(", ");
         }
-        System.out.println("]");
+        System.out.println("]" + " FP-" + FP);
     }
 
 
@@ -267,8 +283,9 @@ public class tVM {
                         boolean a = stack.pop().getValueBoolean();
                         stack.push(new Value(Boolean.toString(a)));
                     }
-                    case JUMP -> i = instructions.get(i).getValue() - 1;
-
+                    case JUMP -> {
+                        i = instructions.get(i).getValue() - 1;
+                    }
                     case JUMPT -> {
                         if (stack.pop().getValueBoolean())
                             i = instructions.get(i).getValue() - 1;
@@ -299,7 +316,54 @@ public class tVM {
                             Error.trowError("Index out of bound" + position + "for size: " + globalMemory.size());
                         globalMemory.set(position, stack.pop());
                     }
-
+                    case POP -> {
+                        int NumberOfPops = instructions.get(i).getValue();
+                        for(int j = 0; j<NumberOfPops; j++)
+                            stack.pop();
+                    }
+                    case CALL -> {
+                        stack.push(new Value(FP));
+                        FP= stack.size()-1;
+                        if(i+1>= instructions.size())
+                            Error.trowError("Instrução ilegal");
+                        stack.push(new Value(i));
+                        i = instructions.get(i).getValue()-1;
+                    }
+                    case RET -> {
+                        for(int j = 2; j<stack.size()-FP; j++)
+                            stack.pop();
+                        int numberofArguments = instructions.get(i).getValue();
+                        i =  stack.pop().getValueInt();
+                        FP = stack.pop().getValueInt();
+                        for (int j = 0; j<numberofArguments; j++)
+                            stack.pop();
+                    }
+                    case RETVAL -> {
+                        Value toreturn = stack.pop();
+                        for(int j = 2; j<stack.size()-FP; j++)
+                            stack.pop();
+                        int numberofArguments = instructions.get(i).getValue();
+                        i =  stack.pop().getValueInt();
+                        FP = stack.pop().getValueInt();
+                        for (int j = 0; j<numberofArguments; j++)
+                            stack.pop();
+                        stack.push(toreturn);
+                    }
+                    case LLOAD -> {
+                        int position = instructions.get(i).getValue();
+                        stack.push(stack.elementAt(FP + position));
+                    }
+                    case LALLOC -> {
+                        int size = instructions.get(i).getValue();
+                        int oldSize = stack.size();
+                        while (stack.size() < size+oldSize) {
+                            stack.push(new Value());
+                        }
+                    }
+                    case LSTORE -> {
+                        int position = instructions.get(i).getValue();
+                        stack.set(position + FP, stack.pop());
+                    }
                     case HALT -> System.exit(0);
                     default -> System.err.println("Unknown command");
                 }
