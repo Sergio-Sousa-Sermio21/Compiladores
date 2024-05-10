@@ -221,6 +221,7 @@ public class tAssembler extends TasmBaseListener {
         }
         public static void main(String[] args) throws Exception {
 
+
             tAssembler assembler = new tAssembler();
             boolean debug = false;
             List<String> inputArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
