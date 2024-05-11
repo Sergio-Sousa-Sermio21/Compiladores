@@ -1,7 +1,8 @@
 grammar Sol;
 
-program: tiposNoCodigo* (instrucao)+ EOF;
+program: variavelGlobal* (funcao)+ EOF;
 
+variavelGlobal: types declaracao (','declaracao)* ';';
 
 instrucao: print
             | whileState
@@ -10,9 +11,13 @@ instrucao: print
             | empty
             | break
             | bloco
-            | declarar;
+            | declarar
+            | return
+            | callFuncaoIntrucion;
 
-declarar: NOME '=' exp (','NOME '=' exp)*;
+callFuncaoIntrucion: NOME '(' (exp(',' exp)*)? ')' ';';
+
+declarar: NOME '=' exp (','NOME '=' exp)* ';';
 
 print: 'print' exp ';';
 
@@ -22,9 +27,11 @@ forState: 'for' NOME '=' exp 'to' (exp) 'do' (instrucao);
 
 break: 'break' ';';
 
+return: 'return' exp? ';';
+
 empty: ';';
 
-bloco: 'begin' (instrucao)* 'end';
+bloco: 'begin' variavelLocal* (instrucao)* 'end';
 
 ifState: IF exp THEN (instrucao) (ELSE (instrucao))?;
 
@@ -32,7 +39,7 @@ IF:'if';
 THEN:'then';
 ELSE:'else';
 
-tiposNoCodigo: types declaracao (','declaracao)* ';';
+variavelLocal: types declaracao (','declaracao)* ';';
 
 types: 'int' #INTT
 | 'real' #DOUBLET
@@ -49,9 +56,12 @@ exp: '(' exp ')' #ORDER
      | exp op=(EQUAL|NOTEQUAL) exp #LOGICALOPERATOREQUALNOT
      | exp AND exp #AND
      | exp OR exp #OR
+     | callFuncaoExp #CALLFUNCTION
      | variaveis #Variavel;
 
-
+callFuncaoExp: NOME '(' (exp(',' exp)*)? ')';
+funcao: (types | 'void') NOME '(' (arguments (',' arguments)*)? ')' bloco;
+arguments: types NOME;
 variaveis: INT #INT
            | DOUBLE #DOUBLE
            | TRUE #TRUE

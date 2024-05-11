@@ -308,7 +308,7 @@ public class solCompiler {
             return null;
         }
 
-        @Override public Class<?>  visitTiposNoCodigo(SolParser.TiposNoCodigoContext ctx) {
+        @Override public Class<?>  visitVariavelGlobal(SolParser.VariavelGlobalContext ctx) {
             instrucoes.add(new Instrucion(Commands.GALLOC, ctx.declaracao().size()));
             visitChildren(ctx);
             return null;

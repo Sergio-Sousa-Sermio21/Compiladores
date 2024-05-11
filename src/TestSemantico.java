@@ -15,6 +15,13 @@ public class TestSemantico extends TasmBaseListener {
     private final ArrayList <String> jumpLabels = new ArrayList<String>();
     private boolean hasHaltInstruction = false;
 
+    public void exitCALL(TasmParser.CALLContext ctx) {
+        String label = ctx.LABEL().getText();
+        if (!labels.contains(label)) {
+            errors.add("Line " + ctx.start.getLine() + ": The label " + label + " used in CALL instruction is not defined.");
+        }
+    }
+
     public void exitExpression(TasmParser.ExpressionContext ctx) {
         List<TerminalNode> labels = ctx.LABEL();
         for (TerminalNode label : labels) {
