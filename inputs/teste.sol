@@ -1,7 +1,7 @@
 void mainnn()
 begin
     int n = fun(1,2,3);
-    bool a = xpto();
+    int a = xpto();
     fun(1,2);
     hello("Maria");
     hello(5);

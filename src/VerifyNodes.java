@@ -235,7 +235,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         String functionName = ctx.NOME().getText();
         if (!functionExists(functionName)) {
             errors.add("Line " + ctx.start.getLine() + ": Function '" + functionName + "' does not exist.");
-            return null;
+            return Object.class;
         }
         Funcao funcao = functionMap.get(functionName);
         funcaoAtual.push(functionName);
