@@ -235,7 +235,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         String functionName = ctx.NOME().getText();
         if (!functionExists(functionName)) {
             errors.add("Line " + ctx.start.getLine() + ": Function '" + functionName + "' does not exist.");
-            return Object.class;
         }
         Funcao funcao = functionMap.get(functionName);
         funcaoAtual.push(functionName);
@@ -248,8 +247,9 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         funcaoAtual.pop();
         if(ctx.exp().size() != funcao.arguments().size())
             errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + ":" + (ctx.start.getCharPositionInLine()+1) +  ": Function '"+ functionName + "' needs " + funcao.arguments().size() + " arguments but got " + ctx.exp().size());
-        if(functionMap.get(functionName).type() != null)
+        if(functionMap.get(functionName).type() != null){
             errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + ": Value of '" + functionName +"' needs to assigned to a variable or instrution");
+        }
         return null;
     }
 
