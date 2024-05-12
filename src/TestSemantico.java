@@ -1,13 +1,12 @@
 import Tasm.TasmBaseListener;
 import Tasm.TasmParser;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class TestSemantico extends TasmBaseListener {
     private final ArrayList<String> errors = new ArrayList<String>();
@@ -65,7 +64,6 @@ public class TestSemantico extends TasmBaseListener {
 
     /** Testa a árvore para garantir todas as verificações
      *
-     * @param tree
      */
     public void TestTree(ParseTree tree){
         ParseTreeWalker walker = new ParseTreeWalker();

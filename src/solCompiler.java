@@ -13,7 +13,7 @@ public class solCompiler {
 
     static class Visitor extends SolBaseVisitor<Class<?>> {
         private final Map<String, Integer> PosicaoVariaveis = new HashMap<>();
-        private final ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>();
+        private final ArrayList<ArrayList<Integer>> breaks = new ArrayList<>();
 
         private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
 

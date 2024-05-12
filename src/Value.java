@@ -13,13 +13,13 @@ public class Value {
 
     public Integer getValueInt() throws IllegalArgumentException {
         if(!(value instanceof Integer))
-            throw new IllegalArgumentException("Value given isn't type Integer it's "  + value.getClass().getSimpleName());
+            throw new IllegalArgumentException("Value given isn't type Integer it's "  + value!=null?value.getClass().getSimpleName():"NIL");
         return (Integer) value;
     }
 
     public String getValueString() throws IllegalArgumentException {
         if(!(value instanceof String)){
-            throw new IllegalArgumentException("Value given isn't type String it's "  + value.getClass().getSimpleName());
+            throw new IllegalArgumentException("Value given isn't type String it's "  + value!=null?value.getClass().getSimpleName():"NIL");
         }
         String texto = (String) value;
         texto = texto.replaceAll("\\\\n", "\n")
@@ -32,13 +32,13 @@ public class Value {
 
     public Double getValueDouble() throws IllegalArgumentException {
         if(!(value instanceof Double))
-            throw new IllegalArgumentException("Value given isn't type Double it's "  + value.getClass().getSimpleName());
+            throw new IllegalArgumentException("Value given isn't type Double it's " + value!=null?value.getClass().getSimpleName():"NIL");
         return (Double) value;
     }
 
     public Boolean getValueBoolean() throws IllegalArgumentException {
         if(!(value instanceof Boolean))
-            throw new IllegalArgumentException("Value given isn't type Boolean it's "  + value.getClass().getSimpleName());
+            throw new IllegalArgumentException("Value given isn't type Boolean it's "  + value!=null?value.getClass().getSimpleName():"NIL");
         return (Boolean) value;
     }
 

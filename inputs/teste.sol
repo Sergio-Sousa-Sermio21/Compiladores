@@ -1,4 +1,4 @@
-void mainnn()
+void main()
 begin
     int n = fun(1,2,3);
     int a = xpto();
@@ -8,7 +8,7 @@ begin
 
 end
 
-void hello(string s)
+void main()
 begin
     print "Hello " + s;
 end
@@ -16,7 +16,7 @@ end
 real zzz(int xpto)
 begin
     xpto = "banana";
-    return xpto + 1;
+    return 1;
 end
 
 bool xpto()
