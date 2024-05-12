@@ -13,9 +13,10 @@ begin
     print "Hello " + s;
 end
 
-real zzz(int x)
+real zzz(int xpto)
 begin
-    return x + 1;
+    xpto = "banana";
+    return xpto + 1;
 end
 
 bool xpto()
