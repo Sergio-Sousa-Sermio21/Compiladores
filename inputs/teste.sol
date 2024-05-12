@@ -1,16 +1,30 @@
-int sqr( int x )
+void mainnn()
 begin
-return x * x;
- end
+    int n = fun(1,2,3);
+    bool a = xpto();
+    fun(1,2);
+    hello("Maria");
+    hello(5);
 
- int sqrsum( int a, int b )
-begin
- int s;
- s = sqr(a + b);
- return s;
 end
 
- void main()
- begin
- print sqrsum(3,2);
- end
+void hello(string s)
+begin
+    print "Hello " + s;
+end
+
+real zzz(int x)
+begin
+    return x + 1;
+end
+
+bool xpto()
+begin
+    print "ola";
+end
+
+int fun(int x, int y)
+begin
+    bool b = xpto;
+    if x < 1 then return x + y;
+end

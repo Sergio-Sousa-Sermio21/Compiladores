@@ -528,7 +528,7 @@ public class solCompiler {
                 values=teste.TestTree(tree);
 
 
-                this.visit(tree);
+                //this.visit(tree);
             } catch (IOException e) {
                 System.err.println("File Not Found.");
                 System.exit(0);

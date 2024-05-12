@@ -5,31 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Argumentos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Funcao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Variaveis.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
-    </list>
-    <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="">
-      <change beforePath="$PROJECT_DIR$/inputs/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
     </list>
+    <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,36 +33,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/VerifyNodes.java">
-      <ranges>
-        <range start1="9" end1="9" start2="9" end2="10" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="10" end1="11" start2="11" end2="12" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="30" end1="32" start2="31" end2="34" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="168" end1="168" start2="170" end2="210" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="219" end1="221" start2="261" end2="263" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="319" end1="320" start2="361" end2="362" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="329" end1="330" start2="371" end2="372" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="333" end1="334" start2="375" end2="376" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="405" end1="406" start2="447" end2="448" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="411" end1="413" start2="453" end2="455" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="421" end1="423" start2="463" end2="465" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/Sol.g4">
-      <ranges>
-        <range start1="2" end1="3" start2="2" end2="3" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="4" end1="4" start2="4" end2="5" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="12" end1="13" start2="13" end2="18" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="14" end1="15" start2="19" end2="20" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="23" end1="23" start2="28" end2="30" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="26" end1="27" start2="33" end2="34" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="34" end1="35" start2="41" end2="42" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="51" end1="51" start2="58" end2="59" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="53" end1="54" start2="61" end2="64" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -92,34 +48,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainSol.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Sol.executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Teste.executor&quot;: &quot;Run&quot;,
-    &quot;Application.tAssembler.executor&quot;: &quot;Run&quot;,
-    &quot;Application.tVm.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;SegundaParteRenato&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Application.MainSol.executor": "Run",
+    "Application.Sol.executor": "Run",
+    "Application.Teste.executor": "Run",
+    "Application.tAssembler.executor": "Run",
+    "Application.tVm.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "SegundaParteRenato",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
@@ -129,7 +85,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Sol">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compiladores" />
@@ -147,7 +103,7 @@
     <configuration name="Sol" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="solCompiler" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="InputsParte3\TesteTudo.sol " />
+      <option name="PROGRAM_PARAMETERS" value="inputs/teste.sol" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -188,7 +144,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
@@ -259,6 +215,7 @@
       <workItem from="1715349754878" duration="463000" />
       <workItem from="1715359266845" duration="7333000" />
       <workItem from="1715436330544" duration="15899000" />
+      <workItem from="1715461553322" duration="10255000" />
     </task>
     <servers />
   </component>

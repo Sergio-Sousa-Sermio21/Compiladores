@@ -5,15 +5,20 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private final HashMap<String, Funcao> functionMap = new HashMap<>();
 
-    private final HashMap<String, Class<?>> tiposVariaveisGlobais = new HashMap<>();
+    private final HashMap<String, Variaveis> Variaveis = new HashMap<>();
+    
+    private final ArrayList<ArrayList<Variaveis>>  VariaveisLocais = new ArrayList<>();
     private final ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
 
     private final ArrayList<String> errors = new ArrayList<>();
     private int loopCount = 0;
+
+    private Stack<String> funcaoAtual = new Stack<>();
 
 
 
@@ -29,9 +34,15 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return values.get(node);
     }
     public Class<?> visitProgram(SolParser.ProgramContext ctx) {
-        for(int i = 0; i<ctx.funcao().size(); i++)
+        boolean main = false;
+        for(int i = 0; i<ctx.funcao().size(); i++){
             checkDuplicateFunctionName(ctx.funcao(i));
-        //visitChildren(ctx);
+            if(ctx.funcao(i).NOME().getText().equals("main"))
+                main = true;
+        }
+        if(!main)
+            errors.add("Line " + ctx.stop.getLine() + ":" + (ctx.stop.getCharPositionInLine()+1) + ": No main found" );
+        visitChildren(ctx);
         return null;
     }
 
@@ -183,16 +194,62 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
     }
 
-    public boolean functionExists(String functionName) {
+    private boolean functionExists(String functionName) {
         return functionMap.containsKey(functionName);
     }
 
+    public Class<?> visitCallFuncaoExp(SolParser.CallFuncaoExpContext ctx) {
+        String functionName = ctx.NOME().getText();
+        if (!functionExists(functionName)) {
+            errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + ": Function '" + functionName + "' does not exist.");
+            return Object.class;
+        }
+        Funcao funcao = functionMap.get(functionName);
+        funcaoAtual.push(functionName);
+        for(int i = 0;i<ctx.exp().size() && i<funcao.arguments().size(); i++){
+           Class<?> exp = visit(ctx.exp(i));
+           if(exp != funcao.arguments().get(i).type()){
+               errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) +  ": Type '"+ funcao.arguments().get(i).type().getSimpleName() + "' expected but got '" + ctx.exp(i).getText() + "' " + exp.getSimpleName() + " in '" + functionName + "'");
+           }
+        }
+        funcaoAtual.pop();
+        if(ctx.exp().size() != funcao.arguments().size())
+            errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) +  ": Function '"+ functionName + "' needs " + funcao.arguments().size() + " arguments but got " + ctx.exp().size());
+        if(funcao.type() == null){
+            errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + ": Can not make expression with void function- '" + functionName);
+            return Object.class;
+        }
+
+        return funcao.type();
+    }
+    public Class<?> visitCALLFUNCTION(SolParser.CALLFUNCTIONContext ctx) {
+        return visit(ctx.callFuncaoExp());
+    }
+
+    public Class<?> visitReturn(SolParser.ReturnContext ctx) {
+        return null;
+    }
+
     public Class<?> visitCallFuncaoIntrucion(SolParser.CallFuncaoIntrucionContext ctx) {
+
         String functionName = ctx.NOME().getText();
         if (!functionExists(functionName)) {
             errors.add("Line " + ctx.start.getLine() + ": Function '" + functionName + "' does not exist.");
-            return Object.class;
+            return null;
         }
+        Funcao funcao = functionMap.get(functionName);
+        funcaoAtual.push(functionName);
+        for(int i = 0;i<ctx.exp().size() && i<funcao.arguments().size(); i++){
+            Class<?> exp = visit(ctx.exp(i));
+            if(exp != funcao.arguments().get(i).type()){
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) +  ": Type '"+ funcao.arguments().get(i).type().getSimpleName() + "' expected but got '" + ctx.exp(i).getText() + "' " + exp.getSimpleName() + " in '" + functionName + "'");
+            }
+        }
+        funcaoAtual.pop();
+        if(ctx.exp().size() != funcao.arguments().size())
+            errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + ":" + (ctx.start.getCharPositionInLine()+1) +  ": Function '"+ functionName + "' needs " + funcao.arguments().size() + " arguments but got " + ctx.exp().size());
+        if(functionMap.get(functionName).type() != null)
+            errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + ": Value of '" + functionName +"' needs to assigned to a variable or instrution");
         return null;
     }
 
@@ -202,10 +259,17 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             argumentos.add(new Argumentos(visit(ctx.arguments(i).types()), ctx.arguments(i).NOME().getText()));
         return argumentos;
     }
+    private int bloco = -1;
 
     @Override
     public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
-        Class<?> tipoBloco = visit(ctx.bloco());
+        ArrayList<Variaveis> variaveisLocais = new ArrayList<>();
+        ArrayList<Argumentos> argumentos = functionMap.get(ctx.NOME().getText()).arguments();
+        for(Argumentos argumento: argumentos)
+            variaveisLocais.add(new Variaveis(false, argumento.type(), argumento.nome(), -1));
+        VariaveisLocais.add(variaveisLocais);
+        visit(ctx.bloco());
+        VariaveisLocais.removeLast();
         return null;
     }
 
@@ -259,8 +323,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitForState(SolParser.ForStateContext ctx) {
         loopCount++;
         Class<?>  variavel;
-        if(tiposVariaveisGlobais.containsKey(ctx.NOME().getText())){
-            variavel = tiposVariaveisGlobais.get(ctx.NOME().getText());
+        if(Variaveis.containsKey(ctx.NOME().getText())){
+            variavel = Variaveis.get(ctx.NOME().getText()).tipo();
         } else {
             errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine()+1) +
                     " error: Variable not defined " + ctx.getText());
@@ -309,8 +373,9 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
-        
+        bloco++;
         visitChildren(ctx);
+        bloco--;
         return null;
     }
 
@@ -359,6 +424,33 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return tipo;
     }
 
+    private boolean VerificarVariavelLocal(String Nome){
+        for(Variaveis variaveis: VariaveisLocais.get(bloco)){
+            if(variaveis.nome().equals(Nome))
+                return true;
+        }
+        return false;
+    }
+
+    @Override public Class<?> visitVariavelLocal(SolParser.VariavelLocalContext ctx) {
+        Class<?> tipo = visit(ctx.types());
+        for(int i = 0; i<ctx.declaracao().size(); i++){
+            Class<?> verificar = visit(ctx.declaracao().get(i));
+            if(verificar != Object.class && verificar != tipo && !(tipo==Double.class && verificar == Integer.class)) {
+                errors.add("Line " + ctx.declaracao().get(i).getStart().getLine() + ":" +
+                        (ctx.declaracao().get(i).getStart().getCharPositionInLine() +1)+
+                        " error: " + verificar.getSimpleName() + " type mismatch on " + ctx.declaracao().get(i).NOME().getText());
+            }
+            String nome = ctx.declaracao().get(i).NOME().getText();
+            if(VerificarVariavelLocal(nome)){
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
+            }
+            else
+                VariaveisLocais.get(bloco).add(new Variaveis(false, tipo, nome, -1));
+        }
+        return tipo;
+    }
+
     @Override public Class<?>  visitVariavelGlobal(SolParser.VariavelGlobalContext ctx) {
         
         Class<?> tipo = visit(ctx.types());
@@ -369,11 +461,12 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                         (ctx.declaracao().get(i).getStart().getCharPositionInLine() +1)+
                         " error: " + verificar.getSimpleName() + " type mismatch on " + ctx.declaracao().get(i).NOME().getText());
             }
-            if(tiposVariaveisGlobais.containsKey(ctx.declaracao().get(i).NOME().getText())){
+            String nome = ctx.declaracao().get(i).NOME().getText();
+            if(Variaveis.containsKey(nome)){
                 errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
             }
             else
-                tiposVariaveisGlobais.put(ctx.declaracao().get(i).NOME().getText(), tipo);
+                Variaveis.put(ctx.declaracao().get(i).NOME().getText(), new Variaveis(true, tipo, nome, -1));
         }
         return tipo;
     }
@@ -445,24 +538,57 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
-        if(!tiposVariaveisGlobais.containsKey(ctx.NOME().getText())){
+        String nome = ctx.NOME().getText();
+        if(!Variaveis.containsKey(nome) && !VerificarVariavelGlobalAtras(nome)){
             errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                     " error: Variable not defined " + ctx.getText());
             setValues(ctx, Object.class);
             return Object.class;
         }
-        setValues(ctx, tiposVariaveisGlobais.get(ctx.NOME().getText()));
-        return tiposVariaveisGlobais.get(ctx.NOME().getText());
+        if(VerificarVariavelGlobalAtras(nome)){
+            setValues(ctx, TipoVariavelLocal(nome));
+            return TipoVariavelLocal(nome);
+        }
+
+        setValues(ctx, Variaveis.get(ctx.NOME().getText()).tipo());
+        return Variaveis.get(ctx.NOME().getText()).tipo();
     }
 
     //Variveis----------------------------------------------------------------------------------------
+
+    public boolean VerificarVariavelGlobalAtras(String nome){
+        int j = bloco;
+        while (j>=0){
+            for(Variaveis variaveis: VariaveisLocais.get(j)){
+                if(variaveis.nome().equals(nome))
+                    return true;
+            }
+            j--;
+        }
+
+        return false;
+    }
+
+    public Class<?> TipoVariavelLocal(String nome){
+        int j = bloco;
+        while (j>=0){
+            for(Variaveis variaveis: VariaveisLocais.get(j)){
+                if(variaveis.nome().equals(nome))
+                    return variaveis.tipo();
+            }
+            j--;
+        }
+
+        return null;
+    }
 
     @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
         
         for(int i = 0; i<ctx.exp().size();i++){
             Class<?> tipo = visit(ctx.exp(i));
-            if(tiposVariaveisGlobais.containsKey(ctx.NOME().get(i).getText())){
-                if(tipo!=tiposVariaveisGlobais.get(ctx.NOME().get(i).getText())) {
+            String nome = ctx.NOME().get(i).getText();
+            if(Variaveis.containsKey(nome) || VerificarVariavelGlobalAtras(nome)){
+                if((Variaveis.get(nome) != null && tipo!=Variaveis.get(nome).tipo()) && tipo!= TipoVariavelLocal(nome)) {
                     errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                             " error: Wrong type for variable " + ctx.NOME().get(i).getText());
                 }

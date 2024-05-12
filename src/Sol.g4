@@ -41,6 +41,7 @@ ELSE:'else';
 
 variavelLocal: types declaracao (','declaracao)* ';';
 
+
 types: 'int' #INTT
 | 'real' #DOUBLET
 | 'bool' #BOLEANT
