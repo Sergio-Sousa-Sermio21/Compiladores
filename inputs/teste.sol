@@ -1,7 +1,10 @@
 
 int sqr( int x )
 begin
-    return x * x;
+   if(true) then
+   begin
+    return x*x;
+   end
 end
 
 int sqrsum( int a, int b )

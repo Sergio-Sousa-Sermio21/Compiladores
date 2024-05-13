@@ -295,6 +295,9 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         visit(ctx.bloco());
 
         VariaveisLocais.removeLast();
+        if(!HaveReturn && functionMap.get(ctx.NOME().getText()).type() != null)
+            errors.add("Line " + ctx.stop.getLine() + ":" + (ctx.stop.getCharPositionInLine() + 1) +
+                    ": A funcao '" + ctx.NOME().getText() + "' nao tem return.");
         return null;
     }
 
@@ -343,6 +346,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
         visit(ctx.instrucao());
         loopCount--;
+        HaveReturn = false;
         return null;
     }
     @Override
@@ -367,6 +371,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                     " error: For expression must be of type int");
         visit(ctx.instrucao());
         loopCount--;
+        HaveReturn = false;
         return null;
     }
     @Override
@@ -389,7 +394,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
     public Class<?>  visitEmpty(SolParser.EmptyContext ctx) {
-        
         return null;
     }
     @Override
