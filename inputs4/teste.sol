@@ -1,4 +1,4 @@
-/*
+
 int sqr( int x )
 begin
    begin
@@ -17,7 +17,7 @@ void main()
 begin
     print sqrsum(3,2);
 end
-*/
+/*
 void main() begin
     int a = 1;
     int b;
@@ -37,4 +37,4 @@ void main() begin
         int g = 7;
     end
 end
-
+*/

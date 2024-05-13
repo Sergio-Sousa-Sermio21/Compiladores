@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs4/argumentos.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inputs4/funcao.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inputs4/return.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inputs4/teste.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Funcao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Funcao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -38,22 +34,12 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/src/solCompiler.java">
       <ranges>
-        <range start1="25" end1="30" start2="25" end2="25" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="36" end1="37" start2="31" end2="36" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="225" end1="225" start2="224" end2="225" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="258" end1="258" start2="258" end2="259" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="266" end1="266" start2="267" end2="269" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="275" end1="275" start2="278" end2="279" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="300" end1="309" start2="304" end2="305" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="315" end1="322" start2="311" end2="311" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="324" end1="324" start2="313" end2="334" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="387" end1="387" start2="397" end2="418" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="388" end1="393" start2="419" end2="470" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="394" end1="394" start2="471" end2="530" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="457" end1="458" start2="593" end2="593" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="530" end1="530" start2="665" end2="666" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="531" end1="533" start2="667" end2="668" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="559" end1="559" start2="694" end2="695" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
+        <range start1="354" end1="355" start2="354" end2="354" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
+        <range start1="400" end1="400" start2="399" end2="402" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="429" end1="433" start2="431" end2="431" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
+        <range start1="484" end1="486" start2="482" end2="517" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
+        <range start1="487" end1="487" start2="518" end2="541" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
+        <range start1="522" end1="522" start2="576" end2="577" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
       </ranges>
     </file>
   </component>
@@ -245,7 +231,7 @@
       <workItem from="1715518103443" duration="510000" />
       <workItem from="1715519890172" duration="15177000" />
       <workItem from="1715605797026" duration="491000" />
-      <workItem from="1715613004173" duration="9845000" />
+      <workItem from="1715613004173" duration="17612000" />
     </task>
     <servers />
   </component>

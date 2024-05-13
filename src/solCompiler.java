@@ -352,7 +352,6 @@ public class solCompiler {
             }
             if(ClassParent == Boolean.class)
                 return Atual;
-            System.out.println(ClassParent + "  " + Atual);
             return Objects.requireNonNullElse(ClassParent, Atual);
 
         }
@@ -398,6 +397,9 @@ public class solCompiler {
 //----------------------------------------------------------------------------------------------------------------------------------
         private HashMap<String, Funcao> functionMap ;
 
+        private HashMap<String, Integer> functionPos ;
+
+        private final Map<String, List<Integer>> FunctionNotFound = new HashMap<>();
 
         private String funcaoAtual;
 
@@ -426,10 +428,6 @@ public class solCompiler {
             for (int i = ctx.arguments().size()-1; i >=0 ; i--) {
                 variaveisLocais.add(new Variaveis(false,visit(ctx.arguments(i).types()) ,ctx.arguments(i).NOME().getText() , posicao));
                 posicao--;
-            }
-
-            for(Variaveis vari: variaveisLocais){
-                System.out.println(vari);
             }
             VariaveisLocais.add(variaveisLocais);
 
@@ -482,8 +480,64 @@ public class solCompiler {
 
             return 0;
         }
-        public Class<?> visitCall(SolParser.CallFuncaoExpContext ctx) {
-            return null;
+        public void storeFunctionPosition(String functionName){
+            functionPos.put(functionName,instrucoes.size());
+        }
+        @Override
+        public Class<?> visitCallFuncaoIntrucion(SolParser.CallFuncaoIntrucionContext ctx) {
+            for(int i = 0; i<ctx.exp().size(); i++){
+                visit(ctx.exp(i));
+            }
+            String functionName = ctx.NOME().getText();
+            Funcao function = functionMap.get(functionName);
+            Class<?> returnType;
+            if (functionMap.containsKey(functionName)){
+                instrucoes.add(new Instrucion(Commands.CALL, functionPos.get(functionName)));
+
+            }
+            else{
+                if (FunctionNotFound.containsKey(functionName))
+                    FunctionNotFound.get(functionName).add(instrucoes.size());
+                else
+                    FunctionNotFound.computeIfAbsent(functionName, k -> new ArrayList<>()).add(instrucoes.size());
+                instrucoes.add(new Instrucion(Commands.CALL,0));
+            }
+
+            instrucoes.add(new Instrucion(Commands.CALL,functionPos.get(functionName)));
+            return returnType;
+
+            if(labelsposicion.containsKey(label))
+                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()), labelsposicion.get(label)));
+            else{
+                if(labelsNotFound.containsKey(label))
+                    labelsNotFound.get(label).add(instrucoes.size());
+                else
+                    labelsNotFound.computeIfAbsent(label, k -> new ArrayList<>()).add(instrucoes.size());
+                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()),0));
+            }
+        }
+
+        @Override
+        public Class<?> visitCallFuncaoExp(SolParser.CallFuncaoExpContext ctx) {
+            for(int i = 0; i<ctx.exp().size(); i++){
+                visit(ctx.exp(i));
+            }
+            String functionName = ctx.NOME().getText();
+            Funcao function = functionMap.get(functionName);
+            Class<?> returnType;
+            if(function != null)
+                returnType = function.type();
+            else
+                returnType = null;
+
+            if(FunctionNotFound.containsKey(functionName))
+                FunctionNotFound.get(functionName).add(instrucoes.size());
+            else
+                FunctionNotFound.computeIfAbsent(functionName, k -> new ArrayList<>()).add(instrucoes.size());
+            Integer Pos = functionPos.get(functionName);
+
+            instrucoes.add(new Instrucion(Commands.CALL,Pos));
+            return returnType;
         }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
@@ -520,6 +574,7 @@ public class solCompiler {
 
             for(int i = 0; i<ctx.exp().size(); i++){
                 int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME(i).getText());
+                System.out.println(ctx.exp(i).getText());
                 visit(ctx.exp(i));
                 if(posicaoLocal==0)
                     instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME(i).getText())));
