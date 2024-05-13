@@ -15,6 +15,7 @@ instrucao: print
             | return
             | callFuncaoIntrucion;
 
+
 callFuncaoIntrucion: NOME '(' (exp(',' exp)*)? ')' ';';
 
 declarar: NOME '=' exp (','NOME '=' exp)* ';';

@@ -22,7 +22,9 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
     private String funcaoAtual;
 
-
+    public HashMap<String, Funcao> getFunctionMap(){
+        return functionMap;
+    }
 
     /**
      * Metodo que associa o um valor com um node da arvore
@@ -205,7 +207,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             int line = ctx.start.getLine();
             errors.add("Line " + line + ": Function name '" + nome + "' is duplicated.");
         } else {
-            functionMap.put(nome, new Funcao(typeFuncion, getArgumentos(ctx)));
+            functionMap.put(nome, new Funcao(typeFuncion, -1, getArgumentos(ctx)));
         }
     }
 
@@ -576,7 +578,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     //Types-------------------------------------------------------------------------------------------
     @Override
     public Class<?>  visitINTT(SolParser.INTTContext ctx) {
-        
         setValues(ctx, Integer.class);
         return Integer.class;
     }

@@ -23,18 +23,17 @@ public class solCompiler {
         private int countVariable = 0;
 
         private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
-        public Class<?> visitProgram(SolParser.ProgramContext ctx) {
-            visitChildren(ctx);
-            instrucoes.add(new Instrucion(Commands.HALT));
-            return null;
-        }
 
         public Class<?> getValues(ParseTree node){
             return values.get(node);
         }
 
         //EXP---------------------------------------------------------------------------------
-
+        public Class<?> visitProgram(SolParser.ProgramContext ctx) {
+            visitChildren(ctx);
+            instrucoes.add(new Instrucion(Commands.HALT));
+            return null;
+        }
         /**
          *
          * @param ctx the parse tree
@@ -223,6 +222,7 @@ public class solCompiler {
             instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
             setBreaks();
             ciclos--;
+            HaveReturn=false;
             return null;
         }
 
@@ -256,6 +256,7 @@ public class solCompiler {
             instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
             setBreaks();
             ciclos--;
+            HaveReturn=false;
             return null;
         }
         @Override
@@ -264,6 +265,8 @@ public class solCompiler {
             int inicioIF = instrucoes.size();
             instrucoes.add(new Instrucion(Commands.JUMPF, -1));
             visit(ctx.instrucao(0));
+            boolean ifreturn = HaveReturn;
+            HaveReturn=false;
             if(ctx.ELSE() != null){
                 int inicioElse = instrucoes.size();
                 instrucoes.add(new Instrucion(Commands.JUMP, -1));
@@ -273,6 +276,7 @@ public class solCompiler {
             } else {
                 instrucoes.get(inicioIF).setValue(instrucoes.size());
             }
+            HaveReturn=ifreturn&&HaveReturn;
             return null;
         }
 
@@ -298,30 +302,36 @@ public class solCompiler {
             return TypesConverter(ctx.getParent(), Boolean.class);
         }
 
-        @Override
-        public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
-            if(ctx.exp()!=null){
-                visitChildren(ctx);
-                instrucoes.add(new Instrucion(Commands.GSTORE, countVariable));
-            }
-            PosicaoVariaveis.put(ctx.NOME().getText(), countVariable++);
-            return null;
-        }
+
 
         @Override public Class<?>  visitVariavelGlobal(SolParser.VariavelGlobalContext ctx) {
             instrucoes.add(new Instrucion(Commands.GALLOC, ctx.declaracao().size()));
             visitChildren(ctx);
             return null;
         }
-        @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
-                    for(int i = 0; i<ctx.exp().size(); i++){
-                        visit(ctx.exp(i));
-                        instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME(i).getText())));
-                    }
-                    return null;
-        }
 
         //Variveis----------------------------------------------------------------------------------------
+
+        //Types-------------------------------------------------------------------------------------------
+        @Override
+        public Class<?>  visitINTT(SolParser.INTTContext ctx) {
+            return Integer.class;
+        }
+
+        @Override
+        public Class<?>  visitDOUBLET(SolParser.DOUBLETContext ctx) {
+            return Double.class;
+        }
+
+        @Override
+        public Class<?>  visitSTRINGT(SolParser.STRINGTContext ctx) {
+            return String.class;
+        }
+
+        @Override
+        public Class<?>  visitBOLEANT(SolParser.BOLEANTContext ctx) {
+            return Boolean.class;
+        }
 
         public Class<?> TypesConverter(ParserRuleContext Parent, Class<?> Atual){
             Class<?> ClassParent = getValues(Parent);
@@ -385,12 +395,138 @@ public class solCompiler {
             constantpoll.add(ctx.getText());
             return String.class;
         }
+//----------------------------------------------------------------------------------------------------------------------------------
+        private HashMap<String, Funcao> functionMap ;
+
+
+        private String funcaoAtual;
+
+        private final ArrayList<ArrayList<Variaveis>>  VariaveisLocais = new ArrayList<>();
+
+        private boolean HaveReturn = false;
+
+        public Class<?> visitReturn(SolParser.ReturnContext ctx){
+            visit(ctx.exp());
+            Funcao currentFunction = functionMap.get(funcaoAtual);
+            if(currentFunction.type() != null)
+                instrucoes.add(new Instrucion(Commands.RETVAL, currentFunction.arguments().size()));
+            else
+                instrucoes.add(new Instrucion(Commands.RET, currentFunction.arguments().size()));
+            HaveReturn=true;
+            return null;
+        }
+        private int lloadposicao;
+        @Override
+        public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
+            HaveReturn=false;
+            funcaoAtual = ctx.NOME().getText();
+            lloadposicao = 2;
+            ArrayList<Variaveis> variaveisLocais = new ArrayList<>();
+            int posicao = -1;
+            for (int i = ctx.arguments().size()-1; i >=0 ; i--) {
+                variaveisLocais.add(new Variaveis(false,visit(ctx.arguments(i).types()) ,ctx.arguments(i).NOME().getText() , posicao));
+                posicao--;
+            }
+
+            for(Variaveis vari: variaveisLocais){
+                System.out.println(vari);
+            }
+            VariaveisLocais.add(variaveisLocais);
+
+
+            visit(ctx.bloco());
+            if(!HaveReturn)
+                instrucoes.add(new Instrucion(Commands.RET, functionMap.get(funcaoAtual).arguments().size()));
+            VariaveisLocais.removeLast();
+            return null;
+        }
+
+        private int bloco = -1;
+
+        @Override
+        public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
+            bloco++;
+            if(bloco !=0)
+                VariaveisLocais.add(new ArrayList<>());
+            visitChildren(ctx);
+            if(bloco!=0){
+                if(!HaveReturn){
+                    instrucoes.add(new Instrucion(Commands.POP,VariaveisLocais.getLast().size()));
+                    lloadposicao -=VariaveisLocais.getLast().size();
+                }
+
+                VariaveisLocais.removeLast();
+            }
+
+            bloco--;
+            return null;
+        }
+
+        @Override public Class<?> visitVariavelLocal(SolParser.VariavelLocalContext ctx) {
+            instrucoes.add(new Instrucion(Commands.LALLOC, ctx.declaracao().size()));
+            for(int i = 0; i<ctx.declaracao().size(); i++)
+                VariaveisLocais.get(bloco).add(new Variaveis(false, visit(ctx.types()), ctx.declaracao(i).NOME().getText(), lloadposicao++));
+            visitChildren(ctx);
+            return null;
+        }
+
+        public int VerificarVariavelGlobalAtras(String nome){
+            int j = bloco;
+            while (j>=0){
+                for(Variaveis variaveis: VariaveisLocais.get(j)){
+                    if(variaveis.nome().equals(nome))
+                        return variaveis.posicao();
+                }
+                j--;
+            }
+
+            return 0;
+        }
+        public Class<?> visitCall(SolParser.CallFuncaoExpContext ctx) {
+            return null;
+        }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
-            instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
+            int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME().getText());
+            if(posicaoLocal ==0 )
+                instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
+            else
+                instrucoes.add(new Instrucion(Commands.LLOAD, posicaoLocal));
             ParserRuleContext exp = ctx.getParent().getParent();
-            System.out.println(ctx.getText() + "  " + ctx);
             return  TypesConverter(exp, getValues(ctx));
+        }
+
+        @Override
+        public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
+            int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME().getText());
+            if(posicaoLocal==0){
+                 if(ctx.exp()!=null){
+                     visitChildren(ctx);
+                     instrucoes.add(new Instrucion(Commands.GSTORE, countVariable));
+                 }
+                 PosicaoVariaveis.put(ctx.NOME().getText(), countVariable++);
+            } else {
+                if(ctx.exp()!=null){
+                    visitChildren(ctx);
+                    instrucoes.add(new Instrucion(Commands.LSTORE, posicaoLocal));
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
+
+            for(int i = 0; i<ctx.exp().size(); i++){
+                int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME(i).getText());
+                visit(ctx.exp(i));
+                if(posicaoLocal==0)
+                    instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME(i).getText())));
+                else
+                    instrucoes.add(new Instrucion(Commands.LSTORE, posicaoLocal));
+            }
+            return null;
         }
         //Variveis----------------------------------------------------------------------------------------
         /**
@@ -455,7 +591,6 @@ public class solCompiler {
             tasmcodes.flush();
             tasmcodes.close();
         }
-
 
         /** Escreve bytecode em um file com base nas instruções fornecidas
          *
@@ -528,9 +663,9 @@ public class solCompiler {
                 }
                 VerifyNodes teste = new VerifyNodes();
                 values=teste.TestTree(tree);
+                functionMap = teste.getFunctionMap();
 
-
-                //this.visit(tree);
+                this.visit(tree);
             } catch (IOException e) {
                 System.err.println("File Not Found.");
                 System.exit(0);
@@ -557,6 +692,7 @@ public class solCompiler {
         }
         Visitor visitor = new Visitor();
         visitor.execute(args);
+        debug=true;
         if (debug){
             visitor.debug();
         }
