@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestSemantico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestSemantico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TesteNodes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Value.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>

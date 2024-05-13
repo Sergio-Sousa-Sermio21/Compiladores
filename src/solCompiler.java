@@ -342,6 +342,7 @@ public class solCompiler {
             }
             if(ClassParent == Boolean.class)
                 return Atual;
+            System.out.println(ClassParent + "  " + Atual);
             return Objects.requireNonNullElse(ClassParent, Atual);
 
         }
@@ -388,6 +389,7 @@ public class solCompiler {
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
             instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
             ParserRuleContext exp = ctx.getParent().getParent();
+            System.out.println(ctx.getText() + "  " + ctx);
             return  TypesConverter(exp, getValues(ctx));
         }
         //Variveis----------------------------------------------------------------------------------------
