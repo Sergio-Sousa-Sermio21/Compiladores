@@ -39,9 +39,16 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         boolean main = false;
         for(int i = 0; i<ctx.funcao().size(); i++){
             SolParser.FuncaoContext functionContext = ctx.funcao(i);
+
             checkDuplicateFunctionName(functionContext);
             if(functionContext.NOME().getText().equals("main")) {
                 main = true;
+
+                if(!functionContext.arguments().isEmpty()) {
+                    errors.add("Line " + functionContext.start.getLine() + ":" +
+                            (functionContext.start.getCharPositionInLine() + 1) +
+                            ": Function main cannot have arguments.");
+                }
                 if (functionContext.types()!=null){
                     errors.add("Line " + ctx.stop.getLine() + ":" + (ctx.stop.getCharPositionInLine()+1) + ": Function main must have return type Void." );
                 }
@@ -52,6 +59,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         visitChildren(ctx);
         return null;
     }
+
 
     /** Para todos visits
      * Métodos responsáveis por visitar um no na arvore de analise sintatica que representa um operador.
