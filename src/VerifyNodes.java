@@ -18,6 +18,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private final ArrayList<String> errors = new ArrayList<>();
     private int loopCount = 0;
 
+    private boolean HaveReturn = false;
+
     private String funcaoAtual;
 
 
@@ -376,8 +378,13 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                     " error: If expression must be of type bool");
 
         }
-        for(int i =0; i<ctx.instrucao().size(); i++)
-            visit(ctx.instrucao().get(i));
+        visit(ctx.instrucao(0));
+        boolean returnInsideIf = HaveReturn;
+        HaveReturn=false;
+        if(ctx.instrucao().size()>1){
+            visit(ctx.instrucao(1));
+        }
+        HaveReturn = HaveReturn&&returnInsideIf;
         return null;
     }
 
@@ -492,6 +499,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                         currentFunction.type().getSimpleName() + " but found " + returnType.getSimpleName() + ".");
                 return Object.class;
             }
+            HaveReturn = true;
             return returnType;
         }
         else {
