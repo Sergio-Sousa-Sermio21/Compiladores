@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />

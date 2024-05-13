@@ -263,6 +263,18 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private int bloco = -1;
 
     @Override
+    public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
+        bloco++;
+        if(bloco !=0)
+            VariaveisLocais.add(new ArrayList<>());
+        visitChildren(ctx);
+        if(bloco!=0)
+            VariaveisLocais.removeLast();
+        bloco--;
+        return null;
+    }
+
+    @Override
     public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
         funcaoAtual = ctx.NOME().getText();
         boolean returnFound = false;
@@ -383,13 +395,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return null;
     }
 
-    @Override
-    public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
-        bloco++;
-        visitChildren(ctx);
-        bloco--;
-        return null;
-    }
+
 
     @Override
     public Class<?> visitAND(SolParser.ANDContext ctx) {
