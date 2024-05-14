@@ -30,8 +30,15 @@ public class solCompiler {
 
         //EXP---------------------------------------------------------------------------------
         public Class<?> visitProgram(SolParser.ProgramContext ctx) {
-            visitChildren(ctx);
+            if(ctx.variavelGlobal() != null)
+                for (int i = 0; i < ctx.variavelGlobal().size(); i++) {
+                    visit(ctx.variavelGlobal(i));
+                }
+            resolveCalls("main");
             instrucoes.add(new Instrucion(Commands.HALT));
+            for (int i = 0; i < ctx.funcao().size(); i++) {
+                    visit(ctx.funcao(i));
+            }
             return null;
         }
         /**
@@ -236,30 +243,6 @@ public class solCompiler {
             breaks.remove(ciclos);
         }
         @Override
-        public Class<?>  visitForState(SolParser.ForStateContext ctx) {
-            breaks.add(new ArrayList<>());
-            ciclos++;
-            visit(ctx.exp(0));
-            instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
-            int iniciofor = instrucoes.size();
-            instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.NOME().getText())));
-            visit(ctx.exp(1));
-            instrucoes.add(new Instrucion(Commands.ILEQ));
-            int posicaoJumpf = instrucoes.size();
-            instrucoes.add(new Instrucion(Commands.JUMPF, -1));
-            visit(ctx.instrucao());
-            instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.NOME().getText())));
-            instrucoes.add(new Instrucion(Commands.ICONST, 1));
-            instrucoes.add(new Instrucion(Commands.IADD));
-            instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME().getText())));
-            instrucoes.add(new Instrucion(Commands.JUMP, iniciofor));
-            instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
-            setBreaks();
-            ciclos--;
-            HaveReturn=false;
-            return null;
-        }
-        @Override
         public Class<?>  visitIfState(SolParser.IfStateContext ctx) {
             visit(ctx.exp());
             int inicioIF = instrucoes.size();
@@ -417,17 +400,53 @@ public class solCompiler {
             HaveReturn=true;
             return null;
         }
+
+        @Override
+        public Class<?>  visitForState(SolParser.ForStateContext ctx) {
+            breaks.add(new ArrayList<>());
+            ciclos++;
+            visit(ctx.exp(0));
+            int posicao = VerificarVariavelLocalAtras(ctx.NOME().getText());
+            instrucoes.add(new Instrucion(posicao == 0 ? Commands.GSTORE : Commands.LSTORE,posicao == 0? PosicaoVariaveis.get(ctx.NOME().getText()): posicao));
+            int iniciofor = instrucoes.size();
+            instrucoes.add(new Instrucion(posicao == 0 ? Commands.GLOAD : Commands.LLOAD, posicao == 0? PosicaoVariaveis.get(ctx.NOME().getText()): posicao));
+            visit(ctx.exp(1));
+            instrucoes.add(new Instrucion(Commands.ILEQ));
+            int posicaoJumpf = instrucoes.size();
+            instrucoes.add(new Instrucion(Commands.JUMPF, -1));
+            visit(ctx.instrucao());
+            instrucoes.add(new Instrucion(posicao == 0 ? Commands.GLOAD : Commands.LLOAD, posicao == 0? PosicaoVariaveis.get(ctx.NOME().getText()): posicao));
+            instrucoes.add(new Instrucion(Commands.ICONST, 1));
+            instrucoes.add(new Instrucion(Commands.IADD));
+            instrucoes.add(new Instrucion(posicao == 0 ? Commands.GSTORE : Commands.LSTORE,posicao == 0? PosicaoVariaveis.get(ctx.NOME().getText()): posicao));
+            instrucoes.add(new Instrucion(Commands.JUMP, iniciofor));
+            instrucoes.get(posicaoJumpf).setValue(instrucoes.size());
+            setBreaks();
+            ciclos--;
+            HaveReturn=false;
+            return null;
+        }
         private int lloadposicao;
+
+        private void AddFuncionPosicion(String nomeFuncao){
+            Funcionposicion.put(nomeFuncao, instrucoes.size());
+            if(FuncionNotFound.containsKey(nomeFuncao)){
+                for(int i : FuncionNotFound.get(nomeFuncao)){
+                    instrucoes.get(i).setValue(instrucoes.size());
+                }
+            }
+        }
         @Override
         public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
             HaveReturn=false;
             funcaoAtual = ctx.NOME().getText();
+            AddFuncionPosicion(funcaoAtual);
             lloadposicao = 2;
             ArrayList<Variaveis> variaveisLocais = new ArrayList<>();
-            int posicao = -1;
-            for (int i = ctx.arguments().size()-1; i >=0 ; i--) {
+            int posicao = -ctx.arguments().size();
+            for (int i = 0; i <ctx.arguments().size() ; i++) {
                 variaveisLocais.add(new Variaveis(false,visit(ctx.arguments(i).types()) ,ctx.arguments(i).NOME().getText() , posicao));
-                posicao--;
+                posicao++;
             }
             VariaveisLocais.add(variaveisLocais);
 
@@ -468,7 +487,7 @@ public class solCompiler {
             return null;
         }
 
-        public int VerificarVariavelGlobalAtras(String nome){
+        public int VerificarVariavelLocalAtras(String nome){
             int j = bloco;
             while (j>=0){
                 for(Variaveis variaveis: VariaveisLocais.get(j)){
@@ -480,41 +499,28 @@ public class solCompiler {
 
             return 0;
         }
-        public void storeFunctionPosition(String functionName){
-            functionPos.put(functionName,instrucoes.size());
+
+        private final HashMap<String,Integer> Funcionposicion = new HashMap<>();
+        private final Map<String, List<Integer>> FuncionNotFound = new HashMap<>();
+        private void resolveCalls(String functionName){
+            if(Funcionposicion.containsKey(functionName))
+                instrucoes.add(new Instrucion(Commands.CALL, Funcionposicion.get(functionName)));
+            else{
+                if(FuncionNotFound.containsKey(functionName))
+                    FuncionNotFound.get(functionName).add(instrucoes.size());
+                else
+                    FuncionNotFound.computeIfAbsent(functionName, V -> new ArrayList<>()).add(instrucoes.size());
+                instrucoes.add(new Instrucion(Commands.CALL,0));
+            }
         }
+
         @Override
         public Class<?> visitCallFuncaoIntrucion(SolParser.CallFuncaoIntrucionContext ctx) {
             for(int i = 0; i<ctx.exp().size(); i++){
                 visit(ctx.exp(i));
             }
-            String functionName = ctx.NOME().getText();
-            Funcao function = functionMap.get(functionName);
-            Class<?> returnType;
-            if (functionMap.containsKey(functionName)){
-                instrucoes.add(new Instrucion(Commands.CALL, functionPos.get(functionName)));
-
-            }
-            else{
-                if (FunctionNotFound.containsKey(functionName))
-                    FunctionNotFound.get(functionName).add(instrucoes.size());
-                else
-                    FunctionNotFound.computeIfAbsent(functionName, k -> new ArrayList<>()).add(instrucoes.size());
-                instrucoes.add(new Instrucion(Commands.CALL,0));
-            }
-
-            instrucoes.add(new Instrucion(Commands.CALL,functionPos.get(functionName)));
-            return returnType;
-
-            if(labelsposicion.containsKey(label))
-                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()), labelsposicion.get(label)));
-            else{
-                if(labelsNotFound.containsKey(label))
-                    labelsNotFound.get(label).add(instrucoes.size());
-                else
-                    labelsNotFound.computeIfAbsent(label, k -> new ArrayList<>()).add(instrucoes.size());
-                instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()),0));
-            }
+            resolveCalls(ctx.NOME().getText());
+            return null;
         }
 
         @Override
@@ -524,24 +530,12 @@ public class solCompiler {
             }
             String functionName = ctx.NOME().getText();
             Funcao function = functionMap.get(functionName);
-            Class<?> returnType;
-            if(function != null)
-                returnType = function.type();
-            else
-                returnType = null;
-
-            if(FunctionNotFound.containsKey(functionName))
-                FunctionNotFound.get(functionName).add(instrucoes.size());
-            else
-                FunctionNotFound.computeIfAbsent(functionName, k -> new ArrayList<>()).add(instrucoes.size());
-            Integer Pos = functionPos.get(functionName);
-
-            instrucoes.add(new Instrucion(Commands.CALL,Pos));
-            return returnType;
+            resolveCalls(functionName);
+            return function.type();
         }
         @Override
         public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
-            int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME().getText());
+            int posicaoLocal = VerificarVariavelLocalAtras(ctx.NOME().getText());
             if(posicaoLocal ==0 )
                 instrucoes.add(new Instrucion(Commands.GLOAD, PosicaoVariaveis.get(ctx.getText())));
             else
@@ -552,7 +546,7 @@ public class solCompiler {
 
         @Override
         public Class<?>  visitDeclaracao(SolParser.DeclaracaoContext ctx) {
-            int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME().getText());
+            int posicaoLocal = VerificarVariavelLocalAtras(ctx.NOME().getText());
             if(posicaoLocal==0){
                  if(ctx.exp()!=null){
                      visitChildren(ctx);
@@ -573,8 +567,7 @@ public class solCompiler {
         public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
 
             for(int i = 0; i<ctx.exp().size(); i++){
-                int posicaoLocal = VerificarVariavelGlobalAtras(ctx.NOME(i).getText());
-                System.out.println(ctx.exp(i).getText());
+                int posicaoLocal = VerificarVariavelLocalAtras(ctx.NOME(i).getText());
                 visit(ctx.exp(i));
                 if(posicaoLocal==0)
                     instrucoes.add(new Instrucion(Commands.GSTORE, PosicaoVariaveis.get(ctx.NOME(i).getText())));
@@ -607,8 +600,8 @@ public class solCompiler {
          * @param command O comando a ser verificado.
          * @return true se o comando for um salto, false caso contrario.
          */
-        public boolean isCommandAJump(Commands command){
-            return command.equals(Commands.JUMP) || command.equals(Commands.JUMPF) || command.equals(Commands.JUMPT);
+        public boolean isCommandAJumpOrCall(Commands command){
+            return command.equals(Commands.JUMP) || command.equals(Commands.JUMPF) || command.equals(Commands.JUMPT) || command.equals(Commands.CALL);
         }
         /**
          * Verifica se um valor está na pool de constantes.
@@ -631,7 +624,7 @@ public class solCompiler {
                 if (!instruction.isValueNull()) {
                     if (isValueInConstantPool(instruction.getCommand()))
                         tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " " + constantpoll.get(instruction.getValue()));
-                    else if (isCommandAJump(instruction.getCommand())) {
+                    else if (isCommandAJumpOrCall(instruction.getCommand())) {
                         tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " L" + instruction.getValue());
                     } else {
                         tasmcodes.write("L" + line + ": " + instruction.getCommand().name().toLowerCase() + " " + instruction.getValue());

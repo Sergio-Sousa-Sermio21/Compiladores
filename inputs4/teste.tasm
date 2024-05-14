@@ -1,16 +1,35 @@
-L0: lload -1
-L1: lload -1
-L2: imult
-L3: retval 1
-L4: lalloc 1
-L5: lload -2
-L6: lload -1
-L7: iadd
-L8: lstore 2
-L9: lload 2
-L10: retval 2
-L11: iconst 3
-L12: iconst 2
-L13: iprint
-L14: ret 0
-L15: halt
+L0: call L2
+L1: halt
+L2: lalloc 1
+L3: iconst 1
+L4: lstore 2
+L5: lalloc 1
+L6: lload 2
+L7: iprint
+L8: lalloc 1
+L9: iconst 2
+L10: lstore 4
+L11: lalloc 1
+L12: sconst "Ola"
+L13: lstore 5
+L14: lload 5
+L15: sprint
+L16: lalloc 1
+L17: iconst 3
+L18: lstore 6
+L19: lalloc 1
+L20: lalloc 1
+L21: iconst 4
+L22: lstore 8
+L23: pop 1
+L24: iconst 5
+L25: lstore 7
+L26: pop 2
+L27: pop 2
+L28: iconst 6
+L29: lstore 3
+L30: lalloc 1
+L31: iconst 7
+L32: lstore 4
+L33: pop 1
+L34: ret 0

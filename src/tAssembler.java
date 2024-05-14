@@ -13,10 +13,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class tAssembler extends TasmBaseListener {
         private final HashMap<String,Integer> labelsposicion = new HashMap<>();
-        private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
-
         private final Map<String, List<Integer>> labelsNotFound = new HashMap<>();
-
+        private final ArrayList<Instrucion> instrucoes = new ArrayList<>();
         private final ArrayList<Object> constantpoll = new ArrayList<>();
 
         public tAssembler(){}
@@ -151,7 +149,7 @@ public class tAssembler extends TasmBaseListener {
                 if(labelsNotFound.containsKey(label))
                     labelsNotFound.get(label).add(instrucoes.size());
                 else
-                    labelsNotFound.computeIfAbsent(label, k -> new ArrayList<>()).add(instrucoes.size());
+                    labelsNotFound.computeIfAbsent(label, V -> new ArrayList<>()).add(instrucoes.size());
                 instrucoes.add(new Instrucion(Commands.valueOf(command.toUpperCase()),0));
             }
         }

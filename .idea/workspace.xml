@@ -6,14 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs4/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs4/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
     </list>
-    <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="">
-      <change beforePath="$PROJECT_DIR$/inputs4/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
-    </list>
+    <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,18 +31,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/solCompiler.java">
-      <ranges>
-        <range start1="354" end1="355" start2="354" end2="354" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="400" end1="400" start2="399" end2="402" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="429" end1="433" start2="431" end2="431" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="484" end1="486" start2="482" end2="517" changelist="05809835-10c3-4d33-b246-c7ff027893e7" />
-        <range start1="487" end1="487" start2="518" end2="541" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-        <range start1="522" end1="522" start2="576" end2="577" changelist="8ff31e16-f693-434b-83e3-1b7474f274da" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -66,7 +55,7 @@
     "Application.Sol.executor": "Run",
     "Application.Teste.executor": "Run",
     "Application.tAssembler.executor": "Run",
-    "Application.tVm.executor": "Debug",
+    "Application.tVm.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -97,7 +86,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Sol">
+  <component name="RunManager" selected="Application.tVm">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compiladores" />
@@ -139,7 +128,7 @@
     <configuration name="tVm" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="tVM" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs/Teste.tbc" />
+      <option name="PROGRAM_PARAMETERS" value="inputs4/teste.tbc" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

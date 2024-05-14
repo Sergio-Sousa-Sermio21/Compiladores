@@ -1,20 +1,12 @@
-
-int sqr( int x )
+int max(int a, int b)
 begin
-   if(true) then
-   begin
-    return x*x;
-   end
-end
-
-int sqrsum( int a, int b )
-begin
-    int s;
-    s = sqr(a + b);
-    return s;
+    if a > b then return a;
+    else return b;
 end
 
 void main()
 begin
-    print sqrsum(3,2);
+    int x = 3, y = 5;
+    int z = max(x,y);
+    print z;
 end

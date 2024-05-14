@@ -119,7 +119,6 @@ public class tVM {
         System.out.println("]" + " FP-" + FP);
     }
 
-
     /**Executa o código no array de instrucoes de instruções.
      *
      */
@@ -330,8 +329,10 @@ public class tVM {
                         i = instructions.get(i).getValue()-1;
                     }
                     case RET -> {
-                        for(int j = 2; j<stack.size()-FP; j++)
+                        int size = stack.size();
+                        for(int j = 2; j<size-FP; j++){
                             stack.pop();
+                        }
                         int numberofArguments = instructions.get(i).getValue();
                         i =  stack.pop().getValueInt();
                         FP = stack.pop().getValueInt();
@@ -340,7 +341,8 @@ public class tVM {
                     }
                     case RETVAL -> {
                         Value toreturn = stack.pop();
-                        for(int j = 2; j<stack.size()-FP; j++)
+                        int size = stack.size();
+                        for(int j = 2; j<size-FP; j++)
                             stack.pop();
                         int numberofArguments = instructions.get(i).getValue();
                         i =  stack.pop().getValueInt();
