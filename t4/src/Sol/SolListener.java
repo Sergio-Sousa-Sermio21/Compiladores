@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t3/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t4/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -18,6 +18,26 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitExecutable(SolParser.ExecutableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SolParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(SolParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SolParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(SolParser.FunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SolParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(SolParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SolParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(SolParser.FunctionCallContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SolParser#command}.
 	 * @param ctx the parse tree
 	 */
@@ -27,6 +47,16 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCommand(SolParser.CommandContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SolParser#return}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn(SolParser.ReturnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SolParser#return}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn(SolParser.ReturnContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SolParser#block}.
 	 * @param ctx the parse tree
@@ -190,6 +220,18 @@ public interface SolListener extends ParseTreeListener {
 	 */
 	void exitParenthesis(SolParser.ParenthesisContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code FunctionCallOP}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallOP(SolParser.FunctionCallOPContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunctionCallOP}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallOP(SolParser.FunctionCallOPContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Variable}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
@@ -305,4 +347,64 @@ public interface SolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNegate(SolParser.NegateContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnVoid}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnVoid(SolParser.ReturnVoidContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnVoid}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnVoid(SolParser.ReturnVoidContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnInt}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnInt(SolParser.ReturnIntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnInt}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnInt(SolParser.ReturnIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnReal}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnReal(SolParser.ReturnRealContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnReal}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnReal(SolParser.ReturnRealContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnBool}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnBool(SolParser.ReturnBoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnBool}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnBool(SolParser.ReturnBoolContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnString}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnString(SolParser.ReturnStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnString}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnString(SolParser.ReturnStringContext ctx);
 }

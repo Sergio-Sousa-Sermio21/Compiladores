@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t3/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t4/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -17,11 +17,29 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecutable(SolParser.ExecutableContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SolParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(SolParser.FunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SolParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCall(SolParser.FunctionCallContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SolParser#command}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCommand(SolParser.CommandContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SolParser#return}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn(SolParser.ReturnContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SolParser#block}.
 	 * @param ctx the parse tree
@@ -119,6 +137,13 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesis(SolParser.ParenthesisContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FunctionCallOP}
+	 * labeled alternative in {@link SolParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallOP(SolParser.FunctionCallOPContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Variable}
 	 * labeled alternative in {@link SolParser#op}.
 	 * @param ctx the parse tree
@@ -186,4 +211,39 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNegate(SolParser.NegateContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnVoid}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnVoid(SolParser.ReturnVoidContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnInt}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnInt(SolParser.ReturnIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnReal}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnReal(SolParser.ReturnRealContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnBool}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnBool(SolParser.ReturnBoolContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnString}
+	 * labeled alternative in {@link SolParser#retType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnString(SolParser.ReturnStringContext ctx);
 }

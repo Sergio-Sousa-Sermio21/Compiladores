@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t4/Tasm.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -93,6 +93,20 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayOperation(TasmParser.ArrayOperationContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code StackOperation}
+	 * labeled alternative in {@link TasmParser#token}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStackOperation(TasmParser.StackOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnOperation}
+	 * labeled alternative in {@link TasmParser#token}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnOperation(TasmParser.ReturnOperationContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Halt}
 	 * labeled alternative in {@link TasmParser#token}.
 	 * @param ctx the parse tree
@@ -135,4 +149,16 @@ public interface TasmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArrayOP(TasmParser.ArrayOPContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#stackOP}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStackOP(TasmParser.StackOPContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link TasmParser#return}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn(TasmParser.ReturnContext ctx);
 }

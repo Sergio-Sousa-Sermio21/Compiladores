@@ -1,26 +1,25 @@
 grammar Sol;
 
-executable: (main (function)*)? EOF;
+executable: (function)* EOF;
 
-main: retType 'main' LPARENTHESIS RPARENTHESIS block; //args?
+function: retType VAR LPARENTHESIS declarationType VAR (',' declarationType VAR)?? RPARENTHESIS block;//TODO
 
-function: retType VAR LPARENTHESIS args? RPARENTHESIS block;
+functionCall: VAR LPARENTHESIS (op (',' op)*)? RPARENTHESIS;
 
-args:declarationType VAR (',' declarationType VAR)?;
-
-command: PRINT op';'
+command: PRINT op ';'
             | block
             | while
             | for
             | if
             | empty
             | break
+            | functionCall
             | VAR '=' op ';'
             | return;
 
 return: 'return ' op? ';'; //verificar caso exista op
 
-block: 'begin' (declaration | command ';')* 'end';
+block: 'begin' (declaration ';' | command)* 'end';
 
 declaration: declarationType declarationDef (',' declarationDef)*;
 
@@ -45,7 +44,7 @@ declarationType: 'int' #IntegerType
 declarationDef: VAR ('=' op)?;
 
 op: LPARENTHESIS op RPARENTHESIS #Parenthesis
- | VAR LPARENTHESIS (op (',' op)*)? RPARENTHESIS ';' #FunctionCall
+ | functionCall #FunctionCallOP
  | negate #Negation
  | op multdivmodOp=(MULT|DIV|MOD) op #MultDivMod
  | op addsubOP=(ADD|SUB) op #AddSub
@@ -105,7 +104,7 @@ PRINT: 'print';
 INT: [0-9]+;
 DOUBLE: INT+ '.' INT+;
 STRING: '"' ( ESC_SEQ | ~[\\"\r\n] )* '"';
-VAR: [a-zA-Z_] [a-zA-Z_0-9-]*;
+VAR: [a-zA-Z_] [a-zA-Z_0-9]*;
 
 fragment ESC_SEQ : '\\' . ;
 WS: [ \t\r\n]+ -> skip;

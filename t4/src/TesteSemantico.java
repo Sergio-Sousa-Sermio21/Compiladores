@@ -27,6 +27,18 @@ public class TesteSemantico {
         return "error in line "+line+": invalid type "+var+", should be "+ type +"." ;
     }
 
+    public String invalidTypeArgs(int line, String var, String varType, String type){
+        return "error in line "+line+": invalid variable "+var+" of type "+varType+", should be "+ type +" which is defined by the function argument." ;
+    }
+
+    public String invalidNumArgsLess(int line, int argSize, int opSize){
+        return "error in line "+line+": less number of expressions than expected, which is "+opSize+" and should be "+argSize+".";
+    }
+
+    public String invalidNumArgsMore(int line, int argSize, int opSize){
+        return "error in line "+line+": more number of expressions than expected, which is "+opSize+" and should be "+argSize+".";
+    }
+
     public String invalidBreak(int line){
         return "error in line "+line+": incorrect use of the break command, not inside a loop.";
     }
@@ -37,5 +49,16 @@ public class TesteSemantico {
 
     public String notInitialized(int line, String var){
         return "error in line "+line+": "+var+" is not initialized.";
+    }
+
+    public String invalidReturn(int line){
+        return "error in line "+line+": incorrect 'return' command usage, not inside a function.";}
+
+    public String invalidReturnType(int line, String var, String type){
+        return "error in line "+line+": incorrect return type for '"+var+"' should be "+type+" type.";
+    }
+
+    public String invalidReturnType(int line, String var, String varType, String type){
+        return "error in line "+line+": incorrect return type for '"+var+"' of type "+varType+" should be "+type+" type.";
     }
 }

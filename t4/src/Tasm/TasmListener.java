@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t1/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t4/Tasm.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -148,6 +148,30 @@ public interface TasmListener extends ParseTreeListener {
 	 */
 	void exitArrayOperation(TasmParser.ArrayOperationContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code StackOperation}
+	 * labeled alternative in {@link TasmParser#token}.
+	 * @param ctx the parse tree
+	 */
+	void enterStackOperation(TasmParser.StackOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StackOperation}
+	 * labeled alternative in {@link TasmParser#token}.
+	 * @param ctx the parse tree
+	 */
+	void exitStackOperation(TasmParser.StackOperationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnOperation}
+	 * labeled alternative in {@link TasmParser#token}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnOperation(TasmParser.ReturnOperationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnOperation}
+	 * labeled alternative in {@link TasmParser#token}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnOperation(TasmParser.ReturnOperationContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Halt}
 	 * labeled alternative in {@link TasmParser#token}.
 	 * @param ctx the parse tree
@@ -219,4 +243,24 @@ public interface TasmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArrayOP(TasmParser.ArrayOPContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#stackOP}.
+	 * @param ctx the parse tree
+	 */
+	void enterStackOP(TasmParser.StackOPContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#stackOP}.
+	 * @param ctx the parse tree
+	 */
+	void exitStackOP(TasmParser.StackOPContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TasmParser#return}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn(TasmParser.ReturnContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TasmParser#return}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn(TasmParser.ReturnContext ctx);
 }

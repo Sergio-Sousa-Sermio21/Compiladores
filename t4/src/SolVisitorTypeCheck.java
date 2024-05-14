@@ -17,6 +17,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private TesteSemantico teste;
     private ArrayList<String> errors;
+    private HashMap<SolParser.FunctionCallContext, Integer> callWait;
+    private HashMap<Var, ArrayList<Class<?>>> callListed;
     class Var {
         protected String name;
         protected boolean initialized;
@@ -45,6 +47,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             return name;
         }
     }
+    private Class<?> functionType;
     private ArrayList<Var> gallocContent;
     private Stack<Boolean> loops;
 
@@ -58,6 +61,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         errors = new ArrayList<String>();
         gallocContent = new ArrayList<>();
         loops=new Stack<>();
+        functionType = null;
+        callWait = new HashMap<>();
+        callListed = new HashMap<>();
     }
 
     /**
@@ -76,6 +82,24 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      */
     public ParseTreeProperty<Class<?>> getTree() {
         return tree;
+    }
+
+    private Var getKeyCallListed(Var selectedKey){
+        for (Var key: callListed.keySet())
+            if (selectedKey.equals(key))
+                return key;
+        return null;
+    }
+
+    /**TODO
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitExecutable(SolParser.ExecutableContext ctx) {
+
+        return super.visitExecutable(ctx);
     }
 
     /**
@@ -119,6 +143,150 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
+    /**TODO rn
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFunction(SolParser.FunctionContext ctx) {
+
+        return super.visitFunction(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param type
+     * @return
+     */
+    public Class<?> stringToClass(String type){
+        switch (type) {
+            case "Integer" -> {
+                return Integer.class;
+            }
+            case "Double" -> {
+                return Double.class;
+            }
+            case "String" -> {
+                return String.class;
+            }
+            case "Boolean" -> {
+                return Boolean.class;
+            }
+        }
+        return Void.class;
+    }
+
+    /**TODO
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFunctionCall(SolParser.FunctionCallContext ctx) {
+        Var name = new Var(ctx.VAR().getText());
+        if (!callListed.containsKey(name))
+            callWait.put(ctx, ctx.start.getLine());
+        else {
+            ArrayList<Class<?>> args=callListed.get(name);
+            int argSize = args.size();
+            int opSize =ctx.op().size();
+            if (opSize>argSize)
+                errors.add(teste.invalidNumArgsLess(ctx.start.getLine(), argSize, opSize));
+            else if (opSize<argSize)
+                errors.add(teste.invalidNumArgsMore(ctx.start.getLine(), argSize, opSize));
+            else {
+                for (int i = 0; i < argSize; i++) {
+                    SolParser.OpContext op = ctx.op(i);
+                    Class<?> opClass = tree.get(op);
+                    Class<?> arg = args.get(i);
+                    if (arg != opClass)
+                        errors.add(teste.invalidTypeArgs(ctx.start.getLine(), op.getText(), opClass.getSimpleName(), arg.getSimpleName()));
+                }
+            }
+            Class<?> result = stringToClass(getKeyCallListed(name).type);
+            tree.put(ctx, result);
+            return result;
+        }
+        return null;
+    }
+
+    /**TODO rn
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturn(SolParser.ReturnContext ctx) {
+        if(functionType == null)
+            errors.add(teste.invalidReturn(ctx.start.getLine()));
+        else {
+            if (ctx.op() != null) {
+                visit(ctx.op());
+                Class<?> type = tree.get(ctx.op());
+                if (functionType != type)
+                    errors.add(teste.invalidReturnType(ctx.start.getLine(), ctx.op().getText(), type.getSimpleName(), functionType.getSimpleName()));
+            } else if (functionType != Void.class)
+                errors.add(teste.invalidReturnType(ctx.start.getLine(),"Empty", "Void"));
+        }
+        return super.visitReturn(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturnInt(SolParser.ReturnIntContext ctx) {
+        tree.put(ctx,Integer.class);
+        return super.visitReturnInt(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturnReal(SolParser.ReturnRealContext ctx) {
+        tree.put(ctx,Double.class);
+        return super.visitReturnReal(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturnString(SolParser.ReturnStringContext ctx) {
+        tree.put(ctx,String.class);
+        return super.visitReturnString(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturnBool(SolParser.ReturnBoolContext ctx) {
+        tree.put(ctx, Boolean.class);
+        return super.visitReturnBool(ctx);
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturnVoid(SolParser.ReturnVoidContext ctx) {
+        tree.put(ctx,Void.class);
+        return super.visitReturnVoid(ctx);
+    }
+
     /**
      * Visits a variable declaration in the parse tree, validating and updating the type information.
      *
@@ -131,12 +299,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         if (index!=-1) {
             Var var = gallocContent.get(index);
             String type = var.type;
-            switch (type) {
-                case "Integer" -> tree.put(ctx, Integer.class);
-                case "Double" -> tree.put(ctx, Double.class);
-                case "String" -> tree.put(ctx, String.class);
-                case "Boolean" -> tree.put(ctx, Boolean.class);
-            }
+            tree.put(ctx, stringToClass(type));
             if (!var.initialized)
                 errors.add(teste.notInitialized(ctx.start.getLine(), var.name));
         } else {
