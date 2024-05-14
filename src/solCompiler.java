@@ -260,6 +260,7 @@ public class solCompiler {
                 instrucoes.get(inicioIF).setValue(instrucoes.size());
             }
             HaveReturn=ifreturn&&HaveReturn;
+            System.out.println(HaveReturn + " " + funcaoAtual);
             return null;
         }
 
@@ -391,7 +392,8 @@ public class solCompiler {
         private boolean HaveReturn = false;
 
         public Class<?> visitReturn(SolParser.ReturnContext ctx){
-            visit(ctx.exp());
+            if(ctx.exp() != null)
+                visit(ctx.exp());
             Funcao currentFunction = functionMap.get(funcaoAtual);
             if(currentFunction.type() != null)
                 instrucoes.add(new Instrucion(Commands.RETVAL, currentFunction.arguments().size()));
@@ -468,13 +470,13 @@ public class solCompiler {
             visitChildren(ctx);
             if(bloco!=0){
                 if(!HaveReturn){
-                    instrucoes.add(new Instrucion(Commands.POP,VariaveisLocais.getLast().size()));
+                    if(!VariaveisLocais.getLast().isEmpty()){
+                        instrucoes.add(new Instrucion(Commands.POP,VariaveisLocais.getLast().size()));
+                    }
                     lloadposicao -=VariaveisLocais.getLast().size();
                 }
-
                 VariaveisLocais.removeLast();
             }
-
             bloco--;
             return null;
         }
