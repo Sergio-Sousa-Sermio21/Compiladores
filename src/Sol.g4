@@ -90,7 +90,7 @@ TRUE: 'true';
 INT: [0-9]+;
 DOUBLE: INT+ '.' INT+;
 STRING: '"' ( ESC_SEQ | ~[\\"\r\n] )* '"';
-NOME: [a-zA-Z_] [a-zA-Z_0-9-]*;
+NOME: [a-zA-Z_] [a-zA-Z_0-9]*;
 fragment ESC_SEQ : '\\' . ;
 SL_COMMENT : '//' .*? (EOF|'\n') -> skip; // single-line comment
 ML_COMMENT : '/*' .*? '*/' -> skip ; // multi-line comment
