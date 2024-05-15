@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -17,9 +18,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private TesteSemantico teste;
     private ArrayList<String> errors;
-    private HashMap<SolParser.FunctionCallContext, Integer> callWait;
     private HashMap<Var, ArrayList<Class<?>>> callListed;
-    class Var {
+    public static class Var {
         protected String name;
         protected boolean initialized;
         protected String type;
@@ -55,15 +55,14 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      * Constructor for SolVisitorTypeCheck.
      * Initializes instance variables.
      */
-    SolVisitorTypeCheck() {
-        tree = new ParseTreeProperty<Class<?>>();
+    SolVisitorTypeCheck(ParseTreeProperty<Class<?>> t, ArrayList<String> error, HashMap<Var, ArrayList<Class<?>>> callList) {
+        tree = t;
         teste = new TesteSemantico();
-        errors = new ArrayList<String>();
+        errors = error;
         gallocContent = new ArrayList<>();
         loops=new Stack<>();
         functionType = null;
-        callWait = new HashMap<>();
-        callListed = new HashMap<>();
+        callListed = callList;
     }
 
     /**
@@ -84,22 +83,20 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return tree;
     }
 
+    public HashMap<Var, ArrayList<Class<?>>> getCallListed() {
+        return callListed;
+    }
+
+    /**TODO comment
+     *
+     * @param selectedKey
+     * @return
+     */
     private Var getKeyCallListed(Var selectedKey){
         for (Var key: callListed.keySet())
             if (selectedKey.equals(key))
                 return key;
         return null;
-    }
-
-    /**TODO
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitExecutable(SolParser.ExecutableContext ctx) {
-
-        return super.visitExecutable(ctx);
     }
 
     /**
@@ -128,30 +125,47 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         result = super.visitCommand(ctx);
 
         if (ctx.VAR() != null) {
-            int index = gallocContent.indexOf(new Var(ctx.VAR().getText()));
-            Var var = gallocContent.get(index);
-            String type = var.type;
-            var.initialized = true;
-            gallocContent.set(index, var);
-            visit(ctx.op());
-            String opType = tree.get(ctx.op()).getSimpleName();
-            if (type==null)
-                errors.add(teste.invalidVariable(ctx.start.getLine(), ctx.VAR().getText()));
-            else if (!type.equals(opType))
-                errors.add(teste.invalidType(ctx.start.getLine(), opType, type));
+            Var currentVar = new Var(ctx.VAR().getText());
+            if (gallocContent.contains(currentVar)) {
+                int index = gallocContent.indexOf(currentVar);
+                Var var = gallocContent.get(index);
+                String type = var.type;
+                var.initialized = true;
+                gallocContent.set(index, var);
+                visit(ctx.op());
+                String opType = tree.get(ctx.op()).getSimpleName();
+                if (type == null)
+                    errors.add(teste.invalidVariable(ctx.start.getLine(), ctx.VAR().getText()));
+                else if (!type.equals(opType))
+                    errors.add(teste.invalidType(ctx.start.getLine(), opType, type));
+            }else
+                errors.add(teste.notDefined(ctx.start.getLine(), ctx.VAR().getText()));
         }
         return result;
     }
 
-    /**TODO rn
+    /**TODO
      *
      * @param ctx the parse tree
      * @return
      */
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
-
-        return super.visitFunction(ctx);
+        Object result = visit(ctx.retType());
+        if (functionType != null){
+            functionType = tree.get(ctx);
+            int varSize=ctx.VAR().size();
+            for (int i=1; i<varSize; i++){
+                if (gallocContent.contains(new Var(ctx.VAR(i).getText()))) {
+                    errors.add(teste.alreadyDefined(ctx.start.getLine(), ctx.VAR(i).getText()));
+                    gallocContent.add(new Var(ctx.VAR(i).getText(), tree.get(ctx.declarationType(i-1)).getSimpleName()));
+                }
+            }
+        } else
+            errors.add(teste.invalidFunction(ctx.start.getLine()));
+        visit(ctx.block());
+        functionType = null;
+        return result;
     }
 
     /**TODO comment
@@ -179,36 +193,58 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
 
     /**TODO
      *
+     * @return
+     */
+    private Class<?> matchFunction(int line, ArrayList<Class<?>> args, List<SolParser.OpContext> ops, Class<?> type){
+        int argSize = args.size();
+        int opSize =ops.size();
+        if (opSize>argSize)
+            errors.add(teste.invalidNumArgsLess(line, argSize, opSize));
+        else if (opSize<argSize)
+            errors.add(teste.invalidNumArgsMore(line, argSize, opSize));
+        else {
+            for (int i = 0; i < argSize; i++) {
+                SolParser.OpContext op = ops.get(i);
+                Class<?> opClass = tree.get(op);
+                Class<?> arg = args.get(i);
+                if (arg != opClass)
+                    errors.add(teste.invalidTypeArgs(line, op.getText(), opClass.getSimpleName(), arg.getSimpleName()));
+            }
+        }
+        return type;
+    }
+
+    /**TODO comment (esta é um follow up  da function call normal)
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFunctionCallOP(SolParser.FunctionCallOPContext ctx) {
+        Object result = super.visitFunctionCallOP(ctx);
+        tree.put(ctx, tree.get(ctx.functionCall()));
+        return result;
+    }
+
+    /**TODO
+     *
      * @param ctx the parse tree
      * @return
      */
     @Override
     public Object visitFunctionCall(SolParser.FunctionCallContext ctx) {
         Var name = new Var(ctx.VAR().getText());
+        Object result = super.visitFunctionCall(ctx);
         if (!callListed.containsKey(name))
-            callWait.put(ctx, ctx.start.getLine());
+            errors.add(teste.invalidCall(ctx.start.getLine(), ctx.VAR().getText()));
         else {
             ArrayList<Class<?>> args=callListed.get(name);
-            int argSize = args.size();
-            int opSize =ctx.op().size();
-            if (opSize>argSize)
-                errors.add(teste.invalidNumArgsLess(ctx.start.getLine(), argSize, opSize));
-            else if (opSize<argSize)
-                errors.add(teste.invalidNumArgsMore(ctx.start.getLine(), argSize, opSize));
-            else {
-                for (int i = 0; i < argSize; i++) {
-                    SolParser.OpContext op = ctx.op(i);
-                    Class<?> opClass = tree.get(op);
-                    Class<?> arg = args.get(i);
-                    if (arg != opClass)
-                        errors.add(teste.invalidTypeArgs(ctx.start.getLine(), op.getText(), opClass.getSimpleName(), arg.getSimpleName()));
-                }
-            }
-            Class<?> result = stringToClass(getKeyCallListed(name).type);
-            tree.put(ctx, result);
+            Class<?> type = stringToClass(getKeyCallListed(name).type);
+            tree.put(ctx, matchFunction(ctx.start.getLine(),args, ctx.op(),type));
             return result;
         }
-        return null;
+        tree.put(ctx, Void.class);
+        return result;
     }
 
     /**TODO rn
@@ -227,64 +263,9 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
                 if (functionType != type)
                     errors.add(teste.invalidReturnType(ctx.start.getLine(), ctx.op().getText(), type.getSimpleName(), functionType.getSimpleName()));
             } else if (functionType != Void.class)
-                errors.add(teste.invalidReturnType(ctx.start.getLine(),"Empty", "Void"));
+                errors.add(teste.invalidReturnType(ctx.start.getLine(),"", functionType.getSimpleName()));
         }
         return super.visitReturn(ctx);
-    }
-
-    /**TODO comment
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitReturnInt(SolParser.ReturnIntContext ctx) {
-        tree.put(ctx,Integer.class);
-        return super.visitReturnInt(ctx);
-    }
-
-    /**TODO comment
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitReturnReal(SolParser.ReturnRealContext ctx) {
-        tree.put(ctx,Double.class);
-        return super.visitReturnReal(ctx);
-    }
-
-    /**TODO comment
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitReturnString(SolParser.ReturnStringContext ctx) {
-        tree.put(ctx,String.class);
-        return super.visitReturnString(ctx);
-    }
-
-    /**TODO comment
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitReturnBool(SolParser.ReturnBoolContext ctx) {
-        tree.put(ctx, Boolean.class);
-        return super.visitReturnBool(ctx);
-    }
-
-    /**TODO comment
-     *
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Object visitReturnVoid(SolParser.ReturnVoidContext ctx) {
-        tree.put(ctx,Void.class);
-        return super.visitReturnVoid(ctx);
     }
 
     /**
@@ -339,7 +320,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             errors.add(teste.invalidType(ctx.start.getLine(),tree.get(ctx.type(1)).getSimpleName(), "Integer"));
         if (gallocContent.contains(new Var(ctx.VAR().getText(), "Integer")))
             errors.add(teste.alreadyDefined(ctx.start.getLine(),ctx.VAR().getText()));
-        gallocContent.add(new Var(ctx.VAR().getText(),true, "Integer"));
+        gallocContent.add(new Var(ctx.VAR().getText(), true, "Integer"));
         return visit(ctx.command());
     }
 
@@ -396,54 +377,6 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         Object result = super.visitTypes(ctx);
         tree.put(ctx, tree.get(ctx.type()));
         return result;
-    }
-
-    /**
-     * Visits an 'integerType' node in the parse tree, associating it with the Integer class type.
-     *
-     * @param ctx The parse tree node representing the 'integerType'.
-     * @return The result of visiting the 'integerType'.
-     */
-    @Override
-    public Object visitIntegerType(SolParser.IntegerTypeContext ctx) {
-        tree.put(ctx, Integer.class);
-        return super.visitIntegerType(ctx);
-    }
-
-    /**
-     * Visits a 'doubleType' node in the parse tree, associating it with the Double class type.
-     *
-     * @param ctx The parse tree node representing the 'doubleType'.
-     * @return The result of visiting the 'doubleType'.
-     */
-    @Override
-    public Object visitDoubleType(SolParser.DoubleTypeContext ctx) {
-        tree.put(ctx, Double.class);
-        return super.visitDoubleType(ctx);
-    }
-
-    /**
-     * Visits a 'stringType' node in the parse tree, associating it with the String class type.
-     *
-     * @param ctx The parse tree node representing the 'stringType'.
-     * @return The result of visiting the 'stringType'.
-     */
-    @Override
-    public Object visitStringType(SolParser.StringTypeContext ctx) {
-        tree.put(ctx, String.class);
-        return super.visitStringType(ctx);
-    }
-
-    /**
-     * Visits a 'booleanType' node in the parse tree, associating it with the Boolean class type.
-     *
-     * @param ctx The parse tree node representing the 'booleanType'.
-     * @return The result of visiting the 'booleanType'.
-     */
-    @Override
-    public Object visitBooleanType(SolParser.BooleanTypeContext ctx) {
-        tree.put(ctx, Boolean.class);
-        return super.visitBooleanType(ctx);
     }
 
     /**

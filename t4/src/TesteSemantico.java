@@ -23,6 +23,10 @@ public class TesteSemantico {
         return "error in line "+line+": invalid type "+var.getClass().getSimpleName()+", should be "+ type +"." ;
     }
 
+    public String invalidPrintType(int line){
+        return "error in line "+line+": invalid Void type.";
+    }
+
     public String invalidType(int line, String var, String type){
         return "error in line "+line+": invalid type "+var+", should be "+ type +"." ;
     }
@@ -47,6 +51,10 @@ public class TesteSemantico {
         return "error in line "+line+": "+var+" is already defined.";
     }
 
+    public String notDefined(int line, String var){
+        return "error in line "+line+": "+var+" is not defined.";
+    }
+
     public String notInitialized(int line, String var){
         return "error in line "+line+": "+var+" is not initialized.";
     }
@@ -60,5 +68,17 @@ public class TesteSemantico {
 
     public String invalidReturnType(int line, String var, String varType, String type){
         return "error in line "+line+": incorrect return type for '"+var+"' of type "+varType+" should be "+type+" type.";
+    }
+
+    public String invalidCall(int line, String var){
+        return "error in line "+line+": invalid function call, '"+ var+"' function does not exist.";
+    }
+
+    public  String invalidFunction(int line){
+        return "error in line "+line+": invalid function declaration, already inside a function.";
+    }
+
+    public String alreadyDefinedFunction(int line, String var){
+        return "error in line " +line+": function "+var+" already defined.";
     }
 }

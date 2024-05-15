@@ -102,7 +102,9 @@ class solCompiler extends SolBaseVisitor {
             ParseTree tree = parser.executable();
             if (parser.getNumberOfSyntaxErrors()>0)
                 System.exit(1);
-            SolVisitorTypeCheck solVisitorTypeCheck = new SolVisitorTypeCheck();
+            SolVisitorTypeCheckFunction solVisitorTypeCheckFunction = new SolVisitorTypeCheckFunction();
+            solVisitorTypeCheckFunction.visit(tree);
+            SolVisitorTypeCheck solVisitorTypeCheck = new SolVisitorTypeCheck(solVisitorTypeCheckFunction.getTree(),solVisitorTypeCheckFunction.getErrors(),solVisitorTypeCheckFunction.getCallListed());
             solVisitorTypeCheck.visit(tree);
             if (!solVisitorTypeCheck.getErrors().isEmpty()) {
                 System.out.println(solVisitorTypeCheck.getErrors());

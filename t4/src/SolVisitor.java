@@ -16,7 +16,6 @@ public class SolVisitor extends SolBaseVisitor {
     private ArrayList<Instruction> instructions;
     private ParseTreeProperty<Class<?>> tree;
     private ArrayList<Object> constantPool;
-    private TesteSemantico teste;
     private Stack<Integer> breakInstructions;
     private ArrayList<String> gallocContent;
 
@@ -31,7 +30,6 @@ public class SolVisitor extends SolBaseVisitor {
         breakInstructions = new Stack<>();
         instructions = new ArrayList<Instruction>();
         constantPool = new ArrayList<Object>();
-        teste = new TesteSemantico();
         gallocContent = new ArrayList<String>();
     }
 
