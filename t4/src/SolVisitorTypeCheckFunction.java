@@ -15,6 +15,7 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
     private ParseTreeProperty<Class<?>> tree;
     private TesteSemantico teste;
     private ArrayList<String> errors;
+    private boolean hasMain;
     private HashMap<SolVisitorTypeCheck.Var, ArrayList<Class<?>>> callListed;
     /**
      * Constructor for SolVisitorTypeCheckFunction.
@@ -25,6 +26,7 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         teste = new TesteSemantico();
         errors = new ArrayList<String>();
         callListed = new HashMap<>();
+        hasMain=false;
     }
 
     /**
@@ -46,12 +48,20 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
     }
 
     /**
-     * Retrieves the function hashmap containing all available functions.
-     *
+     * Retrieves the hashmap containing all available functions.
+     * n
      * @return HashMap containing all available functions.
      */
     public HashMap<SolVisitorTypeCheck.Var, ArrayList<Class<?>>> getCallListed() {
         return callListed;
+    }
+
+    @Override
+    public Object visitExecutable(SolParser.ExecutableContext ctx) {
+        Object result = super.visitExecutable(ctx);
+        if (!hasMain)
+            errors.add(teste.noMainFunction());
+        return result;
     }
 
     /**TODO comment
@@ -65,6 +75,11 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         Class<?> type = tree.get(ctx.retType());
         tree.put(ctx, type);
         SolVisitorTypeCheck.Var function = new SolVisitorTypeCheck.Var(ctx.VAR(0).getText(),type.getSimpleName());
+        if(function.name.equals("main")) {
+            hasMain = true;
+            if (type !=Void.class)
+                errors.add(teste.invalidMainFunctionType(ctx.start.getLine()));
+        }
         if (callListed.containsKey(function)){
             errors.add(teste.alreadyDefinedFunction(ctx.start.getLine(),function.name));
         }else {

@@ -19,7 +19,7 @@ command: PRINT op ';'
 
 return: 'return ' op? ';'; //verificar caso exista op
 
-block: 'begin' (declaration ';' | command)* 'end';
+block: 'begin' (declaration';')*  (command)* 'end';
 
 declaration: declarationType declarationDef (',' declarationDef)*;
 
@@ -38,7 +38,7 @@ break: 'break' ';';
 declarationType: 'int' #IntegerType
     |'double' #DoubleType
     | 'string' #StringType
-    | 'boolean' #BooleanType
+    | 'bool' #BooleanType
     ;
 
 declarationDef: VAR ('=' op)?;

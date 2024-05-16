@@ -19,6 +19,8 @@ public class SolVisitor extends SolBaseVisitor {
     private Stack<Integer> breakInstructions;
     private ArrayList<String> gallocContent;
 
+    private int mainPosicion;
+
     /**
      * Constructor for SolVisitor.
      * Initializes instance variables.
@@ -28,9 +30,10 @@ public class SolVisitor extends SolBaseVisitor {
     SolVisitor(ParseTreeProperty<Class<?>> t) {
         tree = t;
         breakInstructions = new Stack<>();
-        instructions = new ArrayList<Instruction>();
-        constantPool = new ArrayList<Object>();
-        gallocContent = new ArrayList<String>();
+        instructions = new ArrayList<>();
+        constantPool = new ArrayList<>();
+        gallocContent = new ArrayList<>();
+        mainPosicion = 0;
     }
 
     /**
@@ -49,6 +52,46 @@ public class SolVisitor extends SolBaseVisitor {
      */
     public ArrayList<Object> getConstantPool() {
         return constantPool;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitReturn(SolParser.ReturnContext ctx) {
+        Object result = super.visitReturn(ctx);
+        Class<?> type=tree.get(ctx);
+        if (type == Void.class)
+            instructions.add(new Instruction(TokenTasm.RET, 1));//TODO nº of stack elements to be popped
+        else
+            instructions.add(new Instruction(TokenTasm.RETVAL, 1));//TODO nº of stack elements to be popped
+        return result;
+    }
+
+    /**TODO
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFunction(SolParser.FunctionContext ctx) {
+        Object result = super.visitFunction(ctx);
+        
+        return result;
+    }
+
+    /**TODO
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitFunctionCall(SolParser.FunctionCallContext ctx) {
+        Object result = super.visitFunctionCall(ctx);
+
+        return result;
     }
 
     /**

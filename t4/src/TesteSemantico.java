@@ -51,16 +51,24 @@ public class TesteSemantico {
         return "error in line "+line+": "+var+" is already defined.";
     }
 
-    public String notDefined(int line, String var){
-        return "error in line "+line+": "+var+" is not defined.";
-    }
-
     public String notInitialized(int line, String var){
         return "error in line "+line+": "+var+" is not initialized.";
     }
 
+    public String invalidVariableFunction(int line, String var){
+        return "error in line "+line+": "+var+" is already a function name.";
+    }
+
     public String invalidReturn(int line){
         return "error in line "+line+": incorrect 'return' command usage, not inside a function.";}
+
+    public String invalidIfReturn(int line){
+        return "error in line "+line+": return should be in both if and else blocks.";
+    }
+
+    public String noReturn(int line, String var){
+        return "error in line "+line+": function "+var+" has no return.";
+    }
 
     public String invalidReturnType(int line, String var, String type){
         return "error in line "+line+": incorrect return type for '"+var+"' should be "+type+" type.";
@@ -80,5 +88,13 @@ public class TesteSemantico {
 
     public String alreadyDefinedFunction(int line, String var){
         return "error in line " +line+": function "+var+" already defined.";
+    }
+
+    public String invalidMainFunctionType(int line){
+        return "error in line " +line+": function main should be void.";
+    }
+
+    public String noMainFunction(){
+        return "There is no main function in the program.";
     }
 }
