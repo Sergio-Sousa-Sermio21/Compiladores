@@ -279,6 +279,9 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         if(bloco !=0)
             VariaveisLocais.add(new ArrayList<>());
         visitChildren(ctx);
+        for(int i = 0; i<ctx.instrucao().size(); i++)
+            System.out.println(ctx.instrucao(i).getText());
+        System.out.println(HaveReturn);
         if(bloco!=0)
             VariaveisLocais.removeLast();
         bloco--;
@@ -288,7 +291,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
         funcaoAtual = ctx.NOME().getText();
-        boolean returnFound = false;
         ArrayList<Variaveis> variaveisLocais = new ArrayList<>();
         ArrayList<Argumentos> argumentos = functionMap.get(ctx.NOME().getText()).arguments();
         for(Argumentos argumento: argumentos) {
@@ -298,7 +300,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
 
         visit(ctx.bloco());
-
+        System.out.println(HaveReturn + " " + ctx.NOME());
         VariaveisLocais.removeLast();
         if(!HaveReturn && functionMap.get(ctx.NOME().getText()).type() != null)
             errors.add("Line " + ctx.stop.getLine() + ":" + (ctx.stop.getCharPositionInLine() + 1) +
@@ -495,6 +497,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                 return Object.class;
             }
             if (currentFunction.type() == Double.class && returnType == Integer.class) {
+                HaveReturn = true;
                 return returnType;
             } else if (!currentFunction.type().equals(returnType)) {
                 errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +

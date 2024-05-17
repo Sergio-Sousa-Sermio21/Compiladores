@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inputs4/funcao.tasm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inputs4/funcao.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/funcao.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/funcao.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/testeRecursivo.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testeRecursivo.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/testeRecursivo.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testeRecursivo.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/testeRecursivo.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testeRecursivo.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tVM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tVM.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -109,7 +104,7 @@
     <configuration name="Sol" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="solCompiler" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs4/funcao.sol" />
+      <option name="PROGRAM_PARAMETERS" value="inputs4/teste.sol" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -133,7 +128,7 @@
     <configuration name="tVm" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="tVM" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs4/funcao.tbc" />
+      <option name="PROGRAM_PARAMETERS" value="inputs4/teste.tbc" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -231,6 +226,7 @@
       <workItem from="1715915622335" duration="180000" />
       <workItem from="1715916031053" duration="660000" />
       <workItem from="1715917003503" duration="811000" />
+      <workItem from="1715940985157" duration="819000" />
     </task>
     <servers />
   </component>
