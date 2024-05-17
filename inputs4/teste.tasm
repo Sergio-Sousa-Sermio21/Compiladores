@@ -1,14 +1,12 @@
 L0: call L2
 L1: halt
-L2: lalloc 1
-L3: iconst 2
-L4: call L9
-L5: lstore 2
-L6: lload 2
-L7: dprint
-L8: ret 0
-L9: lload -1
-L10: iconst 1
-L11: iadd
-L12: itod
-L13: retval 1
+L2: sconst "adeus"
+L3: call L6
+L4: sprint
+L5: ret 0
+L6: lload -1
+L7: sconst " "
+L8: sadd
+L9: sconst "Ola"
+L10: sadd
+L11: retval 1
