@@ -1,6 +1,6 @@
 void main()
 begin
-print fact(3);
+print fact(10);
 end
 
 int fact( int n )

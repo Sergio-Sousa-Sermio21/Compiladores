@@ -119,6 +119,18 @@ public class tVM {
         System.out.println("]" + " FP-" + FP);
     }
 
+    private int Return(int i){
+        int size = stack.size();
+        for(int j = 2; j<size-FP; j++)
+            stack.pop();
+        int numberofArguments = instructions.get(i).getValue();
+        i =  stack.pop().getValueInt();
+        FP = stack.pop().getValueInt();
+        for (int j = 0; j<numberofArguments; j++)
+            stack.pop();
+        return i;
+    }
+
     /**Executa o código no array de instrucoes de instruções.
      *
      */
@@ -249,7 +261,6 @@ public class tVM {
                         String a = stack.pop().getValueString();
                         stack.push(new Value(!a.equals(b)));
                     }
-                    //Comandos dos boolean
                     case TCONST -> stack.push(new Value(true));
                     case FCONST -> stack.push(new Value(false));
                     case BPRINT -> System.out.println(stack.pop().getValueBoolean());
@@ -282,9 +293,8 @@ public class tVM {
                         boolean a = stack.pop().getValueBoolean();
                         stack.push(new Value(Boolean.toString(a)));
                     }
-                    case JUMP -> {
+                    case JUMP ->
                         i = instructions.get(i).getValue() - 1;
-                    }
                     case JUMPT -> {
                         if (stack.pop().getValueBoolean())
                             i = instructions.get(i).getValue() - 1;
@@ -328,27 +338,11 @@ public class tVM {
                         stack.push(new Value(i));
                         i = instructions.get(i).getValue()-1;
                     }
-                    case RET -> {
-                        int size = stack.size();
-                        for(int j = 2; j<size-FP; j++){
-                            stack.pop();
-                        }
-                        int numberofArguments = instructions.get(i).getValue();
-                        i =  stack.pop().getValueInt();
-                        FP = stack.pop().getValueInt();
-                        for (int j = 0; j<numberofArguments; j++)
-                            stack.pop();
-                    }
+                    case RET ->
+                        i = Return(i);
                     case RETVAL -> {
                         Value toreturn = stack.pop();
-                        int size = stack.size();
-                        for(int j = 2; j<size-FP; j++)
-                            stack.pop();
-                        int numberofArguments = instructions.get(i).getValue();
-                        i =  stack.pop().getValueInt();
-                        FP = stack.pop().getValueInt();
-                        for (int j = 0; j<numberofArguments; j++)
-                            stack.pop();
+                        i = Return(i);
                         stack.push(toreturn);
                     }
                     case LLOAD -> {

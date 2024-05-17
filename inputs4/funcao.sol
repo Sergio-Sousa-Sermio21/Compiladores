@@ -5,6 +5,8 @@ begin
    begin
     return x*x;
    end
+   else
+    return x*x;
 end
 
 int sqrsum( int a, int b )
@@ -14,10 +16,8 @@ begin
     return s;
 end
 
-void main(int x)
+void main()
 begin
     print sqrsum(3,2);
 end
-void main()
-begin
-end
+

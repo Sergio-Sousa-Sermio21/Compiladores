@@ -1,0 +1,26 @@
+L0: call L21
+L1: halt
+L2: tconst
+L3: jumpf L9
+L4: lload -1
+L5: lload -1
+L6: imult
+L7: retval 1
+L8: jump L13
+L9: lload -1
+L10: lload -1
+L11: imult
+L12: retval 1
+L13: lalloc 1
+L14: lload -2
+L15: lload -1
+L16: iadd
+L17: call L2
+L18: lstore 2
+L19: lload 2
+L20: retval 2
+L21: iconst 3
+L22: iconst 2
+L23: call L13
+L24: iprint
+L25: ret 0

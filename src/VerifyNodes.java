@@ -244,7 +244,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
 
     public Class<?> visitCallFuncaoIntrucion(SolParser.CallFuncaoIntrucionContext ctx) {
-
         String functionName = ctx.NOME().getText();
         if (!functionExists(functionName)) {
             errors.add("Line " + ctx.start.getLine() + ": Function '" + functionName + "' does not exist.");

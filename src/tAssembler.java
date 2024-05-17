@@ -232,12 +232,6 @@ public class tAssembler extends TasmBaseListener {
         public void enterCALL(TasmParser.CALLContext ctx) {
             resolveLabel(ctx.LABEL().getText(),ctx.CALL().getText());
         }
-        /*
-        private int teste(){
-            if(true)
-                return 1;
-        }*/
-
         public void execute(String[] args, boolean debug) throws IOException {
             init(args);
             writeBytecode(args, debug);
