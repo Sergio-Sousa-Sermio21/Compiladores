@@ -1,6 +1,6 @@
 grammar Sol;
 
-executable: (function)* EOF;
+executable: (declaration';')* (function)* EOF;
 
 function: retType VAR LPARENTHESIS (declarationType VAR (',' declarationType VAR)?)? RPARENTHESIS block;
 

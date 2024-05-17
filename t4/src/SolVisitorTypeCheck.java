@@ -214,7 +214,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return Void.class;
     }
 
-    /**TODO
+    /**TODO comment
      *
      * @return
      */
@@ -249,7 +249,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO
+    /**TODO comment
      *
      * @param ctx the parse tree
      * @return
@@ -270,7 +270,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO rn
+    /**TODO comment
      *
      * @param ctx the parse tree
      * @return

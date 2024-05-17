@@ -19,7 +19,8 @@ public class SolVisitor extends SolBaseVisitor {
     private Stack<Integer> breakInstructions;
     private ArrayList<String> gallocContent;
 
-    private int mainPosicion;
+    private int functionArg;
+    private int mainPosition;
 
     /**
      * Constructor for SolVisitor.
@@ -33,7 +34,8 @@ public class SolVisitor extends SolBaseVisitor {
         instructions = new ArrayList<>();
         constantPool = new ArrayList<>();
         gallocContent = new ArrayList<>();
-        mainPosicion = 0;
+        mainPosition = 0;
+        functionArg = 0;
     }
 
     /**
@@ -64,9 +66,9 @@ public class SolVisitor extends SolBaseVisitor {
         Object result = super.visitReturn(ctx);
         Class<?> type=tree.get(ctx);
         if (type == Void.class)
-            instructions.add(new Instruction(TokenTasm.RET, 1));//TODO nº of stack elements to be popped
+            instructions.add(new Instruction(TokenTasm.RET, 0));//TODO nº of stack elements to be popped
         else
-            instructions.add(new Instruction(TokenTasm.RETVAL, 1));//TODO nº of stack elements to be popped
+            instructions.add(new Instruction(TokenTasm.RETVAL, functionArg));//TODO nº of stack elements to be popped
         return result;
     }
 
@@ -77,8 +79,11 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
+        if(ctx.VAR(0).getText().equals("main"))
+            mainPosition = instructions.size();
         Object result = super.visitFunction(ctx);
-        
+        functionArg = ctx.declarationType().size();
+
         return result;
     }
 
