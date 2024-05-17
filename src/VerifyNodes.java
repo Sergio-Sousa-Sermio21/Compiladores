@@ -279,9 +279,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         if(bloco !=0)
             VariaveisLocais.add(new ArrayList<>());
         visitChildren(ctx);
-        for(int i = 0; i<ctx.instrucao().size(); i++)
-            System.out.println(ctx.instrucao(i).getText());
-        System.out.println(HaveReturn);
+
         if(bloco!=0)
             VariaveisLocais.removeLast();
         bloco--;
@@ -300,11 +298,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
 
         visit(ctx.bloco());
-        System.out.println(HaveReturn + " " + ctx.NOME());
         VariaveisLocais.removeLast();
         if(!HaveReturn && functionMap.get(ctx.NOME().getText()).type() != null)
             errors.add("Line " + ctx.stop.getLine() + ":" + (ctx.stop.getCharPositionInLine() + 1) +
                     ": A funcao '" + ctx.NOME().getText() + "' nao tem return.");
+        HaveReturn = false;
         return null;
     }
 

@@ -7,8 +7,6 @@
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs4/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tasm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/teste.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
@@ -86,7 +84,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.tVm">
+  <component name="RunManager" selected="Application.Sol">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compiladores" />
@@ -226,7 +224,7 @@
       <workItem from="1715915622335" duration="180000" />
       <workItem from="1715916031053" duration="660000" />
       <workItem from="1715917003503" duration="811000" />
-      <workItem from="1715940985157" duration="819000" />
+      <workItem from="1715940985157" duration="1223000" />
     </task>
     <servers />
   </component>
