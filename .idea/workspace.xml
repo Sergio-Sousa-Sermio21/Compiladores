@@ -86,7 +86,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.tVm">
+  <component name="RunManager" selected="Application.Sol">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compiladores" />
@@ -223,6 +223,8 @@
       <workItem from="1715613004173" duration="17612000" />
       <workItem from="1715681149861" duration="10330000" />
       <workItem from="1715909172024" duration="250000" />
+      <workItem from="1715915622335" duration="180000" />
+      <workItem from="1715916031053" duration="660000" />
     </task>
     <servers />
   </component>

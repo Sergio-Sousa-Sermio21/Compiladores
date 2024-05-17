@@ -1,16 +1,10 @@
-void teste(int teste)
-begin
-    print teste;
-end
-
-void testeNome(int testeNome)
-begin
-    print testeNome;
-end
+int i = 5;
 
 void main()
 begin
-    int teste = 3;
-    teste(teste);
-    testeNome(teste);
+    real i = 2.5;
+    begin
+         int j = 10;
+         print i;
+    end
 end

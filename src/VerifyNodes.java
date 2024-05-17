@@ -620,7 +620,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
         String nome = ctx.NOME().getText();
-        System.out.println("Nome-" + nome + " " + VerificarVariavelLocalAtras(nome));
             if (!Variaveis.containsKey(nome) && !VerificarVariavelLocalAtras(nome)) {
                 errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                         " error: Variable not defined " + ctx.getText());
