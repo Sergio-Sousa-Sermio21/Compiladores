@@ -293,13 +293,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         ArrayList<Variaveis> variaveisLocais = new ArrayList<>();
         ArrayList<Argumentos> argumentos = functionMap.get(ctx.NOME().getText()).arguments();
         for(Argumentos argumento: argumentos) {
-            if(!functionExists(argumento.nome())){
-                System.out.println(argumento.nome());
                 variaveisLocais.add(new Variaveis(false, argumento.type(), argumento.nome(), -1));
-            }
-            else
-                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) +
-                        ": The argument '" + argumento.nome() + "' is already a function.");
         }
         VariaveisLocais.add(variaveisLocais);
 
@@ -460,11 +454,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         for(int i = 0; i<ctx.exp().size();i++){
             Class<?> tipo = visit(ctx.exp(i));
             String nome = ctx.NOME().get(i).getText();
-            if(functionExists(nome)){
-                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) +
-                        ": The atribution of '" + nome + "' is already a function.");
-            }
-            else {
                 if (Variaveis.containsKey(nome) || VerificarVariavelLocalAtras(nome)) {
                     if ((Variaveis.get(nome) != null && tipo != Variaveis.get(nome).tipo()) && tipo != TipoVariavelLocal(nome)) {
                         errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
@@ -474,7 +463,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                     errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                             " error: Variable not defined " + ctx.getText());
                 }
-            }
         }
         return null;
     }
@@ -538,16 +526,10 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                         " error: " + verificar.getSimpleName() + " type mismatch on " + ctx.declaracao().get(i).NOME().getText());
             }
             String nome = ctx.declaracao().get(i).NOME().getText();
-            if(functionExists(nome)){
-                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) +
-                        ": The declaration '" + nome + "' is already a function.");
-            }
-            else {
                 if (VerificarVariavelLocal(nome)) {
                     errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
                 } else
                     VariaveisLocais.get(bloco).add(new Variaveis(false, tipo, nome, -1));
-            }
         }
         return tipo;
     }
@@ -563,16 +545,10 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                         " error: " + verificar.getSimpleName() + " type mismatch on " + ctx.declaracao().get(i).NOME().getText());
             }
             String nome = ctx.declaracao().get(i).NOME().getText();
-            if(functionExists(nome)){
-                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) +
-                        ": The declaration '" + nome + "' is already a function.");
-            }
-            else {
                 if (Variaveis.containsKey(nome)) {
                     errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
                 } else
                     Variaveis.put(ctx.declaracao().get(i).NOME().getText(), new Variaveis(true, tipo, nome, -1));
-            }
         }
         return tipo;
     }
@@ -645,13 +621,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
         String nome = ctx.NOME().getText();
         System.out.println("Nome-" + nome + " " + VerificarVariavelLocalAtras(nome));
-        if(functionExists(nome)){
-            errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) +
-                    ": The declaration '" + nome + "' is already a function.");
-            setValues(ctx, Object.class);
-            return Object.class;
-        }
-        else {
             if (!Variaveis.containsKey(nome) && !VerificarVariavelLocalAtras(nome)) {
                 errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                         " error: Variable not defined " + ctx.getText());
@@ -665,7 +634,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
             setValues(ctx, Variaveis.get(ctx.NOME().getText()).tipo());
             return Variaveis.get(ctx.NOME().getText()).tipo();
-        }
     }
 
     //Variveis----------------------------------------------------------------------------------------
