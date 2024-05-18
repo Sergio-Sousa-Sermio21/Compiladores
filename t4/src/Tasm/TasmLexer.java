@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t4/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/jogat/OneDrive/Documents/GitHub/Compiladores/t4/Tasm.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

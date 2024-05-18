@@ -176,4 +176,29 @@ public class TasmListener extends TasmBaseListener {
         constantPool.add(ctx.STRING().getText());
         instructions.add(new Instruction(ctx.SCONST().getText().toUpperCase(), constantPool.size()-1));
     }
+
+    @Override
+    public void exitStackOP(TasmParser.StackOPContext ctx) {
+        if (ctx.LALLOC()!=null)
+            instructions.add(new Instruction(ctx.LALLOC().getText().toUpperCase(), Integer.parseInt(ctx.INT().getText())));
+        else if (ctx.LLOAD()!=null)
+            instructions.add(new Instruction(ctx.LLOAD().getText().toUpperCase(), Integer.parseInt(ctx.INT().getText())));
+        else if (ctx.LSTORE()!=null)
+            instructions.add(new Instruction(ctx.LSTORE().getText().toUpperCase(), Integer.parseInt(ctx.INT().getText())));
+        else if (ctx.POP()!=null)
+            instructions.add(new Instruction(ctx.POP().getText().toUpperCase(), Integer.parseInt(ctx.INT().getText())));
+        else if (ctx.CALL()!=null) {
+            jumpLabels.add(ctx.LABEL().getText());
+            instructions.add(new Instruction(ctx.CALL().getText().toUpperCase(), jumpLabels.size()));
+        }
+    }
+
+    @Override
+    public void exitReturn(TasmParser.ReturnContext ctx) {
+        if (ctx.RET()!=null)
+            instructions.add(new Instruction(ctx.RET().getText().toUpperCase(), constantPool.size()-1));
+        else if (ctx.RETVAL()!=null)
+            instructions.add(new Instruction(ctx.RETVAL().getText().toUpperCase(), constantPool.size()-1));
+    }
+
 }

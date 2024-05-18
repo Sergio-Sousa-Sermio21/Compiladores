@@ -80,7 +80,7 @@ stackOP: LALLOC INT
          | LLOAD INT
          | LSTORE INT
          | POP INT
-         | CALL INT
+         | CALL LABEL
          ;
 
 return: RETVAL

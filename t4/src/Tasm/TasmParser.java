@@ -1,4 +1,4 @@
-// Generated from C:/Users/sergi/Documents/Compiladores/CompiladoresT/t4/Tasm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/jogat/OneDrive/Documents/GitHub/Compiladores/t4/Tasm.g4 by ANTLR 4.13.1
 package Tasm;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -1103,6 +1103,7 @@ public class TasmParser extends Parser {
 		public TerminalNode LSTORE() { return getToken(TasmParser.LSTORE, 0); }
 		public TerminalNode POP() { return getToken(TasmParser.POP, 0); }
 		public TerminalNode CALL() { return getToken(TasmParser.CALL, 0); }
+		public TerminalNode LABEL() { return getToken(TasmParser.LABEL, 0); }
 		public StackOPContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1171,7 +1172,7 @@ public class TasmParser extends Parser {
 				setState(102);
 				match(CALL);
 				setState(103);
-				match(INT);
+				match(LABEL);
 				}
 				break;
 			default:
@@ -1304,7 +1305,7 @@ public class TasmParser extends Parser {
 		"\u0000\u0000]\u0011\u0001\u0000\u0000\u0000^_\u00052\u0000\u0000_i\u0005"+
 		";\u0000\u0000`a\u00053\u0000\u0000ai\u0005;\u0000\u0000bc\u00054\u0000"+
 		"\u0000ci\u0005;\u0000\u0000de\u00055\u0000\u0000ei\u0005;\u0000\u0000"+
-		"fg\u00056\u0000\u0000gi\u0005;\u0000\u0000h^\u0001\u0000\u0000\u0000h"+
+		"fg\u00056\u0000\u0000gi\u00059\u0000\u0000h^\u0001\u0000\u0000\u0000h"+
 		"`\u0001\u0000\u0000\u0000hb\u0001\u0000\u0000\u0000hd\u0001\u0000\u0000"+
 		"\u0000hf\u0001\u0000\u0000\u0000i\u0013\u0001\u0000\u0000\u0000jk\u0007"+
 		"\u0004\u0000\u0000k\u0015\u0001\u0000\u0000\u0000\n\u0019\u001c%).1DT"+
