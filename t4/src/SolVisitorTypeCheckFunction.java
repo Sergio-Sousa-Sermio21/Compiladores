@@ -144,10 +144,11 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return super.visitReturnBool(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits the return void statement in the parse tree and registers its type as Void.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return void statement
+     * @return the result of visiting the return void statement, as an Object
      */
     @Override
     public Object visitReturnVoid(SolParser.ReturnVoidContext ctx) {
@@ -156,10 +157,10 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
     }
 
     /**
-     * Visits the return void statement in the parse tree and registers its type as Void.
+     * Visits the integer type declaration in the parse tree and registers its type as Integer.
      *
-     * @param ctx the parse tree context for the return void statement
-     * @return the result of visiting the return void statement, as an Object
+     * @param ctx the parse tree context for the integer type declaration
+     * @return the result of visiting the integer type declaration, as an Object
      */
     @Override
     public Object visitIntegerType(SolParser.IntegerTypeContext ctx) {
