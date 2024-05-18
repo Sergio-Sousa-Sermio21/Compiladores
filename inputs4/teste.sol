@@ -3,7 +3,7 @@ begin
     print add("adeus");
 end
 
-string add(string a)
+real add(string a)
 begin
-    return a + " " + "Ola";
+    return 1;
 end

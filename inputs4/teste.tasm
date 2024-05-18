@@ -2,11 +2,8 @@ L0: call L2
 L1: halt
 L2: sconst "adeus"
 L3: call L6
-L4: sprint
+L4: dprint
 L5: ret 0
-L6: lload -1
-L7: sconst " "
-L8: sadd
-L9: sconst "Ola"
-L10: sadd
-L11: retval 1
+L6: iconst 1
+L7: itod
+L8: retval 1

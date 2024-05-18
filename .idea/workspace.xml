@@ -58,7 +58,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;SegundaParteRenato&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;TestesTrabalho4&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -226,6 +226,8 @@
       <workItem from="1715916031053" duration="660000" />
       <workItem from="1715917003503" duration="811000" />
       <workItem from="1715940985157" duration="1536000" />
+      <workItem from="1715989870833" duration="65000" />
+      <workItem from="1715990085173" duration="99000" />
     </task>
     <servers />
   </component>
