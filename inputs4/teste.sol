@@ -1,9 +1,17 @@
 void main()
 begin
-    print add("adeus");
+    print sum(3, 4);
 end
 
-real add(string a)
+int sum(int x, int y)
 begin
-    return 1;
+    if x > 3 then
+    begin
+        return x + y;
+        return y + x;
+    end
+    else
+    begin
+        print x + y;
+    end
 end

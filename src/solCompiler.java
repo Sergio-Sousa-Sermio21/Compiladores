@@ -742,7 +742,6 @@ public class solCompiler {
         }
         Visitor visitor = new Visitor();
         visitor.execute(args);
-        debug=true;
         if (debug){
             visitor.debug();
         }
