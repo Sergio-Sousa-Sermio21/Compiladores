@@ -56,10 +56,12 @@ public class SolVisitor extends SolBaseVisitor {
         return constantPool;
     }
 
-    /**TODO comment
+    /**
+     * Visits the return statement in the parse tree and generates the appropriate instruction for return.
+     * If the return type is void, it adds a RET instruction; otherwise, it adds a RETVAL instruction.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return statement
+     * @return the result of visiting the return statement, as an Object
      */
     @Override
     public Object visitReturn(SolParser.ReturnContext ctx) {
@@ -72,10 +74,13 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO
+    /**
+     * Visits the function declaration in the parse tree and performs actions specific to the function.
+     * If the function is named "main", it sets the main position to the current size of the instructions.
+     * Additionally, it updates the function arguments count.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the function declaration
+     * @return the result of visiting the function declaration, as an Object
      */
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
@@ -87,10 +92,12 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO
+    /**
+     * Visits the function call in the parse tree and performs the necessary actions.
+     * This method can be extended to include specific instructions or processing needed for function calls.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the function call
+     * @return the result of visiting the function call, as an Object
      */
     @Override
     public Object visitFunctionCall(SolParser.FunctionCallContext ctx) {

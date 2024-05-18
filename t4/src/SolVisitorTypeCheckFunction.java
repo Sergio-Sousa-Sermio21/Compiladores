@@ -64,10 +64,13 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits the function declaration in the parse tree, processes the return type, and registers the function.
+     * Checks if the function is named "main" and validates its return type. Adds the function to the list of
+     * callable functions with its argument types.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the function declaration
+     * @return the result of visiting the function declaration, as an Object
      */
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
@@ -93,10 +96,11 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits the return integer statement in the parse tree and registers its type as Integer.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return integer statement
+     * @return the result of visiting the return integer statement, as an Object
      */
     @Override
     public Object visitReturnInt(SolParser.ReturnIntContext ctx) {
@@ -104,10 +108,11 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return super.visitReturnInt(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits the return real number statement in the parse tree and registers its type as Double.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return real number statement
+     * @return the result of visiting the return real number statement, as an Object
      */
     @Override
     public Object visitReturnReal(SolParser.ReturnRealContext ctx) {
@@ -115,10 +120,11 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return super.visitReturnReal(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits the return string statement in the parse tree and registers its type as String.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return string statement
+     * @return the result of visiting the return string statement, as an Object
      */
     @Override
     public Object visitReturnString(SolParser.ReturnStringContext ctx) {
@@ -126,10 +132,11 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return super.visitReturnString(ctx);
     }
 
-    /**TODO comment
+    /**
+     * Visits the return boolean statement in the parse tree and registers its type as Boolean.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return boolean statement
+     * @return the result of visiting the return boolean statement, as an Object
      */
     @Override
     public Object visitReturnBool(SolParser.ReturnBoolContext ctx) {
@@ -149,10 +156,10 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
     }
 
     /**
-     * Visits an 'integerType' node in the parse tree, associating it with the Integer class type.
+     * Visits the return void statement in the parse tree and registers its type as Void.
      *
-     * @param ctx The parse tree node representing the 'integerType'.
-     * @return The result of visiting the 'integerType'.
+     * @param ctx the parse tree context for the return void statement
+     * @return the result of visiting the return void statement, as an Object
      */
     @Override
     public Object visitIntegerType(SolParser.IntegerTypeContext ctx) {

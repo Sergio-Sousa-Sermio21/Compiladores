@@ -95,10 +95,13 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return callListed;
     }
 
-    /**TODO comment
+    /**
+     * Retrieves the key from the callListed map that matches the given selected key.
+     * If the selected key is found in the callListed map, the corresponding key is returned.
+     * Otherwise, null is returned.
      *
-     * @param selectedKey
-     * @return
+     * @param selectedKey the key to be matched against the keys in the callListed map
+     * @return the matching key from the callListed map, or null if no match is found
      */
     private Var getKeyCallListed(Var selectedKey){
         for (Var key: callListed.keySet())
@@ -156,10 +159,13 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits the function declaration in the parse tree and processes it.
+     * This includes checking for return type, handling local variables, validating variable usage,
+     * and ensuring the function has a return statement if required.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the function declaration
+     * @return the result of visiting the function declaration, as an Object
      */
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
@@ -191,10 +197,13 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Converts a string representation of a type to its corresponding Class object.
+     * Recognized types are "Integer", "Double", "String", and "Boolean". If the type is not recognized,
+     * it returns Void.class.
      *
-     * @param type
-     * @return
+     * @param type the string representation of the type
+     * @return the corresponding Class object, or Void.class if the type is not recognized
      */
     public Class<?> stringToClass(String type){
         switch (type) {
@@ -214,9 +223,15 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return Void.class;
     }
 
-    /**TODO comment
+    /**
+     * Matches the function arguments and operation contexts to ensure the correct number and types of arguments.
+     * If there are mismatches in the number of arguments or the types, it adds corresponding errors.
      *
-     * @return
+     * @param line the line number in the source code where the function is being called
+     * @param args the list of expected argument types
+     * @param ops the list of operation contexts representing the actual arguments
+     * @param type the expected return type of the function
+     * @return the expected return type of the function
      */
     private Class<?> matchFunction(int line, ArrayList<Class<?>> args, List<SolParser.OpContext> ops, Class<?> type){
         int argSize = args.size();
@@ -237,22 +252,27 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return type;
     }
 
-    /**TODO comment (esta é um follow up  da function call normal)
+    /**
+     * Visits the function call operation in the parse tree and processes it.
+     * It stores the type information from the function call into the current context.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the function call operation
+     * @return the result of visiting the function call operation, as an Object
      */
     @Override
     public Object visitFunctionCallOP(SolParser.FunctionCallOPContext ctx) {
-        Object result = super.visitFunctionCallOP(ctx);
-        tree.put(ctx, tree.get(ctx.functionCall()));
-        return result;
+            Object result = super.visitFunctionCallOP(ctx);
+            tree.put(ctx, tree.get(ctx.functionCall()));
+            return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits the function call in the parse tree, validates the function call,
+     * and ensures the arguments and return type match the function's definition.
+     * If the function call is invalid, it adds an error to the list.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the function call
+     * @return the result of visiting the function call, as an Object
      */
     @Override
     public Object visitFunctionCall(SolParser.FunctionCallContext ctx) {
@@ -270,10 +290,13 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits the return statement in the parse tree, validates the return type,
+     * and ensures it matches the expected function return type. If the return type
+     * is invalid, it adds an error to the list.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return statement
+     * @return the result of visiting the return statement, as an Object
      */
     @Override
     public Object visitReturn(SolParser.ReturnContext ctx) {

@@ -10,6 +10,7 @@ public class tVM {
     private final ArrayList<Instruction> instructions = new ArrayList<Instruction>();
     private final Stack<ObjectValue> stack=new Stack<ObjectValue>();
     private int pc;
+    private int fp = 0;
 
     public tVM(DataInputStream tbc) {
         addData(tbc);
@@ -258,16 +259,21 @@ public class tVM {
                         System.exit(0);
                         return;
                     case LALLOC:
-                        //TODO
+                        int pos = instructions.get(i).getArgument();
+                        int temp = stack.size();
+                        while (stack.size() < temp + pos) {
+                            stack.push(new ObjectValue("NIL"));
+                        }
                         break;
                     case LLOAD:
-                        //TODO
+                        stack.push(stack.elementAt(instructions.get(i).getArgument() + fp));
                         break;
                     case LSTORE:
-                        //TODO
+                        stack.set(instructions.get(i).getArgument() + fp, stack.pop());
                         break;
                     case POP:
-                        //TODO
+                        for(int j = 0; j < instructions.get(i).getArgument(); j++)
+                            stack.pop();
                         break;
                     case CALL:
                         //TODO
