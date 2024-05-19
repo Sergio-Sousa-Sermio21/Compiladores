@@ -17,7 +17,7 @@ command: PRINT op ';'
             | VAR '=' op ';'
             | return;
 
-return: 'return ' op? ';'; //verificar caso exista op
+return: 'return ' op? ';';
 
 block: 'begin' (declaration';')*  (command)* 'end';
 

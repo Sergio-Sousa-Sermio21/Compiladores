@@ -23,21 +23,43 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         protected String name;
         protected boolean initialized;
         protected String type;
+        protected int scope;
 
         Var(String n){
             name=n;
             initialized=false;
             type =null;
+            scope=-1;
         }
         Var(String n, boolean i, String t){
             name=n;
             initialized=i;
             type =t;
+            scope=-1;
         }
         Var(String n, String t){
             name=n;
             initialized=false;
             type =t;
+            scope=-1;
+        }
+        Var(String n, int scope){
+            name=n;
+            initialized=false;
+            type =null;
+            this.scope=scope;
+        }
+        Var(String n, boolean i, String t, int scope){
+            name=n;
+            initialized=i;
+            type =t;
+            this.scope=scope;
+        }
+        Var(String n, String t, int scope){
+            name=n;
+            initialized=false;
+            type =t;
+            this.scope=scope;
         }
         public boolean equals(Object obj) {
             return name.equals(obj.toString());
@@ -50,6 +72,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     private Class<?> functionType;
     private ArrayList<Var> gallocContent;
     private Stack<Boolean> loops;
+    private int scope;
 
     /**
      * Constructor for SolVisitorTypeCheck.
@@ -66,6 +89,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         ret=false;
         retIf=false;
         retElse=false;
+        scope=-1;
     }
 
     /**
@@ -99,9 +123,15 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
      * Retrieves the key from the callListed map that matches the given selected key.
      * If the selected key is found in the callListed map, the corresponding key is returned.
      * Otherwise, null is returned.
+     */
+    private void removeByScope(){
+        gallocContent.removeIf(var -> var.scope == scope);
+    }
+
+    /**TODO comment
      *
-     * @param selectedKey the key to be matched against the keys in the callListed map
-     * @return the matching key from the callListed map, or null if no match is found
+     * @param selectedKey
+     * @return
      */
     private Var getKeyCallListed(Var selectedKey){
         for (Var key: callListed.keySet())
@@ -179,7 +209,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
                     errors.add(teste.alreadyDefined(ctx.start.getLine(), name.name));
                 if(callListed.containsKey(name))
                     errors.add(teste.invalidVariableFunction(ctx.start.getLine(), name.name));
-                Var localVariable = new Var(ctx.VAR(i).getText(), tree.get(ctx.declarationType(i-1)).getSimpleName());
+                Var localVariable = new Var(ctx.VAR(i).getText(), tree.get(ctx.declarationType(i-1)).getSimpleName(), scope+1);
                 gallocContent.add(localVariable);
             }
             visit(ctx.block());
@@ -375,6 +405,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             errors.add(teste.alreadyDefined(ctx.start.getLine(),variable.name));
         if(callListed.containsKey(variable))
             errors.add(teste.invalidVariableFunction(ctx.start.getLine(), variable.name));
+        variable.scope=scope+1;
         gallocContent.add(variable);
         Object result = visit(ctx.command());
         gallocContent.remove(variable);
@@ -404,18 +435,24 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             retElse=ret;
             if ((retIf && !retElse)||(!retIf && retElse))
                 errors.add(teste.invalidIfReturn(ctx.start.getLine()));
-        }
+        } else
+            ret = false;
         return result;
     }
 
-    /**
+    /**TODO comment
+     * Contains scopes changes
      *
      * @param ctx the parse tree
      * @return
      */
     @Override
-    public Object visitElse(SolParser.ElseContext ctx) {
-        return super.visitElse(ctx);
+    public Object visitBlock(SolParser.BlockContext ctx) {
+        scope+=1;
+        Object result = super.visitBlock(ctx);
+        removeByScope();
+        scope-=1;
+        return result;
     }
 
     /**

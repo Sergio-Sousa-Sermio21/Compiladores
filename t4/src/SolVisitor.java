@@ -2,8 +2,10 @@
 import Sol.SolBaseVisitor;
 import Sol.SolParser;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -18,10 +20,37 @@ public class SolVisitor extends SolBaseVisitor {
     private ArrayList<Object> constantPool;
     private Stack<Integer> breakInstructions;
     private ArrayList<String> gallocContent;
+    private ArrayList<LocalVar> localContent;
+    private HashMap<String, Integer> callListed;
+    private ArrayList<Call> callList;
+    private ArrayList<String>functionArgs;
+    protected class Call{
+        protected String name;
+        protected int index;
+        Call(String name, int index){
+            this.name = name;
+            this.index= index;
+        }
 
-    private int functionArg;
+        @Override
+        public boolean equals(Object obj) {
+            return name.equals(obj.toString());
+        }
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+    protected class LocalVar{
+        protected String name;
+        protected int scope;
+        LocalVar(String name, int scope){
+            this.name = name;
+            this.scope= scope;
+        }
+    }
+    private int scope;
     private int mainPosition;
-
     /**
      * Constructor for SolVisitor.
      * Initializes instance variables.
@@ -34,8 +63,12 @@ public class SolVisitor extends SolBaseVisitor {
         instructions = new ArrayList<>();
         constantPool = new ArrayList<>();
         gallocContent = new ArrayList<>();
+        scope=0;
         mainPosition = 0;
-        functionArg = 0;
+        callListed=new HashMap<>();
+        callList=new ArrayList<>();
+        functionArgs = new ArrayList<>();
+        localContent = new ArrayList<>();
     }
 
     /**
@@ -60,17 +93,47 @@ public class SolVisitor extends SolBaseVisitor {
      * Visits the return statement in the parse tree and generates the appropriate instruction for return.
      * If the return type is void, it adds a RET instruction; otherwise, it adds a RETVAL instruction.
      *
-     * @param ctx the parse tree context for the return statement
      * @return the result of visiting the return statement, as an Object
+     */
+    private int removeByScope(){
+        int result=0;
+        for (LocalVar var : localContent){
+            if (var.scope == scope) {
+                localContent.remove(var);
+                result++;
+            }
+        }
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public Object visitBlock(SolParser.BlockContext ctx) {
+        scope+=1;
+        Object result = super.visitBlock(ctx);
+        int nPop=removeByScope();
+        instructions.add(new Instruction(TokenTasm.POP, nPop));
+        scope-=1;
+        return result;
+    }
+
+    /**TODO comment
+     *
+     * @param ctx the parse tree
+     * @return
      */
     @Override
     public Object visitReturn(SolParser.ReturnContext ctx) {
         Object result = super.visitReturn(ctx);
         Class<?> type=tree.get(ctx);
         if (type == Void.class)
-            instructions.add(new Instruction(TokenTasm.RET, 0));//TODO nº of stack elements to be popped
+            instructions.add(new Instruction(TokenTasm.RET, 0));
         else
-            instructions.add(new Instruction(TokenTasm.RETVAL, functionArg));//TODO nº of stack elements to be popped
+            instructions.add(new Instruction(TokenTasm.RETVAL, functionArgs.size()));
         return result;
     }
 
@@ -79,16 +142,32 @@ public class SolVisitor extends SolBaseVisitor {
      * If the function is named "main", it sets the main position to the current size of the instructions.
      * Additionally, it updates the function arguments count.
      *
+     * @param call
+     */
+    private void setCallPos(Call call){
+        for (Call c:callList)
+            if (c.equals(call))
+                instructions.set(c.index, new Instruction(TokenTasm.CALL, call.index));
+    }
+
+    /**TODO comment
+     *
      * @param ctx the parse tree context for the function declaration
      * @return the result of visiting the function declaration, as an Object
      */
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
-        if(ctx.VAR(0).getText().equals("main"))
+        String functionName = ctx.VAR(0).getText();
+        if(functionName.equals("main"))
             mainPosition = instructions.size();
+        callListed.put(functionName, instructions.size());
+        for (TerminalNode var:ctx.VAR()){
+            functionArgs.add(var.getText());
+        }
         Object result = super.visitFunction(ctx);
-        functionArg = ctx.declarationType().size();
-
+        if (tree.get(ctx) != Void.class)
+            instructions.remove(instructions.size() - 1);
+        functionArgs.clear();
         return result;
     }
 
@@ -102,7 +181,8 @@ public class SolVisitor extends SolBaseVisitor {
     @Override
     public Object visitFunctionCall(SolParser.FunctionCallContext ctx) {
         Object result = super.visitFunctionCall(ctx);
-
+        callList.add(new Call(ctx.VAR().getText(), instructions.size()));
+        instructions.add(new Instruction(TokenTasm.CALL,0));
         return result;
     }
 
@@ -157,18 +237,18 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitFor(SolParser.ForContext ctx) {
-        instructions.add(new Instruction(TokenTasm.GALLOC,1));
-        String var = ctx.VAR().getText();
-        gallocContent.add(var);
-        int varIndex = gallocContent.indexOf(var);
+        instructions.add(new Instruction(TokenTasm.LALLOC,1));
+        LocalVar var =new LocalVar(ctx.VAR().getText(), -1);
+        localContent.add(var);
+        int varIndex = localContent.indexOf(var);
         instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.type(0).getText())));
-        instructions.add(new Instruction(TokenTasm.GSTORE, varIndex));
+        instructions.add(new Instruction(TokenTasm.LSTORE, varIndex));
         int jumpHere = instructions.size()-1;
-        instructions.add(new Instruction(TokenTasm.GLOAD, varIndex));
+        instructions.add(new Instruction(TokenTasm.LLOAD, varIndex));
         instructions.add(new Instruction(TokenTasm.ICONST, 1));
         instructions.add(new Instruction(TokenTasm.IADD));
-        instructions.add(new Instruction(TokenTasm.GSTORE, varIndex));
-        instructions.add(new Instruction(TokenTasm.GLOAD, varIndex));
+        instructions.add(new Instruction(TokenTasm.LSTORE, varIndex));
+        instructions.add(new Instruction(TokenTasm.LLOAD, varIndex));
         instructions.add(new Instruction(TokenTasm.ICONST, Integer.parseInt(ctx.type(1).getText())));
         instructions.add(new Instruction(TokenTasm.ILEQ));
         instructions.add(new Instruction(TokenTasm.JUMPF)); //jump out of the loop
@@ -179,7 +259,7 @@ public class SolVisitor extends SolBaseVisitor {
         instructions.set(indexOfJump, new Instruction(TokenTasm.JUMPF, indexOutLoop)); //jump out of the loop
         while (!breakInstructions.isEmpty() && breakInstructions.peek()< instructions.size())
             instructions.set(breakInstructions.pop(), new Instruction(TokenTasm.JUMP, indexOutLoop));
-        gallocContent.remove(var);
+        localContent.remove(varIndex);
         return result;
     }
 
@@ -198,7 +278,12 @@ public class SolVisitor extends SolBaseVisitor {
 
     @Override
     public Object visitVariable(SolParser.VariableContext ctx) {
-        instructions.add(new Instruction(TokenTasm.GLOAD,gallocContent.indexOf(ctx.VAR().getText())));
+        if (functionArgs.contains(ctx.VAR().getText()))
+            instructions.add(new Instruction(TokenTasm.LLOAD, -(functionArgs.size()-functionArgs.indexOf(ctx.VAR().getText())+1)));
+        else if (localContent.contains(new LocalVar(ctx.VAR().getText(),0)))
+            instructions.add(new Instruction(TokenTasm.LLOAD, localContent.indexOf(new LocalVar(ctx.VAR().getText(),0))+2));
+        else
+            instructions.add(new Instruction(TokenTasm.GLOAD,gallocContent.indexOf(ctx.VAR().getText())));
         return super.visitVariable(ctx);
     }
 
@@ -210,7 +295,10 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitDeclaration(SolParser.DeclarationContext ctx) {
-        instructions.add(new Instruction(TokenTasm.GALLOC,ctx.declarationDef().size()));
+        if (scope<1)
+            instructions.add(new Instruction(TokenTasm.GALLOC,ctx.declarationDef().size()));
+        else
+            instructions.add(new Instruction(TokenTasm.LALLOC,ctx.declarationDef().size()));
         Object result = null;
         for (SolParser.DeclarationDefContext i:ctx.declarationDef())
             result = visit(i);
@@ -225,11 +313,22 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitDeclarationDef(SolParser.DeclarationDefContext ctx) {
-        gallocContent.add(ctx.VAR().getText());
+        TokenTasm store = null;
+        int size = 0;
+        if (scope<1) {
+            gallocContent.add(ctx.VAR().getText());
+            store = TokenTasm.GSTORE;
+            size = gallocContent.size() - 1;
+        }
+        else {
+            localContent.add(new LocalVar(ctx.VAR().getText(), scope));
+            store = TokenTasm.LSTORE;
+            size = localContent.size()-1;
+        }
         Object result = null;
         if (ctx.op() !=null) {
             result = visit(ctx.op());
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.size() - 1));
+            instructions.add(new Instruction(store, size));
         }
         return result;
     }
@@ -297,8 +396,15 @@ public class SolVisitor extends SolBaseVisitor {
      */
     @Override
     public Object visitExecutable(SolParser.ExecutableContext ctx) {
-        Object result = super.visitExecutable(ctx);
+        instructions.add(new Instruction(TokenTasm.CALL, 0));
         instructions.add(new Instruction(TokenTasm.HALT));
+        Object result = super.visitExecutable(ctx);
+        for(String functionName:callListed.keySet()) {
+            Call functionCall = new Call(functionName, callListed.get(functionName));
+            if (callList.contains(functionCall))
+                setCallPos(functionCall);
+        }
+        instructions.set(0, new Instruction(TokenTasm.CALL, mainPosition));
         return result;
     }
 
@@ -322,7 +428,12 @@ public class SolVisitor extends SolBaseVisitor {
                 instructions.add(new Instruction(TokenTasm.BPRINT));
         }
         if (ctx.VAR() != null){
-            instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.indexOf(ctx.VAR().getText())));
+            if (functionArgs.contains(ctx.VAR().getText()))
+                instructions.add(new Instruction(TokenTasm.LSTORE, -(functionArgs.size()-functionArgs.indexOf(ctx.VAR().getText())+1)));
+            else if (localContent.contains(new LocalVar(ctx.VAR().getText(),0)))
+                instructions.add(new Instruction(TokenTasm.LSTORE, localContent.indexOf(new LocalVar(ctx.VAR().getText(),0))+2));
+            else
+                instructions.add(new Instruction(TokenTasm.GSTORE, gallocContent.indexOf(ctx.VAR().getText())));
         }
         return result;
     }
