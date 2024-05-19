@@ -1,6 +1,6 @@
 L0: call L2
 L1: halt
-L2: iconst 10
+L2: iconst 5
 L3: call L6
 L4: iprint
 L5: ret 0

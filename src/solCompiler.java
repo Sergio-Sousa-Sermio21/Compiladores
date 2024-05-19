@@ -260,7 +260,6 @@ public class solCompiler {
                 instrucoes.get(inicioIF).setValue(instrucoes.size());
             }
             HaveReturn=ifreturn&&HaveReturn;
-            System.out.println(HaveReturn + " " + funcaoAtual);
             return null;
         }
 
@@ -287,16 +286,17 @@ public class solCompiler {
         }
 
 
-
+        /**
+         * Metodo que adiciona 
+         * @param ctx the parse tree
+         * @return
+         */
         @Override public Class<?>  visitVariavelGlobal(SolParser.VariavelGlobalContext ctx) {
             instrucoes.add(new Instrucion(Commands.GALLOC, ctx.declaracao().size()));
             visitChildren(ctx);
             return null;
         }
 
-        //Variveis----------------------------------------------------------------------------------------
-
-        //Types-------------------------------------------------------------------------------------------
         @Override
         public Class<?>  visitINTT(SolParser.INTTContext ctx) {
             return Integer.class;

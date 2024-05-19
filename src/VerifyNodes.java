@@ -77,7 +77,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
      * @return O tipo resultante da expressao.
      */
 
-    //EXP---------------------------------------------------------------------------------
     @Override
     public Class<?>  visitLOGICALOPERATOREQUALNOT(SolParser.LOGICALOPERATOREQUALNOTContext ctx) {
         Class<?> left = visit(ctx.exp(0));
@@ -231,7 +230,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
     /**
-     * Metodo que verifica se ja existe o nome da funcao dentro do hasmap "fuctioMap"
+     * Metodo que verifica se ja existe o nome da funcao dentro do hashmap "fuctioMap" se nao existir adiciona
      * @param ctx
      */
     private void checkDuplicateFunctionName(SolParser.FuncaoContext ctx) {
@@ -247,12 +246,17 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         }
     }
 
+    /**
+     * Verifica se a funcao existe num hashmap
+     * @param functionName
+     * @return verdadeiro se tiver no hash
+     */
     private boolean functionExists(String functionName) {
         return functionMap.containsKey(functionName);
     }
 
-    /**
-     * Metodo que verifica se uma funcao recebe o numero e o de type de argumentos corretos
+    /** soz
+     * Metodo que verifica se uma funcao (expressao) recebe o numero e o de type de argumentos corretos
      * @param ctx the parse tree
      * @return
      */
@@ -284,7 +288,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
 
 
     /**
-     * Metodo que verifica se uma funcao recebe o numero e o de type de argumentos corretos
+     * Metodo que verifica se uma funcao (instrucao) recebe o numero e o de type de argumentos corretos
      * @param ctx the parse tree
      * @return
      */
@@ -324,7 +328,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     /**
      * Metodo utilizado para a transicao de blocos e guardar/eleminar variaveis locais
      * @param ctx the parse tree
-     * @return
      */
     @Override
     public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
@@ -340,7 +343,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
     /**
-     * Metodo utilizado para a verificacao do
+     * Metodo utilizado para visitar uma funcao
      * @param ctx the parse tree
      * @return
      */
@@ -362,7 +365,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return null;
     }
 
-    //EXP---------------------------------------------------------------------------------
+
     @Override
     public Class<?>  visitInstrucao(SolParser.InstrucaoContext ctx) {
         visitChildren(ctx);
@@ -606,7 +609,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return tipo;
     }
 
-    //Types-------------------------------------------------------------------------------------------
+
     @Override
     public Class<?>  visitINTT(SolParser.INTTContext ctx) {
         setValues(ctx, Integer.class);
@@ -633,9 +636,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         setValues(ctx, Boolean.class);
         return Boolean.class;
     }
-    //Types-------------------------------------------------------------------------------------------
 
-    //Variveis----------------------------------------------------------------------------------------
     @Override
     public Class<?>  visitINT(SolParser.INTContext ctx) {
         
@@ -687,8 +688,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
             setValues(ctx, VariaveisGlobais.get(ctx.NOME().getText()).tipo());
             return VariaveisGlobais.get(ctx.NOME().getText()).tipo();
     }
-
-    //Variveis----------------------------------------------------------------------------------------
 
     public boolean VerificarVariavelLocalAtras(String nome){
         int j = bloco;

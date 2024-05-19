@@ -77,11 +77,11 @@ end
 
 // Função principal
 void main() begin
+    int sum = add(3,4);
     printVariables();
     logicalOperators();
     controlStructures();
     greet("Alice");
-    int sum = add(3, 4);
     print(sum); // Deve imprimir: 7
 
     // Comentários
