@@ -177,6 +177,10 @@ public class TasmListener extends TasmBaseListener {
         instructions.add(new Instruction(ctx.SCONST().getText().toUpperCase(), constantPool.size()-1));
     }
 
+    /**
+     * Overridden method to process exit of a stack operation
+     * @param ctx the parse tree
+     */
     @Override
     public void exitStackOP(TasmParser.StackOPContext ctx) {
         if (ctx.LALLOC()!=null)
@@ -193,6 +197,10 @@ public class TasmListener extends TasmBaseListener {
         }
     }
 
+    /**
+     * Overridden method to process exit of a return statement
+     * @param ctx the parse tree
+     */
     @Override
     public void exitReturn(TasmParser.ReturnContext ctx) {
         if (ctx.RET()!=null)

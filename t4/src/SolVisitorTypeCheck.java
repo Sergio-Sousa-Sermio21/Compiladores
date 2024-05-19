@@ -128,8 +128,10 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         gallocContent.removeIf(var -> var.scope == scope);
     }
 
-    /**TODO comment
-     *
+    /**
+     * Retrieves the key from the callListed map that matches the given selectedKey.
+     * This method iterates through the keys of the callListed map and returns the key
+     * that is equal to the specified selectedKey. If no matching key is found, it returns null.
      * @param selectedKey
      * @return
      */
@@ -440,11 +442,14 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
-     * Contains scopes changes
+    /**
+     * Visits a block in the parse tree and manages scope changes.
+     * This method increments the scope level when entering a block, delegates
+     * the visit to the superclass method, removes any elements associated with
+     * the current scope, and then decrements the scope level upon exiting the block.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context representing the block to be visited.
+     * @return the result of visiting the block, as returned by the superclass method.
      */
     @Override
     public Object visitBlock(SolParser.BlockContext ctx) {

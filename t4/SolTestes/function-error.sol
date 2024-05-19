@@ -1,4 +1,4 @@
-int double(int x)
+int doubler(int x)
 begin
    if(true) then
    begin
@@ -16,6 +16,6 @@ end
 
 void main()
 begin
-    print double("2");
+    print doubler("2");
     print multiply("3", 4);
 end
