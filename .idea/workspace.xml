@@ -5,22 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs4/testetudo.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs4/testetudo.tbc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/testeTudo2.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testeTudo2.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testetudo.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testetudo.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs4/testetudo2.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testetudo2.tasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputs4/testetudo2.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testetudo2.tbc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/Sol.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/Sol.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sol/SolVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sol/SolVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VerifyNodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VerifyNodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -58,35 +49,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainSol.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Sol.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Teste.executor&quot;: &quot;Run&quot;,
-    &quot;Application.tAssembler.executor&quot;: &quot;Run&quot;,
-    &quot;Application.tVm.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;TestesTrabalho4&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/Compiladores/inputs4&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Application.MainSol.executor": "Run",
+    "Application.Sol.executor": "Run",
+    "Application.Teste.executor": "Run",
+    "Application.tAssembler.executor": "Debug",
+    "Application.tVm.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "TestesTrabalho4",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/htdocs/Compiladores/inputs4",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\Compiladores\inputs4" />
@@ -97,7 +88,7 @@
       <recent name="C:\Users\ASUS\Documents\Lab1typescript\Compiladores\inputs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Sol">
+  <component name="RunManager" selected="Application.tVm">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compiladores" />
@@ -115,7 +106,7 @@
     <configuration name="Sol" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="solCompiler" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs4/testeTudo2.sol" />
+      <option name="PROGRAM_PARAMETERS" value="inputs4/testetudo.sol" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -131,7 +122,7 @@
     <configuration name="tAssembler" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tAssembler" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs4/testeRecursivo.tasm" />
+      <option name="PROGRAM_PARAMETERS" value="inputs4/testetudo.tasm" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -139,7 +130,7 @@
     <configuration name="tVm" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="tVM" />
       <module name="Compiladores" />
-      <option name="PROGRAM_PARAMETERS" value="inputs4/testeTudo2.tbc" />
+      <option name="PROGRAM_PARAMETERS" value="inputs4/testetudo.tbc" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -156,7 +147,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
@@ -239,6 +230,7 @@
       <workItem from="1715958716633" duration="3605000" />
       <workItem from="1715969760884" duration="7411000" />
       <workItem from="1716108378299" duration="8605000" />
+      <workItem from="1716142316526" duration="1147000" />
     </task>
     <servers />
   </component>
