@@ -98,10 +98,9 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
-     * Visits the return statement in the parse tree and generates the appropriate instruction for return.
-     * If the return type is void, it adds a RET instruction; otherwise, it adds a RETVAL instruction.
+     * Removes local content from the list based on the current scope.
      *
-     * @return the result of visiting the return statement, as an Object
+     * @return the number of items removed based on the current scope
      */
     private int removeByScope(){
         int result=0;
@@ -114,10 +113,11 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a block in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the block
+     * @return the result of visiting the block, as an Object
      */
     @Override
     public Object visitBlock(SolParser.BlockContext ctx) {
@@ -129,10 +129,11 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Visits a return statement in the parse tree.
      *
-     * @param ctx the parse tree
-     * @return
+     * @param ctx the parse tree context for the return statement
+     * @return the result of visiting the return statement, as an Object
      */
     @Override
     public Object visitReturn(SolParser.ReturnContext ctx) {
@@ -145,9 +146,10 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**TODO comment
+    /**
+     * Sets the call position in the instruction list.
      *
-     * @param call
+     * @param call the call object whose position is to be set
      */
     private void setCallPos(Call call){
         for (Call c:callList)
@@ -155,7 +157,8 @@ public class SolVisitor extends SolBaseVisitor {
                 instructions.set(c.index, new Instruction(TokenTasm.CALL, call.index));
     }
 
-    /**TODO comment
+    /**
+     * Visits a function declaration in the parse tree.
      *
      * @param ctx the parse tree context for the function declaration
      * @return the result of visiting the function declaration, as an Object

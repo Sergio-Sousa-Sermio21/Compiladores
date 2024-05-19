@@ -56,6 +56,12 @@ public class SolVisitorTypeCheckFunction extends SolBaseVisitor {
         return callListed;
     }
 
+    /**
+     * Visits an executable context in the parse tree.
+     *
+     * @param ctx the parse tree context for the executable
+     * @return the result of visiting the executable context, as an Object
+     */
     @Override
     public Object visitExecutable(SolParser.ExecutableContext ctx) {
         Object result = super.visitExecutable(ctx);
