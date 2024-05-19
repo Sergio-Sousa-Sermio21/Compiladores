@@ -99,7 +99,7 @@ program
 variavelGlobal
 instrucao
 callFuncaoIntrucion
-declarar
+atribuicao
 print
 whileState
 forState

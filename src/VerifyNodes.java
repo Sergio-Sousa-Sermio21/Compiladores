@@ -10,12 +10,13 @@ import java.util.Stack;
 public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     private final HashMap<String, Funcao> functionMap = new HashMap<>();
 
-    private final HashMap<String, Variaveis> Variaveis = new HashMap<>();
+    private final HashMap<String, Variaveis> VariaveisGlobais = new HashMap<>();
     
     private final ArrayList<ArrayList<Variaveis>>  VariaveisLocais = new ArrayList<>();
     private final ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
 
     private final ArrayList<String> errors = new ArrayList<>();
+    private int bloco = -1;
     private int loopCount = 0;
 
     private boolean HaveReturn = false;
@@ -37,11 +38,16 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?> getValues(ParseTree node){
         return values.get(node);
     }
+
+    /**
+     *  Metodo para verificar se existe a funcao main e se essa mesma nao tem argumentos e/ou e do type void
+     * @param ctx the parse tree
+     *
+     */
     public Class<?> visitProgram(SolParser.ProgramContext ctx) {
         boolean main = false;
         for(int i = 0; i<ctx.funcao().size(); i++){
             SolParser.FuncaoContext functionContext = ctx.funcao(i);
-
             checkDuplicateFunctionName(functionContext);
             if(functionContext.NOME().getText().equals("main")) {
                 main = true;
@@ -91,10 +97,37 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
     @Override
+    public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
+        Class<?> left = visit(ctx.exp(0));
+        Class<?> right = visit(ctx.exp(1));
+        if(left == Object.class || right == Object.class){
+            setValues(ctx, Object.class);
+        }
+        else{
+            if(left == String.class || right == String.class || left == Boolean.class || right == Boolean.class){
+                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
+                setValues(ctx, Object.class);
+                return Object.class;
+            } else{
+                setValues(ctx, Boolean.class);
+            }
+        }
+
+        return getValues(ctx);
+    }
+
+
+    @Override
     public Class<?> visitORDER(SolParser.ORDERContext ctx) {
 
         return visit(ctx.exp());
     }
+
+    /**
+     * Metodo que faz a verificacao da negacao
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Class<?> visitNEGACION(SolParser.NEGACIONContext ctx) {
         Class<?> value = visit(ctx.exp());
@@ -197,7 +230,10 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return getValues(ctx);
     }
 
-    //Verificar isto imporante
+    /**
+     * Metodo que verifica se ja existe o nome da funcao dentro do hasmap "fuctioMap"
+     * @param ctx
+     */
     private void checkDuplicateFunctionName(SolParser.FuncaoContext ctx) {
         String nome = ctx.NOME().getText();
         Class<?> typeFuncion = null;
@@ -215,6 +251,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return functionMap.containsKey(functionName);
     }
 
+    /**
+     * Metodo que verifica se uma funcao recebe o numero e o de type de argumentos corretos
+     * @param ctx the parse tree
+     * @return
+     */
     public Class<?> visitCallFuncaoExp(SolParser.CallFuncaoExpContext ctx) {
         String functionName = ctx.NOME().getText();
         if (!functionExists(functionName)) {
@@ -242,7 +283,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     }
 
 
-
+    /**
+     * Metodo que verifica se uma funcao recebe o numero e o de type de argumentos corretos
+     * @param ctx the parse tree
+     * @return
+     */
     public Class<?> visitCallFuncaoIntrucion(SolParser.CallFuncaoIntrucionContext ctx) {
         String functionName = ctx.NOME().getText();
         if (!functionExists(functionName)) {
@@ -265,14 +310,22 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return null;
     }
 
+    /**
+     * Metodo que guarda os argumentos
+     * @param ctx
+     */
     public ArrayList<Argumentos> getArgumentos(SolParser.FuncaoContext ctx){
         ArrayList<Argumentos> argumentos = new ArrayList<>();
         for (int i = 0; i<ctx.arguments().size(); i++)
             argumentos.add(new Argumentos(visit(ctx.arguments(i).types()), ctx.arguments(i).NOME().getText()));
         return argumentos;
     }
-    private int bloco = -1;
 
+    /**
+     * Metodo utilizado para a transicao de blocos e guardar/eleminar variaveis locais
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
         bloco++;
@@ -286,6 +339,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return null;
     }
 
+    /**
+     * Metodo utilizado para a verificacao do
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
         funcaoAtual = ctx.NOME().getText();
@@ -295,8 +353,6 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                 variaveisLocais.add(new Variaveis(false, argumento.type(), argumento.nome(), -1));
         }
         VariaveisLocais.add(variaveisLocais);
-
-
         visit(ctx.bloco());
         VariaveisLocais.removeLast();
         if(!HaveReturn && functionMap.get(ctx.NOME().getText()).type() != null)
@@ -306,31 +362,9 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return null;
     }
 
-
-    @Override
-    public Class<?> visitLOGICALOPERATOR(SolParser.LOGICALOPERATORContext ctx) {
-        Class<?> left = visit(ctx.exp(0));
-        Class<?> right = visit(ctx.exp(1));
-        if(left == Object.class || right == Object.class){
-            setValues(ctx, Object.class);
-        }
-        else{
-            if(left == String.class || right == String.class || left == Boolean.class || right == Boolean.class){
-                errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine()+1) + " error: Can not compare " + left.getSimpleName() + " and " + right.getSimpleName()  +" in " + ctx.op.getText());
-                setValues(ctx, Object.class);
-                return Object.class;
-            } else{
-                setValues(ctx, Boolean.class);
-            }
-        }
-
-        return getValues(ctx);
-    }
-
     //EXP---------------------------------------------------------------------------------
     @Override
     public Class<?>  visitInstrucao(SolParser.InstrucaoContext ctx) {
-        
         visitChildren(ctx);
         return null;
     }
@@ -358,8 +392,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitForState(SolParser.ForStateContext ctx) {
         loopCount++;
         Class<?>  variavel;
-        if(Variaveis.containsKey(ctx.NOME().getText())){
-            variavel = Variaveis.get(ctx.NOME().getText()).tipo();
+        if(VariaveisGlobais.containsKey(ctx.NOME().getText())){
+            variavel = VariaveisGlobais.get(ctx.NOME().getText()).tipo();
         } else {
             errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine()+1) +
                     " error: Variable not defined " + ctx.getText());
@@ -448,13 +482,18 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return getValues(ctx);
     }
 
-    @Override public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
+    /**
+     * Metodo utilizado para a verificacao de types para variaveis
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override public Class<?>  visitAtribuicao(SolParser.AtribuicaoContext ctx) {
 
         for(int i = 0; i<ctx.exp().size();i++){
             Class<?> tipo = visit(ctx.exp(i));
             String nome = ctx.NOME().get(i).getText();
-                if (Variaveis.containsKey(nome) || VerificarVariavelLocalAtras(nome)) {
-                    if ((Variaveis.get(nome) != null && tipo != Variaveis.get(nome).tipo()) && tipo != TipoVariavelLocal(nome)) {
+                if (VariaveisGlobais.containsKey(nome) || VerificarVariavelLocalAtras(nome)) {
+                    if ((VariaveisGlobais.get(nome) != null && tipo != VariaveisGlobais.get(nome).tipo()) && tipo != TipoVariavelLocal(nome)) {
                         errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                                 " error: Wrong type for variable " + ctx.NOME().get(i).getText());
                     }
@@ -483,6 +522,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return false;
     }
 
+    /**
+     * Metodo utilizado para verificar se o return retorna o valor do type correto
+     * @param ctx the parse tree
+     * @return
+     */
     @Override public Class<?> visitReturn(SolParser.ReturnContext ctx){
         String functionName = funcaoAtual;
         Funcao currentFunction = functionMap.get(functionName);
@@ -516,6 +560,11 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return null;
     }
 
+    /**
+     * Metodo utilizado para a verificacao dos types das variaveis locais e se o nome ja existe
+     * @param ctx the parse tree
+     * @return
+     */
     @Override public Class<?> visitVariavelLocal(SolParser.VariavelLocalContext ctx) {
         Class<?> tipo = visit(ctx.types());
         for(int i = 0; i<ctx.declaracao().size(); i++){
@@ -534,8 +583,12 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
         return tipo;
     }
 
+    /**
+     * Metodo utilizado para a verificacao dos types das variaveis globais e se o nome ja existe
+     * @param ctx the parse tree
+     * @return
+     */
     @Override public Class<?>  visitVariavelGlobal(SolParser.VariavelGlobalContext ctx) {
-        
         Class<?> tipo = visit(ctx.types());
         for(int i = 0; i<ctx.declaracao().size(); i++){
             Class<?> verificar = visit(ctx.declaracao().get(i));
@@ -545,10 +598,10 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                         " error: " + verificar.getSimpleName() + " type mismatch on " + ctx.declaracao().get(i).NOME().getText());
             }
             String nome = ctx.declaracao().get(i).NOME().getText();
-                if (Variaveis.containsKey(nome)) {
+                if (VariaveisGlobais.containsKey(nome)) {
                     errors.add("Line " + ctx.start.getLine() + ":" + (ctx.start.getCharPositionInLine() + 1) + " error: Variable already defined " + ctx.declaracao().get(i).NOME().getText());
                 } else
-                    Variaveis.put(ctx.declaracao().get(i).NOME().getText(), new Variaveis(true, tipo, nome, -1));
+                    VariaveisGlobais.put(ctx.declaracao().get(i).NOME().getText(), new Variaveis(true, tipo, nome, -1));
         }
         return tipo;
     }
@@ -620,7 +673,7 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     @Override
     public Class<?>  visitNOME(SolParser.NOMEContext ctx) {
         String nome = ctx.NOME().getText();
-            if (!Variaveis.containsKey(nome) && !VerificarVariavelLocalAtras(nome)) {
+            if (!VariaveisGlobais.containsKey(nome) && !VerificarVariavelLocalAtras(nome)) {
                 errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine() + 1) +
                         " error: Variable not defined " + ctx.getText());
                 setValues(ctx, Object.class);
@@ -631,8 +684,8 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
                 return TipoVariavelLocal(nome);
             }
 
-            setValues(ctx, Variaveis.get(ctx.NOME().getText()).tipo());
-            return Variaveis.get(ctx.NOME().getText()).tipo();
+            setValues(ctx, VariaveisGlobais.get(ctx.NOME().getText()).tipo());
+            return VariaveisGlobais.get(ctx.NOME().getText()).tipo();
     }
 
     //Variveis----------------------------------------------------------------------------------------

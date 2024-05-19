@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -25,13 +25,13 @@ public class SolParser extends Parser {
 		STRING=41, NOME=42, SL_COMMENT=43, ML_COMMENT=44, WS=45;
 	public static final int
 		RULE_program = 0, RULE_variavelGlobal = 1, RULE_instrucao = 2, RULE_callFuncaoIntrucion = 3, 
-		RULE_declarar = 4, RULE_print = 5, RULE_whileState = 6, RULE_forState = 7, 
+		RULE_atribuicao = 4, RULE_print = 5, RULE_whileState = 6, RULE_forState = 7, 
 		RULE_break = 8, RULE_return = 9, RULE_empty = 10, RULE_bloco = 11, RULE_ifState = 12, 
 		RULE_variavelLocal = 13, RULE_types = 14, RULE_declaracao = 15, RULE_exp = 16, 
 		RULE_callFuncaoExp = 17, RULE_funcao = 18, RULE_arguments = 19, RULE_variaveis = 20;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "variavelGlobal", "instrucao", "callFuncaoIntrucion", "declarar", 
+			"program", "variavelGlobal", "instrucao", "callFuncaoIntrucion", "atribuicao", 
 			"print", "whileState", "forState", "break", "return", "empty", "bloco", 
 			"ifState", "variavelLocal", "types", "declaracao", "exp", "callFuncaoExp", 
 			"funcao", "arguments", "variaveis"
@@ -292,8 +292,8 @@ public class SolParser extends Parser {
 		public BlocoContext bloco() {
 			return getRuleContext(BlocoContext.class,0);
 		}
-		public DeclararContext declarar() {
-			return getRuleContext(DeclararContext.class,0);
+		public AtribuicaoContext atribuicao() {
+			return getRuleContext(AtribuicaoContext.class,0);
 		}
 		public ReturnContext return_() {
 			return getRuleContext(ReturnContext.class,0);
@@ -380,7 +380,7 @@ public class SolParser extends Parser {
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(73);
-				declarar();
+				atribuicao();
 				}
 				break;
 			case 9:
@@ -493,7 +493,7 @@ public class SolParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class DeclararContext extends ParserRuleContext {
+	public static class AtribuicaoContext extends ParserRuleContext {
 		public List<TerminalNode> NOME() { return getTokens(SolParser.NOME); }
 		public TerminalNode NOME(int i) {
 			return getToken(SolParser.NOME, i);
@@ -504,28 +504,28 @@ public class SolParser extends Parser {
 		public ExpContext exp(int i) {
 			return getRuleContext(ExpContext.class,i);
 		}
-		public DeclararContext(ParserRuleContext parent, int invokingState) {
+		public AtribuicaoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_declarar; }
+		@Override public int getRuleIndex() { return RULE_atribuicao; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SolListener ) ((SolListener)listener).enterDeclarar(this);
+			if ( listener instanceof SolListener ) ((SolListener)listener).enterAtribuicao(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SolListener ) ((SolListener)listener).exitDeclarar(this);
+			if ( listener instanceof SolListener ) ((SolListener)listener).exitAtribuicao(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SolVisitor ) return ((SolVisitor<? extends T>)visitor).visitDeclarar(this);
+			if ( visitor instanceof SolVisitor ) return ((SolVisitor<? extends T>)visitor).visitAtribuicao(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DeclararContext declarar() throws RecognitionException {
-		DeclararContext _localctx = new DeclararContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_declarar);
+	public final AtribuicaoContext atribuicao() throws RecognitionException {
+		AtribuicaoContext _localctx = new AtribuicaoContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_atribuicao);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -35,11 +35,11 @@ public interface SolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCallFuncaoIntrucion(SolParser.CallFuncaoIntrucionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SolParser#declarar}.
+	 * Visit a parse tree produced by {@link SolParser#atribuicao}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDeclarar(SolParser.DeclararContext ctx);
+	T visitAtribuicao(SolParser.AtribuicaoContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SolParser#print}.
 	 * @param ctx the parse tree
