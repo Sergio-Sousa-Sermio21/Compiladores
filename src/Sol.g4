@@ -11,14 +11,14 @@ instrucao: print
             | empty
             | break
             | bloco
-            | declarar
+            | atribuicao
             | return
             | callFuncaoIntrucion;
 
 
 callFuncaoIntrucion: NOME '(' (exp(',' exp)*)? ')' ';';
 
-declarar: NOME '=' exp (','NOME '=' exp)* ';';
+atribuicao: NOME '=' exp (','NOME '=' exp)* ';';
 
 print: 'print' exp ';';
 

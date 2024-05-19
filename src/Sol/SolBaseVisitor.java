@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -46,7 +46,7 @@ public class SolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements So
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDeclarar(SolParser.DeclararContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAtribuicao(SolParser.AtribuicaoContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

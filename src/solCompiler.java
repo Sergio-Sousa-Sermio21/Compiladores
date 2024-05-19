@@ -566,7 +566,7 @@ public class solCompiler {
         }
 
         @Override
-        public Class<?>  visitDeclarar(SolParser.DeclararContext ctx) {
+        public Class<?>  visitAtribuicao(SolParser.AtribuicaoContext ctx) {
 
             for(int i = 0; i<ctx.exp().size(); i++){
                 int posicaoLocal = VerificarVariavelLocalAtras(ctx.NOME(i).getText());

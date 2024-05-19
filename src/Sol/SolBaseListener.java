@@ -1,4 +1,4 @@
-// Generated from C:/Users/ASUS/Documents/Lab1typescript/Compiladores/src/Sol.g4 by ANTLR 4.13.1
+// Generated from C:/xampp/htdocs/Compiladores/src/Sol.g4 by ANTLR 4.13.1
 package Sol;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -65,13 +65,13 @@ public class SolBaseListener implements SolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarar(SolParser.DeclararContext ctx) { }
+	@Override public void enterAtribuicao(SolParser.AtribuicaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarar(SolParser.DeclararContext ctx) { }
+	@Override public void exitAtribuicao(SolParser.AtribuicaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
