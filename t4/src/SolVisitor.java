@@ -48,6 +48,14 @@ public class SolVisitor extends SolBaseVisitor {
             this.name = name;
             this.scope= scope;
         }
+        @Override
+        public boolean equals(Object obj) {
+            return name.equals(obj.toString());
+        }
+        @Override
+        public String toString() {
+            return name;
+        }
     }
     private int scope;
     private int mainPosition;
@@ -97,9 +105,9 @@ public class SolVisitor extends SolBaseVisitor {
      */
     private int removeByScope(){
         int result=0;
-        for (LocalVar var : localContent){
-            if (var.scope == scope) {
-                localContent.remove(var);
+        for (int i = 0; i<localContent.size();i++){
+            if (localContent.get(i).scope == scope) {
+                localContent.remove(localContent.get(i));
                 result++;
             }
         }
@@ -158,8 +166,8 @@ public class SolVisitor extends SolBaseVisitor {
         if(functionName.equals("main"))
             mainPosition = instructions.size();
         callListed.put(functionName, instructions.size());
-        for (TerminalNode var:ctx.VAR()){
-            functionArgs.add(var.getText());
+        for (int i=1;i<ctx.VAR().size();i++){
+            functionArgs.add(ctx.VAR(i).getText());
         }
         Object result = super.visitFunction(ctx);
         if (tree.get(ctx) != Void.class)
@@ -276,7 +284,7 @@ public class SolVisitor extends SolBaseVisitor {
     @Override
     public Object visitVariable(SolParser.VariableContext ctx) {
         if (functionArgs.contains(ctx.VAR().getText()))
-            instructions.add(new Instruction(TokenTasm.LLOAD, -(functionArgs.size()-functionArgs.indexOf(ctx.VAR().getText())+1)));
+            instructions.add(new Instruction(TokenTasm.LLOAD, -(functionArgs.size()-functionArgs.indexOf(ctx.VAR().getText()))));
         else if (localContent.contains(new LocalVar(ctx.VAR().getText(),0)))
             instructions.add(new Instruction(TokenTasm.LLOAD, localContent.indexOf(new LocalVar(ctx.VAR().getText(),0))+2));
         else
