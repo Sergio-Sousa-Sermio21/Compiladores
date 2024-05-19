@@ -22,7 +22,23 @@ public class solCompiler {
 
         private int countVariable = 0;
 
+        private int bloco = -1;
+
+        private int lloadposicao;
+
         private ParseTreeProperty<Class<?>> values = new ParseTreeProperty<>();
+
+        private HashMap<String, Funcao> functionMap ;
+
+        private final Map<String, List<Integer>> FunctionNotFound = new HashMap<>();
+
+        private String funcaoAtual;
+
+        private final ArrayList<ArrayList<Variaveis>>  VariaveisLocais = new ArrayList<>();
+
+        private boolean HaveReturn = false;
+
+        private final HashMap<String,Integer> Functionposicion = new HashMap<>();
 
         public Class<?> getValues(ParseTree node){
             return values.get(node);
@@ -287,7 +303,7 @@ public class solCompiler {
 
 
         /**
-         * Metodo que adiciona 
+         * Metodo que adiciona a instrucao GALLOC
          * @param ctx the parse tree
          * @return
          */
@@ -317,6 +333,12 @@ public class solCompiler {
             return Boolean.class;
         }
 
+        /**
+         * Metodo que altera o type se fore necessario
+         * @param Parent
+         * @param Atual
+         * @return o type que alterou
+         */
         public Class<?> TypesConverter(ParserRuleContext Parent, Class<?> Atual){
             Class<?> ClassParent = getValues(Parent);
             if (ClassParent == String.class && Atual.equals(Integer.class)) {
@@ -340,6 +362,12 @@ public class solCompiler {
 
         }
 
+        /**
+         * Metodo que apanha as variaveis
+         * @param exp
+         * @param varivavel
+         * @return
+         */
         public ParseTree getvariable(ParserRuleContext exp, int varivavel){
             return exp.getChild(varivavel).getChild(0);
         }
@@ -379,17 +407,7 @@ public class solCompiler {
             return String.class;
         }
 //----------------------------------------------------------------------------------------------------------------------------------
-        private HashMap<String, Funcao> functionMap ;
 
-        private HashMap<String, Integer> functionPos ;
-
-        private final Map<String, List<Integer>> FunctionNotFound = new HashMap<>();
-
-        private String funcaoAtual;
-
-        private final ArrayList<ArrayList<Variaveis>>  VariaveisLocais = new ArrayList<>();
-
-        private boolean HaveReturn = false;
 
         public Class<?> visitReturn(SolParser.ReturnContext ctx){
             if(ctx.exp() != null)
@@ -428,12 +446,15 @@ public class solCompiler {
             HaveReturn=false;
             return null;
         }
-        private int lloadposicao;
 
-        private void AddFuncionPosicion(String nomeFuncao){
-            Funcionposicion.put(nomeFuncao, instrucoes.size());
-            if(FuncionNotFound.containsKey(nomeFuncao)){
-                for(int i : FuncionNotFound.get(nomeFuncao)){
+        /**
+         * Metodo que adiciona o nome da funcao
+         * @param nomeFuncao
+         */
+        private void AddFunctionPosicion(String nomeFuncao){
+            Functionposicion.put(nomeFuncao, instrucoes.size());
+            if(FunctionNotFound.containsKey(nomeFuncao)){
+                for(int i : FunctionNotFound.get(nomeFuncao)){
                     instrucoes.get(i).setValue(instrucoes.size());
                 }
             }
@@ -442,7 +463,7 @@ public class solCompiler {
         public Class<?> visitFuncao(SolParser.FuncaoContext ctx) {
             HaveReturn=false;
             funcaoAtual = ctx.NOME().getText();
-            AddFuncionPosicion(funcaoAtual);
+            AddFunctionPosicion(funcaoAtual);
             lloadposicao = 2;
             ArrayList<Variaveis> variaveisLocais = new ArrayList<>();
             int posicao = -ctx.arguments().size();
@@ -459,9 +480,7 @@ public class solCompiler {
             VariaveisLocais.removeLast();
             return null;
         }
-
-        private int bloco = -1;
-
+        
         @Override
         public Class<?>  visitBloco(SolParser.BlocoContext ctx) {
             bloco++;
@@ -489,6 +508,12 @@ public class solCompiler {
             return null;
         }
 
+        /**
+         * Metodo que verifica se a variavel ja existe num bloco anterior
+         * @param nome
+         * @return retorna 0 se nao exister nos blocos
+         * retorna a posicao se existir
+         */
         public int VerificarVariavelLocalAtras(String nome){
             int j = bloco;
             while (j>=0){
@@ -502,16 +527,18 @@ public class solCompiler {
             return 0;
         }
 
-        private final HashMap<String,Integer> Funcionposicion = new HashMap<>();
-        private final Map<String, List<Integer>> FuncionNotFound = new HashMap<>();
+        /**
+         * Metodo que verifica se a funcao ja apareceu, se nao guarda no FunctionNotFound 
+         * @param functionName
+         */
         private void resolveCalls(String functionName){
-            if(Funcionposicion.containsKey(functionName))
-                instrucoes.add(new Instrucion(Commands.CALL, Funcionposicion.get(functionName)));
+            if(Functionposicion.containsKey(functionName))
+                instrucoes.add(new Instrucion(Commands.CALL, Functionposicion.get(functionName)));
             else{
-                if(FuncionNotFound.containsKey(functionName))
-                    FuncionNotFound.get(functionName).add(instrucoes.size());
+                if(FunctionNotFound.containsKey(functionName))
+                    FunctionNotFound.get(functionName).add(instrucoes.size());
                 else
-                    FuncionNotFound.computeIfAbsent(functionName, V -> new ArrayList<>()).add(instrucoes.size());
+                    FunctionNotFound.computeIfAbsent(functionName, V -> new ArrayList<>()).add(instrucoes.size());
                 instrucoes.add(new Instrucion(Commands.CALL,0));
             }
         }

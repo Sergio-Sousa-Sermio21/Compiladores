@@ -17,103 +17,103 @@ L15: gstore 7
 L16: galloc 1
 L17: iconst 0
 L18: gstore 8
-L19: call L104
+L19: call L21
 L20: halt
-L21: gload 0
-L22: iprint
-L23: gload 5
-L24: dprint
-L25: gload 6
-L26: bprint
-L27: gload 7
-L28: sprint
-L29: gload 0
-L30: call L36
-L31: gstore 0
-L32: gload 5
-L33: call L44
-L34: gstore 5
+L21: lalloc 1
+L22: iconst 3
+L23: iconst 4
+L24: call L115
+L25: lstore 2
+L26: call L36
+L27: call L69
+L28: call L87
+L29: sconst "Alice"
+L30: call L108
+L31: lload 2
+L32: iprint
+L33: sconst "Teste concluído."
+L34: sprint
 L35: ret 0
-L36: lload -1
-L37: iconst 5
-L38: iadd
-L39: gstore 1
-L40: gload 1
-L41: iprint
-L42: gload 1
-L43: retval 1
-L44: lalloc 1
-L45: lload -1
-L46: iconst 2
-L47: itod
-L48: dmult
-L49: lstore 2
-L50: lload 2
-L51: dprint
-L52: lload 2
-L53: retval 1
-L54: gload 6
-L55: tconst
-L56: and
-L57: gstore 2
-L58: gload 2
-L59: bprint
-L60: gload 6
-L61: fconst
-L62: or
-L63: gstore 3
-L64: gload 3
-L65: bprint
-L66: gload 6
-L67: not
-L68: gstore 4
-L69: gload 4
-L70: bprint
-L71: ret 0
-L72: iconst 5
-L73: gload 0
-L74: ilt
-L75: jumpf L79
-L76: sconst "a é maior que 5"
-L77: sprint
-L78: jump L81
-L79: sconst "a não é maior que 5"
-L80: sprint
-L81: gload 8
-L82: iconst 5
-L83: ilt
-L84: jumpf L92
-L85: gload 8
-L86: iprint
-L87: gload 8
-L88: iconst 1
-L89: iadd
-L90: gstore 8
-L91: jump L81
-L92: ret 0
-L93: sconst "Hello, "
-L94: lload -1
-L95: sadd
-L96: sconst "!"
-L97: sadd
-L98: sprint
-L99: ret 1
-L100: lload -2
-L101: lload -1
-L102: iadd
-L103: retval 2
-L104: lalloc 1
-L105: iconst 3
-L106: iconst 4
-L107: call L100
-L108: lstore 2
-L109: call L21
-L110: call L54
-L111: call L72
-L112: sconst "Alice"
-L113: call L93
-L114: lload 2
-L115: iprint
-L116: sconst "Teste concluído."
-L117: sprint
-L118: ret 0
+L36: gload 0
+L37: iprint
+L38: gload 5
+L39: dprint
+L40: gload 6
+L41: bprint
+L42: gload 7
+L43: sprint
+L44: gload 0
+L45: call L51
+L46: gstore 0
+L47: gload 5
+L48: call L59
+L49: gstore 5
+L50: ret 0
+L51: lload -1
+L52: iconst 5
+L53: iadd
+L54: gstore 1
+L55: gload 1
+L56: iprint
+L57: gload 1
+L58: retval 1
+L59: lalloc 1
+L60: lload -1
+L61: iconst 2
+L62: itod
+L63: dmult
+L64: lstore 2
+L65: lload 2
+L66: dprint
+L67: lload 2
+L68: retval 1
+L69: gload 6
+L70: tconst
+L71: and
+L72: gstore 2
+L73: gload 2
+L74: bprint
+L75: gload 6
+L76: fconst
+L77: or
+L78: gstore 3
+L79: gload 3
+L80: bprint
+L81: gload 6
+L82: not
+L83: gstore 4
+L84: gload 4
+L85: bprint
+L86: ret 0
+L87: iconst 5
+L88: gload 0
+L89: ilt
+L90: jumpf L94
+L91: sconst "a é maior que 5"
+L92: sprint
+L93: jump L96
+L94: sconst "a não é maior que 5"
+L95: sprint
+L96: gload 8
+L97: iconst 5
+L98: ilt
+L99: jumpf L107
+L100: gload 8
+L101: iprint
+L102: gload 8
+L103: iconst 1
+L104: iadd
+L105: gstore 8
+L106: jump L96
+L107: ret 0
+L108: sconst "Hello, "
+L109: lload -1
+L110: sadd
+L111: sconst "!"
+L112: sadd
+L113: sprint
+L114: ret 1
+L115: lload -2
+L116: lload -1
+L117: iadd
+L118: retval 2

@@ -9,6 +9,27 @@ bool c = true;
 string d = "Hello, world!";
 int i = 0;
 
+// Função principal
+void main() begin
+    int sum = add(3,4);
+    printVariables();
+    logicalOperators();
+    controlStructures();
+    greet("Alice");
+    print(sum); // Deve imprimir: 7
+
+    // Comentários
+    // Este é um comentário de linha única
+
+    /*
+    Este é um comentário
+    de múltiplas linhas
+    */
+
+    // Finalização do teste
+    print("Teste concluído.");
+end
+
 // Função para imprimir variáveis e literais
 void printVariables() begin
     print(a); // Deve imprimir: 10
@@ -75,23 +96,4 @@ begin
     return x + y;
 end
 
-// Função principal
-void main() begin
-    int sum = add(3,4);
-    printVariables();
-    logicalOperators();
-    controlStructures();
-    greet("Alice");
-    print(sum); // Deve imprimir: 7
 
-    // Comentários
-    // Este é um comentário de linha única
-
-    /*
-    Este é um comentário
-    de múltiplas linhas
-    */
-
-    // Finalização do teste
-    print("Teste concluído.");
-end
