@@ -56,7 +56,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/t4/Tasm.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\sergi\Documents\Compiladores\CompiladoresT\t4\src" />
+          <option name="outputDir" value="C:\Users\jogat\OneDrive\Documents\GitHub\Compiladores\t4\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="Tasm" />
@@ -66,7 +66,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="openjdk-20" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="openjdk-20" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

@@ -77,6 +77,17 @@ public class tVM {
         }
     }
 
+    private int Return(int pos){
+        for(int j = 2; j < stack.size() - fp; j++)
+            stack.pop();
+        int n = instructions.get(pos).getArgument();
+        pos = stack.pop().getInt(pos);
+        fp = stack.pop().getInt(pos);
+        for (int j = 0; j < n; j++)
+            stack.pop();
+        return pos;
+    }
+
     /**
      * Execute the code in the file
      */
@@ -276,13 +287,20 @@ public class tVM {
                             stack.pop();
                         break;
                     case CALL:
-                        //TODO
+                        stack.push(new ObjectValue(fp));
+                        fp= stack.size()-1;
+                        if(i+1>= instructions.size())
+                            throw new IllegalArgumentException("Illegal argument in index " + i);
+                        stack.push(new ObjectValue(i));
+                        i = instructions.get(i).getArgument()-1;
                         break;
                     case RETVAL:
-                        //TODO
+                        ObjectValue result = stack.pop();
+                        i = Return(i);
+                        stack.push(result);
                         break;
                     case RET:
-                        //TODO
+                        i = Return(i);
                         break;
 
                     default:
