@@ -55,14 +55,15 @@ public enum TokenTasm {
     INT,
     DOUBLE,
     STRING,
+    CONSTANTPOOL,
     LALLOC,
     LLOAD,
     LSTORE,
     POP,
     CALL,
     RETVAL,
-    RET,
-    CONSTANTPOOL;
+    RET;
+
     private static HashMap<Integer,TokenTasm> map = new HashMap<Integer,TokenTasm>();
 
     static {
