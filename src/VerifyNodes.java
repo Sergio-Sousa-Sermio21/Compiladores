@@ -395,7 +395,10 @@ public class VerifyNodes extends SolBaseVisitor<Class<?>> {
     public Class<?>  visitForState(SolParser.ForStateContext ctx) {
         loopCount++;
         Class<?>  variavel;
-        if(VariaveisGlobais.containsKey(ctx.NOME().getText())){
+        String nome = ctx.NOME().getText();
+        if(VerificarVariavelLocalAtras(nome))
+            variavel = TipoVariavelLocal(nome);
+        else if(VariaveisGlobais.containsKey(ctx.NOME().getText())){
             variavel = VariaveisGlobais.get(ctx.NOME().getText()).tipo();
         } else {
             errors.add("Line " + ctx.getStart().getLine() + ":" + (ctx.getStart().getCharPositionInLine()+1) +

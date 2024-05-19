@@ -1,14 +1,19 @@
-void main()
+int test2( int x )
 begin
-    int a = 3;
-    int b = 4;
-    print sum(a, b);
-    print a + " " + b;
+    int i;
+    for i = 0 to 10 do
+    begin
+      x = x * 2;
+    end
+    return x;
 end
 
-int sum(int x, int y)
+string test1( int a, int b )
 begin
-    x = y;
-    y = 10;
-    return x + y;
+    return "a = " + a + " b = " + b;
+end
+
+void main()
+begin
+    print test1(test2(1), test2(2));
 end

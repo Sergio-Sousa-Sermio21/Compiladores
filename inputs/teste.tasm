@@ -1,29 +1,37 @@
-L0: call L2
+L0: call L30
 L1: halt
 L2: lalloc 1
-L3: iconst 3
+L3: iconst 0
 L4: lstore 2
-L5: lalloc 1
-L6: iconst 4
-L7: lstore 3
-L8: lload 2
-L9: lload 3
-L10: call L21
-L11: iprint
-L12: lload 2
-L13: itos
-L14: sconst " "
-L15: sadd
-L16: lload 3
-L17: itos
-L18: sadd
-L19: sprint
-L20: ret 0
-L21: lload -1
-L22: lstore -2
-L23: iconst 10
-L24: lstore -1
-L25: lload -2
+L5: lload 2
+L6: iconst 10
+L7: ileq
+L8: jumpf L18
+L9: lload -1
+L10: iconst 2
+L11: imult
+L12: lstore -1
+L13: lload 2
+L14: iconst 1
+L15: iadd
+L16: lstore 2
+L17: jump L5
+L18: lload -1
+L19: retval 1
+L20: sconst "a = "
+L21: lload -2
+L22: itos
+L23: sadd
+L24: sconst " b = "
+L25: sadd
 L26: lload -1
-L27: iadd
-L28: retval 2
+L27: itos
+L28: sadd
+L29: retval 2
+L30: iconst 1
+L31: call L2
+L32: iconst 2
+L33: call L2
+L34: call L20
+L35: sprint
+L36: ret 0
