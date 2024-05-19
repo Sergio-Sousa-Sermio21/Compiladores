@@ -167,16 +167,16 @@ public class tAssembler extends TasmBaseListener {
         }
 
         public void enterInstrucaoInt(TasmParser.InstrucaoIntContext ctx){
-
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
         public void enterInstrucaoBoolean(TasmParser.InstrucaoBooleanContext ctx) {
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
-
+        public void enterInstrucaoDouble(TasmParser.InstrucaoDoubleContext ctx) {
+            instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
+        }
         public void enterInstrucaoString(TasmParser.InstrucaoStringContext ctx) {
-
             instrucoes.add(new Instrucion(Commands.valueOf(ctx.getText().toUpperCase())));
         }
 
