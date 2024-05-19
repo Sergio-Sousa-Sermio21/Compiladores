@@ -137,10 +137,7 @@ public class SolVisitor extends SolBaseVisitor {
         return result;
     }
 
-    /**
-     * Visits the function declaration in the parse tree and performs actions specific to the function.
-     * If the function is named "main", it sets the main position to the current size of the instructions.
-     * Additionally, it updates the function arguments count.
+    /**TODO comment
      *
      * @param call
      */
@@ -389,7 +386,7 @@ public class SolVisitor extends SolBaseVisitor {
     }
 
     /**
-     * Visits executable nodes in the parse tree and appends HALT instruction.
+     * Visits executable nodes in the parse tree and appends HALT instruction and main call.
      *
      * @param ctx the parse tree node to visit.
      * @return the value associated with the node.
