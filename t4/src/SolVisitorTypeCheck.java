@@ -61,12 +61,23 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             type =t;
             this.scope=scope;
         }
+        Var(String n, String t, int scope, boolean init){
+            name=n;
+            initialized=init;
+            type =t;
+            this.scope=scope;
+        }
         public boolean equals(Object obj) {
             return name.equals(obj.toString());
         }
         @Override
         public String toString() {
             return name;
+        }
+
+        @Override
+        public int hashCode() {
+            return name.hashCode();
         }
     }
     private Class<?> functionType;
@@ -202,8 +213,8 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
     @Override
     public Object visitFunction(SolParser.FunctionContext ctx) {
         Object result = visit(ctx.retType());
+        functionType = tree.get(ctx);
         if (functionType != null){
-            functionType = tree.get(ctx);
             int varSize=ctx.VAR().size();
             for (int i=1; i<varSize; i++){
                 Var name = new Var(ctx.VAR(i).getText());
@@ -211,7 +222,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
                     errors.add(teste.alreadyDefined(ctx.start.getLine(), name.name));
                 if(callListed.containsKey(name))
                     errors.add(teste.invalidVariableFunction(ctx.start.getLine(), name.name));
-                Var localVariable = new Var(ctx.VAR(i).getText(), tree.get(ctx.declarationType(i-1)).getSimpleName(), scope+1);
+                Var localVariable = new Var(ctx.VAR(i).getText(), tree.get(ctx.declarationType(i-1)).getSimpleName(), scope+1, true);
                 gallocContent.add(localVariable);
             }
             visit(ctx.block());
@@ -514,7 +525,7 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             visit(dd);
         }
         tree.put(ctx, tree.get(ctx.declarationType()));
-        return result;
+        return type;
     }
 
     /**
@@ -601,14 +612,14 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         String right = ctx.op(1).getText();
         visit(ctx.op(0));
         visit(ctx.op(1));
-        if (tree.get(ctx.op(0)) != String.class || tree.get(ctx.op(1)) != String.class) {
+        if (tree.get(ctx.op(0)) == String.class || tree.get(ctx.op(1)) == String.class) {
             tree.put(ctx, String.class);
             return left+right;
         }
-        else if(tree.get(ctx.op(0)) != Boolean.class || tree.get(ctx.op(1)) != Boolean.class) {
-            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right,tree.get(ctx.op(0)) != Boolean.class, tree.get(ctx.op(1)) != Boolean.class));
+        else if(tree.get(ctx.op(0)) == Boolean.class || tree.get(ctx.op(1)) == Boolean.class) {
+            errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right,tree.get(ctx.op(0)) == Boolean.class, tree.get(ctx.op(1)) == Boolean.class));
             return left;
-        }else if(tree.get(ctx.op(0)) != Double.class || tree.get(ctx.op(1)) != Double.class) {
+        }else if(tree.get(ctx.op(0)) == Double.class || tree.get(ctx.op(1)) == Double.class) {
             tree.put(ctx, Double.class);
             return Double.parseDouble(left)+Double.parseDouble(right);
         }
@@ -628,12 +639,16 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
         String right = ctx.op(1).getText();
         visit(ctx.op(0));
         visit(ctx.op(1));
-        if (tree.get(ctx.op(0)) != Boolean.class || tree.get(ctx.op(1)) != Boolean.class || tree.get(ctx.op(0)) != String.class || tree.get(ctx.op(1)) != String.class) {
+        Class<?> e = tree.get(ctx.op(0));
+        Class<?> e1 = tree.get(ctx.op(1));
+        if (tree.get(ctx.op(0)) == Boolean.class || tree.get(ctx.op(1)) == Boolean.class || tree.get(ctx.op(0)) == String.class || tree.get(ctx.op(1)) == String.class) {
             errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, tree.get(ctx.op(0)) != Boolean.class || tree.get(ctx.op(0)) != String.class, tree.get(ctx.op(1)) != Boolean.class || tree.get(ctx.op(1)) != String.class));
+            tree.put(ctx, Integer.class);
             return left;
-        }else if (tree.get(ctx.op(0)) != Double.class || tree.get(ctx.op(1)) != Double.class) {
+        }else if (tree.get(ctx.op(0)) == Double.class || tree.get(ctx.op(1)) == Double.class) {
             if (ctx.MOD() != null) {
-                errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, tree.get(ctx.op(0)) != Double.class, tree.get(ctx.op(1)) != Double.class));
+                errors.add(teste.invalidTwoOperators(ctx.op(0).getRuleIndex(), left, right, tree.get(ctx.op(0)) == Double.class, tree.get(ctx.op(1)) == Double.class));
+                tree.put(ctx, Integer.class);
                 return left;
             }tree.put(ctx, Double.class);
             return Double.parseDouble(left)/Double.parseDouble(right);
@@ -722,5 +737,113 @@ public class SolVisitorTypeCheck extends SolBaseVisitor {
             return left;
         }tree.put(ctx, Boolean.class);
         return true;
+    }
+
+    /**
+     * Visits the return integer statement in the parse tree and registers its type as Integer.
+     *
+     * @param ctx the parse tree context for the return integer statement
+     * @return the result of visiting the return integer statement, as an Object
+     */
+    @Override
+    public Object visitReturnInt(SolParser.ReturnIntContext ctx) {
+        tree.put(ctx,Integer.class);
+        return super.visitReturnInt(ctx);
+    }
+
+    /**
+     * Visits the return real number statement in the parse tree and registers its type as Double.
+     *
+     * @param ctx the parse tree context for the return real number statement
+     * @return the result of visiting the return real number statement, as an Object
+     */
+    @Override
+    public Object visitReturnReal(SolParser.ReturnRealContext ctx) {
+        tree.put(ctx,Double.class);
+        return super.visitReturnReal(ctx);
+    }
+
+    /**
+     * Visits the return string statement in the parse tree and registers its type as String.
+     *
+     * @param ctx the parse tree context for the return string statement
+     * @return the result of visiting the return string statement, as an Object
+     */
+    @Override
+    public Object visitReturnString(SolParser.ReturnStringContext ctx) {
+        tree.put(ctx,String.class);
+        return super.visitReturnString(ctx);
+    }
+
+    /**
+     * Visits the return boolean statement in the parse tree and registers its type as Boolean.
+     *
+     * @param ctx the parse tree context for the return boolean statement
+     * @return the result of visiting the return boolean statement, as an Object
+     */
+    @Override
+    public Object visitReturnBool(SolParser.ReturnBoolContext ctx) {
+        tree.put(ctx, Boolean.class);
+        return super.visitReturnBool(ctx);
+    }
+
+    /**
+     * Visits the return void statement in the parse tree and registers its type as Void.
+     *
+     * @param ctx the parse tree context for the return void statement
+     * @return the result of visiting the return void statement, as an Object
+     */
+    @Override
+    public Object visitReturnVoid(SolParser.ReturnVoidContext ctx) {
+        tree.put(ctx,Void.class);
+        return super.visitReturnVoid(ctx);
+    }
+
+    /**
+     * Visits the integer type declaration in the parse tree and registers its type as Integer.
+     *
+     * @param ctx the parse tree context for the integer type declaration
+     * @return the result of visiting the integer type declaration, as an Object
+     */
+    @Override
+    public Object visitIntegerType(SolParser.IntegerTypeContext ctx) {
+        tree.put(ctx, Integer.class);
+        return super.visitIntegerType(ctx);
+    }
+
+    /**
+     * Visits a 'doubleType' node in the parse tree, associating it with the Double class type.
+     *
+     * @param ctx The parse tree node representing the 'doubleType'.
+     * @return The result of visiting the 'doubleType'.
+     */
+    @Override
+    public Object visitDoubleType(SolParser.DoubleTypeContext ctx) {
+        tree.put(ctx, Double.class);
+        return super.visitDoubleType(ctx);
+    }
+
+    /**
+     * Visits a 'stringType' node in the parse tree, associating it with the String class type.
+     *
+     * @param ctx The parse tree node representing the 'stringType'.
+     * @return The result of visiting the 'stringType'.
+     */
+    @Override
+    public Object visitStringType(SolParser.StringTypeContext ctx) {
+        tree.put(ctx, String.class);
+        return super.visitStringType(ctx);
+    }
+
+    /**
+     * Visits a 'booleanType' node in the parse tree, associating it with the Boolean class type.
+     *
+     * @param ctx The parse tree node representing the 'booleanType'.
+     * @return The result of visiting the 'booleanType'.
+     */
+    @Override
+    public Object visitBooleanType(SolParser.BooleanTypeContext ctx) {
+        tree.put(ctx, Boolean.class);
+        return super.visitBooleanType(ctx);
     }
 }

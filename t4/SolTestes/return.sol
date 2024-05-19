@@ -3,13 +3,13 @@ begin
    return x;
 end
 
-int returnvoid()
+void returnvoid()
 begin
-    return;
+    return ;
 end
 
 void main()
 begin
     print return(2);
-    print returnvoid();
+    returnvoid();
 end
