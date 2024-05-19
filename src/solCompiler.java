@@ -473,8 +473,8 @@ public class solCompiler {
                     if(!VariaveisLocais.getLast().isEmpty()){
                         instrucoes.add(new Instrucion(Commands.POP,VariaveisLocais.getLast().size()));
                     }
-                    lloadposicao -=VariaveisLocais.getLast().size();
                 }
+                lloadposicao -=VariaveisLocais.getLast().size();
                 VariaveisLocais.removeLast();
             }
             bloco--;

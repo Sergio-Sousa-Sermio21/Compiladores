@@ -1,17 +1,14 @@
 void main()
 begin
-    print sum(3, 4);
+    int a = 3;
+    int b = 4;
+    print sum(a, b);
+    print a + " " + b;
 end
 
 int sum(int x, int y)
 begin
-    if x > 3 then
-    begin
-        return x + y;
-        return y + x;
-    end
-    else
-    begin
-        print x + y;
-    end
+    x = y;
+    y = 10;
+    return x + y;
 end
