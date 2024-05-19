@@ -5,9 +5,113 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05809835-10c3-4d33-b246-c7ff027893e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs4/testetudo.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs4/testetudo.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solCompiler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/argumentos.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/funcao.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/funcao.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/funcao.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/return.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/testeRecursivo.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/testeRecursivo.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/testeRecursivo.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/testeTudo2.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/testetudo2.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs/testetudo2.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/OrdemTeste.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/OrdemTeste.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/OrdemTeste.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteADDboolError.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteANDORerror.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteBloco.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteBloco.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteBloco.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteBreak.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteBreak.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteBreak.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteDError.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteEQUALerror.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteFor.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteFor.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteFor.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteILTerror.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteIf.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteIf.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteIf.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteIfElse.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteMULTerror.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteRD.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteSome.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteSome.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteSome.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteTudo.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteTudo.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteTudo.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteVaziu.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteWhile.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteWhile.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/TesteWhile.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/WorkTypes.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/WorkTypes.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/WorkTypes.tbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/teste.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/teste.tasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputsAntigo/teste.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/OrdemTeste.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/OrdemTeste.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/OrdemTeste.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteADDboolError.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteANDORerror.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteBloco.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteBloco.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteBloco.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteBreak.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteBreak.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteBreak.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteDError.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteEQUALerror.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteFor.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteFor.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteFor.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteILTerror.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteIf.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteIf.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteIf.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteIfElse.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteMULTerror.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteRD.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteSome.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteSome.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteSome.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteTudo.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/TesteTudo.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteTudo.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/TesteTudo.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteTudo.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/TesteTudo.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteVaziu.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteWhile.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteWhile.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/TesteWhile.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/WorkTypes.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/WorkTypes.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/WorkTypes.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.sol" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.tasm" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/teste.tbc" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/teste.tbc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/argumentos.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/funcao.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/funcao.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/funcao.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/return.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/teste.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testeRecursivo.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testeRecursivo.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testeRecursivo.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testeTudo2.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testetudo.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testetudo.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testetudo.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testetudo2.tasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs4/testetudo2.tbc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tAssembler.java" afterDir="false" />
     </list>
     <list id="8ff31e16-f693-434b-83e3-1b7474f274da" name="Changes by ASUS" comment="" />
     <list id="170c5e65-f68c-40a4-bf26-a725979397ee" name="Changes by reisp" comment="" />
@@ -225,7 +329,7 @@
       <workItem from="1715868627141" duration="6423000" />
       <workItem from="1715958716633" duration="3605000" />
       <workItem from="1715969760884" duration="7411000" />
-      <workItem from="1716108378299" duration="13290000" />
+      <workItem from="1716108378299" duration="13622000" />
     </task>
     <servers />
   </component>

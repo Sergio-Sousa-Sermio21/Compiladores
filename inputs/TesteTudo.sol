@@ -1,143 +1,99 @@
-print "Integer operacores:";
+// Declaração de variáveis e atribuição de valores
+int a = 10;
+int x;
+bool result1;
+bool result2;
+bool result3;
+real b = 3.14;
+bool c = true;
+string d = "Hello, world!";
+int i = 0;
 
-print "3 + 7 =";
-print 3 + 7;
+// Função principal
+void main() begin
+    int sum = add(3,4);
+    printVariables();
+    logicalOperators();
+    controlStructures();
+    greet("Alice");
+    print(sum); // Deve imprimir: 7
 
-print "5 - 2 =";
-print 5 - 2;
+    // Comentários
+    // Este é um comentário de linha única
 
-print "7 * 7 =";
-print 7 * 7;
+    /*
+    Este é um comentário
+    de múltiplas linhas
+    */
 
-print "12 / 3 =";
-print 12 / 3;
+    // Finalização do teste
+    print("Teste concluído.");
+end
 
-print "29 % 3 =";
-print 29 % 3;
+// Função para imprimir variáveis e literais
+void printVariables() begin
+    print(a); // Deve imprimir: 10
+    print(b); // Deve imprimir: 3.14
+    print(c); // Deve imprimir: true
+    print(d); // Deve imprimir: Hello, world!
+    a = Integ(a);
+    b = Doub(b);
+end
 
-print "-3 =";
-print -3;
+// Função para expressões aritméticas
+int Integ(int a) begin
+    x = a + 5;
+    print(x); // Deve imprimir: 15
+    return x;
+end
 
-print "1 < 2 =";
-print 1 < 2;
+real Doub(real b) begin
+    real y = b * 2;
+    print(y); // Deve imprimir: 6.28
+    return y;
+end
 
-print "1 > 2 =";
-print 1 > 2;
+// Função para operadores lógicos
+void logicalOperators() begin
+    result1 = c and true;
+    print(result1); // Deve imprimir: true
 
-print "5 <= 5 =";
-print 5 <= 5;
+    result2 = c or false;
+    print(result2); // Deve imprimir: true
 
-print "10 >= 1 =";
-print 10 >= 1;
+    result3 = not c;
+    print(result3); // Deve imprimir: false
+end
 
-print "1 == 1";
-print 1 == 1;
+// Função para estruturas de controle
+void controlStructures() begin
+    if (a > 5) then
+    begin
+        print("a é maior que 5"); // Deve imprimir: a é maior que 5
+    end
+    else
+    begin
+        print("a não é maior que 5");
+    end
 
-print "1 != 2";
-print 1 != 2;
 
-print "\nReal operacoes:";
+    while (i < 5) do
+    begin
+        print(i);
+        i = i + 1;
+    end
+    // Deve imprimir: 0 1 2 3 4
+end
 
-print "1.4 + 2.1 =";
-print 1.4 + 2.1;
+// Função para a função greet
+void greet(string name) begin
+    print("Hello, " + name + "!");
+end
 
-print "1.5 - 0.5 =";
-print 1.5 - 0.5;
+// Função para o return statement
+int add(int x, int y)
+begin
+    return x + y;
+end
 
-print "1.0 * 10.2 =";
-print 1.0 * 10.2;
 
-print "3.0 / 2.0  =";
-print 3.0 / 2.0;
-
-print "-10.1 =";
-print -10.1;
-
-print "5.9 < 6.0 =";
-print 5.9 < 6.0;
-
-print "6.0 > 6.0 =";
-print 6.0 > 6.0;
-
-print "7.7 <= 7.1 =";
-print 7.7 <= 7.1;
-
-print "7.7 >= 6.66 =";
-print 7.7 >= 6.66;
-
-print "0.5 == 0.0";
-print 0.5 == 0.0;
-
-print "1.1 != 1.0";
-print 1.1 != 1.0;
-
-print "\nString operacoes:";
-
-print "\"Hello \" + \"World\" =";
-print "Hello " + "World";
-
-print "\"Hello\" == \"World\" =";
-print "Hello" == "World";
-
-print "\"Hello\" != \"World\" =";
-print "Hello" != "World";
-
-print "\nBoolean operacoes:";
-
-print "true or false =";
-print true or false;
-
-print "true and true =";
-print true and true;
-
-print "not false =";
-print not false;
-
-print "true == true";
-print true == true;
-
-print "true != true";
-print true != true;
-
-print "\nInteger e Double:";
-
-print "1.5 + 5 =";
-print 1.5 + 5;
-
-print "1 - 0.5 =";
-print 1 - 0.5;
-
-print "1.0 * 10 =";
-print 1.0 * 10;
-
-print "3 / 2.0  =";
-print 3 / 2.0;
-
-print "5.9 < 6 =";
-print 5.9 < 6;
-
-print "6 > 6.1 =";
-print 6 > 6.1;
-
-print "7.7 <= 7 =";
-print 7.7 <= 7;
-
-print "7.7 >= 6 =";
-print 7.7 >= 6;
-
-print "0.1 == 0";
-print 0.1 == 0;
-
-print "1.1 != 1";
-print 1.1 != 1;
-
-print "\nString opercaoes:";
-
-print "\"Hello \" + 1 =";
-print "Hello " + 1;
-
-print "3.1415 + \" World\" =";
-print 3.1415 + " World";
-
-print "\"Hello \" + false =";
-print "Hello " + false;

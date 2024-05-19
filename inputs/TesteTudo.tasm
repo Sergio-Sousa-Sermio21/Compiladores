@@ -1,287 +1,119 @@
-L0: sconst "Integer operacores:"
-L1: sprint
-L2: sconst "3 + 7 ="
-L3: sprint
-L4: iconst 3
-L5: iconst 7
-L6: iadd
-L7: iprint
-L8: sconst "5 - 2 ="
-L9: sprint
-L10: iconst 5
-L11: iconst 2
-L12: isub
-L13: iprint
-L14: sconst "7 * 7 ="
-L15: sprint
-L16: iconst 7
-L17: iconst 7
-L18: imult
-L19: iprint
-L20: sconst "12 / 3 ="
-L21: sprint
-L22: iconst 12
-L23: iconst 3
-L24: idiv
-L25: iprint
-L26: sconst "29 % 3 ="
-L27: sprint
-L28: iconst 29
-L29: iconst 3
-L30: imod
-L31: iprint
-L32: sconst "-3 ="
-L33: sprint
-L34: iconst 3
-L35: iuminus
-L36: iprint
-L37: sconst "1 < 2 ="
-L38: sprint
-L39: iconst 1
-L40: iconst 2
-L41: ilt
-L42: bprint
-L43: sconst "1 > 2 ="
-L44: sprint
-L45: iconst 2
-L46: iconst 1
-L47: ilt
-L48: bprint
-L49: sconst "5 <= 5 ="
-L50: sprint
-L51: iconst 5
+L0: galloc 1
+L1: iconst 10
+L2: gstore 0
+L3: galloc 1
+L4: galloc 1
+L5: galloc 1
+L6: galloc 1
+L7: galloc 1
+L8: dconst 3.14
+L9: gstore 5
+L10: galloc 1
+L11: tconst
+L12: gstore 6
+L13: galloc 1
+L14: sconst "Hello, world!"
+L15: gstore 7
+L16: galloc 1
+L17: iconst 0
+L18: gstore 8
+L19: call L21
+L20: halt
+L21: lalloc 1
+L22: iconst 3
+L23: iconst 4
+L24: call L115
+L25: lstore 2
+L26: call L36
+L27: call L69
+L28: call L87
+L29: sconst "Alice"
+L30: call L108
+L31: lload 2
+L32: iprint
+L33: sconst "Teste concluído."
+L34: sprint
+L35: ret 0
+L36: gload 0
+L37: iprint
+L38: gload 5
+L39: dprint
+L40: gload 6
+L41: bprint
+L42: gload 7
+L43: sprint
+L44: gload 0
+L45: call L51
+L46: gstore 0
+L47: gload 5
+L48: call L59
+L49: gstore 5
+L50: ret 0
+L51: lload -1
 L52: iconst 5
-L53: ileq
-L54: bprint
-L55: sconst "10 >= 1 ="
-L56: sprint
-L57: iconst 1
-L58: iconst 10
-L59: ileq
-L60: bprint
-L61: sconst "1 == 1"
-L62: sprint
-L63: iconst 1
-L64: iconst 1
-L65: ieq
-L66: bprint
-L67: sconst "1 != 2"
-L68: sprint
-L69: iconst 1
-L70: iconst 2
-L71: ineq
-L72: bprint
-L73: sconst "\nReal operacoes:"
-L74: sprint
-L75: sconst "1.4 + 2.1 ="
-L76: sprint
-L77: dconst 1.4
-L78: dconst 2.1
-L79: dadd
-L80: dprint
-L81: sconst "1.5 - 0.5 ="
-L82: sprint
-L83: dconst 1.5
-L84: dconst 0.5
-L85: dsub
-L86: dprint
-L87: sconst "1.0 * 10.2 ="
-L88: sprint
-L89: dconst 1.0
-L90: dconst 10.2
-L91: dmult
-L92: dprint
-L93: sconst "3.0 / 2.0  ="
-L94: sprint
-L95: dconst 3.0
-L96: dconst 2.0
-L97: ddiv
-L98: dprint
-L99: sconst "-10.1 ="
-L100: sprint
-L101: dconst 10.1
-L102: duminus
-L103: dprint
-L104: sconst "5.9 < 6.0 ="
-L105: sprint
-L106: dconst 5.9
-L107: dconst 6.0
-L108: dlt
-L109: bprint
-L110: sconst "6.0 > 6.0 ="
-L111: sprint
-L112: dconst 6.0
-L113: dconst 6.0
-L114: dlt
-L115: bprint
-L116: sconst "7.7 <= 7.1 ="
-L117: sprint
-L118: dconst 7.7
-L119: dconst 7.1
-L120: dleq
-L121: bprint
-L122: sconst "7.7 >= 6.66 ="
-L123: sprint
-L124: dconst 6.66
-L125: dconst 7.7
-L126: dleq
-L127: bprint
-L128: sconst "0.5 == 0.0"
-L129: sprint
-L130: dconst 0.5
-L131: dconst 0.0
-L132: deq
-L133: bprint
-L134: sconst "1.1 != 1.0"
-L135: sprint
-L136: dconst 1.1
-L137: dconst 1.0
-L138: dneq
-L139: bprint
-L140: sconst "\nString operacoes:"
-L141: sprint
-L142: sconst "\"Hello \" + \"World\" ="
-L143: sprint
-L144: sconst "Hello "
-L145: sconst "World"
-L146: sadd
-L147: sprint
-L148: sconst "\"Hello\" == \"World\" ="
-L149: sprint
-L150: sconst "Hello"
-L151: sconst "World"
-L152: seq
-L153: bprint
-L154: sconst "\"Hello\" != \"World\" ="
-L155: sprint
-L156: sconst "Hello"
-L157: sconst "World"
-L158: sneq
-L159: bprint
-L160: sconst "\nBoolean operacoes:"
-L161: sprint
-L162: sconst "true or false ="
-L163: sprint
-L164: tconst
-L165: fconst
-L166: or
-L167: bprint
-L168: sconst "true and true ="
-L169: sprint
-L170: tconst
-L171: tconst
-L172: and
-L173: bprint
-L174: sconst "not false ="
-L175: sprint
-L176: fconst
-L177: not
-L178: bprint
-L179: sconst "true == true"
-L180: sprint
-L181: tconst
-L182: tconst
-L183: beq
-L184: bprint
-L185: sconst "true != true"
-L186: sprint
-L187: tconst
-L188: tconst
-L189: bneq
-L190: bprint
-L191: sconst "\nInteger e Double:"
-L192: sprint
-L193: sconst "1.5 + 5 ="
-L194: sprint
-L195: dconst 1.5
-L196: iconst 5
-L197: itod
-L198: dadd
-L199: dprint
-L200: sconst "1 - 0.5 ="
-L201: sprint
-L202: iconst 1
-L203: itod
-L204: dconst 0.5
-L205: dsub
-L206: dprint
-L207: sconst "1.0 * 10 ="
-L208: sprint
-L209: dconst 1.0
-L210: iconst 10
-L211: itod
-L212: dmult
-L213: dprint
-L214: sconst "3 / 2.0  ="
-L215: sprint
-L216: iconst 3
-L217: itod
-L218: dconst 2.0
-L219: ddiv
-L220: dprint
-L221: sconst "5.9 < 6 ="
-L222: sprint
-L223: dconst 5.9
-L224: iconst 6
-L225: itod
-L226: dlt
-L227: bprint
-L228: sconst "6 > 6.1 ="
-L229: sprint
-L230: dconst 6.1
-L231: iconst 6
-L232: itod
-L233: dlt
-L234: bprint
-L235: sconst "7.7 <= 7 ="
-L236: sprint
-L237: dconst 7.7
-L238: iconst 7
-L239: itod
-L240: dleq
-L241: bprint
-L242: sconst "7.7 >= 6 ="
-L243: sprint
-L244: iconst 6
-L245: itod
-L246: dconst 7.7
-L247: dleq
-L248: bprint
-L249: sconst "0.1 == 0"
-L250: sprint
-L251: dconst 0.1
-L252: iconst 0
-L253: itod
-L254: deq
-L255: bprint
-L256: sconst "1.1 != 1"
-L257: sprint
-L258: dconst 1.1
-L259: iconst 1
-L260: itod
-L261: dneq
-L262: bprint
-L263: sconst "\nString opercaoes:"
-L264: sprint
-L265: sconst "\"Hello \" + 1 ="
-L266: sprint
-L267: sconst "Hello "
-L268: iconst 1
-L269: itos
-L270: sadd
-L271: sprint
-L272: sconst "3.1415 + \" World\" ="
-L273: sprint
-L274: dconst 3.1415
-L275: dtos
-L276: sconst " World"
-L277: sadd
-L278: sprint
-L279: sconst "\"Hello \" + false ="
-L280: sprint
-L281: sconst "Hello "
-L282: fconst
-L283: btos
-L284: sadd
-L285: sprint
-L286: halt
+L53: iadd
+L54: gstore 1
+L55: gload 1
+L56: iprint
+L57: gload 1
+L58: retval 1
+L59: lalloc 1
+L60: lload -1
+L61: iconst 2
+L62: itod
+L63: dmult
+L64: lstore 2
+L65: lload 2
+L66: dprint
+L67: lload 2
+L68: retval 1
+L69: gload 6
+L70: tconst
+L71: and
+L72: gstore 2
+L73: gload 2
+L74: bprint
+L75: gload 6
+L76: fconst
+L77: or
+L78: gstore 3
+L79: gload 3
+L80: bprint
+L81: gload 6
+L82: not
+L83: gstore 4
+L84: gload 4
+L85: bprint
+L86: ret 0
+L87: iconst 5
+L88: gload 0
+L89: ilt
+L90: jumpf L94
+L91: sconst "a é maior que 5"
+L92: sprint
+L93: jump L96
+L94: sconst "a não é maior que 5"
+L95: sprint
+L96: gload 8
+L97: iconst 5
+L98: ilt
+L99: jumpf L107
+L100: gload 8
+L101: iprint
+L102: gload 8
+L103: iconst 1
+L104: iadd
+L105: gstore 8
+L106: jump L96
+L107: ret 0
+L108: sconst "Hello, "
+L109: lload -1
+L110: sadd
+L111: sconst "!"
+L112: sadd
+L113: sprint
+L114: ret 1
+L115: lload -2
+L116: lload -1
+L117: iadd
+L118: retval 2

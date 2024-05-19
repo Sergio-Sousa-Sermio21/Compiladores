@@ -45,7 +45,6 @@ public class tAssembler extends TasmBaseListener {
             String newFile = file.getPath().replaceFirst("[.][^.]+$", ".tbc");
             FileOutputStream fos = new FileOutputStream(newFile);
             DataOutputStream bytecodes = new DataOutputStream(fos);
-            System.out.println(newFile);
             for (Instrucion instruction : instrucoes) {
                     bytecodes.write(instruction.getCommand().ordinal());
                     if(instruction.getValue() != null){
