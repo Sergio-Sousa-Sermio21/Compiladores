@@ -98,8 +98,8 @@ public class tAssembler extends TasmBaseListener {
                     System.err.println("Foram detactados " + numberOfErrors + " erros de Syntax.");
                     System.exit(0);
                 }
-                //TestSemantico test = new TestSemantico();
-                //test.TestTree(tree);
+                TestSemantico test = new TestSemantico();
+                test.TestTree(tree);
                 ParseTreeWalker walker = new ParseTreeWalker();
                 walker.walk(this, tree);
             }
