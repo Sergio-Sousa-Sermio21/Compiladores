@@ -13,6 +13,56 @@
           <option name="language" value="Java" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/t1/Tasm.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\sergi\Documents\Compiladores\CompiladoresT\t1\src\Tasm" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="Tasm" />
+          <option name="language" value="Java" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/t2/Sol.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\sergi\Documents\Compiladores\CompiladoresT\t2\src" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="Sol" />
+          <option name="language" value="Java" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/t3/Sol.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\sergi\Documents\Compiladores\CompiladoresT\t3\src" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="Sol" />
+          <option name="language" value="Java" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/t4/Sol.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\sergi\Documents\Compiladores\CompiladoresT\t4\src" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="Sol" />
+          <option name="language" value="Java" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/t4/Tasm.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\jogat\OneDrive\Documents\GitHub\Compiladores\t4\src" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="Tasm" />
+          <option name="language" value="Java" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
       </list>
     </option>
   </component>

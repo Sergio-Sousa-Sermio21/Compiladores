@@ -102,12 +102,12 @@ public class TasmListener extends TasmBaseListener {
     @Override
     public void exitArrayOP(TasmParser.ArrayOPContext ctx) {
         if (ctx.GALLOC()!=null)
-            instructions.add(new Instruction(ctx.GALLOC().getText().toUpperCase(),Integer.getInteger(ctx.INT().getText())));
+            instructions.add(new Instruction(ctx.GALLOC().getText().toUpperCase(),Integer.parseInt(ctx.INT().getText())));
         else if (ctx.GLOAD()!=null) {
-            instructions.add(new Instruction(ctx.GLOAD().getText().toUpperCase(),Integer.getInteger(ctx.INT().getText())));
+            instructions.add(new Instruction(ctx.GLOAD().getText().toUpperCase(),Integer.parseInt(ctx.INT().getText())));
         }
         else if (ctx.GSTORE()!=null) {
-            instructions.add(new Instruction(ctx.GSTORE().getText().toUpperCase(),Integer.getInteger(ctx.INT().getText())));
+            instructions.add(new Instruction(ctx.GSTORE().getText().toUpperCase(),Integer.parseInt(ctx.INT().getText())));
         }
     }
 
@@ -121,6 +121,7 @@ public class TasmListener extends TasmBaseListener {
     }
 
     /**
+     * Overridden method to process exit of a jump operation
      * Overridden method to process exit of a jump operation
      * @param ctx the parse tree
      */

@@ -1,0 +1,5 @@
+jump terceira
+galloc 3
+terceira: dconst 2.1
+dprint
+halt

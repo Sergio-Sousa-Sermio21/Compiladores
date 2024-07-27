@@ -3,7 +3,6 @@ import Tasm.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 // Define the class tAssembler
@@ -83,6 +82,13 @@ class tAssembler extends TasmBaseListener{
             String errors = "";
             try {
                 walker.walk(tasmListener,tree);
+                if (Debug.isDebugging()){
+                    System.out.println("Instructions:");
+                    for (Instruction i : tasmListener.getInstructions())
+                        System.out.println(i.getToken1()+": "+ i.getToken2());
+                    System.out.println("\nConstant Pool:");
+                    System.out.println(tasmListener.getConstantPool());
+                }
                 // Perform semantic checks
                 testeSemantico(tasmListener);
             }catch (IllegalArgumentException e){

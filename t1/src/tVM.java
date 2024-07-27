@@ -215,16 +215,17 @@ public class tVM {
                     case BTOS:
                         stack.push(new ObjectValue(String.valueOf(stack.pop().getBool(i))));
                         break;
+                    //It indicates the line in the tasm file so its -2 (for the next loop iteration and arrayList access)
                     case JUMP:
-                        i = instruction.getToken2();
+                        i = instruction.getToken2()-2;
                         break;
                     case JUMPT:
                         if (stack.pop().getBool(i))
-                            i = instruction.getToken2();
+                            i = instruction.getToken2()-2;
                         break;
                     case JUMPF:
                         if (!stack.pop().getBool(i))
-                            i = instruction.getToken2();
+                            i = instruction.getToken2()-2;
                         break;
                     case GALLOC:
                         for (int j = 0; j <= instruction.getToken2(); j++)
@@ -255,10 +256,15 @@ public class tVM {
                 System.out.println("Was not able to execute:\n"+e.getMessage());
                 System.exit(1);
             }catch (EmptyStackException e){
-                System.out.println("Was not able to execute in line "+i+" at operation: " +op);
+                System.out.println("Was not able to execute (empty stack) in line "+i+" at operation: " +op);
+                System.exit(1);
+            } catch (OutOfMemoryError e){
+                System.out.println("Was not able to execute:\nInfinite loop found, fix label positions and jump calls.");
                 System.exit(1);
             }
         }
+        System.out.println("No halt detected, exiting...");
+        System.exit(1);
     }
 
 
@@ -272,6 +278,13 @@ public class tVM {
             if (inputFile != null) is = new FileInputStream(inputFile);
             DataInputStream tbc = new DataInputStream(is);
             tVM vm = new tVM(tbc);
+            if (Debug.isDebugging()){
+                System.out.println("Instructions:");
+                for (Instruction i : vm.instructions)
+                    System.out.println(i.getToken1()+": "+ i.getToken2());
+                System.out.println("\nConstant Pool:");
+                System.out.println(vm.constantPool);
+            }
             vm.execute();
         } catch (java.io.IOException e) {
             System.out.println(e);

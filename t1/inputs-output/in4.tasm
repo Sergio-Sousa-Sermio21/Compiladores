@@ -5,7 +5,5 @@ sconst "the "
 sadd
 sconst "french :P"
 sadd
-tconst
-jumpt begin
 sprint
 halt
